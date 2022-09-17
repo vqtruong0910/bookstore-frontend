@@ -7,7 +7,7 @@ function Login() {
     return (
         <div className="w-screen h-screen bg-slate-50">
             <div className="w-400 mx-auto">
-                <h1 className="text-center font-mono text-slate-700 font-bold text-5xl pt-12 pb-5 select-none">Book Store</h1>
+                <h1 className="text-center font-lobster text-slate-700 font-bold text-5xl pt-12 pb-5 select-none">Book Store</h1>
                 <div className="flex flex-col rounded-lg bg-white shadow-xl border">
                     <h3 className="text-center p-5 text-lg font-normal">Đăng nhập BOOKSTORE</h3>
                     <Textfield type="email" marginX="mx-4" placeholder="Email" />

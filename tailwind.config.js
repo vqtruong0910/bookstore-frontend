@@ -7,6 +7,9 @@ module.exports = {
         "400": "400px",
         "500": "500px"
       },
+      fontFamily: {
+        lobster: ['Lobster', 'cursive']
+      },
     },
   },
   plugins: [],

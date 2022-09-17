@@ -7,7 +7,7 @@ function Register() {
     return (
         <div className="w-screen h-screen bg-slate-50">
             <div className="w-400 mx-auto">
-                <h1 className="text-center font-mono text-slate-700 font-bold text-5xl pt-12 pb-5 select-none">Book Store</h1>
+                <h1 className="text-center font-lobster text-slate-700 font-bold text-5xl pt-12 pb-5 select-none">Book Store</h1>
                 <div className="flex flex-col rounded-lg bg-white shadow-xl border">
                     <h2 className="text-center pt-2 text-2xl font-bold">Tạo tài khoản mới</h2>
                     <h3 className="text-center pb-2 text-base font-normal text-slate-600">Nhanh chóng và dễ dàng.</h3>
