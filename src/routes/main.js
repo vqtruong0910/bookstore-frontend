@@ -12,9 +12,9 @@ const ForgotPassword = lazy(() => import('../page/Forgotpassword'));
 
 function MainRoutes() {
     const DefaultLayoutRouter = useCallback(Container => <DefaultLayout><Container /></DefaultLayout>, [])
-    const DefaultLayoutAuth = useCallback(Container => <AuthLayout><Container /></AuthLayout>)
+    const DefaultLayoutAuth = useCallback(Container => <AuthLayout><Container /></AuthLayout>, [])
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<></>}>
             <Routes>
                 <Route path={PATH.main} element={DefaultLayoutRouter(Main)}></Route>
                 <Route path={PATH.cart} element></Route>

@@ -5,7 +5,7 @@ function Main() {
 
     return (
         <>
-            <h1 class="text-3xl font-bold underline">Dashboard</h1>
+            <h1 className="text-3xl font-bold underline">Dashboard</h1>
             <Link to="/askdfjaslkf">Nhan vo</Link>
         </>
     );
