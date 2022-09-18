@@ -1,1 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+*::selection {
+    background-color: #334155;
+    color: #f8fafc;
+}

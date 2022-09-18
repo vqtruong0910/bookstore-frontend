@@ -1,8 +1,20 @@
 import clsx from "clsx";
-
-function Textfield({ marginX, marginY, marginT, marginB, style, type, placeholder = "Hãy viết gì đó...", children }) {
+// Validate form = react hook form
+// Truyen control vao va su dung useController()
+function Textfield({
+    marginX,
+    marginY,
+    marginT,
+    marginB,
+    style,
+    type,
+    placeholder = "Hãy viết gì đó..."
+}) {
     return (
-        <input type={type} className={clsx("p-3 border rounded-lg transition-colors focus:outline-none focus:placeholder-slate-300 block", marginY, marginX, marginT, marginB, style)} placeholder={placeholder}>{children}</input>
+        <div className={clsx("flex flex-col", marginY, marginX, marginT, marginB)}>
+            <input type={type} className={clsx("p-3 invalid:border-red-800  border rounded-lg transition-colors focus:outline-none focus:placeholder-slate-300 block", style)} placeholder={placeholder} />
+            {/* <span className="px-2 italic text-xs text-red-800">Xin vui lòng nhập vào*</span> */}
+        </div>
     );
 }
 

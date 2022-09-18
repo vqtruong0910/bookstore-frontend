@@ -7,9 +7,9 @@ function App() {
     <MainRoutes />
   ), [])
   return (
-    <div className='App'>
+    <>
       {mainRoutes()}
-    </div>
+    </>
   );
 }
 
