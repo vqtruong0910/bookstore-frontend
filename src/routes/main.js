@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense, useCallback } from 'react';
 import { PATH } from '../constants/path';
+import AdminLayout from '../layout/AdminLayout';
 
 const AuthLayout = lazy(() => import('../layout/AuthLayout'))
 const DefaultLayout = lazy(() => import('../layout/DefaultLayout'))
@@ -18,6 +19,9 @@ function MainRoutes() {
             <Routes>
                 <Route path={PATH.main} element={DefaultLayoutRouter(Main)}></Route>
                 <Route path={PATH.cart} element></Route>
+                <Route path={PATH.admin} element={<AdminLayout />}>
+                    <Route />
+                </Route>
                 <Route path={PATH.login} element={DefaultLayoutAuth(Login)}></Route>
                 <Route path={PATH.register} element={DefaultLayoutAuth(Register)}></Route>
                 <Route path={PATH.forgotpassword} element={DefaultLayoutAuth(ForgotPassword)}></Route>
