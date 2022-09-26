@@ -5,5 +5,13 @@ export const PATH = {
     forgotpassword: '/forgot-password',
     cart: '/cart',
     admin: '/admin',
+    about: '/about',
+    new_book: '/new_book',
+    bestseller_book: "/bestseller_book",
+    popular_book: "/popular_book",
+    category_book: "/category_book",
+    publisher_book: "/publisher_book",
+    author_book: "/author_book",
+    detail_book: "/detail_book",
     notfound: '*'
 }
