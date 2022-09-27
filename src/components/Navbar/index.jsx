@@ -41,7 +41,7 @@ function Navbar() {
                 <div className="flex justify-between flex-row w-full">
                     <div className="flex flex-row w-4/12">
                         <Link to={PATH.main} className="flex justify-center items-center">
-                            <img className="h-24 md:h-24 ml-12 md:ml-3 sm:ml-3" src={logo} alt="Bookstore Logo" />
+                            <img className="h-24 md:h-24 ml-11 md:ml-0" src={logo} alt="Bookstore Logo" />
                             <span className="self-center duration-500 font-bold md:text-4xl text-[35px] font-lobster text-slate-700 whitespace-nowrap">Book Store</span>
                         </Link> 
                     </div>
@@ -86,11 +86,14 @@ function Navbar() {
                     :
                     <>
                         <div className="flex justify-between flex-row w-full items-center">
-                            <button onClick={() => setOpen(!open)} className="hover:rounded-lg mx-3 flex w-2/12 md:w-1/12 h-10 items-center justify-center text-[24px]">{open ? <MdOutlineClose /> : <GiHamburgerMenu />} </button>
+                            <div className="flex w-1/12 md:w-1/12 h-10 justify-center ml-1 mr-1">
+                                <button onClick={() => setOpen(!open)} className="flex  items-center justify-center text-[24px]">{open ? <MdOutlineClose /> : <GiHamburgerMenu />} </button>
+                            </div>
+                            
 
-                            <div id="search_box" className="flex justify-between mx-3 h-10 w-10/12 md:w-11/12 border-2 rounded-lg bg-white ">
-                                <input className="pl-2 outline-0 bg-white mx-2 font-[Poppins] text-md rounded-lg flex w-10/12 md:w-11/12 text" type="text" placeholder="Tìm kiếm..." name="search"></input>
-                                <button type="submit" className=" hover:rounded-md hover:bg-gray-500 w-2/12 md:w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
+                            <div id="search_box" className="flex justify-between mr-2 h-10 w-11/12 md:w-11/12 border-2 rounded-lg bg-white ">
+                                <input className="pl-2 outline-0 bg-white mx-2 font-[Poppins] text-md rounded-lg flex w-11/12 md:w-11/12 text" type="text" placeholder="Tìm kiếm..." name="search"></input>
+                                <button type="submit" className=" hover:rounded-md hover:bg-gray-500 w-1/12 md:w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
                             </div> 
                         </div>
                     </>

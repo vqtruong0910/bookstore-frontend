@@ -1,7 +1,12 @@
+import Slider from "../Slider";
+
 function Content() {
     return (
         <>
-            <h1>Content</h1>
+            <Slider />
+            <div className="flex w-full">
+                <div className="flex w-full text-[20px]">Sách mới nhất</div>
+            </div>
         </>
     );
 }
