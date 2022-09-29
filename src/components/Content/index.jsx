@@ -1,13 +1,11 @@
-import Slider from "../Slider";
+import { Suspense } from "react";
+import Loading from "../Loading";
 
-function Content() {
+function Content({ children }) {
     return (
-        <>
-            <Slider />
-            <div className="flex w-full">
-                <div className="flex w-full text-[20px]">Sách mới nhất</div>
-            </div>
-        </>
+        <Suspense fallback={<Loading></Loading>}>
+            {children}
+        </Suspense>
     );
 }
 

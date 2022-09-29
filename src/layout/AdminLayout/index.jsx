@@ -1,8 +1,9 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import bar from '../../assets/svg/bar.svg'
 import DownArrow from '../../assets/svg/DownArrow';
+import Loading from '../../components/Loading';
 import MenuAdmin from '../../components/MenuAdmin';
 
 function AdminLayout() {
@@ -39,7 +40,9 @@ function AdminLayout() {
                     </div>
                 </div>
             </header>
-            <Outlet />
+            <section className="pt-24 px-5 lg:pl-72 lg:pr-8">
+                <Suspense fallback={<Loading />}><Outlet /></Suspense>
+            </section>
         </div>
     );
 }
