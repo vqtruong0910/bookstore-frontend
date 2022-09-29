@@ -6,6 +6,10 @@ function App() {
   const mainRoutes = useCallback(() => (
     <MainRoutes />
   ), [])
+
+  // const adminRoutes = useCallback(() => (
+  //   <AdminRoutes />
+  // ), [])
   return (
     <>
       {mainRoutes()}
