@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { SliderData } from "./SliderData";
+import { CarouselData } from "./CarouselData";
 import { PATH } from "../../constants/path"
 import { Link } from 'react-router-dom';
 
-function Slider(){
+function ListProduct(){
     const [currentSlide, setCurrentSlide] = useState(0);
     const delay = 3000;
 
@@ -19,7 +19,7 @@ function Slider(){
         return () => {};
       }, [currentSlide]);
 
-    const imgSlide = SliderData;
+    const imgSlide = CarouselData;
 
     const length = imgSlide.length;
 
@@ -40,7 +40,7 @@ function Slider(){
             {imgSlide.map((item,index) => {
                 return (
                     <Link to={PATH.detail_book} key={index} className={`w-full select-none relative aspect-w-16 aspect-h-9 ${index === currentSlide ? 'active' : 'hidden'}`}>
-                        <img className="w-full" src={item.image} alt="Slider image"/>
+                        <img className="w-full" src={item.image} alt="Carousel image"/>
                     </Link>
                    
                 )
@@ -51,4 +51,4 @@ function Slider(){
     )
 }
 
-export default Slider;
+export default ListProduct;

@@ -1,4 +1,4 @@
-export const SliderData = [
+export const CarouselData = [
     {   
         name: "slide 1", 
         image: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/09/20/Quote_A2_Lucy_0920.jpg"
