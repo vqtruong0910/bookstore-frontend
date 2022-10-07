@@ -25,9 +25,9 @@ function MenuAdmin({ stateMenu }) {
     }, [stateMenuChild])
 
     return (
-        <div className={clsx(stateMenu && "visible translate-x-0", !stateMenu && "invisible -translate-x-64", "flex flex-col w-64 h-screen bg-slate-800 absolute z-50 lg:translate-x-0 lg:visible transition-all overflow-y-scroll lg:overflow-y-auto overscroll-none")}>
+        <div className={clsx(stateMenu && "visible translate-x-0", !stateMenu && "invisible -translate-x-64", "flex flex-col w-64 h-full bg-slate-800 fixed z-30 lg:translate-x-0 lg:visible transition-all overflow-y-scroll lg:overflow-y-auto overscroll-none")}>
             <Link to={PATH.main} className="text-center font-lobster text-slate-200 font-bold text-4xl p-3 select-none">Book Store</Link>
-            <ul className="mt-5 px-4">
+            <ul className="mt-4 px-4">
                 <li className='p-2'>
                     <Link className='flex items-center space-x-2' to={PATH.admin.dashboard}>
                         <span className="m-1"><IconDashboard /></span>
@@ -41,7 +41,8 @@ function MenuAdmin({ stateMenu }) {
                         <span className={clsx(stateMenuChild[1] && 'rotate-180 translate-x-1', 'absolute top-2 right-2')}><DownArrow /></span>
                     </div>
                     <div className={clsx(stateMenuChild[1] && 'flex flex-col pl-10 space-y-2', !stateMenuChild[1] && "hidden")}>
-                        <Link className='font-medium text-base text-slate-400 hover:text-slate-50 transition-colors' to={PATH.admin.product_management}>Quản lý sản phẩm</Link>
+                        <Link className='font-medium text-base text-slate-400 hover:text-slate-50 transition-colors' to={PATH.admin.product_management}>Xem sản phẩm</Link>
+                        <Link className='font-medium text-base text-slate-400 hover:text-slate-50 transition-colors' to={PATH.admin.add_product}>Thêm sản phẩm</Link>
                         <Link className='font-medium text-base text-slate-400 hover:text-slate-50 transition-colors' to="">Thống kê sản phẩm</Link>
                     </div>
                 </li>
@@ -52,7 +53,7 @@ function MenuAdmin({ stateMenu }) {
                         <span className={clsx(stateMenuChild[2] && 'rotate-180 translate-x-1', 'absolute top-2 right-2')}><DownArrow /></span>
                     </div>
                     <div className={clsx(stateMenuChild[2] && 'flex flex-col pl-10 space-y-2', !stateMenuChild[2] && "hidden")}>
-                        <Link className='font-medium text-base text-slate-400 hover:text-slate-50 transition-colors' to="">Quản lý tài khoản</Link>
+                        <Link className='font-medium text-base text-slate-400 hover:text-slate-50 transition-colors' to={PATH.admin.user_management}>Quản lý tài khoản</Link>
                     </div>
                 </li>
                 <li className={clsx(stateMenuChild[3] && 'bg-slate-900 rounded-sm', 'p-2')}>
