@@ -9,9 +9,35 @@ import { BsFacebook, BsGoogle } from "react-icons/bs";
 
 function Login() {
     const { control, handleSubmit } = useForm({ mode: 'onBlur' });
+
     const onSubmit = useCallback((data) => {
         console.log(data);
     }, []);
+    const loginGoogle = useCallback(() => {
+        const w = 500;
+        const h = 600;
+        const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
+        const x = window.top.outerWidth / 2 + window.top.screenX - (w / 2);
+        const openGoogle = window.open("http://localhost:8000/auth/google", '_blank', `width=${w}, height=${h}, top=${y}, left=${x}`);
+
+        if (openGoogle) {
+            const timer = setInterval(() => {
+                if (openGoogle.closed) {
+                    if (timer) {
+                        clearInterval(timer);
+                    }
+                }
+            }, 500)
+        }
+    }, []);
+
+    const loginFaceBook = useCallback(() => {
+        const w = 500;
+        const h = 600;
+        const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
+        const x = window.top.outerWidth / 2 + window.top.screenX - (w / 2);
+        window.open("http://localhost:8000/auth/facebook", '_blank', `width=${w}, height=${h}, top=${y}, left=${x}`);
+    })
 
     return (
         <>
@@ -23,8 +49,8 @@ function Login() {
             </form>
             <span className="text-xs p-5 block text-center text-slate-600">Hoặc Đăng Nhập Bằng</span>
             <div className="flex justify-center items-center space-x-4 mb-5">
-                <div className="cursor-pointer"><BsFacebook size={30} color="blue" /></div>
-                <div className="cursor-pointer"><BsGoogle size={30} color="red" /></div>
+                <div className="cursor-pointer" onClick={loginFaceBook}><BsFacebook size={30} color="blue" /></div>
+                <div className="cursor-pointer" onClick={loginGoogle}><BsGoogle size={30} color="red" /></div>
             </div>
             <div className="text-center text-base p-2 mb-4">
                 <Link to={PATH.forgotpassword} className="text-slate-700 hover:underline">Quên mật khẩu?</Link>
