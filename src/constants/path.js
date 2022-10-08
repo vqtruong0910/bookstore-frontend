@@ -13,6 +13,14 @@ export const PATH = {
     publisher_book: "/publisher_book",
     author_book: "/author_book",
     detail_book: "/detail_book",
+    novel_book: "/novel_book",
+    economic_book: "/economic_book",
+    short_story_prose_book: "/short_story_prose_book",
+    kid_book: "/kid_book",
+    mentality_lifeskill_book: "/mentality_lifeskill_book",
+    text_reference_book: "/text_reference_book",
+    biography_memoir_book: "/biography_memoir_book",
+    foreign_book: "/foreign_book",
     admin: {
         dashboard: "/admin",
         // Product
