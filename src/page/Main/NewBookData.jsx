@@ -35,11 +35,11 @@ export const NewBookData = [
         old_cost: 258
     },
     {
-        name: "Hiểu về trái tim",
-        image: "https://cdn0.fahasa.com/media/catalog/product/i/m/image_195509_1_14922.jpg",
+        name: "Khi tình yêu chớm nở",
+        image: "https://cdn0.fahasa.com/media/catalog/product/i/m/image_188984.jpg",
         sale: 30,
-        new_cost: 103,
-        old_cost: 138
+        new_cost: 245,
+        old_cost: 290
     },
     {
         name: "Có một ngày, Bố Mẹ sẽ già đi",
