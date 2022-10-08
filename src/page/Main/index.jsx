@@ -79,13 +79,13 @@ function Main() {
                     <Slider {...settings} className="mx-7">
                         {NewBookData.map((item,index) => {
                             return(
-                                <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer transition ease-in-out delay-100 hover:scale-105 duration-100">
+                                <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer">
                                                 
                                     <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-slate-500 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
                                         <span className="font-[14px]">{item.sale}%</span>
                                     </div>
 
-                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 ">
+                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
                                         <img className="w-11/12" src={item.image} alt="New Book" />
                                     </div>
 
@@ -130,13 +130,13 @@ function Main() {
                     <Slider {...settings} className="mx-7">
                         {BestSellerBookData.map((item,index) => {
                             return(
-                                <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer transition ease-in-out delay-100 hover:scale-105 duration-100">
+                                <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer ">
                                                 
                                     <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-slate-500 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
                                         <span className="font-[14px]">{item.sale}%</span>
                                     </div>
 
-                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 ">
+                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100">
                                         <img className="w-11/12" src={item.image} alt="New Book" />
                                     </div>
 
@@ -180,13 +180,13 @@ function Main() {
                     <Slider {...settings} className="mx-7">
                         {PopularBookData.map((item,index) => {
                             return(
-                                <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer transition ease-in-out delay-100 hover:scale-105 duration-100">
+                                <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer">
                                                 
                                     <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-slate-500 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
                                         <span className="font-[14px]">{item.sale}%</span>
                                     </div>
 
-                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 ">
+                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100">
                                         <img className="w-11/12" src={item.image} alt="New Book" />
                                     </div>
 

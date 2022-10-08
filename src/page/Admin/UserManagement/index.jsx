@@ -1,13 +1,10 @@
-import { BsCardImage } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-import { PATH } from '../../../constants/path';
+import { BsCardImage } from "react-icons/bs";
 
-function ProductManage() {
+function UserManagement() {
     return (
         <>
             <div className="flex space-x-2">
-                <h2 className="text-xl font-semibold">Sản phẩm</h2>
-                <Link to={PATH.admin.add_product} className="px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors">Thêm sản phẩm</Link>
+                <h2 className="text-xl font-semibold">Tài khoản người dùng</h2>
             </div>
 
             <div className="py-2 space-y-1">
@@ -15,28 +12,6 @@ function ProductManage() {
                     <div className="flex space-x-3">
                         <input type="text" className="rounded-sm border" />
                         <input type="submit" className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white" value="Tìm" />
-                    </div>
-                    <div className="flex ml-auto space-x-3">
-                        <select className="rounded-sm border cursor-pointer">
-                            <option value="">Chọn danh mục</option>
-                            <option value="">Sách giáo khoa</option>
-                            <option value="">Sách kinh tế</option>
-                            <option value="">Khoa học viễn tưởng</option>
-                            <option value="">Truyện tranh</option>
-                        </select>
-                        <select className="rounded-sm border cursor-pointer">
-                            <option value="">Thể loại</option>
-                            <option value="">Comic</option>
-                            <option value="">Hành động</option>
-                            <option value="">Trinh thám</option>
-                        </select>
-                        <select className="rounded-sm border cursor-pointer">
-                            <option value="">Tất cả các ngày</option>
-                            <option value=""></option>
-                            <option value=""></option>
-                            <option value=""></option>
-                        </select>
-                        <input type="submit" className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white" value="Lọc" />
                     </div>
                 </div>
 
@@ -84,4 +59,4 @@ function ProductManage() {
     );
 }
 
-export default ProductManage;
+export default UserManagement;

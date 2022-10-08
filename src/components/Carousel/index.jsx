@@ -3,7 +3,7 @@ import { CarouselData } from "./CarouselData";
 import { PATH } from "../../constants/path"
 import { Link } from 'react-router-dom';
 
-function ListProduct(){
+function ListProduct() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const delay = 3000;
     const imgSlide = CarouselData;
@@ -20,18 +20,18 @@ function ListProduct(){
 
     useEffect(() => {
         setTimeout(
-          () =>
-            setCurrentSlide((nextSlide) =>
-              nextSlide === length - 1 ? 0 : currentSlide + 1
-            ),
-          delay
+            () =>
+                setCurrentSlide((nextSlide) =>
+                    nextSlide === length - 1 ? 0 : currentSlide + 1
+                ),
+            delay
         );
     
         return () => {};
       }, [currentSlide, length]);
 
 
-    if(!Array.isArray(imgSlide) || imgSlide.length <=0 ){
+    if (!Array.isArray(imgSlide) || imgSlide.length <= 0) {
         return null;
     }
 
@@ -41,11 +41,11 @@ function ListProduct(){
             {imgSlide.map((item,index) => {
                 return (
                     <Link to={PATH.detail_book} key={index} className={`w-full select-none relative aspect-w-16 aspect-h-9 ${index === currentSlide ? 'active' : 'hidden'}`}>
-                        <img className="w-full" src={item.image} alt="Carousel image"/>
+                        <img className="w-full" src={item.image} alt="Carousel image" />
                     </Link>
-                   
+
                 )
-                  
+
             })}
 
         </section>

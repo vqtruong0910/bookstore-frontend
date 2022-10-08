@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Suspense, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import bar from '../../assets/svg/bar.svg'
+import bar from '../../assets/svg/bar.svg';
 import DownArrow from '../../assets/svg/DownArrow';
 import Loading from '../../components/Loading';
 import MenuAdmin from '../../components/MenuAdmin';
@@ -13,7 +13,7 @@ function AdminLayout() {
     return (
         <div className="w-full bg-slate-100 h-screen relative">
             <MenuAdmin stateMenu={stateMenu} />
-            <div className={clsx(stateMenu && 'fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200')} onClick={() => setStateMenu(false)}></div>
+            <div className={clsx(stateMenu && 'fixed inset-0 bg-slate-900 bg-opacity-20 z-20 lg:hidden lg:z-auto transition-opacity duration-200')} onClick={() => setStateMenu(false)}></div>
 
             <header className="fixed w-full h-16 p-5 lg:px-8 bg-white shadow-sm border">
                 <div className="flex">
@@ -40,7 +40,7 @@ function AdminLayout() {
                     </div>
                 </div>
             </header>
-            <section className="pt-24 px-5 lg:pl-72 lg:pr-8">
+            <section className="pt-20 px-5 lg:pl-72 lg:pr-8">
                 <Suspense fallback={<Loading />}><Outlet /></Suspense>
             </section>
         </div>

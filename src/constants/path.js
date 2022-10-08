@@ -22,7 +22,23 @@ export const PATH = {
     foreign_book: "/foreign_book",
     admin: {
         dashboard: "/admin",
+        // Product
         product_management: "/admin/product_management",
+        add_product: "/admin/add_product",
+        update_product: "/admin/update_product/",
+        // User
+        user_management: "/admin/user_management",
+        update_user: "/admin/update_user/",
+        // Order
+        order_management: "/admin/order_management",
+        update_order: "/admin/update_order/",
+        order_statistics: "/admin/order_statistics",
+        // Category
+        category: "/admin/category",
+        // TypeOf 
+        // Turnover
+        turnover_management: "/admin/turnover_management"
+
     },
     notfound: '*'
 }

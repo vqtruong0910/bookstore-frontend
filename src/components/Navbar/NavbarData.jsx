@@ -77,7 +77,7 @@ export const NavbarData = [
             {name: "Phạm Công Luận", link:"#"},
             {name: "Keigo Higashino", link: "#"},
             {name: "Dale Carnegie", link: "#"},
-            {name: " Murakami Haruki", link: "#"}
+            {name: "Murakami Haruki", link: "#"}
         ]
     },
 

@@ -18,6 +18,8 @@ const ForgotPassword = lazy(() => import('../page/Forgotpassword'));
 const AdminLayout = lazy(() => import('../layout/AdminLayout'));
 const Dashboard = lazy(() => import('../page/Admin/Dashboard'));
 const ProductManagement = lazy(() => import('../page/Admin/ProductManagement'));
+const AddProduct = lazy(() => import('../page/Admin/AddProduct'));
+const UserManagement = lazy(() => import('../page/Admin/UserManagement'));
 
 
 function MainRoutes() {
@@ -38,6 +40,8 @@ function MainRoutes() {
             <Route path={PATH.admin.dashboard} element={<Suspense fallback={<Loading center={true} />}><AdminLayout /></Suspense>}>
                 <Route index element={<Dashboard />} />
                 <Route path={PATH.admin.product_management} element={<ProductManagement />} />
+                <Route path={PATH.admin.add_product} element={<AddProduct />} />
+                <Route path={PATH.admin.user_management} element={<UserManagement />} />
             </Route>
         </Routes>
 
