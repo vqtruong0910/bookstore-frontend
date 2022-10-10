@@ -5,7 +5,9 @@ import Button from "../../components/Button";
 import Textfield from "../../components/Textfield";
 import { PATH } from "../../constants/path";
 import { VALIDATE } from "../../constants/validate";
-import { BsFacebook, BsGoogle } from "react-icons/bs";
+import { MdFacebook } from "react-icons/md";
+import { FcGoogle } from "react-icons/fc";
+import { API } from "../../constants/api";
 
 function Login() {
     const { control, handleSubmit } = useForm({ mode: 'onBlur' });
@@ -13,31 +15,26 @@ function Login() {
     const onSubmit = useCallback((data) => {
         console.log(data);
     }, []);
-    const loginGoogle = useCallback(() => {
+    const Config = useCallback((URL) => {
         const w = 500;
         const h = 600;
         const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
         const x = window.top.outerWidth / 2 + window.top.screenX - (w / 2);
-        const openGoogle = window.open("http://localhost:8000/auth/google", '_blank', `width=${w}, height=${h}, top=${y}, left=${x}`);
-
-        if (openGoogle) {
+        const openWindow = window.open(URL, '_blank', `width=${w}, height=${h}, top=${y}, left=${x}`);
+        if (openWindow) {
             const timer = setInterval(() => {
-                if (openGoogle.closed) {
-                    if (timer) {
-                        clearInterval(timer);
-                    }
+                if (openWindow.closed) {
+                    if (timer) clearInterval(timer);
                 }
-            }, 500)
+            }, 500);
         }
+    }, [])
+    const loginGoogle = useCallback(() => {
+        Config(API.LOGIN_GOOGLE);
     }, []);
-
     const loginFaceBook = useCallback(() => {
-        const w = 500;
-        const h = 600;
-        const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
-        const x = window.top.outerWidth / 2 + window.top.screenX - (w / 2);
-        window.open("http://localhost:8000/auth/facebook", '_blank', `width=${w}, height=${h}, top=${y}, left=${x}`);
-    })
+        Config(API.LOGIN_FACEBOOK);
+    }, [])
 
     return (
         <>
@@ -47,10 +44,10 @@ function Login() {
                 <Textfield type="password" marginX="mx-4" marginT="mt-4" marginB="mb-2" placeholder="Mật khẩu" control={control} name="password" rules={VALIDATE.password} />
                 <Button marginY="my-2" marginX="mx-4">Đăng nhập</Button>
             </form>
-            <span className="text-xs p-5 block text-center text-slate-600">Hoặc Đăng Nhập Bằng</span>
-            <div className="flex justify-center items-center space-x-4 mb-5">
-                <div className="cursor-pointer" onClick={loginFaceBook}><BsFacebook size={30} color="blue" /></div>
-                <div className="cursor-pointer" onClick={loginGoogle}><BsGoogle size={30} color="red" /></div>
+            <span className="text-xs p-5 block text-center text-slate-600 select-none">Hoặc Đăng Nhập Bằng</span>
+            <div className="flex justify-center items-center space-x-2 mb-5">
+                <div className="cursor-pointer" onClick={loginFaceBook}><MdFacebook size={40} color="blue" /></div>
+                <div className="cursor-pointer" onClick={loginGoogle}><FcGoogle size={40} /></div>
             </div>
             <div className="text-center text-base p-2 mb-4">
                 <Link to={PATH.forgotpassword} className="text-slate-700 hover:underline">Quên mật khẩu?</Link>
