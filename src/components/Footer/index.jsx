@@ -41,7 +41,7 @@ function Footer() {
         ];
 
     return (
-        <footer className="p-4 bg-white text-white rounded-lg shadow inline-block md:items-center md:justify-between md:p-6 dark:bg-gray-800 mt-28 w-full">
+        <footer className="p-4 text-white rounded-lg shadow inline-block md:items-center md:justify-between md:p-6 bg-gray-800 mt-28 w-full">
             <div className="flex w-full lg:px-4 ">
                 <div className="items-center text-base text-gray-500 dark:text-gray-400 mx-3">© 2022
                     <a href="" className="hover:underline ml-2">Book Store™ </a>
@@ -118,7 +118,7 @@ function Footer() {
                         <ul className="flex flex-col my-2 text-sm">
                             {contactData.map((item,index) => {
                                 return(
-                                    <li className="flex my-2 cursor-pointer transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7">
+                                    <li key={index} className="flex my-2 cursor-pointer transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7">
                                         {item.icon}
                                         {item.name}
                                     </li>

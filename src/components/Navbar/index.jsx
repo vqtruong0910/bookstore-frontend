@@ -40,8 +40,8 @@ function Navbar() {
 
     return (
         <>
-            <div className={clsx(open && 'fixed inset-0 bg-slate-900 bg-opacity-60 md:bg-opacity-0 z-10 lg:hidden lg:z-auto transition-opacity duration-200')} onClick={() => setOpen(false)}></div>
-            <nav className="flex bg-white py-2 rounded h-auto ">
+            <div className={clsx(open && 'fixed inset-0 bg-slate-900 bg-opacity-70 md:bg-opacity-0 z-10 lg:hidden lg:z-auto transition-opacity duration-200')} onClick={() => setOpen(false)}></div>
+            <nav className="flex bg-white py-2 rounded h-auto fixed top-0 w-full md:relative">
                 <div className="flex flex-wrap w-full h-auto">
                     <div className="flex justify-center w-full">
                         <div className="flex flex-row lg:w-4/12 mr-4">
@@ -54,8 +54,8 @@ function Navbar() {
                         {matches === true ?
                             <>
                                 <div className="flex flex-row items-center w-5/12 ">
-                                    <div id="search_box" className="flex mx-3 md:mx-3 h-10 w-10/12 md:w-11/12 border-2 rounded-lg bg-white ">
-                                        <input className="pl-4 bg-white font-[Poppins] text-md rounded-lg outline-0 flex w-10/12 md:w-11/12 text" type="text" placeholder="Tìm kiếm..." name="search"></input>
+                                    <div id="search_box" className="flex mx-3 md:mx-3 h-10 w-10/12 md:w-11/12 border-2 rounded-md bg-white ">
+                                        <input className="pl-4 bg-white font-[Poppins] text-md outline-0 flex w-10/12 md:w-11/12 text" type="text" placeholder="Tìm kiếm..." name="search"></input>
                                         <button type="submit" className="hover:rounded-md hover:bg-gray-500 w-2/12 md:w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
                                     </div>
                                 </div>
@@ -89,20 +89,20 @@ function Navbar() {
                         <></>
                         :
                         <>
-                            <div className="flex justify-between flex-row w-full items-center">
+                            <div className="flex justify-between flex-row w-full items-center bg-slate-700">
                                 <div className="flex h-10 justify-center mr-1 w-1/12">
-                                    <button onClick={() => setOpen(true)} className="flex items-center justify-center text-[24px]"><GiHamburgerMenu /></button>
+                                    <button onClick={() => setOpen(true)} className="flex items-center justify-center text-[24px]"><GiHamburgerMenu className="text-white/75" /></button>
                                 </div>
 
 
-                                <div id="search_box" className="flex justify-between mr-2 h-10 border-2 w-9/12 rounded-lg bg-white ">
-                                    <input className="pl-2 outline-0 bg-white mx-2 font-[Poppins] text-md rounded-lg flex w-11/12 md:w-11/12 text" type="text" placeholder="Tìm kiếm..." name="search"></input>
+                                <div id="search_box" className="flex justify-between mr-2 h-8 border w-9/12 rounded-md bg-white">
+                                    <input className=" outline-0 bg-white mx-2 text-sm flex w-11/12 md:w-11/12" type="text" placeholder="Tìm kiếm..." name="search"></input>
                                     <button type="submit" className=" hover:rounded-md hover:bg-gray-500 w-1/12 md:w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
                                 </div>
 
                                 <div className="flex mr-3 w-1/12 justify-center">
-                                    <Link to={PATH.login}><BiUserCircle className="w-7 h-7" /></Link>
-                                    <Link to={PATH.cart}><AiOutlineShoppingCart className="w-7 h-7" /></Link>
+                                    <Link to={PATH.login}><BiUserCircle className="w-7 h-7 text-white/75" /></Link>
+                                    <Link to={PATH.cart}><AiOutlineShoppingCart className="w-7 h-7 text-white/75" /></Link>
                                 </div>
                             </div>
 
@@ -118,17 +118,17 @@ function Navbar() {
                                 {NavbarData.map((menu, index) => {
                                     return (
                                         <>
-                                            <div key={index} className={open ? 'p-2 py-5 md:py-0 relative flex hover:bg-slate-900 md:hover:bg-white md:text-gray-500 md:not-italic md:font-normal text-white font-semibold md:text-[13px] lg:text-[18px] text-[16px] md:h-auto md:hover:text-black hover:cursor:pointer md:font-lobster w-full' : 'hidden'}>
+                                            <div  className={open ? 'p-2 py-5 md:py-0 relative flex hover:bg-slate-900 md:hover:bg-white md:text-gray-500 md:not-italic md:font-normal text-white font-semibold md:text-[13px] lg:text-[18px] text-[16px] md:h-auto md:hover:text-black hover:cursor:pointer md:font-lobster w-full' : 'hidden'}>
                                                 <div className="flex w-full md:relative">
                                                     {menu.icon}
 
-                                                    <li className="md:text-center md:justify-center md:relative md:text-xs items-center md:hover:text-black ml-7 md:ml-0 w-full">{menu.name}
+                                                    <li key={index} className="md:text-center md:justify-center md:relative md:text-xs items-center md:hover:text-black ml-7 md:ml-0 w-full">{menu.name}
 
                                                         {
 
                                                             (menu.id === 2) ?
                                                                 <>
-                                                                    <div className="md:px-1 my-1 float-right">
+                                                                    <div className="md:px-1 my-1 float-right cursor-pointer">
                                                                         <span key={menu.id} onClick={() => showMenuChild(1)} >{stateMenuChild[1] ? <BsChevronUp /> : <BsChevronDown />}</span>
                                                                     </div>
                                                                     <div className={clsx(stateMenuChild[1] && 'mx-4 w-full md:ml-1 md:z-20 md:bg-slate-600 md:absolute', !stateMenuChild[1] && "hidden")}>
@@ -148,7 +148,7 @@ function Navbar() {
 
                                                         {(menu.id === 3) ?
                                                             <>
-                                                                <div className="md:px-1 my-1 float-right">
+                                                                <div className="md:px-1 my-1 float-right cursor-pointer">
                                                                     <span key={menu.id} onClick={() => showMenuChild(2)}>{stateMenuChild[2] ? <BsChevronUp /> : <BsChevronDown />}</span>
                                                                 </div>
                                                                 <div className={clsx(stateMenuChild[2] && 'mx-4 w-full', !stateMenuChild[2] && "hidden")}>
@@ -168,7 +168,7 @@ function Navbar() {
 
                                                         {(menu.id === 4) ?
                                                             <>
-                                                                <div className="md:px-1 my-1 float-right">
+                                                                <div className="md:px-1 my-1 float-right cursor-pointer">
                                                                     <span key={menu.id} onClick={() => showMenuChild(3)}>{stateMenuChild[3] ? <BsChevronUp /> : <BsChevronDown />}</span>
                                                                 </div>
                                                                 <div className={clsx(stateMenuChild[3] && 'mx-4 w-full', !stateMenuChild[3] && "hidden")}>
@@ -203,8 +203,8 @@ function Navbar() {
                                 {NavbarData.map((menu, index) => {
                                     return (
                                         <>
-                                            <Link to={menu.link} key={index} className="text-slate-700 lg:text-base md:text-sm justify-center h-auto hover:text-gray-900 hover:cursor:pointer font-lobster flex w-full items-center">
-                                                <li className="flex transition-colors relative w-full justify-center">{menu.name}
+                                            <div className="text-slate-700 lg:text-base md:text-sm justify-center h-auto hover:text-gray-900 hover:cursor:pointer font-lobster flex w-full items-center">
+                                                <li key={index} className="flex transition-colors relative w-full justify-center">{menu.name}
 
                                                     {(menu.id === 2) ?
                                                         <>
@@ -269,7 +269,7 @@ function Navbar() {
 
 
                                                 </li>
-                                            </Link>
+                                            </div>
                                         </>
 
                                     )
