@@ -3,6 +3,8 @@ export const PATH = {
     login: '/login',
     register: '/register',
     forgotpassword: '/forgot-password',
+    login_google: '/auth/google/*',
+    login_facebook: '/auth/facebook/*',
     cart: '/cart',
     about: '/about',
     new_book: '/new_book',
