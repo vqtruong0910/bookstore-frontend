@@ -6,6 +6,7 @@ export const PATH = {
     login_google: '/auth/google/*',
     login_facebook: '/auth/facebook/*',
     cart: '/cart',
+    profile: '/profile',
     about: '/about',
     new_book: '/new_book',
     bestseller_book: "/bestseller_book",

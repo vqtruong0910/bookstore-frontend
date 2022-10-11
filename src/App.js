@@ -13,9 +13,9 @@ function App() {
   //   <AdminRoutes />
   // ), [])
   return (
-    <>
+    <div>
       {mainRoutes()}
-    </>
+    </div>
   );
 }
 

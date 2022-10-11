@@ -68,8 +68,9 @@ function Main() {
     return (
         <>
             <Carousel />
+            
             {/* New Book */}
-            <div className="w-full lg:h-[650px] md:h-[400px] md:mt-10 mt-5">
+            <div className="w-full lg:h-[650px] md:h-[400px]">
                 <div className="flex w-full text-[20px] justify-center items-center mt-5 mb-7 lg:mb-10 border-b-2 border-gray-300">
                     <BsFlower1 className="flex w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 ml-5 mr-2 text-slate-700" />
                     <span className="w-full flex shadow-md text-[22px] font-bolder font-lobster lg:text-5xl md:text-4xl text-slate-700">Sách mới nhất</span>
@@ -81,8 +82,8 @@ function Main() {
                             return(
                                 <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer">
                                                 
-                                    <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-slate-500 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
-                                        <span className="font-[14px]">{item.sale}%</span>
+                                    <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
+                                        <span className="text-sm text-slate-700">{item.sale}%</span>
                                     </div>
 
                                     <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
@@ -100,9 +101,9 @@ function Main() {
                                     </div>
 
                                     <Link to={PATH.detail_book} className="flex w-full mt-2 mb-4">
-                                        <div className="flex w-full rounded-lg border-2 border-slate-700 mr-4 ml-2 items-center justify-center">
-                                            <FiShoppingBag className="w-5 h-5 text-slate-700 mx-1" />
-                                            <div className=" text-[12px] md:text-[14px] lg:text-[17px] font-normal text-slate-700 py-1">Thêm giỏ hàng</div>
+                                        <div className="flex w-full rounded-md border-2 border-slate-700 mr-4 ml-2 items-center justify-center md:py-1 lg:py-2">
+                                            <FiShoppingBag className="w-5 h-5 text-slate-700" />
+                                            <div className=" text-[12px] md:text-xs lg:text-[17px] text-slate-700 py-1">Thêm giỏ hàng</div>
                                         </div>
                                     </Link>
                                     
@@ -112,7 +113,7 @@ function Main() {
 
                     </Slider>
                     <div className="w-full flex justify-center mt-14">
-                        <Link to="#" className="font-semibold text-md hover:text-white hover:bg-slate-500 text-slate-700 border-2 border-slate-500 rounded-full py-1 px-12 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
+                        <Link to="#" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
                     </div>
                 
                 </div> 
@@ -120,7 +121,7 @@ function Main() {
             
 
             {/* Best seller Book */}
-            <div className="w-full lg:h-[650px] md:h-[400px] mt-10">
+            <div className="w-full lg:h-[650px] md:h-[400px] mt-16 md:mt-32">
                 <div className="flex w-full text-[20px] justify-center items-center mt-5 mb-7 lg:mb-10 border-b-2 border-gray-300">
                     <RiStarSmileLine className="flex w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 ml-5 mr-2 text-slate-700" />
                     <span className="w-full flex shadow-md text-[22px] font-bolder font-lobster lg:text-5xl md:text-4xl text-slate-700">Sách bán chạy</span>
@@ -130,13 +131,13 @@ function Main() {
                     <Slider {...settings} className="mx-7">
                         {BestSellerBookData.map((item,index) => {
                             return(
-                                <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer ">
+                                <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer">
                                                 
-                                    <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-slate-500 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
-                                        <span className="font-[14px]">{item.sale}%</span>
+                                    <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
+                                        <span className="text-sm text-slate-700">{item.sale}%</span>
                                     </div>
 
-                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100">
+                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
                                         <img className="w-11/12" src={item.image} alt="New Book" />
                                     </div>
 
@@ -151,9 +152,9 @@ function Main() {
                                     </div>
 
                                     <Link to={PATH.detail_book} className="flex w-full mt-2 mb-4">
-                                        <div className="flex w-full rounded-lg border-2 border-slate-700 mr-4 ml-2 items-center justify-center">
-                                            <FiShoppingBag className="w-5 h-5 text-slate-700 mx-1" />
-                                            <div className=" text-[12px] md:text-[14px] lg:text-[17px] font-normal text-slate-700 py-1">Thêm giỏ hàng</div>
+                                        <div className="flex w-full rounded-md border-2 border-slate-700 mr-4 ml-2 items-center justify-center md:py-1 lg:py-2">
+                                            <FiShoppingBag className="w-5 h-5 text-slate-700" />
+                                            <div className=" text-[12px] md:text-xs lg:text-[17px] text-slate-700 py-1">Thêm giỏ hàng</div>
                                         </div>
                                     </Link>
                                     
@@ -163,14 +164,14 @@ function Main() {
 
                     </Slider>
                     <div className="w-full flex justify-center mt-14">
-                        <Link to="#" className="font-semibold text-md hover:text-white hover:bg-slate-500 text-slate-700 border-2 border-slate-500 rounded-full py-1 px-12 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
+                        <Link to="#" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
                     </div>
                 
                 </div> 
             </div>
 
             {/* Popular Book */}
-            <div className="w-full lg:h-[650px] md:h-[400px] mt-10">
+            <div className="w-full lg:h-[650px] md:h-[400px] mt-16 md:mt-32 mb-32">
                 <div className="flex w-full text-[20px] justify-center items-center mt-5 mb-7 lg:mb-10 border-b-2 border-gray-300">
                     <TbMoonStars className="flex w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 ml-5 mr-2 text-slate-700" />
                     <span className="w-full flex shadow-md text-[22px] font-bolder font-lobster lg:text-5xl md:text-4xl text-slate-700">Sách phổ biến</span>
@@ -182,11 +183,11 @@ function Main() {
                             return(
                                 <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer">
                                                 
-                                    <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-slate-500 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
-                                        <span className="font-[14px]">{item.sale}%</span>
+                                    <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
+                                        <span className="text-sm text-slate-700">{item.sale}%</span>
                                     </div>
 
-                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100">
+                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
                                         <img className="w-11/12" src={item.image} alt="New Book" />
                                     </div>
 
@@ -201,9 +202,9 @@ function Main() {
                                     </div>
 
                                     <Link to={PATH.detail_book} className="flex w-full mt-2 mb-4">
-                                        <div className="flex w-full rounded-lg border-2 border-slate-700 mr-4 ml-2 items-center justify-center">
-                                            <FiShoppingBag className="w-5 h-5 text-slate-700 mx-1" />
-                                            <div className=" text-[12px] md:text-[14px] lg:text-[17px] font-normal text-slate-700 py-1">Thêm giỏ hàng</div>
+                                        <div className="flex w-full rounded-md border-2 border-slate-700 mr-4 ml-2 items-center justify-center md:py-1 lg:py-2">
+                                            <FiShoppingBag className="w-5 h-5 text-slate-700" />
+                                            <div className=" text-[12px] md:text-xs lg:text-[17px] text-slate-700 py-1">Thêm giỏ hàng</div>
                                         </div>
                                     </Link>
                                     
@@ -213,7 +214,7 @@ function Main() {
 
                     </Slider>
                     <div className="w-full flex justify-center mt-14">
-                        <Link to="#" className="font-semibold text-md hover:text-white hover:bg-slate-500 text-slate-700 border-2 border-slate-500 rounded-full py-1 px-12 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
+                        <Link to="#" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
                     </div>
                 
                 </div> 

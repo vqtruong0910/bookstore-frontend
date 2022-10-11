@@ -41,28 +41,28 @@ function Footer() {
         ];
 
     return (
-        <footer className="p-4 text-white rounded-lg shadow inline-block md:items-center md:justify-between md:p-6 bg-gray-800 mt-28 w-full">
-            <div className="flex w-full lg:px-4 ">
-                <div className="items-center text-base text-gray-500 dark:text-gray-400 mx-3">© 2022
+        <footer className="text-white mt-2 shadow inline-block md:items-center md:justify-between bg-gray-800 w-full">
+            <div className="flex w-full px-4 pt-4">
+                <div className="items-center text-base text-gray-500 dark:text-gray-400 mr-3">© 2022
                     <a href="" className="hover:underline ml-2">Book Store™ </a>
                 </div>
             </div>
-            <p className="mx-2 w-full text-sm mt-2 lg:px-4 leading-6">
+            <p className="w-full text-sm mt-2 leading-6 px-4">
                 Book Store nhận đặt hàng trực tuyến và giao hàng tận nơi.
                 KHÔNG hỗ trợ đặt mua và nhận hàng trực tiếp tại văn phòng.
             </p>
 
-            <div className="mt-3 w-full flex lg:px-4 ">
-                <GrFacebookOption className="w-8 h-8 mx-2 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
-                <BsInstagram className="w-8 h-8 mx-2 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
-                <AiOutlineYoutube className="w-8 h-8 mx-2 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
-                <FiTwitter className="w-8 h-8 mx-2 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
-                <TiSocialTumbler className="w-8 h-8 mx-2 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
-                <FaPinterestP className="w-8 h-8 mx-2 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
+            <div className="mt-3 w-full flex px-4">
+                <GrFacebookOption className="w-8 h-8 mr-3 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
+                <BsInstagram className="w-8 h-8 mr-3 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
+                <AiOutlineYoutube className="w-8 h-8 mr-3 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
+                <FiTwitter className="w-8 h-8 mr-3 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
+                <TiSocialTumbler className="w-8 h-8 mr-3 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
+                <FaPinterestP className="w-8 h-8 mr-3 border-2 border-slate-500 rounded-full text-white bg-slate-500 transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7" />
             </div>
 
-            <div className="w-full md:grid md:grid-cols-2 lg:grid-cols-4 lg:px-4">
-                <ul className="flex mx-2">
+            <div className="w-full md:grid md:grid-cols-2 lg:grid-cols-4 px-4">
+                <ul className="flex">
                     <li className="w-full mt-10 ">
                         <div className="flex w-full cursor-pointer">
                             <ImNewspaper className="w-6 h-6 my-0.5 mr-1" />
@@ -77,7 +77,7 @@ function Footer() {
                         </ul>
                     </li>
                 </ul>
-                <ul className="flex mx-2">
+                <ul className="flex">
                     <li className="w-full mt-10">
                         <div className="flex w-full cursor-pointer">
                             <FiHelpCircle className="w-6 h-6 my-0.5 mr-1" />
@@ -93,7 +93,7 @@ function Footer() {
                         </ul>
                     </li>
                 </ul>
-                <ul className="flex mx-2">
+                <ul className="flex">
                     <li className="w-full mt-10 ">
                         <div className="flex w-full cursor-pointer">
                             <BsPersonCircle className="w-6 h-6 my-0.5 mr-1" />
@@ -109,7 +109,7 @@ function Footer() {
                         </ul>
                     </li>
                 </ul>
-                <ul className="flex mx-2 items-stretch">
+                <ul className="flex items-stretch">
                     <li className="w-full mt-10">
                         <div className="flex w-full cursor-pointer">
                             <IoMdContacts className="w-6 h-6 my-0.5 mr-1" />
