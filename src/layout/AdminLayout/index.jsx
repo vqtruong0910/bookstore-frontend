@@ -1,14 +1,17 @@
 import clsx from 'clsx';
+import { useContext } from 'react';
 import { Suspense, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import bar from '../../assets/svg/bar.svg';
 import DownArrow from '../../assets/svg/DownArrow';
 import Loading from '../../components/Loading';
 import MenuAdmin from '../../components/MenuAdmin';
+import Context from '../../store/Context';
 
 function AdminLayout() {
     const [stateMenu, setStateMenu] = useState(false);
     const [stateMenuAvatar, setStateMenuAvatar] = useState(false);
+    const { user } = useContext(Context);
 
     return (
         <div className="w-full bg-slate-100 h-screen relative">
