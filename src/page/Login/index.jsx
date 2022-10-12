@@ -51,7 +51,8 @@ function Login() {
                             setUser(decoded);
                             navigate(PATH.main);
                         } catch (error) {
-
+                            localStorage.removeItem('token');
+                            navigate(PATH.login);
                         }
                     }
                 }
