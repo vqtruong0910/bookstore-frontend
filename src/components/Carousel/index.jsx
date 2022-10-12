@@ -8,15 +8,6 @@ function ListProduct() {
     const delay = 3000;
     const imgSlide = CarouselData;
     const length = imgSlide.length;
-    
-    // const prevSlide = () => {
-    //     setCurrentSlide(currentSlide === 0 ? length-1 : currentSlide-1)
-    // }
-
-    // const nextSlide = () => {
-    //     setCurrentSlide(currentSlide === length-1 ? 0 : currentSlide+1 )
-    // }
-
 
     useEffect(() => {
         setTimeout(
