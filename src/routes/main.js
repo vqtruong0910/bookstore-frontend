@@ -6,7 +6,9 @@ import Loading from '../components/Loading';
 // Phần Main
 const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
 const Main = lazy(() => import('../page/Main'));
+const DetailProduct = lazy(() => import('../page/DetailProduct'));
 const NotFound = lazy(() => import('../page/NotFound'));
+const Profile = lazy(() => import('../page/Profile'));
 
 // Phần Auth
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
@@ -30,8 +32,10 @@ function MainRoutes() {
         <Routes>
             <Route element={<Suspense fallback={<Loading center={true} />}><DefaultLayout /></Suspense>}>
                 <Route path={PATH.main} element={<Main />}></Route>
+                <Route path={PATH.detail_book} element={<DetailProduct />} ></Route>
                 <Route path={PATH.cart} element></Route>
                 <Route path={PATH.notfound} element={<NotFound />}></Route>
+                <Route path={PATH.profile} element={<Profile />} ></Route>
             </Route>
 
             <Route path={PATH.login} element={DefaultLayoutAuth(Login)}></Route>
@@ -39,7 +43,7 @@ function MainRoutes() {
             <Route path={PATH.register} element={DefaultLayoutAuth(Register)}></Route>
             <Route path={PATH.login_google} element={<Suspense fallback={<Loading center={true} />}><AccuracyGoogle /></Suspense>} />
             <Route path={PATH.login_facebook} element={<Suspense fallback={<Loading center={true} />}><AccuracyFaceBook /></Suspense>} />
-
+            
             <Route element={<Suspense fallback={<Loading center={true} />}><AdminLayout /></Suspense>}>
                 <Route path={PATH.admin.dashboard} element={<Dashboard />} />
                 <Route path={PATH.admin.product_management} element={<ProductManagement />} />
