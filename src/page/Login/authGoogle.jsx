@@ -13,7 +13,7 @@ function AccuracyGoogle() {
         })
         axios.get(API.AUTH_CALLBACK_GOOGLE, { params: paramURL })
             .then((res) => {
-                console.log(res.data);
+                localStorage.setItem('token', res.data);
                 window.close();
             })
             .catch((err) => {
