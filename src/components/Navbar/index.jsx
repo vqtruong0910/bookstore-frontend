@@ -10,7 +10,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { NavbarData } from './NavbarData';
-import { RiArrowDownSFill } from "react-icons/ri";
+import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 
 
 
@@ -25,6 +25,7 @@ function Navbar() {
         1: false,   // Danh muc
         2: false,   // Nha xuat ban
         3: false,   // Tac gia
+        4: false,   // Tai khoan
     });
 
     const showMenuChild = useCallback((location) => {
@@ -105,7 +106,13 @@ function Navbar() {
 
                                                         <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
                                                             <span className="flex">Tài khoản</span>
-                                                            <RiArrowDownSFill className="flex w-5 h-5" />
+                                                            <div className="flex" onClick={() => {showMenuChild(4)}} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5 relative" />}</div>
+                                                            
+                                                            {stateMenuChild[4] ? 
+                                                                <div className="w-10 bg-red absolute z-20"></div>
+                                                            :   
+                                                                <></>
+                                                            }
                                                         </div>
 
                                                     </div>
