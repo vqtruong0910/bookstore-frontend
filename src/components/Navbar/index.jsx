@@ -106,26 +106,6 @@ function Navbar() {
 
                                                         <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
                                                             <span className="flex">Tài khoản</span>
-                                                            <div className="flex" onClick={() => { showMenuChild(4) }} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5 relative" />}</div>
-
-                                                            {stateMenuChild[4] ?
-                                                                <div className="flex lg:top-16 md:top-14 mr-5 bg-white border absolute z-20">
-                                                                    <ul>
-                                                                        <li className="p-2 hover:bg-gray-300">Thông tin cá nhân</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đổi mật khẩu</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Trạng thái đơn mua</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đơn hàng đã mua</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đơn hàng đã hủy</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đăng xuất</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Điều khoản Book Store</li>
-                                                                    </ul>
-
-                                                                </div>
-                                                                :
-                                                                <></>
-                                                            }
-
                                                         </div>
 
                                                     </div>
