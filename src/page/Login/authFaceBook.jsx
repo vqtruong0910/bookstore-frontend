@@ -13,11 +13,11 @@ function AccuracyFaceBook() {
         })
         axios.get(API.AUTH_CALLBACK_FACEBOOK, { params: paramURL })
             .then((res) => {
-                localStorage.setItem('token', res.data);
+                localStorage.setItem('auth-user', res.data);
                 window.close();
             })
             .catch((err) => {
-                console.log("Failed", err);
+                console.log("Failed", err.response);
             })
     }, []);
     return (
