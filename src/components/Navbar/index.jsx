@@ -112,13 +112,8 @@ function Navbar() {
                                                                 <div className="flex lg:top-16 md:top-14 mr-5 bg-white border absolute z-20">
                                                                     <ul>
                                                                         <li className="p-2 hover:bg-gray-300">Thông tin cá nhân</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đổi mật khẩu</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Trạng thái đơn mua</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đơn hàng đã mua</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đơn hàng đã hủy</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
+                                                                        <li className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
                                                                         <li className="p-2 hover:bg-gray-300">Đăng xuất</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Điều khoản Book Store</li>
                                                                     </ul>
 
                                                                 </div>
