@@ -10,7 +10,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { NavbarData } from './NavbarData';
-import { RiArrowDownSFill } from "react-icons/ri";
+import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 
 
 
@@ -25,6 +25,7 @@ function Navbar() {
         1: false,   // Danh muc
         2: false,   // Nha xuat ban
         3: false,   // Tac gia
+        4: false,   // Tai khoan
     });
 
     const showMenuChild = useCallback((location) => {
@@ -46,9 +47,9 @@ function Navbar() {
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
-          setScroll(window.scrollY)
+            setScroll(window.scrollY)
         })
-      }, [])
+    }, [])
 
     return (
         <>
@@ -105,7 +106,26 @@ function Navbar() {
 
                                                         <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
                                                             <span className="flex">Tài khoản</span>
-                                                            <RiArrowDownSFill className="flex w-5 h-5" />
+                                                            <div className="flex" onClick={() => { showMenuChild(4) }} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5 relative" />}</div>
+
+                                                            {stateMenuChild[4] ?
+                                                                <div className="flex lg:top-16 md:top-14 mr-5 bg-white border absolute z-20">
+                                                                    <ul>
+                                                                        <li className="p-2 hover:bg-gray-300">Thông tin cá nhân</li>
+                                                                        <li className="p-2 hover:bg-gray-300">Đổi mật khẩu</li>
+                                                                        <li className="p-2 hover:bg-gray-300">Trạng thái đơn mua</li>
+                                                                        <li className="p-2 hover:bg-gray-300">Đơn hàng đã mua</li>
+                                                                        <li className="p-2 hover:bg-gray-300">Đơn hàng đã hủy</li>
+                                                                        <li className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
+                                                                        <li className="p-2 hover:bg-gray-300">Đăng xuất</li>
+                                                                        <li className="p-2 hover:bg-gray-300">Điều khoản Book Store</li>
+                                                                    </ul>
+
+                                                                </div>
+                                                                :
+                                                                <></>
+                                                            }
+
                                                         </div>
 
                                                     </div>
@@ -138,7 +158,7 @@ function Navbar() {
                         <></>
                         :
                         <>
-                            <div className={clsx(scroll && 'flex fixed z-20 justify-between flex-row w-full items-center bg-slate-700 py-2' , !scroll && 'flex justify-between flex-row w-full items-center bg-slate-700 py-2')}>
+                            <div className={clsx(scroll && 'flex fixed z-20 justify-between flex-row w-full items-center bg-slate-700 py-2', !scroll && 'flex justify-between flex-row w-full items-center bg-slate-700 py-2')}>
                                 <div className="flex h-10 justify-center mr-1 w-1/12">
                                     <button onClick={() => setOpen(true)} className="flex items-center justify-center text-[24px]"><GiHamburgerMenu className="text-white/75" /></button>
                                 </div>
