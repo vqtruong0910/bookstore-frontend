@@ -47,9 +47,9 @@ function Navbar() {
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
-          setScroll(window.scrollY)
+            setScroll(window.scrollY)
         })
-      }, [])
+    }, [])
 
     return (
         <>
@@ -106,13 +106,6 @@ function Navbar() {
 
                                                         <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
                                                             <span className="flex">Tài khoản</span>
-                                                            <div className="flex" onClick={() => {showMenuChild(4)}} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5 relative" />}</div>
-                                                            
-                                                            {stateMenuChild[4] ? 
-                                                                <div className="w-10 bg-red absolute z-20"></div>
-                                                            :   
-                                                                <></>
-                                                            }
                                                         </div>
 
                                                     </div>
@@ -145,7 +138,7 @@ function Navbar() {
                         <></>
                         :
                         <>
-                            <div className={clsx(scroll && 'flex fixed z-20 justify-between flex-row w-full items-center bg-slate-700 py-2' , !scroll && 'flex justify-between flex-row w-full items-center bg-slate-700 py-2')}>
+                            <div className={clsx(scroll && 'flex fixed z-20 justify-between flex-row w-full items-center bg-slate-700 py-2', !scroll && 'flex justify-between flex-row w-full items-center bg-slate-700 py-2')}>
                                 <div className="flex h-10 justify-center mr-1 w-1/12">
                                     <button onClick={() => setOpen(true)} className="flex items-center justify-center text-[24px]"><GiHamburgerMenu className="text-white/75" /></button>
                                 </div>
