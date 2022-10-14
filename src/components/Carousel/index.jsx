@@ -28,7 +28,7 @@ function ListProduct() {
 
 
     return(
-        <section className="w-full mt-3 md:mt-0 md:relative">
+        <section className="w-full md:relative">
             {imgSlide.map((item,index) => {
                 return (
                     <Link to={PATH.detail_book} key={index} className={`w-full select-none relative aspect-w-16 aspect-h-9 ${index === currentSlide ? 'active' : 'hidden'}`}>
