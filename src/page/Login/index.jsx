@@ -16,7 +16,13 @@ import { useState } from "react";
 
 function Login() {
     const navigate = useNavigate();
-    const { control, handleSubmit } = useForm({ mode: 'onBlur' });
+    const { control, handleSubmit, setError } = useForm({
+        mode: 'onBlur',
+        defaultValues: {
+            Email: "",
+            MatKhau: ""
+        }
+    });
     const [loading, setLoading] = useState(false);
     const { setUser } = useContext(Context);
 
@@ -24,17 +30,22 @@ function Login() {
         try {
             setLoading(true);
             const result = await axios.post(API.LOGIN, data);
-            const user = await result.data;
-            // setUser(user);
+            const authUser = await result.data;
+            localStorage.setItem("auth-user", JSON.stringify(authUser));
+            setUser(authUser);
             navigate(PATH.main);
-            console.log(user);
-            setLoading(false);
         } catch (error) {
+            const result = error?.response?.data?.message;
+            if (result === "0") {
+                setError("Email", { type: "custom", message: "Tài khoản không tồn tại" }, { shouldFocus: true });
+            } else if (result === "1") {
+                setError("MatKhau", { type: "custom", message: "Mật khẩu sai xin nhập lại" }, { shouldFocus: true });
+            }
+        } finally {
             setLoading(false);
-            console.log(error);
         }
     }, []);
-    const Config = useCallback((URL) => {
+    const openAuth = useCallback((URL) => {
         const w = 500;
         const h = 600;
         const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
@@ -44,34 +55,32 @@ function Login() {
             const timer = setInterval(() => {
                 if (openWindow.closed) {
                     if (timer) clearInterval(timer);
-                    const token = localStorage.getItem('token');
-                    if (token) {
-                        try {
-                            const decoded = jwtDecode(token);
-                            setUser(decoded);
+                    try {
+                        const authUser = JSON.parse(localStorage.getItem('auth-user'));
+                        if (!authUser.error) {
+                            setUser(authUser.data);
                             navigate(PATH.main);
-                        } catch (error) {
-                            localStorage.removeItem('token');
-                            navigate(PATH.login);
                         }
+                    } catch (error) {
+                        localStorage.removeItem('auth-user');
                     }
                 }
             }, 500);
         }
     }, [])
     const loginGoogle = useCallback(() => {
-        Config(API.LOGIN_GOOGLE);
+        openAuth(API.LOGIN_GOOGLE);
     }, []);
     const loginFaceBook = useCallback(() => {
-        Config(API.LOGIN_FACEBOOK);
+        openAuth(API.LOGIN_FACEBOOK);
     }, [])
 
     return (
         <>
             <h3 className="text-center p-5 text-lg font-normal">Đăng nhập BOOKSTORE</h3>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
-                <Textfield type="text" marginX="mx-4" placeholder="Email" control={control} name="email" rules={VALIDATE.email} />
-                <Textfield type="password" marginX="mx-4" marginT="mt-4" marginB="mb-2" placeholder="Mật khẩu" control={control} name="password" rules={VALIDATE.password} />
+                <Textfield type="text" marginX="mx-4" placeholder="Email" control={control} name="Email" rules={VALIDATE.email} />
+                <Textfield type="password" marginX="mx-4" marginT="mt-4" marginB="mb-2" placeholder="Mật khẩu" control={control} name="MatKhau" rules={VALIDATE.password} />
                 <Button marginY="my-2" marginX="mx-4" loading={loading}>Đăng nhập</Button>
             </form>
             <span className="text-xs p-5 block text-center text-slate-600 select-none">Hoặc Đăng Nhập Bằng</span>
