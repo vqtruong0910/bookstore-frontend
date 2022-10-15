@@ -40,6 +40,8 @@ function Login() {
                 setError("Email", { type: "custom", message: "Tài khoản không tồn tại" }, { shouldFocus: true });
             } else if (result === "1") {
                 setError("MatKhau", { type: "custom", message: "Mật khẩu sai xin nhập lại" }, { shouldFocus: true });
+            } else {
+                window.alert("Đăng nhập thất bại!!!");
             }
         } finally {
             setLoading(false);
