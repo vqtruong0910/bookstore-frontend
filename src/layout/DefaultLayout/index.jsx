@@ -8,9 +8,7 @@ function DefaultLayout() {
     return (
         <>
             <Header />
-            <div className="min-h-screen">
-                <Suspense fallback={<Loading />}><Outlet /></Suspense>
-            </div>
+            <Suspense fallback={<Loading />}><Outlet /></Suspense>
             <Footer />
         </>
     );

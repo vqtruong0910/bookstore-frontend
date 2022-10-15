@@ -112,7 +112,7 @@ function Navbar() {
                                                             {stateMenuChild[4] ?
                                                                 <div className="flex lg:top-16 md:top-14 mr-5 bg-white border absolute z-20">
                                                                     <ul>
-                                                                        <li className="p-2 hover:bg-gray-300">Thông tin cá nhân</li>
+                                                                        <li className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
                                                                         <li className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
                                                                         <li className="p-2 hover:bg-gray-300">Đăng xuất</li>
                                                                     </ul>
@@ -174,7 +174,6 @@ function Navbar() {
                                     <Link to={PATH.cart}><AiOutlineShoppingCart className={clsx(state && 'w-7 h-7 ml-0.5 text-white/75', !state && 'w-8 h-8 text-white/75')} /></Link>
                                 </div>
                             </div>
-
                         </>
 
                     }

@@ -9,6 +9,7 @@ const Main = lazy(() => import('../page/Main'));
 const DetailProduct = lazy(() => import('../page/DetailProduct'));
 const NotFound = lazy(() => import('../page/NotFound'));
 const Profile = lazy(() => import('../page/Profile'));
+const Person_Info = lazy(() => import('../page/Person_Info'));
 
 // Phần Auth
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
@@ -36,6 +37,7 @@ function MainRoutes() {
                 <Route path={PATH.cart} element></Route>
                 <Route path={PATH.notfound} element={<NotFound />}></Route>
                 <Route path={PATH.profile} element={<Profile />} ></Route>
+                <Route path={PATH.person_info} element={<Person_Info />}></Route>
             </Route>
 
             <Route path={PATH.login} element={DefaultLayoutAuth(Login)}></Route>

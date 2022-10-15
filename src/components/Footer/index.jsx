@@ -41,7 +41,7 @@ function Footer() {
         ];
 
     return (
-        <footer className="text-white mt-2 shadow inline-block md:items-center md:justify-between bg-gray-800 w-full">
+        <footer className="text-white shadow inline-block md:items-center md:justify-between bg-gray-800 w-full">
             <div className="flex w-full px-4 pt-4">
                 <div className="items-center text-base text-gray-500 dark:text-gray-400 mr-3">© 2022
                     <a href="" className="hover:underline ml-2">Book Store™ </a>
