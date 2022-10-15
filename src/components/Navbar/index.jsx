@@ -86,7 +86,8 @@ function Navbar() {
                                 <>
                                     <div className="flex items-center w-full justify-end mr-3">
                                         <div className="flex">
-                                            <div className="flex flex-wrap w-full justify-end">
+                                            <div className="flex flex-wrap w-full justify-end px-5">
+
                                                 <div className="flex">
                                                     <div className="flex">
                                                         {
@@ -124,12 +125,12 @@ function Navbar() {
                                                                     </div>
 
                                                                     <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
-                                                                        <span className="flex">{user.HoTen}</span>
+                                                                        <span className="flex whitespace-nowrap">{user.HoTen}</span>
 
                                                                         <div className="flex" onClick={() => { showMenuChild(4) }} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5" />}</div>
 
                                                                         {stateMenuChild[4] &&
-                                                                            <div className="flex lg:top-16 md:top-14 bg-white border absolute z-20">
+                                                                            <div className="flex lg:top-16 right-4 md:top-14 bg-white border absolute z-20">
                                                                                 <ul>
                                                                                     <li className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
                                                                                     <li className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
