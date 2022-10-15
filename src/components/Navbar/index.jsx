@@ -87,7 +87,7 @@ function Navbar() {
                                 <>
                                     <div className="flex items-center w-full justify-end mr-3">
                                         <div className="flex">
-                                            <div className="flex flex-wrap w-full justify-end">
+                                            <div className="flex flex-wrap w-full justify-end px-5">
 
                                                 <div className="flex">
                                                     <div className="flex">
