@@ -11,16 +11,15 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { NavbarData } from './NavbarData';
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
-
-
-
+import { useContext } from 'react';
+import Context from '../../store/Context';
 
 
 function Navbar() {
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState(false)
     const [state, setState] = useState(false);
-
+    const { user, setUser } = useContext(Context);
     const [stateMenuChild, setStateMenuChild] = useState({
         1: false,   // Danh muc
         2: false,   // Nha xuat ban
@@ -91,49 +90,61 @@ function Navbar() {
 
                                                 <div className="flex">
                                                     <div className="flex">
-                                                        <Link className="flex items-center mr-1" to={PATH.profile}><BsPerson className="lg:w-10 lg:h-10 w-8 h-8" /></Link>
+                                                        {
+                                                            !user.Anh ?
+                                                                <span className="flex items-center mr-1" ><BsPerson className="lg:w-10 lg:h-10 w-8 h-8" /></span>
+                                                                :
+                                                                <Link className="flex items-center mr-1 lg:w-10 lg:h-10 w-8 h-8" to={PATH.profile}>
+                                                                    <img className='rounded-full' src={user.Anh} alt="user" />
+                                                                </Link>
+                                                        }
                                                     </div>
 
                                                     <div className="flex flex-col ml=0.5">
-                                                        <div className="flex whitespace-nowrap">
-                                                            <Link to={PATH.login} className="hover:text-stone-800 hover:cursor:pointer lg:text-sm text-xs  text-black cursor-pointer">
-                                                                <span type="button">Đăng nhập</span>
-                                                            </Link>
-                                                            <Link to={PATH.register} className="hover:text-stone-800 hover:cursor:pointer lg:text-sm text-xs mx-2 text-slate-700 cursor-pointer">
-                                                                <span type="button">Đăng ký</span>
-                                                            </Link>
-                                                        </div>
+                                                        {
+                                                            !user ?
+                                                                <>
+                                                                    <div className="flex whitespace-nowrap">
+                                                                        <Link to={PATH.login} className="hover:text-stone-800 hover:cursor:pointer lg:text-sm text-xs  text-black cursor-pointer">
+                                                                            <span type="button">Đăng nhập</span>
+                                                                        </Link>
+                                                                        <Link to={PATH.register} className="hover:text-stone-800 hover:cursor:pointer lg:text-sm text-xs mx-2 text-slate-700 cursor-pointer">
+                                                                            <span type="button">Đăng ký</span>
+                                                                        </Link>
+                                                                    </div>
 
-                                                        <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
-                                                            <span className="flex">Tài khoản</span>
+                                                                    <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
+                                                                        <span className="flex">Tài khoản</span>
+                                                                    </div>
+                                                                </> :
+                                                                <>
+                                                                    <div className="flex whitespace-nowrap">
+                                                                        <span className="hover:text-stone-800 hover:cursor:pointer lg:text-sm text-xs  text-black cursor-pointer">
+                                                                            <span type="button">Tài khoản</span>
+                                                                        </span>
+                                                                    </div>
 
-                                                            <div className="flex" onClick={() => { showMenuChild(4) }} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5 relative" />}</div>
+                                                                    <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
+                                                                        <span className="flex whitespace-nowrap">{user.HoTen}</span>
 
-                                                            {stateMenuChild[4] ?
-                                                                <div className="flex lg:top-16 md:top-14 mr-5 bg-white border absolute z-20">
-                                                                    <ul>
-                                                                        <li className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
-                                                                        <li className="p-2 hover:bg-gray-300">Đăng xuất</li>
-                                                                    </ul>
+                                                                        <div className="flex" onClick={() => { showMenuChild(4) }} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5" />}</div>
 
-                                                                </div>
-                                                                :
-                                                                <></>
-                                                            }
+                                                                        {stateMenuChild[4] &&
+                                                                            <div className="flex lg:top-16 right-4 md:top-14 bg-white border absolute z-20">
+                                                                                <ul>
+                                                                                    <li className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
+                                                                                    <li className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
+                                                                                    <li className="p-2 hover:bg-gray-300">Đăng xuất</li>
+                                                                                </ul>
 
-
-                                                        </div>
-
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </>
+                                                        }
                                                     </div>
-
-
-
                                                 </div>
-
-
                                             </div>
-
                                         </div>
 
                                         <div className="flex relative">

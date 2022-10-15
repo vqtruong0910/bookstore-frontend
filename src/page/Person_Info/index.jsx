@@ -5,6 +5,7 @@ import { TbArrowRotaryLastRight } from "react-icons/tb";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { AiFillLock } from "react-icons/ai";
 import { useState, useCallback } from "react";
+import clsx from "clsx";
 
 function Person_Info() {
     const [stateMenuChild, setStateMenuChild] = useState({
@@ -34,7 +35,7 @@ function Person_Info() {
                 </div>
             </div>
 
-            <div onClick={() => {showMenuChild(1)}} className="flex flex-wrap w-full py-3 mt-4 items-center bg-gray-100 relative">
+            <div onClick={() => { showMenuChild(1) }} className="flex flex-wrap w-full py-3 mt-4 items-center bg-gray-100 relative">
                 <div className="w-full flex items-center">
                     <BsPerson className="w-5 h-5 ml-5" />
                     <span className="ml-1 font-semibold w-full">Họ và tên</span>
@@ -43,23 +44,24 @@ function Person_Info() {
                 <span className="text-sm text-black/70 w-full ml-11 mt-2">Võ Ngọc Minh A</span>
 
                 <div className="absolute w-full right-6">
-                    <HiOutlinePencilAlt className="w-5 h-5 float-right"/>
+                    <HiOutlinePencilAlt className="w-5 h-5 float-right" />
                 </div>
             </div>
-            {stateMenuChild[1] ? 
+            {stateMenuChild[1] ?
                 <>
-                    <div className="fixed inset-0 bg-slate-900 bg-opacity-70 md:bg-opacity-0 z-10 lg:hidden lg:z-auto transition-opacity duration-200"></div>
+                    <div className={clsx(stateMenuChild[1] && 'fixed inset-0 bg-slate-900 bg-opacity-70 md:bg-opacity-0 z-10 lg:hidden lg:z-auto transition-opacity duration-200', !stateMenuChild[1] && 'hidden')} onClick={() => showMenuChild(1)}></div>
                     <div className="flex w-full mx-2 flex-wrap items-center left-0 right-0 bg-white z-20">
                         <span className="ml-3 py-1 font-semibold w-full">Họ và tên</span>
-                        <input class="text-black block bg-white w-full border border-slate-300 rounded-sm py-1 pl-3 ml-3 focus: focus:outline-none focus:border-sky-300 focus:ring-sky-200 focus:ring-1 sm:text-sm" placeholder="Võ Ngọc Minh A" type="text" name="fullname"/>
+                        <input class="text-black block bg-white w-full border border-slate-300 rounded-sm py-1 pl-3 mx-3 focus: focus:outline-none focus:border-sky-300 focus:ring-sky-200 focus:ring-1 sm:text-sm" placeholder="Họ và tên" type="text" name="fullname" />
+                        <div className="bg-slate-700 my-3 flex py-1 w-full rounded-sm mx-3 justify-center text-white">Lưu thay đổi</div>
                     </div>
                 </>
-                
-            :
+
+                :
                 <></>
             }
 
-            <div className="flex flex-wrap w-full py-3 mt-4 items-center bg-gray-100 relative">
+            <div onClick={() => { showMenuChild(2) }} className="flex flex-wrap w-full py-3 mt-4 items-center bg-gray-100 relative">
                 <div className="w-full flex items-center">
                     <BiEnvelope className="w-5 h-5 ml-5" />
                     <span className="ml-1 font-semibold w-full">Email</span>
@@ -68,11 +70,25 @@ function Person_Info() {
                 <span className="text-sm text-black/70 w-full ml-11 mt-2">abc123@gmail.com</span>
 
                 <div className="absolute w-full right-6">
-                    <HiOutlinePencilAlt className="w-5 h-5 float-right"/>
+                    <HiOutlinePencilAlt className="w-5 h-5 float-right" />
                 </div>
             </div>
 
-            <div className="flex flex-wrap w-full py-3 mt-4 items-center bg-gray-100 relative">
+            {stateMenuChild[2] ?
+                <>
+                    <div className={clsx(stateMenuChild[2] && 'fixed inset-0 bg-slate-900 bg-opacity-70 md:bg-opacity-0 z-10 lg:hidden lg:z-auto transition-opacity duration-200', !stateMenuChild[2] && 'hidden')} onClick={() => showMenuChild(2)}></div>
+                    <div className="flex w-full mx-2 flex-wrap items-center left-0 right-0 bg-white z-20">
+                        <span className="ml-3 py-1 font-semibold w-full">Email</span>
+                        <input class="text-black block bg-white w-full border border-slate-300 rounded-sm py-1 pl-3 mx-3 focus: focus:outline-none focus:border-sky-300 focus:ring-sky-200 focus:ring-1 sm:text-sm" placeholder="Email" type="text" name="email" />
+                        <div className="bg-slate-700 my-3 flex py-1 w-full rounded-sm mx-3 justify-center text-white">Lưu thay đổi</div>
+                    </div>
+                </>
+
+                :
+                <></>
+            }
+
+            <div onClick={() => { showMenuChild(3) }} className="flex flex-wrap w-full py-3 mt-4 items-center bg-gray-100 relative">
                 <div className="w-full flex items-center">
                     <TbArrowRotaryLastRight className="w-5 h-5 ml-5" />
                     <span className="ml-1 font-semibold w-full">Giới tính</span>
@@ -81,9 +97,25 @@ function Person_Info() {
                 <span className="text-sm text-black/70 w-full ml-11 mt-2">Nữ</span>
 
                 <div className="absolute w-full right-6">
-                    <HiOutlinePencilAlt className="w-5 h-5 float-right"/>
+                    <HiOutlinePencilAlt className="w-5 h-5 float-right" />
                 </div>
             </div>
+            {stateMenuChild[3] ?
+                <>
+                    <div className={clsx(stateMenuChild[3] && 'fixed inset-0 bg-slate-900 bg-opacity-70 md:bg-opacity-0 z-10 lg:hidden lg:z-auto transition-opacity duration-200', !stateMenuChild[3] && 'hidden')} onClick={() => showMenuChild(3)}></div>
+                    <div className="flex w-full mx-2 flex-wrap items-center left-0 right-0 bg-white z-20">
+                        <span className="ml-3 py-1 font-semibold w-full">Giới tính</span>
+                        <div className="flex ml-3">
+                            <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" />
+                            <label htmlFor="default-radio-1"></label>
+                        </div>
+                        <div className="bg-slate-700 my-3 flex py-1 w-full rounded-sm mx-3 justify-center text-white">Lưu thay đổi</div>
+                    </div>
+                </>
+
+                :
+                <></>
+            }
 
             <div className="flex flex-wrap w-full py-3 mt-4 items-center bg-gray-100 relative">
                 <div className="w-full flex items-center">
@@ -94,7 +126,7 @@ function Person_Info() {
                 <span className="text-sm text-black/70 w-full ml-11 mt-2">01/01/2022</span>
 
                 <div className="absolute w-full right-6">
-                    <HiOutlinePencilAlt className="w-5 h-5 float-right"/>
+                    <HiOutlinePencilAlt className="w-5 h-5 float-right" />
                 </div>
             </div>
 
@@ -107,7 +139,7 @@ function Person_Info() {
                 <span className="text-sm text-black/70 w-full ml-11 mt-2">273 An Dương Vương, Quận 5, TP Hồ Chí Minh</span>
 
                 <div className="absolute w-full right-6">
-                    <HiOutlinePencilAlt className="w-5 h-5 float-right"/>
+                    <HiOutlinePencilAlt className="w-5 h-5 float-right" />
                 </div>
             </div>
 
@@ -118,7 +150,7 @@ function Person_Info() {
                 </div>
 
                 <div className="absolute w-full right-6">
-                    <HiOutlinePencilAlt className="w-5 h-5 float-right"/>
+                    <HiOutlinePencilAlt className="w-5 h-5 float-right" />
                 </div>
             </div>
         </div>
