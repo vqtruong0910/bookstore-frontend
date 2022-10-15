@@ -22,7 +22,7 @@ function Register() {
             HoTen: "",
             Email: "",
             MatKhau: "",
-            date: date,
+            NgaySinh: date,
             GioiTinh: "1" // nam là 1 nữ là 0
         }
     });
@@ -32,11 +32,15 @@ function Register() {
             setLoading(true);
             const result = await axios.post(API.REGISTER, data);
             const authUser = await result.data;
-            navigate(PATH.main);
+            if (!authUser.error) {
+                navigate(PATH.verifyemail);
+            }
         } catch (error) {
             const result = error?.response?.data?.message;
             if (result === "0") {
                 setError("Email", { type: "custom", message: "Email này đã tồn tại" }, { shouldFocus: true });
+            } else {
+                window.alert("Đăng ký thất bại!!!");
             }
         } finally {
             setLoading(false);
@@ -50,14 +54,14 @@ function Register() {
             <hr />
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Textfield marginX="mx-4" marginT="mt-4" placeholder="Họ và tên" control={control} name="HoTen" rules={{ required: "Xin nhập vào đầy đủ họ tên" }} />
-                <Textfield type="email" marginX="mx-4" marginT="mt-4" placeholder="Email" control={control} name="Email" rules={VALIDATE.email} />
+                <Textfield marginX="mx-4" marginT="mt-4" placeholder="Email" control={control} name="Email" rules={VALIDATE.email} />
                 <Textfield type="password" marginX="mx-4" marginT="mt-4" marginB="mb-2" placeholder="Mật khẩu mới" control={control} name="MatKhau" rules={VALIDATE.password} />
 
                 <div className="flex">
                     <div className="basis-1/2 mx-4">
                         <label htmlFor="date" className="pt-2 hover:cursor-pointer block text-xs text-slate-600">Ngày tháng năm sinh</label>
-                        <input type="date" name="date" className="p-3 my-2 text-base border rounded-lg transition-colors focus:outline-none block w-full" {...register('date', VALIDATE.date)} />
-                        {errors["date"] && <span className="px-2 italic text-xs text-red-600">{errors.message}*</span>}
+                        <input type="date" name="date" className="p-3 my-2 text-base border rounded-lg transition-colors focus:outline-none block w-full" {...register('NgaySinh', VALIDATE.date)} />
+                        {errors["NgaySinh"] && <span className="px-2 italic text-xs text-red-600">{errors.message}*</span>}
                     </div>
                     <div className="basis-1/2 mx-4">
                         <label htmlFor="" className="pt-2 hover:cursor-pointer block text-xs text-slate-600">Giới tính</label>
