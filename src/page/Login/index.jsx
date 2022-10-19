@@ -8,14 +8,12 @@ import { VALIDATE } from "../../constants/validate";
 import { MdFacebook } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { API } from "../../constants/api";
-import jwtDecode from "jwt-decode";
 import { useContext } from "react";
 import Context from "../../store/Context";
-import axios from "axios";
 import { useState } from "react";
+import axiosConfig from "../../config/axiosConfig";
 
 function Login() {
-    const navigate = useNavigate();
     const { control, handleSubmit, setError } = useForm({
         mode: 'onBlur',
         defaultValues: {
@@ -25,14 +23,22 @@ function Login() {
     });
     const [loading, setLoading] = useState(false);
     const { setUser } = useContext(Context);
+    const navigate = useNavigate();
+
+    const sendEmailAgain = useCallback(async (Email) => {
+        try {
+            await axiosConfig.post(API.SENDVERIFYEMAIL, { Email });
+            window.alert("Chúng tôi vừa gửi 1 link xác nhận email đến tài khoản email của bạn!")
+        } catch (error) { }
+    }, []);
 
     const onSubmit = useCallback(async (data) => {
         try {
             setLoading(true);
-            const result = await axios.post(API.LOGIN, data);
+            const result = await axiosConfig.post(API.LOGIN, data);
             const authUser = await result.data;
-            localStorage.setItem("auth-user", JSON.stringify(authUser));
-            setUser(authUser);
+            localStorage.setItem("auth-user", JSON.stringify(authUser.data));
+            setUser(authUser.data);
             navigate(PATH.main);
         } catch (error) {
             const result = error?.response?.data?.message;
@@ -40,6 +46,11 @@ function Login() {
                 setError("Email", { type: "custom", message: "Tài khoản không tồn tại" }, { shouldFocus: true });
             } else if (result === "1") {
                 setError("MatKhau", { type: "custom", message: "Mật khẩu sai xin nhập lại" }, { shouldFocus: true });
+            } else if (result === "2") {
+                setError("Email", { type: "custom", message: "Tài khoản của bạn chưa được xác thực email" }, { shouldFocus: true });
+                sendEmailAgain(data.Email);
+            } else if (result === "3") {
+                window.alert("Tài khoản của bạn đã bị khóa/n Vui lòng liên hệ Admin để hiểu rõ thêm.");
             } else {
                 window.alert("Đăng nhập thất bại!!!");
             }
@@ -52,7 +63,7 @@ function Login() {
         const h = 600;
         const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
         const x = window.top.outerWidth / 2 + window.top.screenX - (w / 2);
-        const openWindow = window.open(URL, '_blank', `width=${w}, height=${h}, top=${y}, left=${x}`);
+        const openWindow = window.open(process.env.REACT_APP_API_URI + URL, '_blank', `width=${w}, height=${h}, top=${y}, left=${x}`);
         if (openWindow) {
             const timer = setInterval(() => {
                 if (openWindow.closed) {
@@ -69,16 +80,16 @@ function Login() {
                 }
             }, 500);
         }
-    }, [])
+    }, []);
     const loginGoogle = useCallback(() => {
         openAuth(API.LOGIN_GOOGLE);
     }, []);
     const loginFaceBook = useCallback(() => {
         openAuth(API.LOGIN_FACEBOOK);
-    }, [])
+    }, []);
 
     return (
-        <>
+        <div className="flex flex-col rounded-lg bg-white shadow-xl border">
             <h3 className="text-center p-5 text-lg font-normal">Đăng nhập BOOKSTORE</h3>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
                 <Textfield type="text" marginX="mx-4" placeholder="Email" control={control} name="Email" rules={VALIDATE.email} />
@@ -95,7 +106,7 @@ function Login() {
                 <span> · </span>
                 <Link to={PATH.register} className="text-slate-700 hover:underline">Đăng ký Bookstore</Link>
             </div>
-        </>
+        </div>
     );
 }
 

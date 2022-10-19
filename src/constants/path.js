@@ -5,6 +5,7 @@ export const PATH = {
     forgotpassword: '/forgot_password',
     changepassword: 'change_password',
     verifyemail: '/verify_email',
+    verifyemail_checked: '/verify_email_checked',
     login_google: '/auth/google/*',
     login_facebook: '/auth/facebook/*',
     cart: "/cart",

@@ -31,6 +31,11 @@ function Navbar() {
         setStateMenuChild({ ...stateMenuChild, [location]: !stateMenuChild[location] })
     }, [stateMenuChild])
 
+    const logout = useCallback(() => {
+        localStorage.removeItem("auth-user");
+        setUser(false);
+    })
+
     const [matches, setMatches] = useState(
         window.matchMedia("(min-width: 767px)").matches
     );
@@ -91,11 +96,11 @@ function Navbar() {
                                                 <div className="flex">
                                                     <div className="flex">
                                                         {
-                                                            !user.Anh ?
+                                                            !user?.Anh ?
                                                                 <span className="flex items-center mr-1" ><BsPerson className="lg:w-10 lg:h-10 w-8 h-8" /></span>
                                                                 :
                                                                 <Link className="flex items-center mr-1 lg:w-10 lg:h-10 w-8 h-8" to={PATH.profile}>
-                                                                    <img className='rounded-full' src={user.Anh} alt="user" />
+                                                                    <img className='rounded-full' src={user?.Anh} alt="user" />
                                                                 </Link>
                                                         }
                                                     </div>
@@ -125,7 +130,7 @@ function Navbar() {
                                                                     </div>
 
                                                                     <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
-                                                                        <span className="flex whitespace-nowrap">{user.HoTen}</span>
+                                                                        <span className="flex whitespace-nowrap">{user.Email}</span>
 
                                                                         <div className="flex" onClick={() => { showMenuChild(4) }} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5" />}</div>
 
@@ -134,7 +139,7 @@ function Navbar() {
                                                                                 <ul>
                                                                                     <li className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
                                                                                     <li className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
-                                                                                    <li className="p-2 hover:bg-gray-300">Đăng xuất</li>
+                                                                                    <li className="p-2 hover:bg-gray-300" onClick={logout}>Đăng xuất</li>
                                                                                 </ul>
 
                                                                             </div>

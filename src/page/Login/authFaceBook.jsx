@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Loading from "../../components/Loading";
+import axiosConfig from "../../config/axiosConfig";
 import { API } from "../../constants/api";
 
 function AccuracyFaceBook() {
@@ -11,7 +11,7 @@ function AccuracyFaceBook() {
         searchParams.forEach((value, key) => {
             paramURL[key] = value;
         })
-        axios.get(API.AUTH_CALLBACK_FACEBOOK, { params: paramURL })
+        axiosConfig.get(API.AUTH_CALLBACK_FACEBOOK, { params: paramURL })
             .then((res) => {
                 localStorage.setItem('auth-user', res.data);
                 window.close();
