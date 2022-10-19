@@ -18,6 +18,7 @@ const Register = lazy(() => import('../page/Register'));
 const ForgotPassword = lazy(() => import('../page/Forgotpassword'));
 const ChangePassword = lazy(() => import('../page/ChangePassword'))
 const VerifyEmail = lazy(() => import('../page/VerifyEmail'));
+const CheckVerifyEmail = lazy(() => import('../page/VerifyEmail/check'));
 const AccuracyGoogle = lazy(() => import('../page/Login/authGoogle'));
 const AccuracyFaceBook = lazy(() => import('../page/Login/authFaceBook'));
 
@@ -47,6 +48,7 @@ function MainRoutes() {
             <Route path={PATH.forgotpassword} element={DefaultLayoutAuth(ForgotPassword)}></Route>
             <Route path={PATH.changepassword} element={DefaultLayoutAuth(ChangePassword)}></Route>
             <Route path={PATH.verifyemail} element={DefaultLayoutAuth(VerifyEmail)}></Route>
+            <Route path={PATH.verifyemail_checked} element={DefaultLayoutAuth(CheckVerifyEmail)}></Route>
             <Route path={PATH.login_google} element={<Suspense fallback={<Loading center={true} />}><AccuracyGoogle /></Suspense>} />
             <Route path={PATH.login_facebook} element={<Suspense fallback={<Loading center={true} />}><AccuracyFaceBook /></Suspense>} />
 

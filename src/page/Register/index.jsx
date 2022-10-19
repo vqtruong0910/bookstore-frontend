@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useMemo, useState } from "react";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Textfield from "../../components/Textfield";
+import axiosConfig from "../../config/axiosConfig";
 import { API } from "../../constants/api";
 import { PATH } from "../../constants/path";
 import { VALIDATE } from "../../constants/validate";
@@ -28,16 +28,18 @@ function Register() {
     });
 
     const onSubmit = useCallback(async (data) => {
+        console.log(data);
         try {
             setLoading(true);
-            const result = await axios.post(API.REGISTER, data);
+            const result = await axiosConfig.post(API.REGISTER, data);
             const authUser = await result.data;
             if (!authUser.error) {
-                navigate(PATH.verifyemail);
+                axiosConfig.post(API.SENDVERIFYEMAIL, { Email: data.Email }); // gửi xong chuyển liền không đợi hoàn thành chuyển mail rồi mới chuyển trang
+                navigate(PATH.verifyemail, { state: { Email: data.Email } });
             }
         } catch (error) {
             const result = error?.response?.data?.message;
-            if (result === "0") {
+            if (result === "0" || result === "Email already use") {
                 setError("Email", { type: "custom", message: "Email này đã tồn tại" }, { shouldFocus: true });
             } else {
                 window.alert("Đăng ký thất bại!!!");
@@ -48,7 +50,7 @@ function Register() {
     }, []);
 
     return (
-        <>
+        <div className="flex flex-col rounded-lg bg-white shadow-xl border">
             <h2 className="text-center pt-2 text-2xl font-bold">Tạo tài khoản mới</h2>
             <h3 className="text-center pb-2 text-base font-normal text-slate-600">Nhanh chóng và dễ dàng.</h3>
             <hr />
@@ -61,7 +63,7 @@ function Register() {
                     <div className="basis-1/2 mx-4">
                         <label htmlFor="date" className="pt-2 hover:cursor-pointer block text-xs text-slate-600">Ngày tháng năm sinh</label>
                         <input type="date" name="date" className="p-3 my-2 text-base border rounded-lg transition-colors focus:outline-none block w-full" {...register('NgaySinh', VALIDATE.date)} />
-                        {errors["NgaySinh"] && <span className="px-2 italic text-xs text-red-600">{errors.message}*</span>}
+                        {errors['NgaySinh'] && <span className="px-2 italic text-xs text-red-600">{errors['NgaySinh'].message}*</span>}
                     </div>
                     <div className="basis-1/2 mx-4">
                         <label htmlFor="" className="pt-2 hover:cursor-pointer block text-xs text-slate-600">Giới tính</label>
@@ -69,7 +71,7 @@ function Register() {
                             <option value="1">Nam</option>
                             <option value="0">Nữ</option>
                         </select>
-                        {errors["GioiTinh"] && <span className="px-2 italic text-sm text-red-500">{errors.message}*</span>}
+                        {errors["GioiTinh"] && <span className="px-2 italic text-sm text-red-500">{errors["GioiTinh"].message}*</span>}
                     </div>
                 </div>
 
@@ -78,7 +80,7 @@ function Register() {
                     <Link to={PATH.login} className="text-slate-700 hover:underline">Bạn đã có tài khoản ư?</Link>
                 </div>
             </form>
-        </>
+        </div>
     );
 }
 
