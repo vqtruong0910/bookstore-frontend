@@ -15,6 +15,16 @@ export const VALIDATE = {
             message: 'Tối thiểu tám ký tự, ít nhất một chữ hoa, một chữ thường và một số'
         }
     },
+    // name -> thuộc tính cần confirm
+    // watch -> hàm xem thuộc tính của reac hook form truyền vào
+    confirmPassword: (name, watch) => {
+        return {
+            required: "Xin nhập lại mật khẩu",
+            validate: value => {
+                if (value !== watch(name)) return "Mật khẩu không trùng khớp";
+            }
+        }
+    },
     date: {
         required: "Ngày sinh của bạn ?",
         pattern: {
