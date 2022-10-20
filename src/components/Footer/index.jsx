@@ -44,7 +44,7 @@ function Footer() {
         <footer className="text-white shadow inline-block md:items-center md:justify-between bg-gray-800 w-full">
             <div className="flex w-full px-4 pt-4">
                 <div className="items-center text-base text-gray-500 dark:text-gray-400 mr-3">© 2022
-                    <a href="" className="hover:underline ml-2">Book Store™ </a>
+                    <span className="hover:underline ml-2">Book Store™ </span>
                 </div>
             </div>
             <p className="w-full text-sm mt-2 leading-6 px-4">
@@ -66,7 +66,7 @@ function Footer() {
                     <li className="w-full mt-10 ">
                         <div className="flex w-full cursor-pointer">
                             <ImNewspaper className="w-6 h-6 my-0.5 mr-1" />
-                            <a href="#" className="mr-4 hover:underline md:mr-6 text-lg font-semibold">DỊCH VỤ</a>
+                            <span className="mr-4 hover:underline md:mr-6 text-lg font-semibold">DỊCH VỤ</span>
                         </div>
                         <ul className="flex flex-col my-2 text-sm">
                             {serviceData.map((item,index) => {
@@ -81,7 +81,7 @@ function Footer() {
                     <li className="w-full mt-10">
                         <div className="flex w-full cursor-pointer">
                             <FiHelpCircle className="w-6 h-6 my-0.5 mr-1" />
-                            <a href="#" className="mr-4 hover:underline md:mr-6 text-lg font-semibold">HỖ TRỢ</a>
+                            <span className="mr-4 hover:underline md:mr-6 text-lg font-semibold">HỖ TRỢ</span>
                         </div>
             
                         <ul className="flex flex-col my-2 text-sm">
@@ -97,7 +97,7 @@ function Footer() {
                     <li className="w-full mt-10 ">
                         <div className="flex w-full cursor-pointer">
                             <BsPersonCircle className="w-6 h-6 my-0.5 mr-1" />
-                            <a href="#" className="mr-4 hover:underline md:mr-6 text-lg font-semibold">TÀI KHOẢN CỦA TÔI</a>
+                            <span className="mr-4 hover:underline md:mr-6 text-lg font-semibold">TÀI KHOẢN CỦA TÔI</span>
                         </div>
                         <ul className="flex flex-col my-2 text-sm">
                             {accountData.map((item,index) => {
@@ -113,7 +113,7 @@ function Footer() {
                     <li className="w-full mt-10">
                         <div className="flex w-full cursor-pointer">
                             <IoMdContacts className="w-6 h-6 my-0.5 mr-1" />
-                            <a href="#" className="mr-4 hover:underline md:mr-6 text-lg font-semibold">LIÊN HỆ</a>
+                            <span className="mr-4 hover:underline md:mr-6 text-lg font-semibold">LIÊN HỆ</span>
                         </div>
                         <ul className="flex flex-col my-2 text-sm">
                             {contactData.map((item,index) => {

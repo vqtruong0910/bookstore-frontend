@@ -8,8 +8,12 @@ const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
 const Main = lazy(() => import('../page/Main'));
 const DetailProduct = lazy(() => import('../page/DetailProduct'));
 const NotFound = lazy(() => import('../page/NotFound'));
-const Profile = lazy(() => import('../page/Profile'));
-const Person_Info = lazy(() => import('../page/Person_Info'));
+const Profile = lazy(() => import('../page/Profile/Dashboard'));
+const PersonInfo = lazy(() => import('../page/Profile/PersonInfo'));
+const UserOrderManagement = lazy(() => import('../page/Profile/UserOrderManagement'));
+const UserReview = lazy(() => import('../page/Profile/UserReview'));
+const UserPaymentInformation = lazy(() => import('../page/Profile/UserPaymentInformation'))
+const UserChangePassword = lazy(() => import('../page/Profile/UserChangePassword'));
 
 // Phần Auth
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
@@ -38,8 +42,12 @@ function MainRoutes() {
                 <Route path={PATH.detail_book} element={<DetailProduct />} ></Route>
                 <Route path={PATH.cart} element></Route>
                 <Route path={PATH.notfound} element={<NotFound />}></Route>
-                <Route path={PATH.profile} element={<Profile />} ></Route>
-                <Route path={PATH.person_info} element={<Person_Info />}></Route>
+                <Route path={PATH.profile.dashboard} element={<Profile />} ></Route>
+                <Route path={PATH.profile.person_info} element={<PersonInfo />} ></Route>
+                <Route path={PATH.profile.user_order_management} element={<UserOrderManagement />}></Route>
+                <Route path={PATH.profile.user_review} element={<UserReview />}></Route>
+                <Route path={PATH.profile.user_payment_information} element={<UserPaymentInformation />}></Route>
+                <Route path={PATH.profile.user_change_password} element={<UserChangePassword />}></Route>
             </Route>
 
             <Route path={PATH.login} element={DefaultLayoutAuth(Login)}></Route>

@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import { PATH } from "../../constants/path";
-
 import logo from '../../assets/images/logo.png';
 import { BsSearch, BsPerson } from "react-icons/bs";
 import { BiUserCircle } from "react-icons/bi";
@@ -16,6 +15,7 @@ import Context from '../../store/Context';
 
 
 function Navbar() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState(false)
     const [state, setState] = useState(false);
@@ -94,7 +94,7 @@ function Navbar() {
                                                             !user.Anh ?
                                                                 <span className="flex items-center mr-1" ><BsPerson className="lg:w-10 lg:h-10 w-8 h-8" /></span>
                                                                 :
-                                                                <Link className="flex items-center mr-1 lg:w-10 lg:h-10 w-8 h-8" to={PATH.profile}>
+                                                                <Link to={PATH.profile} className="flex items-center mr-1 lg:w-10 lg:h-10 w-8 h-8" >
                                                                     <img className='rounded-full' src={user.Anh} alt="user" />
                                                                 </Link>
                                                         }
@@ -180,7 +180,7 @@ function Navbar() {
                                 <div className="flex w-2/12 justify-center items-center">
                                     <div onClick={() => setState(true)} className={clsx(!state && 'block', state && 'hidden')}><BiUserCircle className="w-8 h-8 text-white/75" /></div>
                                     <div className={clsx(state && 'flex items-center', !state && 'hidden')}>
-                                        <Link to={PATH.profile}><BsPerson className="w-7 h-7 text-white" /></Link>
+                                        <Link to={PATH.profile.dashboard}><BsPerson className="w-7 h-7 text-white" /></Link>
                                     </div>
                                     <Link to={PATH.cart}><AiOutlineShoppingCart className={clsx(state && 'w-7 h-7 ml-0.5 text-white/75', !state && 'w-8 h-8 text-white/75')} /></Link>
                                 </div>
@@ -292,7 +292,7 @@ function Navbar() {
                     <ul className="flex flex-row w-full">
                         {NavbarData.map((menu, index) => {
                             return (
-                                <Link to={menu.link} key={index} className="flex justify-center text-center text-sm lg:text-base group transition-colors border-r relative w-full py-1 font-semibold text-slate-700 hover:bg-gray-200 cursor-pointer">{menu.name}
+                                <div onClick={() => navigate(menu.link) } key={index} className="flex justify-center text-center text-sm lg:text-base group transition-colors border-r relative w-full py-1 font-semibold text-slate-700 hover:bg-gray-200 cursor-pointer">{menu.name}
 
                                     {(menu.id === 2) ?
                                         <>
@@ -300,6 +300,7 @@ function Navbar() {
                                                 <ul className="flex flex-col w-full">
                                                     {menu.submenuItems.map((submenuItem, index) => {
                                                         return (
+            
                                                             <Link to={submenuItem.link} key={index} className="flex border-b justify-center hover:text-black hover:font-medium py-2.5 text-gray-400  hover:cursor-pointer w-full whitespace-nowrap">{submenuItem.name}</Link>
                                                         )
 
@@ -344,7 +345,7 @@ function Navbar() {
                                         :
                                         <></>
                                     }
-                                </Link>
+                                </div>
                             )
 
                         })}

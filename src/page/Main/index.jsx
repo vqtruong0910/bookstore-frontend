@@ -113,7 +113,7 @@ function Main() {
 
                     </Slider>
                     <div className="w-full flex justify-center mt-14">
-                        <Link to="#" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
+                        <Link to="" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
                     </div>
                 
                 </div> 
@@ -164,7 +164,7 @@ function Main() {
 
                     </Slider>
                     <div className="w-full flex justify-center mt-14">
-                        <Link to="#" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
+                        <Link to="" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
                     </div>
                 
                 </div> 
@@ -214,7 +214,7 @@ function Main() {
 
                     </Slider>
                     <div className="w-full flex justify-center mt-14">
-                        <Link to="#" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
+                        <Link to="" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
                     </div>
                 
                 </div> 
