@@ -8,12 +8,13 @@ const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
 const Main = lazy(() => import('../page/Main'));
 const DetailProduct = lazy(() => import('../page/DetailProduct'));
 const NotFound = lazy(() => import('../page/NotFound'));
-const Profile = lazy(() => import('../page/Profile/Dashboard'));
+const ProfileLayout = lazy(() => import('../layout/ProfileLayout'));
 const PersonInfo = lazy(() => import('../page/Profile/PersonInfo'));
 const UserOrderManagement = lazy(() => import('../page/Profile/UserOrderManagement'));
 const UserReview = lazy(() => import('../page/Profile/UserReview'));
 const UserPaymentInformation = lazy(() => import('../page/Profile/UserPaymentInformation'))
 const UserChangePassword = lazy(() => import('../page/Profile/UserChangePassword'));
+const UserOrderDetail = lazy(() => import('../page/Profile/UserOrderDetail'));
 
 // Phần Auth
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
@@ -22,6 +23,7 @@ const Register = lazy(() => import('../page/Register'));
 const ForgotPassword = lazy(() => import('../page/Forgotpassword'));
 const ChangePassword = lazy(() => import('../page/ChangePassword'))
 const VerifyEmail = lazy(() => import('../page/VerifyEmail'));
+const CheckVerifyEmail = lazy(() => import('../page/VerifyEmail/check'));
 const AccuracyGoogle = lazy(() => import('../page/Login/authGoogle'));
 const AccuracyFaceBook = lazy(() => import('../page/Login/authFaceBook'));
 
@@ -42,12 +44,14 @@ function MainRoutes() {
                 <Route path={PATH.detail_book} element={<DetailProduct />} ></Route>
                 <Route path={PATH.cart} element></Route>
                 <Route path={PATH.notfound} element={<NotFound />}></Route>
-                <Route path={PATH.profile.dashboard} element={<Profile />} ></Route>
-                <Route path={PATH.profile.person_info} element={<PersonInfo />} ></Route>
-                <Route path={PATH.profile.user_order_management} element={<UserOrderManagement />}></Route>
-                <Route path={PATH.profile.user_review} element={<UserReview />}></Route>
-                <Route path={PATH.profile.user_payment_information} element={<UserPaymentInformation />}></Route>
-                <Route path={PATH.profile.user_change_password} element={<UserChangePassword />}></Route>
+                <Route path={PATH.profile.dashboard} element={<ProfileLayout />} >
+                    <Route index element={<PersonInfo />} ></Route>
+                    <Route path={PATH.profile.user_order_management} element={<UserOrderManagement />}></Route>
+                    <Route path={PATH.profile.user_review} element={<UserReview />}></Route>
+                    <Route path={PATH.profile.user_payment_information} element={<UserPaymentInformation />}></Route>
+                    <Route path={PATH.profile.user_change_password} element={<UserChangePassword />}></Route>
+                    <Route path={PATH.profile.user_order_detail} element={<UserOrderDetail />}></Route>
+                </Route>
             </Route>
 
             <Route path={PATH.login} element={DefaultLayoutAuth(Login)}></Route>
@@ -55,6 +59,7 @@ function MainRoutes() {
             <Route path={PATH.forgotpassword} element={DefaultLayoutAuth(ForgotPassword)}></Route>
             <Route path={PATH.changepassword} element={DefaultLayoutAuth(ChangePassword)}></Route>
             <Route path={PATH.verifyemail} element={DefaultLayoutAuth(VerifyEmail)}></Route>
+            <Route path={PATH.verifyemail_checked} element={DefaultLayoutAuth(CheckVerifyEmail)}></Route>
             <Route path={PATH.login_google} element={<Suspense fallback={<Loading center={true} />}><AccuracyGoogle /></Suspense>} />
             <Route path={PATH.login_facebook} element={<Suspense fallback={<Loading center={true} />}><AccuracyFaceBook /></Suspense>} />
 

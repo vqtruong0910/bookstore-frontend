@@ -25,7 +25,7 @@ function MenuAdmin({ stateMenu }) {
     }, [stateMenuChild])
 
     return (
-        <div className={clsx(stateMenu && "visible translate-x-0", !stateMenu && "invisible -translate-x-64", "flex flex-col w-64 h-full bg-slate-800 fixed z-30 lg:translate-x-0 lg:visible transition-all overflow-y-scroll lg:overflow-y-auto overscroll-none")}>
+        <div className={clsx(stateMenu && "visible translate-x-0", !stateMenu && "invisible -translate-x-64", "flex flex-col w-64 h-full bg-slate-800 fixed z-30 lg:translate-x-0 lg:visible transition-all overscroll-none")}>
             <Link to={PATH.main} className="text-center font-lobster text-slate-200 font-bold text-4xl p-3 select-none">Book Store</Link>
             <ul className="mt-4 px-4">
                 <li className='p-2'>

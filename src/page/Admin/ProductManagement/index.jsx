@@ -1,8 +1,14 @@
+import { useEffect } from 'react';
 import { BsCardImage } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { PATH } from '../../../constants/path';
 
 function ProductManage() {
+
+    useEffect(() => {
+
+    }, []);
+
     return (
         <>
             <div className="flex space-x-2">
