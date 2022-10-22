@@ -1,11 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import { PATH } from "../../constants/path";
-
 import logo from '../../assets/images/logo.png';
 import { BsSearch, BsPerson } from "react-icons/bs";
-import { BiUserCircle } from "react-icons/bi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -16,6 +14,7 @@ import Context from '../../store/Context';
 
 
 function Navbar() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState(false)
     const [state, setState] = useState(false);
@@ -25,6 +24,7 @@ function Navbar() {
         2: false,   // Nha xuat ban
         3: false,   // Tac gia
         4: false,   // Tai khoan
+        5: false,
     });
 
     const showMenuChild = useCallback((location) => {
@@ -137,8 +137,10 @@ function Navbar() {
                                                                         {stateMenuChild[4] &&
                                                                             <div className="flex lg:top-16 right-4 md:top-14 bg-white border absolute z-20">
                                                                                 <ul>
-                                                                                    <li className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
-                                                                                    <li className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
+                                                                                    <li onClick={() => {navigate(PATH.profile.dashboard)}} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
+                                                                                    <li onClick={() => {navigate(PATH.profile.user_order_management)}} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
+                                                                                    <li onClick={() => {navigate(PATH.profile.user_review)}} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
+                                                                                    <li onClick={() => {navigate(PATH.profile.user_payment_information)}} className="p-2 hover:bg-gray-300">Thông tin thanh toán</li>
                                                                                     <li className="p-2 hover:bg-gray-300" onClick={logout}>Đăng xuất</li>
                                                                                 </ul>
 
@@ -183,12 +185,30 @@ function Navbar() {
                                 </div>
 
                                 <div className="flex w-2/12 justify-center items-center">
-                                    <div onClick={() => setState(true)} className={clsx(!state && 'block', state && 'hidden')}><BiUserCircle className="w-8 h-8 text-white/75" /></div>
-                                    <div className={clsx(state && 'flex items-center', !state && 'hidden')}>
-                                        <Link to={PATH.profile}><BsPerson className="w-7 h-7 text-white" /></Link>
+                                    {/* <div onClick={() => setState(true)} className={clsx(!state && 'block', state && 'hidden')}><BiUserCircle className="w-8 h-8 text-white/75" /></div> */}
+
+                                    <div onClick={() => showMenuChild(5)} to={PATH.profile.dashboard} className="flex items-center cursor-pointer">
+                                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/avatar.png" className="w-6 h-6" alt="Avatar" />
                                     </div>
-                                    <Link to={PATH.cart}><AiOutlineShoppingCart className={clsx(state && 'w-7 h-7 ml-0.5 text-white/75', !state && 'w-8 h-8 text-white/75')} /></Link>
+
+                                    <Link to={PATH.cart}><AiOutlineShoppingCart className={clsx(state && 'w-7 h-7 ml-0.5 text-white/75 cursor-pointer', !state && 'w-8 h-8 text-white/75')} /></Link>
                                 </div>
+
+                                {stateMenuChild[5] &&
+                                    <div className="absolute z-10 right-10 mt-56">
+                                        <div className="flex right-3 bg-white rounded-sm border border-slate-300 cursor-pointer">
+                                            <ul className="whitespace-nowrap text-sm">
+                                                <li onClick={() => navigate(PATH.profile.dashboard)} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
+                                                <li onClick={() => navigate(PATH.profile.user_order_management)} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
+                                                <li onClick={() => navigate(PATH.profile.user_review)} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
+                                                <li onClick={() => navigate(PATH.profile.user_payment_information)} className="p-2 hover:bg-gray-300">Thông tin thanh toán</li>
+                                                <li className="p-2 hover:bg-gray-300" onClick={logout}>Đăng xuất</li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                }
+
                             </div>
                         </>
 
@@ -297,7 +317,7 @@ function Navbar() {
                     <ul className="flex flex-row w-full">
                         {NavbarData.map((menu, index) => {
                             return (
-                                <Link to={menu.link} key={index} className="flex justify-center text-center text-sm lg:text-base group transition-colors border-r relative w-full py-1 font-semibold text-slate-700 hover:bg-gray-200 cursor-pointer">{menu.name}
+                                <div onClick={() => navigate(menu.link)} key={index} className="flex justify-center text-center text-sm lg:text-base group transition-colors border-r relative w-full py-1 font-semibold text-slate-700 hover:bg-gray-200 cursor-pointer">{menu.name}
 
                                     {(menu.id === 2) ?
                                         <>
@@ -305,6 +325,7 @@ function Navbar() {
                                                 <ul className="flex flex-col w-full">
                                                     {menu.submenuItems.map((submenuItem, index) => {
                                                         return (
+
                                                             <Link to={submenuItem.link} key={index} className="flex border-b justify-center hover:text-black hover:font-medium py-2.5 text-gray-400  hover:cursor-pointer w-full whitespace-nowrap">{submenuItem.name}</Link>
                                                         )
 
@@ -349,7 +370,7 @@ function Navbar() {
                                         :
                                         <></>
                                     }
-                                </Link>
+                                </div>
                             )
 
                         })}
