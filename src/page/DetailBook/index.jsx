@@ -146,14 +146,14 @@ function DetailBook() {
                             <div className="flex flex-wrap items-center lg:w-1/2 lg:justify-center">
                                 <span className="text-gray-500 text-base font-semibold mx-3">Số lượng</span>
                                 <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
-                                    <div className="w-full border-r-2 flex justify-center">
+                                    <div className="w-full border-r-2 flex justify-center cursor-pointer">
                                         <IoMdRemove className="w-5 h-7 text-gray-300" />
                                     </div>
                                     <div className="w-full flex justify-center">
                                         <span className="text-gray-800 font-semibold">1</span>
                                     </div>
 
-                                    <div className="w-full border-l-2 flex justify-center">
+                                    <div className="w-full border-l-2 flex justify-center cursor-pointer">
                                         <IoAddSharp className="w-5 h-7 text-gray-500" />
                                     </div>
 
