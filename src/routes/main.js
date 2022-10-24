@@ -6,7 +6,7 @@ import Loading from '../components/Loading';
 // Phần Main
 const DefaultLayout = lazy(() => import('../layout/DefaultLayout'));
 const Main = lazy(() => import('../page/Main'));
-const DetailProduct = lazy(() => import('../page/DetailProduct'));
+const DetailBook = lazy(() => import('../layout/DetailBookLayout'));
 const NotFound = lazy(() => import('../page/NotFound'));
 const ProfileLayout = lazy(() => import('../layout/ProfileLayout'));
 const PersonInfo = lazy(() => import('../page/Profile/PersonInfo'));
@@ -41,7 +41,7 @@ function MainRoutes() {
         <Routes>
             <Route element={<Suspense fallback={<Loading center={true} />}><DefaultLayout /></Suspense>}>
                 <Route path={PATH.main} element={<Main />}></Route>
-                <Route path={PATH.detail_book} element={<DetailProduct />} ></Route>
+                <Route path={PATH.detail_book} element={<DetailBook />} ></Route>
                 <Route path={PATH.cart} element></Route>
                 <Route path={PATH.notfound} element={<NotFound />}></Route>
                 <Route path={PATH.profile.dashboard} element={<ProfileLayout />} >

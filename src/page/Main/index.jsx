@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import style from "./Main.module.scss";
 import Carousel from "../../components/Carousel";
@@ -12,7 +12,7 @@ import { BsFlower1, BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from
 import { FiShoppingBag } from "react-icons/fi";
 
 function Main() {
-
+    const navigate = useNavigate();
     function NextArrow({ onClick }) {
         return (
             <BsFillArrowRightCircleFill className="absolute right-0 top-1/3 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 z-10 text-slate-600" onClick={onClick} />
@@ -86,7 +86,7 @@ function Main() {
                                         <span className="text-sm text-slate-700">{item.sale}%</span>
                                     </div>
 
-                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
+                                    <div onClick={() => navigate(PATH.detail_book)} className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
                                         <img className="w-11/12" src={item.image} alt="New Book" />
                                     </div>
 
@@ -137,7 +137,7 @@ function Main() {
                                         <span className="text-sm text-slate-700">{item.sale}%</span>
                                     </div>
 
-                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
+                                    <div onClick={() => navigate(PATH.detail_book)} className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
                                         <img className="w-11/12" src={item.image} alt="New Book" />
                                     </div>
 
@@ -187,7 +187,7 @@ function Main() {
                                         <span className="text-sm text-slate-700">{item.sale}%</span>
                                     </div>
 
-                                    <div className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
+                                    <div onClick={() => navigate(PATH.detail_book)} className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
                                         <img className="w-11/12" src={item.image} alt="New Book" />
                                     </div>
 

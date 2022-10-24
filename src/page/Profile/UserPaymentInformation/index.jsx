@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Notify from "../../../components/Notify";
-import { BsCheckCircle } from "react-icons/bs";
+import { BsPersonCheck } from "react-icons/bs";
 function UserPaymentInformation() {
     const [change, setChange] = useState(false);
     const MessageContainer = (props) => {
@@ -112,7 +112,7 @@ function UserPaymentInformation() {
                 </div>
 
                 {change ?
-                    <Notify message="Chúc mừng bạn cập nhật thành công" icon={<BsCheckCircle className="w-10 h-10 md:w-14 md:h-14 text-green-500" />} textMessage="text-green-500"/>
+                    <Notify message="Chúc mừng bạn cập nhật thành công" icon={<BsPersonCheck className="w-5 h-5 text-blue-600" />} textMessage="text-blue-600"/>
                     :
                     <></>
                 }

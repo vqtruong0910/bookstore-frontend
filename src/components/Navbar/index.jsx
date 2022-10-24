@@ -313,11 +313,11 @@ function Navbar() {
                     </ul>
                 </div>
                 :
-                <div className="flex flex-row bg-white w-full h-auto pb-2">
+                <div className="flex flex-row bg-white w-full h-auto">
                     <ul className="flex flex-row w-full">
                         {NavbarData.map((menu, index) => {
                             return (
-                                <div onClick={() => navigate(menu.link)} key={index} className="flex justify-center text-center text-sm lg:text-base group transition-colors border-r relative w-full py-1 font-semibold text-slate-700 hover:bg-gray-200 cursor-pointer">{menu.name}
+                                <div onClick={() => navigate(menu.link)} key={index} className="flex justify-center text-center text-sm lg:text-base group transition-colors relative w-full py-1 font-semibold text-slate-700 hover:bg-gray-200 cursor-pointer">{menu.name}
 
                                     {(menu.id === 2) ?
                                         <>

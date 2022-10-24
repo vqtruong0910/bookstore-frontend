@@ -18,7 +18,7 @@ function UserReview() {
                 <span className="w-full text-lg font-normal mb-5 lg:text-xl">Đánh giá sản phẩm</span>
             </div>
 
-            <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white cursor-pointer">
+            <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white">
                 <div className="w-full flex flex-wrap md:flex-nowrap md:cursor-pointer md:px-0 md:py-0">
                     <div onClick={() => handleDiv(1)} className={showDiv === 1 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
@@ -110,11 +110,16 @@ function UserReview() {
                         <div className="w-full border-t-2 px-4">
                             <div className="w-full py-2">
                                 <div className="w-full flex-wrap flex">
-                                    <div className="w-full flex items-center">
-                                        <BsStarFill className="w-4 h-4 text-blue-400" />
-                                        <span className="font-medium mx-1 text-blue-400">Đánh giá của bạn</span>
+                                    <div className="w-full flex items-center justify-between">
+                                        <div className="flex items-center">
+                                            <BsStarFill className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
+                                            <span className="font-medium mx-1 text-blue-400 md:text-lg">Đánh giá của bạn</span>
+                                        </div>
+                                        <div>
+                                            <span className="text-xs md:text-sm font-semibold text-gray-500">11:30 27/12/2022</span>
+                                        </div>
                                     </div>
-                                    <span className="font-normal w-full">Nội dung rất hay, sâu sắc, chạm đến trái tim người đọc.</span>
+                                    <span className="font-normal w-full md:text-lg">Nội dung rất hay, sâu sắc, chạm đến trái tim người đọc.</span>
                                 </div>
                             </div>
                         </div>

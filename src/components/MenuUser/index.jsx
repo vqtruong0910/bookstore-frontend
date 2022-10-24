@@ -24,7 +24,7 @@ function MenuUser({ children }) {
             </div>
 
             <h1 className="text-gray-800 font-semibold text-xl mt-3 text-center w-full">Họ và tên</h1>
-            <h1 className="text-gray-500 text-sm w-full text-center mt-2">Địa chỉ</h1>
+            <h1 className="text-gray-500 text-sm w-full text-center mt-2">Khách hàng</h1>
 
             <div className="mt-5 w-full flex flex-wrap">
                 <div onClick={() => navigate(PATH.profile.dashboard)} className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${location.pathname === PATH.profile.dashboard && activeLink} `}>
