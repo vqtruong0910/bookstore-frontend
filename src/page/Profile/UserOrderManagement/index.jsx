@@ -46,7 +46,7 @@ function UserOrderManagement() {
                 </div>
             </form>
 
-            <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white">
+            <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white shadow-md">
                 <div className="w-full flex flex-wrap md:flex-nowrap md:cursor-pointer md:px-0 md:py-0">
                     <div onClick={() => handleDiv(1)} className={showDiv === 1 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
@@ -100,7 +100,7 @@ function UserOrderManagement() {
                 <div className="w-full px-4 md:px-0">
                     {UserAllOrderData.map((item, index) => {
                         return (
-                            <div key={index} className="bg-white w-full my-4">
+                            <div key={index} className="bg-white w-full my-4 shadow-md ">
                                 <div className="flex py-3 items-center">
                                     {item.icon}
                                     <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>
@@ -147,7 +147,7 @@ function UserOrderManagement() {
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 1)
                             return (
-                                <div key={index} className="bg-white w-full my-4">
+                                <div key={index} className="bg-white w-full my-4 shadow-md">
                                     <div className="flex py-3 items-center">
                                         {item.icon}
                                         <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>
@@ -193,7 +193,7 @@ function UserOrderManagement() {
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 2)
                             return (
-                                <div key={index} className="bg-white w-full my-4">
+                                <div key={index} className="bg-white w-full my-4 shadow-md">
                                     <div className="flex py-3 items-center">
                                         {item.icon}
                                         <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>
@@ -239,7 +239,7 @@ function UserOrderManagement() {
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 3)
                             return (
-                                <div key={index} className="bg-white w-full my-4">
+                                <div key={index} className="bg-white w-full my-4 shadow-md">
                                     <div className="flex py-3 items-center">
                                         {item.icon}
                                         <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>
@@ -285,7 +285,7 @@ function UserOrderManagement() {
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 4)
                             return (
-                                <div key={index} className="bg-white w-full my-4">
+                                <div key={index} className="bg-white w-full my-4 shadow-md">
                                     <div className="flex py-3 items-center">
                                         {item.icon}
                                         <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>

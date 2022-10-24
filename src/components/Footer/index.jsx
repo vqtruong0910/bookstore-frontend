@@ -74,12 +74,12 @@ function Footer() {
                     <li className="w-full mt-10 ">
                         <div className="flex w-full cursor-pointer">
                             <ImNewspaper className="w-6 h-6 my-0.5 mr-1" />
-                            <span className="mr-4 hover:underline md:mr-6 text-lg font-semibold">DỊCH VỤ</span>
+                            <span className="mr-4 md:mr-6 text-lg font-semibold">DỊCH VỤ</span>
                         </div>
                         <ul className="flex flex-col my-2 text-sm">
                             {serviceData.map((item, index) => {
                                 return (
-                                    <li key={index} className="my-2 cursor-pointer transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7">{item.name}</li>
+                                    <li key={index} className="my-2 cursor-pointer hover:underline transition md:h-7">{item.name}</li>
                                 )
                             })}
                         </ul>
@@ -89,13 +89,13 @@ function Footer() {
                     <li className="w-full mt-10">
                         <div className="flex w-full cursor-pointer">
                             <FiHelpCircle className="w-6 h-6 my-0.5 mr-1" />
-                            <span className="mr-4 hover:underline md:mr-6 text-lg font-semibold">HỖ TRỢ</span>
+                            <span className="mr-4 md:mr-6 text-lg font-semibold">HỖ TRỢ</span>
                         </div>
 
                         <ul className="flex flex-col my-2 text-sm">
                             {helpData.map((item, index) => {
                                 return (
-                                    <li key={index} className="my-2 cursor-pointer transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7">{item.name}</li>
+                                    <li key={index} className="my-2 cursor-pointer hover:underline transition md:h-7">{item.name}</li>
                                 )
                             })}
                         </ul>
@@ -105,12 +105,12 @@ function Footer() {
                     <li className="w-full mt-10 ">
                         <div className="flex w-full cursor-pointer">
                             <BsPersonCircle className="w-6 h-6 my-0.5 mr-1" />
-                            <span className="mr-4 hover:underline md:mr-6 text-lg font-semibold">TÀI KHOẢN CỦA TÔI</span>
+                            <span className="mr-4 md:mr-6 text-lg font-semibold">TÀI KHOẢN CỦA TÔI</span>
                         </div>
                         <ul className="flex flex-col my-2 text-sm">
                             {accountData.map((item, index) => {
                                 return (
-                                    <li key={index} className="my-2 cursor-pointer transition ease-in-out delay-100 hover:scale-95 duration-100 md:h-7">{item.name}</li>
+                                    <li key={index} className="my-2 cursor-pointer hover:underline transition md:h-7">{item.name}</li>
                                 )
 
                             })}
@@ -121,7 +121,7 @@ function Footer() {
                     <li className="w-full mt-10">
                         <div className="flex w-full cursor-pointer">
                             <IoMdContacts className="w-6 h-6 my-0.5 mr-1" />
-                            <span className="mr-4 hover:underline md:mr-6 text-lg font-semibold">LIÊN HỆ</span>
+                            <span className="mr-4 md:mr-6 text-lg font-semibold">LIÊN HỆ</span>
                         </div>
                         <ul className="flex flex-col my-2 text-sm">
                             {contactData.map((item, index) => {

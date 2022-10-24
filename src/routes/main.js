@@ -15,6 +15,7 @@ const UserReview = lazy(() => import('../page/Profile/UserReview'));
 const UserPaymentInformation = lazy(() => import('../page/Profile/UserPaymentInformation'))
 const UserChangePassword = lazy(() => import('../page/Profile/UserChangePassword'));
 const UserOrderDetail = lazy(() => import('../page/Profile/UserOrderDetail'));
+const Cart = lazy(() => import('../page/Cart'));
 
 // Phần Auth
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
@@ -42,7 +43,7 @@ function MainRoutes() {
             <Route element={<Suspense fallback={<Loading center={true} />}><DefaultLayout /></Suspense>}>
                 <Route path={PATH.main} element={<Main />}></Route>
                 <Route path={PATH.detail_book} element={<DetailBook />} ></Route>
-                <Route path={PATH.cart} element></Route>
+                <Route path={PATH.cart} element={<Cart />}></Route>
                 <Route path={PATH.notfound} element={<NotFound />}></Route>
                 <Route path={PATH.profile.dashboard} element={<ProfileLayout />} >
                     <Route index element={<PersonInfo />} ></Route>
