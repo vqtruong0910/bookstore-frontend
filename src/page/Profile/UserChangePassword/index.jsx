@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useCallback } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { BsArrowLeftShort, BsCheckCircle } from "react-icons/bs";
+import { BsArrowLeftShort } from "react-icons/bs";
+import { FaRegSmileBeam } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../../constants/path";
 import Notify from "../../../components/Notify";
@@ -74,7 +75,7 @@ function UserChangePassword() {
 
                     </div>
                     {change ?
-                       <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<BsCheckCircle className="w-10 h-10 md:w-14 md:h-14 text-green-500" />} textMessage="text-green-500" />
+                       <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<FaRegSmileBeam className="w-5 h-5 text-blue-600" />} textMessage="text-blue-600" />
                         :
                         <></>
                     }

@@ -46,12 +46,12 @@ function UserOrderManagement() {
                 </div>
             </form>
 
-            <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white cursor-pointer">
+            <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white">
                 <div className="w-full flex flex-wrap md:flex-nowrap md:cursor-pointer md:px-0 md:py-0">
                     <div onClick={() => handleDiv(1)} className={showDiv === 1 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <RiFileListLine className="w-5 h-5 md:hidden" />
-                            <span className={showDiv === 1 ? "flex px-0.5 md:text-xs lg:text-base md:text-blue-500 font-semibold lg:font-normal" : "flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal"}>Tất cả đơn</span>
+                            <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">Tất cả đơn</span>
                         </div>
                         <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white px-2">Xem chi tiết</span>
@@ -60,7 +60,7 @@ function UserOrderManagement() {
                     <div onClick={() => handleDiv(2)} className={showDiv === 2 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <IoReload className="w-5 h-5 md:hidden" />
-                            <span className={showDiv === 2 ? "flex px-0.5 md:text-xs lg:text-base text-blue-500 font-semibold lg:font-normal" : "flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal"}>Đang xử lý</span>
+                            <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">Đang xử lý</span>
                         </div>
                         <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white">Xem chi tiết</span>
@@ -69,7 +69,7 @@ function UserOrderManagement() {
                     <div onClick={() => handleDiv(3)} className={showDiv === 3 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <HiOutlineTruck className="w-5 h-5 md:hidden" />
-                            <span className={showDiv === 3 ? "flex px-0.5 md:text-xs lg:text-base whitespace-nowrap text-blue-500 font-semibold lg:font-normal" : "flex px-0.5 md:text-xs lg:text-base whitespace-nowrap font-semibold lg:font-normal"}>Đang vận chuyển</span>
+                            <span className="flex px-0.5 md:text-xs lg:text-base whitespace-nowrap font-semibold lg:font-normal">Đang vận chuyển</span>
                         </div>
                         <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white">Xem chi tiết</span>
@@ -78,7 +78,7 @@ function UserOrderManagement() {
                     <div onClick={() => handleDiv(4)} className={showDiv === 4 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <FiCheckSquare className="w-5 h-5 md:hidden" />
-                            <span className={showDiv === 4 ? "flex px-0.5 md:text-xs lg:text-base text-blue-500 font-semibold lg:font-normal" : "flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal"}>Đã giao</span>
+                            <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">Đã giao</span>
                         </div>
                         <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white">Xem chi tiết</span>
@@ -87,7 +87,7 @@ function UserOrderManagement() {
                     <div onClick={() => handleDiv(5)} className={showDiv === 5 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <BiTaskX className="w-5 h-5 md:hidden" />
-                            <span className={showDiv === 5 ? "flex px-0.5 md:text-xs lg:text-base text-blue-500 font-semibold lg:font-normal" : "flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal"}>Đã hủy</span>
+                            <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">Đã hủy</span>
                         </div>
                         <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white">Xem chi tiết</span>
@@ -156,7 +156,7 @@ function UserOrderManagement() {
                                     <div className="w-full border-t-2">
                                         <div className="w-full mx-4">
                                             <div className="w-full my-4 flex">
-                                                <div className="border w-24 h-24 relative flex items-center">
+                                                <div className="border w-24 h-24 lg:w-28 lg:h-28 relative flex items-center">
                                                     <img src={item.img} className="relative" alt="Book_Image" />
                                                     <div className="absolute border bg-slate-300 rounded-tl-xl px-2 right-0 bottom-0 flex items-center py-1">
                                                         <span className="text-xs lg:text-base">x{item.quantity}</span>

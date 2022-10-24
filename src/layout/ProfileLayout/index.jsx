@@ -5,12 +5,12 @@ import MenuUser from "../../components/MenuUser"
 
 function ProfileLayout() {
     return (
-        <div className="flex bg-gray-100">
+        <div className="flex bg-gray-100 md:px-4 md:space-x-4">
             <div className="hidden md:block">
                 <MenuUser />
             </div>
 
-            <div className="md:px-4 w-full">
+            <div className="w-full">
                 <Suspense fallback={<Loading />}><Outlet /></Suspense>
             </div>
 

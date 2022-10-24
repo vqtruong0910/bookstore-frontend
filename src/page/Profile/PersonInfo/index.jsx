@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BiPencil, BiLock } from "react-icons/bi";
-import { BsCheckCircle  } from "react-icons/bs";
+import { FaRegSmileBeam } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Notify from "../../../components/Notify";
 import { PATH } from "../../../constants/path";
@@ -24,7 +24,7 @@ function PersonInfo() {
                     <span className="w-full text-lg font-normal mb-5 lg:text-xl">Thông tin tài khoản</span>
                 </div>
 
-                <div className="flex w-full flex-wrap lg:flex-nowrap mx-2 md:mx-0 bg-white rounded-md">
+                <div className="flex w-full flex-wrap lg:flex-nowrap mx-2 md:mx-0 bg-white">
                     <div className="w-full px-4 lg:w-2/3">
                         <div className="w-full flex flex-wrap py-5">
                             <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>
@@ -178,7 +178,7 @@ function PersonInfo() {
                     </div>
 
                     {change ?
-                        <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<BsCheckCircle className="w-10 h-10 md:w-14 md:h-14 text-green-500" />} textMessage="text-green-500"/>
+                        <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<FaRegSmileBeam className="w-5 h-5 text-blue-600" />} textMessage="text-blue-600"/>
                         :
                         <></>
                     }
