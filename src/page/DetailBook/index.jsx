@@ -77,7 +77,7 @@ function DetailBook() {
 
     return (
         <div className="w-full flex py-6 flex-wrap">
-            <div className="w-full bg-white rounded-sm flex">
+            <div className="w-full bg-white rounded-sm flex shadow-md">
                 <div className="w-full my-3 flex flex-wrap lg:flex-nowrap">
                     <div className="flex flex-wrap w-full lg:w-4/12">
                         <div className="w-full flex justify-center">
@@ -146,14 +146,14 @@ function DetailBook() {
                             <div className="flex flex-wrap items-center lg:w-1/2 lg:justify-center">
                                 <span className="text-gray-500 text-base font-semibold mx-3">Số lượng</span>
                                 <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
-                                    <div className="w-full border-r-2 flex justify-center">
+                                    <div className="w-full border-r-2 flex justify-center cursor-pointer">
                                         <IoMdRemove className="w-5 h-7 text-gray-300" />
                                     </div>
                                     <div className="w-full flex justify-center">
                                         <span className="text-gray-800 font-semibold">1</span>
                                     </div>
 
-                                    <div className="w-full border-l-2 flex justify-center">
+                                    <div className="w-full border-l-2 flex justify-center cursor-pointer">
                                         <IoAddSharp className="w-5 h-7 text-gray-500" />
                                     </div>
 
@@ -166,7 +166,7 @@ function DetailBook() {
 
             </div>
 
-            <div className="flex flex-wrap w-full bg-white my-4">
+            <div className="flex flex-wrap w-full bg-white my-4 shadow-md">
                 <div className="flex flex-row cursor-pointer">
                     <div onClick={() => handleContent(4)} className={showContent === 4 ? "px-4 py-1 text-sm md:text-lg font-semibold bg-gray-400 text-slate-800" : "px-4 py-1 text-sm md:text-lg font-semibold"}>Mô tả sản phẩm</div>
                     <div onClick={() => handleContent(5)} className={showContent === 5 ? "px-4 py-1 text-sm md:text-lg font-semibold bg-gray-400 text-slate-800" : "px-4 py-1 text-sm md:text-lg font-semibold"}>Thông tin chi tiết</div>
@@ -234,7 +234,7 @@ function DetailBook() {
                 </div>
             </div>
 
-            <div className="flex flex-wrap w-full bg-white rounded-sm py-3">
+            <div className="flex flex-wrap w-full bg-white rounded-sm py-3 shadow-md">
                 <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 w-full">SẢN PHẨM LIÊN QUAN</span>
 
                 <div className="w-full">
@@ -277,7 +277,7 @@ function DetailBook() {
                 </div>
             </div>
 
-            <div className="flex flex-wrap w-full bg-white rounded-sm py-3 mt-4">
+            <div className="flex flex-wrap w-full bg-white rounded-sm py-3 mt-4 shadow-md">
                 <span className="text-base md:text-lg lg:text-xl font-semibold w-full px-4">ĐÁNH GIÁ SẢN PHẨM</span>
 
                 <div className="w-full flex flex-col">

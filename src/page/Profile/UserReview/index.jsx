@@ -18,7 +18,7 @@ function UserReview() {
                 <span className="w-full text-lg font-normal mb-5 lg:text-xl">Đánh giá sản phẩm</span>
             </div>
 
-            <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white">
+            <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white shadow-md">
                 <div className="w-full flex flex-wrap md:flex-nowrap md:cursor-pointer md:px-0 md:py-0">
                     <div onClick={() => handleDiv(1)} className={showDiv === 1 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
@@ -43,7 +43,7 @@ function UserReview() {
 
             {showDiv === 1 &&
                 <div className="w-full px-4 md:px-0">
-                    <div className="bg-white w-full my-4" >
+                    <div className="bg-white w-full my-4 shadow-md" >
 
                         <div className="w-full border-t-2">
                             <div className="w-full mx-4">
@@ -88,7 +88,7 @@ function UserReview() {
 
             {showDiv === 2 &&
                 <div className="w-full px-4 md:px-0">
-                    <div className="bg-white w-full my-4" >
+                    <div className="bg-white w-full my-4 shadow-md" >
 
                         <div className="w-full border-t-2">
                             <div className="w-full mx-4">
