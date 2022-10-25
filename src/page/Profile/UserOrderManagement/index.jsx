@@ -97,7 +97,7 @@ function UserOrderManagement() {
             </div>
 
             {showDiv === 1 &&
-                <div className="w-full px-4 md:px-0">
+                <div className="w-full px-4 md:px-0 shadow-md">
                     {UserAllOrderData.map((item, index) => {
                         return (
                             <div key={index} className="bg-white w-full my-4 shadow-md ">
@@ -143,7 +143,7 @@ function UserOrderManagement() {
             }
 
             {showDiv === 2 &&
-                <div className="w-full px-4 md:px-0">
+                <div className="w-full px-4 md:px-0 shadow-md">
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 1)
                             return (
@@ -189,7 +189,7 @@ function UserOrderManagement() {
             }
 
             {showDiv === 3 &&
-                <div className="w-full px-4 md:px-0">
+                <div className="w-full px-4 md:px-0 shadow-md">
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 2)
                             return (
@@ -235,7 +235,7 @@ function UserOrderManagement() {
             }
 
             {showDiv === 4 &&
-                <div className="w-full px-4 md:px-0">
+                <div className="w-full px-4 md:px-0 shadow-md">
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 3)
                             return (
@@ -281,7 +281,7 @@ function UserOrderManagement() {
             }
 
             {showDiv === 5 &&
-                <div className="w-full px-4 md:px-0">
+                <div className="w-full px-4 md:px-0 shadow-md">
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 4)
                             return (

@@ -42,6 +42,8 @@ function UserReview() {
             </div>
 
             {showDiv === 1 &&
+                <div className="w-full px-4 md:px-0 shadow-md">
+                    <div className="bg-white w-full my-4" >
                 <div className="w-full px-4 md:px-0">
                     <div className="bg-white w-full my-4 shadow-md" >
 
@@ -87,6 +89,8 @@ function UserReview() {
             {change && <Notify message="Cám ơn bạn vì đã đánh giá" icon={<AiOutlineSmile className="w-10 h-10 md:w-14 md:h-14 text-blue-400" />} textMessage="text-blue-500" />}
 
             {showDiv === 2 &&
+                <div className="w-full px-4 md:px-0 shadow-md">
+                    <div className="bg-white w-full my-4" >
                 <div className="w-full px-4 md:px-0">
                     <div className="bg-white w-full my-4 shadow-md" >
 

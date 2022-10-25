@@ -17,6 +17,8 @@ export const PATH = {
         user_change_password: "/profile/user_change_password",
         user_order_detail: "/profile/user_order_detail",
     },
+    payment: '/payment',
+
     new_book: '/new_book',
     bestseller_book: '/bestseller_book',
     popular_book: '/popular_book',
