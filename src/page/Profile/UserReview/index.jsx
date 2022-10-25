@@ -44,6 +44,8 @@ function UserReview() {
             {showDiv === 1 &&
                 <div className="w-full px-4 md:px-0 shadow-md">
                     <div className="bg-white w-full my-4" >
+                <div className="w-full px-4 md:px-0">
+                    <div className="bg-white w-full my-4 shadow-md" >
 
                         <div className="w-full border-t-2">
                             <div className="w-full mx-4">
@@ -89,6 +91,8 @@ function UserReview() {
             {showDiv === 2 &&
                 <div className="w-full px-4 md:px-0 shadow-md">
                     <div className="bg-white w-full my-4" >
+                <div className="w-full px-4 md:px-0">
+                    <div className="bg-white w-full my-4 shadow-md" >
 
                         <div className="w-full border-t-2">
                             <div className="w-full mx-4">

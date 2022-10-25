@@ -100,6 +100,10 @@ function Cart() {
 
                     <div className="w-full lg:w-4/12 lg:pl-4">
                         <div className="w-full flex flex-col bg-white shadow-md mt-4 items-end lg:justify-between p-3">
+
+                    <div className="w-full lg:w-4/12 lg:pl-4 shadow-md">
+                        <div className="w-full flex flex-col lg:flex-col bg-white shadow-md mt-4 items-end lg:justify-between p-3">
+
                             <div className="flex flex-wrap lg:w-full lg:justify-between">
                                 <div className="flex flex-col">
                                     <span className="py-1 font-light md:text-lg">Tạm tính</span>
@@ -109,12 +113,16 @@ function Cart() {
                                 <div className="flex flex-col ml-10 items-end">
                                     <span className="py-1 font-medium md:text-lg">116.000đ</span>
                                     <span className="py-1 font-medium text-red-600 text-xl md:text-2xl">256.000đ</span>
+                                    <span className="py-1 font-semibold md:text-lg">116.000đ</span>
+                                    <span className="py-1 font-semibold text-red-600 text-xl md:text-2xl">256.000đ</span>
                                 </div>
                             </div>
                             <span className="text-gray-500 text-sm md:text-base italic">Phí vận chuyển sẽ được tính ở trang thanh toán</span>
                             <div className="flex mt-4 lg:w-full lg:text-center">
                                 <div onClick={() => navigate(PATH.main)} className="lg:hidden px-2 py-1 bg-gray-300 rounded-sm transition mx-4 cursor-pointer text-base md:text-lg hover:bg-gray-400">Tiếp tục mua hàng</div>
                                 <div onClick={() => navigate(PATH.payment)} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Thanh toán</div>
+                                <div className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Thanh toán</div>
+
                             </div>
                         </div>
                     </div>
