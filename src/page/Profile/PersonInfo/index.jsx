@@ -24,7 +24,7 @@ function PersonInfo() {
                     <span className="w-full text-lg font-normal mb-5 lg:text-xl">Thông tin tài khoản</span>
                 </div>
 
-                <div className="flex w-full flex-wrap lg:flex-nowrap mx-2 md:mx-0 bg-white">
+                <div className="flex w-full flex-wrap lg:flex-nowrap mx-2 md:mx-0 bg-white shadow-md">
                     <div className="w-full px-4 lg:w-2/3">
                         <div className="w-full flex flex-wrap py-5">
                             <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>

@@ -19,7 +19,7 @@ function UserPaymentInformation() {
                 <span className="w-full text-lg font-normal mb-5 lg:text-xl">Thông tin thanh toán</span>
             </div>
 
-            <div className="flex flex-wrap w-full mx-4 md:mx-0 bg-white">
+            <div className="flex flex-wrap w-full mx-4 md:mx-0 bg-white shadow-md">
                 <div className="w-full flex px-4 my-2 flex-wrap">
                     <div className="w-full flex my-2">
                         <div className="w-1/3 lg:w-4/12 items-center flex">

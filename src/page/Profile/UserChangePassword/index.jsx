@@ -27,7 +27,7 @@ function UserChangePassword() {
                     <span className="w-full text-lg font-normal mb-5 lg:text-xl">Đổi mật khẩu</span>
                 </div>
 
-                <div className="mx-2 flex justify-center w-full bg-white">
+                <div className="mx-2 flex justify-center w-full bg-white shadow-md">
                     <div className="w-full lg:w-500 px-5 py-5">
                         <div className="flex flex-wrap w-full border border-gray-200 px-4 py-4">
                             <div className="w-full flex flex-wrap">

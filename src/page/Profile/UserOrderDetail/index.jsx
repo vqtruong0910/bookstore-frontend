@@ -20,7 +20,7 @@ function UserOrderDetail() {
                 </div>
             </div>
 
-            <div className="flex flex-wrap w-full mx-4 md:mx-0 rounded-sm bg-white">
+            <div className="flex flex-wrap w-full mx-4 md:mx-0 rounded-sm bg-white shadow-md">
                 <div className="hidden md:flex md:flex-row md:justify-between md:w-full md:py-2 md:mx-1">
                     <div className="w-full flex justify-center">
                         <span className="md:text-xs lg:text-base md:font-semibold lg:font-normal text-gray-500">Sản phẩm</span>
