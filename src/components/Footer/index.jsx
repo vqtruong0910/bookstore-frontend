@@ -80,7 +80,6 @@ function Footer() {
                             {serviceData.map((item, index) => {
                                 return (
                                     <li key={index} className="my-2 cursor-pointer hover:underline md:h-7">{item.name}</li>
-                                    <li key={index} className="my-2 cursor-pointer hover:underline transition md:h-7">{item.name}</li>
                                 )
                             })}
                         </ul>
@@ -99,8 +98,6 @@ function Footer() {
 
                                     <li key={index} className="my-2 cursor-pointer hover:underline md:h-7">{item.name}</li>
 
-                                    <li key={index} className="my-2 cursor-pointer hover:underline transition md:h-7">{item.name}</li>
-
                                 )
                             })}
                         </ul>
@@ -117,8 +114,6 @@ function Footer() {
                                 return (
 
                                     <li key={index} className="my-2 cursor-pointer hover:underline md:h-7">{item.name}</li>
-
-                                    <li key={index} className="my-2 cursor-pointer hover:underline transition md:h-7">{item.name}</li>
 
                                 )
 

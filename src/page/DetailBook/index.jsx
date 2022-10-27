@@ -94,13 +94,13 @@ function DetailBook() {
                         </div>
 
                         <div className="flex justify-center w-full py-4">
-                            <div onClick={() => handleImage(1)} className={showImage === 1 ? "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm  ring-1 ring-blue-600 mx-2" : "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm mx-2"}>
+                            <div onClick={() => handleImage(1)} className={showImage === 1 ? "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm  ring-1 ring-blue-600 mx-2 cursor-pointer" : "flex cursor-pointer items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm mx-2"}>
                                 <img src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935246933497.jpg" className="w-full" alt="Book_Image" />
                             </div>
-                            <div onClick={() => handleImage(2)} className={showImage === 2 ? "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm  ring-1 ring-blue-600 mx-2" : "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm mx-2"}>
+                            <div onClick={() => handleImage(2)} className={showImage === 2 ? "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm  ring-1 ring-blue-600 mx-2 cursor-pointer" : "flex cursor-pointer items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm mx-2"}>
                                 <img src="https://salt.tikicdn.com/cache/750x750/ts/product/d0/86/b1/0c0368a7b771be7efa0c691d26f148b3.jpg.webp" className="w-full" alt="Book_Image" />
                             </div>
-                            <div onClick={() => handleImage(3)} className={showImage === 3 ? "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm  ring-1 ring-blue-600 mx-2" : "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm mx-2"}>
+                            <div onClick={() => handleImage(3)} className={showImage === 3 ? "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm  ring-1 ring-blue-600 mx-2 cursor-pointer" : "flex cursor-pointer items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm mx-2"}>
                                 <img src="https://salt.tikicdn.com/cache/750x750/ts/product/e4/34/94/e249548d6c3d78d1306659f7109c37a7.jpg.webp" className="w-full" alt="Book_Image" />
                             </div>
                         </div>

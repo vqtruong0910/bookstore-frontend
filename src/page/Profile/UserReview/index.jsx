@@ -44,45 +44,47 @@ function UserReview() {
             {showDiv === 1 &&
                 <div className="w-full px-4 md:px-0 shadow-md">
                     <div className="bg-white w-full my-4" >
-                <div className="w-full px-4 md:px-0">
-                    <div className="bg-white w-full my-4 shadow-md" >
+                        <div className="w-full px-4 md:px-0">
+                            <div className="bg-white w-full my-4 shadow-md" >
 
-                        <div className="w-full border-t-2">
-                            <div className="w-full mx-4">
-                                <div className="w-full my-4 flex">
-                                    <div className="w-24 h-24 lg:w-28 lg:h-28 relative border flex items-center">
-                                        <img src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935246933497.jpg" className="relative" alt="Book_Image" />
+                                <div className="w-full border-t-2">
+                                    <div className="w-full mx-4">
+                                        <div className="w-full my-4 flex">
+                                            <div className="w-24 h-24 lg:w-28 lg:h-28 relative border flex items-center">
+                                                <img src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935246933497.jpg" className="relative" alt="Book_Image" />
+                                            </div>
+
+                                            <div className="flex w-full flex-col mx-3">
+                                                <span className="w-full text-sm lg:text-base font-normal text-gray-600">Xé vài trang thanh xuân, đổi lấy một bản thân nỗ lực</span>
+                                                <span className="w-full my-0.5 text-sm lg:text-base font-normal text-gray-600">83.000đ</span>
+                                            </div>
+
+                                        </div>
+
                                     </div>
+                                </div>
 
-                                    <div className="flex w-full flex-col mx-3">
-                                        <span className="w-full text-sm lg:text-base font-normal text-gray-600">Xé vài trang thanh xuân, đổi lấy một bản thân nỗ lực</span>
-                                        <span className="w-full my-0.5 text-sm lg:text-base font-normal text-gray-600">83.000đ</span>
+                                <div className="w-full border-t-2 px-4">
+                                    <div className="w-full py-2">
+                                        <div className="w-full">
+                                            <span className="font-semibold">Điều gì làm bạn hài lòng?</span>
+                                        </div>
+                                        <div className="w-full flex my-2">
+                                            <input className="w-full border rounded-sm px-2 py-7 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
+                                                type="text" placeholder="Hãy chia sẻ cảm nhận, đánh giá của bạn về sản phẩm này nhé." />
+                                        </div>
+                                        <div className="w-full flex justify-center py-5 cursor-pointer">
+                                            <div onClick={() => setChange(!change)} className="w-40 h-10 flex items-center justify-center bg-blue-600 rounded-sm">
+                                                <span className="font-normal text-white">Gửi đánh giá</span>
+                                            </div>
+                                        </div>
+
+
                                     </div>
-
                                 </div>
 
                             </div>
                         </div>
-
-                        <div className="w-full border-t-2 px-4">
-                            <div className="w-full py-2">
-                                <div className="w-full">
-                                    <span className="font-semibold">Điều gì làm bạn hài lòng?</span>
-                                </div>
-                                <div className="w-full flex my-2">
-                                    <input className="w-full border rounded-sm px-2 py-7 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
-                                        type="text" placeholder="Hãy chia sẻ cảm nhận, đánh giá của bạn về sản phẩm này nhé." />
-                                </div>
-                                <div className="w-full flex justify-center py-5 cursor-pointer">
-                                    <div onClick={() => setChange(!change)} className="w-40 h-10 flex items-center justify-center bg-blue-600 rounded-sm">
-                                        <span className="font-normal text-white">Gửi đánh giá</span>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             }
@@ -91,43 +93,45 @@ function UserReview() {
             {showDiv === 2 &&
                 <div className="w-full px-4 md:px-0 shadow-md">
                     <div className="bg-white w-full my-4" >
-                <div className="w-full px-4 md:px-0">
-                    <div className="bg-white w-full my-4 shadow-md" >
+                        <div className="w-full px-4 md:px-0">
+                            <div className="bg-white w-full my-4 shadow-md" >
 
-                        <div className="w-full border-t-2">
-                            <div className="w-full mx-4">
-                                <div className="w-full my-4 flex">
-                                    <div className="w-24 h-24 lg:w-28 lg:h-28 relative border flex items-center">
-                                        <img src="https://cdn0.fahasa.com/media/catalog/product/i/m/image_244718_1_5098.jpg" className="relative" alt="Book_Image" />
+                                <div className="w-full border-t-2">
+                                    <div className="w-full mx-4">
+                                        <div className="w-full my-4 flex">
+                                            <div className="w-24 h-24 lg:w-28 lg:h-28 relative border flex items-center">
+                                                <img src="https://cdn0.fahasa.com/media/catalog/product/i/m/image_244718_1_5098.jpg" className="relative" alt="Book_Image" />
+                                            </div>
+
+                                            <div className="flex w-full flex-col mx-3">
+                                                <span className="w-full text-sm lg:text-base font-normal text-gray-600">Hoàng tử bé</span>
+                                                <span className="w-full my-0.5 text-sm lg:text-base font-normal text-gray-600">109.000đ</span>
+                                            </div>
+
+                                        </div>
+
                                     </div>
+                                </div>
 
-                                    <div className="flex w-full flex-col mx-3">
-                                        <span className="w-full text-sm lg:text-base font-normal text-gray-600">Hoàng tử bé</span>
-                                        <span className="w-full my-0.5 text-sm lg:text-base font-normal text-gray-600">109.000đ</span>
+                                <div className="w-full border-t-2 px-4">
+                                    <div className="w-full py-2">
+                                        <div className="w-full flex-wrap flex">
+                                            <div className="w-full flex items-center justify-between">
+                                                <div className="flex items-center">
+                                                    <BsStarFill className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
+                                                    <span className="font-medium mx-1 text-blue-400 md:text-lg">Đánh giá của bạn</span>
+                                                </div>
+                                                <div>
+                                                    <span className="text-xs md:text-sm font-semibold text-gray-500">11:30 27/12/2022</span>
+                                                </div>
+                                            </div>
+                                            <span className="font-normal w-full md:text-lg">Nội dung rất hay, sâu sắc, chạm đến trái tim người đọc.</span>
+                                        </div>
                                     </div>
-
                                 </div>
 
                             </div>
                         </div>
-
-                        <div className="w-full border-t-2 px-4">
-                            <div className="w-full py-2">
-                                <div className="w-full flex-wrap flex">
-                                    <div className="w-full flex items-center justify-between">
-                                        <div className="flex items-center">
-                                            <BsStarFill className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
-                                            <span className="font-medium mx-1 text-blue-400 md:text-lg">Đánh giá của bạn</span>
-                                        </div>
-                                        <div>
-                                            <span className="text-xs md:text-sm font-semibold text-gray-500">11:30 27/12/2022</span>
-                                        </div>
-                                    </div>
-                                    <span className="font-normal w-full md:text-lg">Nội dung rất hay, sâu sắc, chạm đến trái tim người đọc.</span>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             }
