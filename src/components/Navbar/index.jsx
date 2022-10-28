@@ -50,9 +50,14 @@ function Navbar() {
     });
 
     useEffect(() => {
-        window.addEventListener("scroll", () => {
-            setScroll(window.scrollY)
-        })
+        const event = () => {
+            setScroll(window.scrollY);
+        }
+        window.addEventListener("scroll", event)
+
+        return () => {
+            window.removeEventListener("scroll", event);
+        }
     }, [])
 
     return (
