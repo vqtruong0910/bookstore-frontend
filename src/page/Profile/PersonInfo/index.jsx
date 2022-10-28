@@ -142,7 +142,7 @@ function PersonInfo() {
                                         <span className="flex text-sm lg:text-base">Giới tính</span>
                                     </div>
 
-                                    <div className="w-2/3 lg:w-8/12 flex justify-between">
+                                    <div className="flex w-2/3 lg:w-8/12 py-2 md:py-3">
                                         <div className="w-full">
                                             <input type="radio" value="Male" />
                                             <label htmlFor="Male" className="mx-2">Nam</label>

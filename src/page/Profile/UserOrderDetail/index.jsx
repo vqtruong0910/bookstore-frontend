@@ -15,8 +15,9 @@ function UserOrderDetail() {
                     <IoReload className="w-5 h-5" />
                     <span className="flex px-0.5 md:text-xs lg:text-base font-normal">Đang xử lý</span>
                 </div>
-                <div className="w-full flex justify-end">
+                <div className="w-full flex flex-col items-end">
                     <span className="text-xs md:text-sm lg:text-base text-slate-500">Ngày đặt hàng: 12:27 27/12/2022</span>
+                    <span className="text-xs md:text-sm lg:text-base text-slate-500">Ngày giao: 00:00 00:00:00</span>
                 </div>
             </div>
 
