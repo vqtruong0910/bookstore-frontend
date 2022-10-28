@@ -13,7 +13,9 @@ function AccuracyFaceBook() {
         })
         axiosConfig.get(API.AUTH_CALLBACK_FACEBOOK, { params: paramURL })
             .then((res) => {
-                localStorage.setItem('auth-user', res.data);
+                const { accessToken, ...user } = res.data;
+                localStorage.setItem('user', user);
+                localStorage.setItem('token', accessToken);
                 window.close();
             })
             .catch((err) => {

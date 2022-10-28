@@ -1,13 +1,19 @@
-import { useEffect } from 'react';
 import { BsCardImage } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { PATH } from '../../../constants/path';
+import { API } from '../../../constants/api';
+import axiosJWT from '../../../config/axiosJWT';
 
 function ProductManage() {
-
-    useEffect(() => {
-
-    }, []);
+    // useEffectOnce(() => {
+    //     axiosJWT.get(API.GET_LIST_PRODUCT)
+    //         .then(res => {
+    //             console.log(res);
+    //         })
+    //         .catch(err => {
+    //             console.log("Nguoi dung khong hop le: ", err);
+    //         })
+    // })
 
     return (
         <>

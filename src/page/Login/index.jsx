@@ -37,8 +37,10 @@ function Login() {
             setLoading(true);
             const result = await axiosConfig.post(API.LOGIN, data);
             const authUser = await result.data;
-            localStorage.setItem("auth-user", JSON.stringify(authUser.data));
-            setUser(authUser.data);
+            const { accessToken, ...user } = authUser.data;
+            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("token", accessToken);
+            setUser(user);
             navigate(PATH.main);
         } catch (error) {
             const result = error?.response?.data?.message;

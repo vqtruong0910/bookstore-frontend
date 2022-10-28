@@ -1,17 +1,32 @@
 import clsx from 'clsx';
-import { useContext } from 'react';
+import jwtDecode from 'jwt-decode';
+import { useCallback, useContext } from 'react';
 import { Suspense, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 import bar from '../../assets/svg/bar.svg';
 import DownArrow from '../../assets/svg/DownArrow';
 import Loading from '../../components/Loading';
 import MenuAdmin from '../../components/MenuAdmin';
+import { PATH } from '../../constants/path';
 import Context from '../../store/Context';
 
 function AdminLayout() {
     const [stateMenu, setStateMenu] = useState(false);
     const [stateMenuAvatar, setStateMenuAvatar] = useState(false);
     const { user } = useContext(Context);
+
+    const isAdmin = useCallback(() => {
+        try {
+            const { Quyen } = jwtDecode(localStorage.getItem("token"));
+            return Quyen === 0 ? true : false;
+        } catch (error) {
+            return false;
+        }
+    }, [])
+
+    if (!isAdmin || !user) {
+        return <Navigate replace to={PATH.login} />
+    }
 
     return (
         <div className="w-full bg-slate-100 h-screen relative">

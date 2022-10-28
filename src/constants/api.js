@@ -7,8 +7,11 @@ export const API = {
     LOGOUT: "auths/logout",
     SENDEMAILRESETPASSWORD: "auths/send-email-reset-password",
     RESETPASSWORD: "auths/reset-password",
-    LOGIN_GOOGLE: "auth/google",
-    LOGIN_FACEBOOK: "auth/facebook",
-    AUTH_CALLBACK_GOOGLE: "auth/google/callback",
-    AUTH_CALLBACK_FACEBOOK: "auth/facebook/callback"
+    LOGIN_GOOGLE: "auths/google",
+    LOGIN_FACEBOOK: "auths/facebook",
+    AUTH_CALLBACK_GOOGLE: "auths/google/callback",
+    AUTH_CALLBACK_FACEBOOK: "auths/facebook/callback",
+    LOGOUT: "auths/logout",
+    GET_LIST_USER_IN_PAGE: "users/page",
+    GET_LIST_ALL_USER: "users"
 }

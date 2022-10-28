@@ -11,6 +11,8 @@ import { NavbarData } from './NavbarData';
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import { useContext } from 'react';
 import Context from '../../store/Context';
+import axiosConfig from '../../config/axiosConfig';
+import { API } from '../../constants/api';
 
 
 function Navbar() {
@@ -31,10 +33,18 @@ function Navbar() {
         setStateMenuChild({ ...stateMenuChild, [location]: !stateMenuChild[location] })
     }, [stateMenuChild])
 
-    const logout = useCallback(() => {
-        localStorage.removeItem("auth-user");
-        setUser(false);
-    })
+    const logout = useCallback(async () => {
+        try {
+            await axiosConfig.delete(API.LOGOUT);
+        } catch (error) {
+            console.log("Logout failed: ", error);
+        } finally {
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+            setUser(false);
+            navigate(PATH.login, { replace: true });
+        }
+    }, [])
 
     const [matches, setMatches] = useState(
         window.matchMedia("(min-width: 767px)").matches
@@ -137,10 +147,10 @@ function Navbar() {
                                                                         {stateMenuChild[4] &&
                                                                             <div className="flex lg:top-16 right-4 md:top-14 bg-white border absolute z-20">
                                                                                 <ul>
-                                                                                    <li onClick={() => {navigate(PATH.profile.dashboard)}} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
-                                                                                    <li onClick={() => {navigate(PATH.profile.user_order_management)}} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
-                                                                                    <li onClick={() => {navigate(PATH.profile.user_review)}} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
-                                                                                    <li onClick={() => {navigate(PATH.profile.user_payment_information)}} className="p-2 hover:bg-gray-300">Thông tin thanh toán</li>
+                                                                                    <li onClick={() => { navigate(PATH.profile.dashboard) }} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
+                                                                                    <li onClick={() => { navigate(PATH.profile.user_order_management) }} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
+                                                                                    <li onClick={() => { navigate(PATH.profile.user_review) }} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
+                                                                                    <li onClick={() => { navigate(PATH.profile.user_payment_information) }} className="p-2 hover:bg-gray-300">Thông tin thanh toán</li>
                                                                                     <li className="p-2 hover:bg-gray-300" onClick={logout}>Đăng xuất</li>
                                                                                 </ul>
 

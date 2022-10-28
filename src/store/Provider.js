@@ -4,7 +4,7 @@ import Context from "./Context";
 function Provider({ children }) {
     const defaultUser = useMemo(() => {
         try {
-            return JSON.parse(localStorage.getItem("auth-user"));
+            return JSON.parse(localStorage.getItem("user"));
         } catch (error) {
             return false;
         }
