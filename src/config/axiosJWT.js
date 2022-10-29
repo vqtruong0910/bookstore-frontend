@@ -46,7 +46,7 @@ const AxiosInterceptor = ({ children }) => {
         const logOut = async () => {
             try {
                 await axiosConfig.delete(API.LOGOUT);
-            } catch (error) { }
+            } catch (error) { throw error }
             finally {
                 localStorage.removeItem("user");
                 localStorage.removeItem("token");
@@ -59,8 +59,7 @@ const AxiosInterceptor = ({ children }) => {
                 const res = await axiosConfig.get(API.REFESHTOKEN);
                 return res.data;
             } catch (error) {
-                logOut();
-                return false;
+                throw error;
             }
         }
         const reqInterceptor = async (config) => {
@@ -72,15 +71,20 @@ const AxiosInterceptor = ({ children }) => {
             } catch (error) {
                 decodedToken = false;
             }
-            if (decodedToken.exp < date.getTime() / 1000 || !decodedToken) {
-                const newToken = await refreshToken();
-                if (newToken) localStorage.setItem("token", newToken?.data?.accessToken);
+            if (decodedToken.exp < date.getTime() / 1000 || !decodedToken || !token) {
+                try {
+                    const newToken = await refreshToken();
+                    localStorage.setItem("token", newToken?.data?.accessToken);
+                } catch (error) {
+                    throw error;
+                }
             }
             config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
             return config;
         }
 
         const errInterceptorReq = error => {
+            console.log("Error req: ", error);
             return Promise.reject(error);
         }
 
@@ -89,7 +93,21 @@ const AxiosInterceptor = ({ children }) => {
         }
 
         const errInterceptorRes = error => {
-            if (error.response?.status === 400 || error.response?.status === 403 || error.response?.status === 401) {
+            if (error) {
+                if (error?.response?.data?.message === "Token not found")
+                    logOut().catch(error => Promise.reject(error));
+                else {
+                    refreshToken()
+                        .then(res => {
+                            localStorage.setItem("token", res?.data?.accessToken);
+                        })
+                        .catch((error) => {
+                            logOut().catch(error => {
+                                return Promise.reject(error);
+                            });
+                            return Promise.reject(error);
+                        })
+                }
             }
             return Promise.reject(error);
         }
