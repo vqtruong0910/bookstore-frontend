@@ -9,13 +9,13 @@ const permission = {
 }
 
 const status = {
-    0: "Khóa",
+    0: "Đã khóa",
     1: "Hoạt động"
 }
 
 const verifyEmail = {
-    0: "Chưa xác thực",
-    1: "Đã xác thực"
+    0: "❌",
+    1: "✔"
 }
 
 export { gender, permission, status, verifyEmail }
