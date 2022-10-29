@@ -1,8 +1,11 @@
 import { useState } from "react";
 import clsx from "clsx";
 import logo from "../../assets/images/logo.png";
-function Notify(props) {
+import {PATH} from "../../constants/path";
+import { useNavigate } from "react-router-dom";
 
+function Notify(props) {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     return (
         <>
@@ -20,10 +23,25 @@ function Notify(props) {
                             </svg>
                         </button>
                     </div>
-                    <div className="py-3 w-full bg-white flex flex-row items-center justify-center">
-                        {props.icon}
-                        <span className={`text-sm lg:text-base ${props.textMessage} font-semibold mx-1`}>{props.message}</span>
+                    <div className="py-3 w-full bg-white flex flex-col">
+                        <div className="flex w-full justify-center">
+                            {props.icon}
+                            <span className={`text-sm lg:text-base ${props.textMessage} font-semibold mx-1`}>{props.message}</span>
+                        </div>
+                        {props.addToCart === "true" ?
+                            <div className="flex w-full mt-3">
+                                <div className="w-full text-center flex items-center justify-center rounded-sm">
+                                    <span onClick={() => navigate(PATH.cart)} className="px-2 bg-slate-700 text-white text-base rounded-sm hover:bg-slate-500 cursor-pointer">Xem giỏ hàng</span>
+                                </div>
+                            </div>
+                            :
+                            <></>
+
+                        }
+
                     </div>
+
+
                 </div>
             </div>
         </>

@@ -137,7 +137,7 @@ function Navbar() {
                                                                     <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
                                                                         <span className="flex whitespace-nowrap">{user.Email}</span>
 
-                                                                        <div className="flex" onClick={() => { showMenuChild(4) }} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5" />}</div>
+                                                                        <div className="flex" onClick={() => showMenuChild(4)} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5" />}</div>
 
                                                                         {stateMenuChild[4] &&
                                                                             <div className="flex lg:top-16 right-4 md:top-14 bg-white border absolute z-20">
@@ -178,7 +178,7 @@ function Navbar() {
                         <></>
                         :
                         <>
-                            <div className={clsx(scroll && 'flex fixed z-20 justify-between flex-row w-full items-center bg-slate-700 py-2', !scroll && 'flex justify-between flex-row w-full items-center bg-slate-700 py-2')}>
+                            <div className={clsx(scroll && 'flex fixed z-30 justify-between flex-row w-full items-center bg-slate-700 py-2', !scroll && 'flex justify-between flex-row w-full items-center bg-slate-700 py-2')}>
                                 <div className="flex h-10 justify-center mr-1 w-1/12">
                                     <button onClick={() => setOpen(true)} className="flex items-center justify-center text-[24px]"><GiHamburgerMenu className="text-white/75" /></button>
                                 </div>
@@ -226,13 +226,13 @@ function Navbar() {
 
                         {NavbarData.map((menu, index) => {
                             return (
-                                <div key={index} className={open ? 'p-2 py-5 relative flex hover:bg-slate-900  text-white font-semibold text-base hover:cursor:pointer w-full' : 'hidden'}>
+                                <div onClick={() => navigate(menu.link)} key={index} className={open ? 'p-2 py-5 relative flex hover:bg-slate-900  text-white font-semibold text-base hover:cursor:pointer w-full' : 'hidden'}>
                                     <div className="flex flex-col w-full">
 
                                         {menu.id === 2 ?
                                             <>
                                                 <div onClick={() => showMenuChild(1)}>{menu.icon}</div>
-                                                <li onClick={() => showMenuChild(1)} className="flex items-center ml-7 relative">{menu.name}
+                                                <li className="flex items-center ml-7 relative">{menu.name}
                                                     <div onClick={() => showMenuChild(1)} className="absolute right-0">
                                                         <span key={menu.id}>{stateMenuChild[1] ? <BsChevronUp /> : <BsChevronDown />}</span>
                                                     </div>
@@ -266,7 +266,7 @@ function Navbar() {
                                             (menu.id === 3) ?
                                                 <>
                                                     <div onClick={() => showMenuChild(2)}>{menu.icon}</div>
-                                                    <li onClick={() => showMenuChild(2)} className="flex items-center ml-7 relative">{menu.name}
+                                                    <li className="flex items-center ml-7 relative">{menu.name}
                                                         <div onClick={() => showMenuChild(2)} className="absolute right-0">
                                                             <span key={menu.id}>{stateMenuChild[2] ? <BsChevronUp /> : <BsChevronDown />}</span>
                                                         </div>
@@ -288,7 +288,7 @@ function Navbar() {
                                                 (menu.id === 4) ?
                                                     <>
                                                         <div onClick={() => showMenuChild(3)}>{menu.icon}</div>
-                                                        <li onClick={() => showMenuChild(3)} className="flex items-center ml-7 relative">{menu.name}
+                                                        <li className="flex items-center ml-7 relative">{menu.name}
                                                             <div onClick={() => showMenuChild(3)} className="absolute right-0">
                                                                 <span key={menu.id}>{stateMenuChild[3] ? <BsChevronUp /> : <BsChevronDown />}</span>
                                                             </div>

@@ -159,8 +159,8 @@ function UserOrderDetail() {
             </div>
 
             <div onClick={() => navigate(PATH.profile.user_order_management)} className="flex w-full px-4 items-center pt-5">
-                <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 text-blue-600 cursor-pointer" />
-                <span className="text-sm text-blue-600 cursor-pointer lg:text-base">Quay lại đơn hàng của tôi</span>
+                <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 text-slate-700 cursor-pointer" />
+                <span className="text-sm text-slate-700 cursor-pointer lg:text-base">Quay lại đơn hàng của tôi</span>
             </div>
         </div>
     )
