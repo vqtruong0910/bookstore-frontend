@@ -18,6 +18,7 @@ export const PATH = {
         user_order_detail: "/profile/user_order_detail",
     },
     payment: '/payment',
+    invoice: '/invoice',
     category: {
         dashboard: "/category",
     },

@@ -191,7 +191,7 @@ function Payment() {
             </div>
             <div className="flex mt-4 lg:w-full lg:text-center">
               <div onClick={() => navigate(PATH.main)} className="lg:hidden px-2 py-1 bg-gray-300 rounded-sm transition mx-4 cursor-pointer text-base md:text-lg hover:bg-gray-400">Giỏ hàng</div>
-              <div onClick={() => navigate(PATH.payment)} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Đặt hàng</div>
+              <div onClick={() => navigate(PATH.invoice)} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Đặt hàng</div>
             </div>
           </div>
         </div>
