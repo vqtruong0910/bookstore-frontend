@@ -8,7 +8,7 @@ import { PATH } from "../../constants/path";
 function MenuUser({ children }) {
     let location = useLocation();
 
-    const activeLink = 'bg-gray-300 w-full';
+    const activeLink = 'bg-slate-700 w-full';
 
     const navigate = useNavigate();
 
@@ -29,26 +29,26 @@ function MenuUser({ children }) {
             <div className="mt-5 w-full flex flex-wrap">
                 <div onClick={() => navigate(PATH.profile.dashboard)} className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${location.pathname === PATH.profile.dashboard && activeLink} `}>
                     <div className="w-full flex items-center px-5 md:px-10">
-                        <AiOutlineUser className={`w-8 h-8 ${location.pathname === PATH.profile.dashboard && 'text-blue-600'} `} />
-                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.dashboard && 'text-blue-600'} ` }>Thông tin tài khoản</div>
+                        <AiOutlineUser className={`w-8 h-8 ${location.pathname === PATH.profile.dashboard && 'text-white'} `} />
+                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.dashboard && 'text-white'} ` }>Thông tin tài khoản</div>
                     </div>
                 </div>
                 <div onClick={() => navigate(PATH.profile.user_order_management)} className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${location.pathname === PATH.profile.user_order_management && activeLink} `}>
                     <div className="w-full flex items-center px-5 md:px-10">
-                        <TbTruck className={`w-8 h-8 ${location.pathname === PATH.profile.user_order_management && 'text-blue-600'} `} />
-                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.user_order_management && 'text-blue-600'} ` }>Quản lý đơn hàng</div>
+                        <TbTruck className={`w-8 h-8 ${location.pathname === PATH.profile.user_order_management && 'text-white'} `} />
+                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.user_order_management && 'text-white'} ` }>Quản lý đơn hàng</div>
                     </div>
                 </div>
                 <div onClick={() => navigate(PATH.profile.user_review)} className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${location.pathname === PATH.profile.user_review && activeLink} `}>
                     <div className="w-full flex items-center px-5 md:px-10">
-                        <BiMessageEdit className={`w-8 h-8 ${location.pathname === PATH.profile.user_review && 'text-blue-600'} `} />
-                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.user_review && 'text-blue-600'} ` }>Đánh giá sản phẩm</div>
+                        <BiMessageEdit className={`w-8 h-8 ${location.pathname === PATH.profile.user_review && 'text-white'} `} />
+                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.user_review && 'text-white'} ` }>Đánh giá sản phẩm</div>
                     </div>
                 </div>
                 <div onClick={() => navigate(PATH.profile.user_payment_information)} className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${location.pathname === PATH.profile.user_payment_information && activeLink} `}>
                     <div className="w-full flex items-center px-5 md:px-10">
-                        <AiOutlineCreditCard className={`w-8 h-8 ${location.pathname === PATH.profile.user_payment_information && 'text-blue-600'} `} />
-                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.user_payment_information && 'text-blue-600'} ` }>Thông tin thanh toán</div>
+                        <AiOutlineCreditCard className={`w-8 h-8 ${location.pathname === PATH.profile.user_payment_information && 'text-white'} `} />
+                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.user_payment_information && 'text-white'} ` }>Thông tin thanh toán</div>
                     </div>
                 </div>
             </div>

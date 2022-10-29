@@ -68,22 +68,22 @@ function UserChangePassword() {
                                 </div>
                             </div>
 
-                            <div onClick={() => setChange(!change)} className="flex justify-center w-full bg-blue-600 py-2 rounded-sm mt-3 cursor-pointer">
+                            <div onClick={() => setChange(!change)} className="flex justify-center w-full bg-slate-700 hover:bg-slate-500 transition py-2 rounded-sm mt-3 cursor-pointer">
                                 <span className="text-white font-normal">Lưu thay đổi</span>
                             </div>
                         </div>
 
                     </div>
                     {change ?
-                       <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<FaRegSmileBeam className="w-5 h-5 text-blue-600" />} textMessage="text-blue-600" />
+                       <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<FaRegSmileBeam className="w-5 h-5 text-black" />} textMessage="text-black" />
                         :
                         <></>
                     }
                 </div>
 
                 <div onClick={() => navigate(PATH.profile.dashboard)} className="flex w-full px-4 items-center pt-5">
-                    <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 text-blue-600 cursor-pointer" />
-                    <span className="text-sm text-blue-600 cursor-pointer lg:text-base">Quay lại thông tin tài khoản của tôi</span>
+                    <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 text-slate-700 cursor-pointer" />
+                    <span className="text-sm text-slate-700 cursor-pointer lg:text-base">Quay lại thông tin tài khoản của tôi</span>
                 </div>
             </div>
         </div>

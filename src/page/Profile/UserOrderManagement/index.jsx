@@ -48,48 +48,48 @@ function UserOrderManagement() {
 
             <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white shadow-md">
                 <div className="w-full flex flex-wrap md:flex-nowrap md:cursor-pointer md:px-0 md:py-0">
-                    <div onClick={() => handleDiv(1)} className={showDiv === 1 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
+                    <div onClick={() => handleDiv(1)} className={showDiv === 1 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <RiFileListLine className="w-5 h-5 md:hidden" />
                             <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">Tất cả đơn</span>
                         </div>
-                        <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
+                        <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white px-2">Xem chi tiết</span>
                         </div>
                     </div>
-                    <div onClick={() => handleDiv(2)} className={showDiv === 2 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
+                    <div onClick={() => handleDiv(2)} className={showDiv === 2 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <IoReload className="w-5 h-5 md:hidden" />
                             <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">Đang xử lý</span>
                         </div>
-                        <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
+                        <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white">Xem chi tiết</span>
                         </div>
                     </div>
-                    <div onClick={() => handleDiv(3)} className={showDiv === 3 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
+                    <div onClick={() => handleDiv(3)} className={showDiv === 3 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <HiOutlineTruck className="w-5 h-5 md:hidden" />
                             <span className="flex px-0.5 md:text-xs lg:text-base whitespace-nowrap font-semibold lg:font-normal">Đang vận chuyển</span>
                         </div>
-                        <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
+                        <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white">Xem chi tiết</span>
                         </div>
                     </div>
-                    <div onClick={() => handleDiv(4)} className={showDiv === 4 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
+                    <div onClick={() => handleDiv(4)} className={showDiv === 4 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <FiCheckSquare className="w-5 h-5 md:hidden" />
                             <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">Đã giao</span>
                         </div>
-                        <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
+                        <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white">Xem chi tiết</span>
                         </div>
                     </div>
-                    <div onClick={() => handleDiv(5)} className={showDiv === 5 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-blue-100" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
+                    <div onClick={() => handleDiv(5)} className={showDiv === 5 ? "px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300" : "px-4 w-full flex justify-between items-center py-4 md:py-2"}>
                         <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                             <BiTaskX className="w-5 h-5 md:hidden" />
                             <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">Đã hủy</span>
                         </div>
-                        <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
+                        <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
                             <span className="text-xs font-normal text-white">Xem chi tiết</span>
                         </div>
                     </div>
@@ -97,10 +97,10 @@ function UserOrderManagement() {
             </div>
 
             {showDiv === 1 &&
-                <div className="w-full px-4 md:px-0 shadow-md">
+                <div className="w-full px-4 md:px-0">
                     {UserAllOrderData.map((item, index) => {
                         return (
-                            <div key={index} className="bg-white w-full my-4 shadow-md ">
+                            <div key={index} className="bg-white w-full my-4">
                                 <div className="flex py-3 items-center">
                                     {item.icon}
                                     <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>
@@ -138,16 +138,15 @@ function UserOrderManagement() {
                         )
 
                     })}
-
                 </div>
             }
 
             {showDiv === 2 &&
-                <div className="w-full px-4 md:px-0 shadow-md">
+                <div className="w-full px-4 md:px-0">
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 1)
                             return (
-                                <div key={index} className="bg-white w-full my-4 shadow-md">
+                                <div key={index} className="bg-white w-full my-4">
                                     <div className="flex py-3 items-center">
                                         {item.icon}
                                         <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>
@@ -189,11 +188,11 @@ function UserOrderManagement() {
             }
 
             {showDiv === 3 &&
-                <div className="w-full px-4 md:px-0 shadow-md">
+                <div className="w-full px-4 md:px-0">
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 2)
                             return (
-                                <div key={index} className="bg-white w-full my-4 shadow-md">
+                                <div key={index} className="bg-white w-full my-4">
                                     <div className="flex py-3 items-center">
                                         {item.icon}
                                         <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>
@@ -235,11 +234,11 @@ function UserOrderManagement() {
             }
 
             {showDiv === 4 &&
-                <div className="w-full px-4 md:px-0 shadow-md">
+                <div className="w-full px-4 md:px-0">
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 3)
                             return (
-                                <div key={index} className="bg-white w-full my-4 shadow-md">
+                                <div key={index} className="bg-white w-full my-4">
                                     <div className="flex py-3 items-center">
                                         {item.icon}
                                         <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>
@@ -281,11 +280,11 @@ function UserOrderManagement() {
             }
 
             {showDiv === 5 &&
-                <div className="w-full px-4 md:px-0 shadow-md">
+                <div className="w-full px-4 md:px-0">
                     {UserAllOrderData.map((item, index) => {
                         if (item.status_id === 4)
                             return (
-                                <div key={index} className="bg-white w-full my-4 shadow-md">
+                                <div key={index} className="bg-white w-full my-4">
                                     <div className="flex py-3 items-center">
                                         {item.icon}
                                         <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">{item.status}</span>

@@ -171,14 +171,14 @@ function PersonInfo() {
                             </div>
                         </div>
                         <div className="w-full flex justify-center py-5 cursor-pointer">
-                            <div onClick={() => setChange(!change)} className="w-40 h-10 flex items-center justify-center bg-blue-600 rounded-sm">
+                            <div onClick={() => setChange(!change)} className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm">
                                 <span className="font-normal text-white">Lưu thay đổi</span>
                             </div>
                         </div>
                     </div>
 
                     {change ?
-                        <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<FaRegSmileBeam className="w-5 h-5 text-blue-600" />} textMessage="text-blue-600"/>
+                        <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<FaRegSmileBeam className="w-5 h-5 text-black" />} textMessage="text-black"/>
                         :
                         <></>
                     }
@@ -197,8 +197,8 @@ function PersonInfo() {
                                     </div>
 
                                     <div onClick={() => navigate(PATH.profile.user_change_password)} className="w-full flex justify-end cursor-pointer">
-                                        <div className="border-2 w-20 h-8 flex justify-center rounded-md border-blue-500">
-                                            <span className="text-blue-500 flex items-center">Cập nhật</span>
+                                        <div className="border-2 w-20 h-8 flex justify-center rounded-md bg-slate-700 hover:bg-slate-500 transition">
+                                            <span className="text-white flex items-center">Cập nhật</span>
                                         </div>
                                     </div>
                                 </div>

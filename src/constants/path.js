@@ -20,21 +20,7 @@ export const PATH = {
     payment: '/payment',
     category: {
         dashboard: "/category",
-        novel_book: '/category/novel_book',
-        economic_book: '/category/economic_book',
-        short_story_prose_book: '/category/short_story_prose_book',
-        kid_book: '/category/kid_book',
-        mentality_lifeskill_book: '/category/mentality_lifeskill_book',
-        text_reference_book: '/category/text_reference_book',
-        biography_memoir_book: '/category/biography_memoir_book',
-        foreign_book: '/category/foreign_book',
     },
-
-    new_book: '/new_book',
-    bestseller_book: '/bestseller_book',
-    popular_book: '/popular_book',
-    publisher_book: '/publisher_book',
-    author_book: '/author_book',
     detail_book: '/detail_book',
    
     admin: {

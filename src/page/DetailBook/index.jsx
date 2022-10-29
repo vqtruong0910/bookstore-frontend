@@ -4,14 +4,17 @@ import { BsCart3 } from "react-icons/bs";
 import { FiShoppingBag } from "react-icons/fi";
 import { DetailBookData } from "./DetailBookData";
 import Slider from "react-slick";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
 import style from "./DetailBook.module.scss";
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill, BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { BiMessageRoundedEdit } from "react-icons/bi";
+import { FaRegSmileBeam } from "react-icons/fa";
 import { useState } from "react";
+import Notify from "../../components/Notify";
 
 function DetailBook() {
+
     const navigate = useNavigate();
     const [showImage, setShowImage] = useState(1);
     const handleImage = (e) => {
@@ -24,13 +27,13 @@ function DetailBook() {
 
     function NextArrow({ onClick }) {
         return (
-            <BsFillArrowRightCircleFill className="absolute right-0 top-1/3 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 z-10 text-slate-600" onClick={onClick} />
+            <BsFillArrowRightCircleFill className="absolute right-0 top-1/3 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 z-10 text-slate-600 cursor-pointer" onClick={onClick} />
         );
     }
 
     function PrevArrow({ onClick }) {
         return (
-            <BsFillArrowLeftCircleFill className="absolute left-0 top-1/3 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 z-10 text-slate-600" onClick={onClick} />
+            <BsFillArrowLeftCircleFill className="absolute left-0 top-1/3 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 z-10 text-slate-600 cursor-pointer" onClick={onClick} />
         );
     }
 
@@ -135,16 +138,15 @@ function DetailBook() {
                             </div>
                         </div>
 
-                        <div className="lg:w-1/2 flex flex-row justify-between items-center mt-4 mx-4">
+                        <div className="lg:w-7/12 flex flex-row items-center mt-4 mx-4">
                             <div className="rounded-sm cursor-pointer lg:w-1/2">
-                                <div className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500">
+                                <div className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500 rounded-sm hover:bg-red-400 transition">
                                     <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
-                                    <span className="mx-1 text-white font-medium text-base lg:text-lg">Thêm giỏ hàng</span>
+                                    <span className="mx-1 text-white font-medium text-sm lg:text-lg">Thêm giỏ hàng</span>
                                 </div>
-
                             </div>
-                            <div className="flex flex-wrap items-center lg:w-1/2 lg:justify-center">
-                                <span className="text-gray-500 text-base font-semibold mx-3">Số lượng</span>
+                            <div className="flex flex-wrap items-center justify-end lg:w-1/2 lg:justify-center">
+                                <span className="text-gray-500 text-sm md:text-base font-semibold mx-3">Số lượng</span>
                                 <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
                                     <div className="w-full border-r-2 flex justify-center cursor-pointer">
                                         <IoMdRemove className="w-5 h-7 text-gray-300" />
@@ -262,14 +264,16 @@ function DetailBook() {
                                         <span className="line-through text-neutral-400 w-full text-sm md:text-base">{item.old_cost}.000đ</span>
                                     </div>
 
-                                    <Link to={PATH.detail_book} className="flex w-full mt-3">
+                                    <div className="flex w-full mt-3">
                                         <div className="flex w-full rounded-md border-2 border-slate-700 mx-4 items-center justify-center">
                                             <FiShoppingBag className="w-5 h-5 text-slate-700" />
                                             <div className="text-sm md:text-base lg:text-lg text-slate-700 py-1 px-0.5 whitespace-nowrap">Thêm giỏ hàng</div>
                                         </div>
-                                    </Link>
+                                    </div>
+                                   
 
                                 </div>
+                               
                             )
                         })}
 
@@ -325,9 +329,9 @@ function DetailBook() {
                 </div>
 
                 <div className="flex flex-wrap w-full justify-end items-center px-4 mt-4">
-                        <BsArrowLeftCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-400" />
-                        <span className="mx-2 font-medium text-sm md:text-base lg:text-lg">1</span>
-                        <BsArrowRightCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-700" />
+                    <BsArrowLeftCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-400" />
+                    <span className="mx-2 font-medium text-sm md:text-base lg:text-lg">1</span>
+                    <BsArrowRightCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-700" />
                 </div>
             </div>
         </div>

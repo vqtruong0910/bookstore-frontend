@@ -305,17 +305,21 @@ export const NavbarData = [
         id:3, 
         name:"Nhà xuất bản",
         icon: <BsPersonLinesFill className ="absolute top-4 left-1 w-7 h-7 md:hidden" />,
-        link: PATH.publisher_book,
+        link: PATH.category.dashboard,
         submenu: true, 
         submenuItems: [
-            {name: "Đông A", link:"#"},
-            {name: "Đinh Tị Books", link: "#"},
-            {name: "Nhã Nam", link:"#"},
-            {name: "NXB Kim Đồng", link:"#"},
-            {name: "NXB Trẻ", link: "#"},
-            {name: "NXB Giáo dục", link: "#"},
-            {name: "NXB Hội Nhà Văn", link: "#"},
-            {name: "NXB Phụ nữ Việt Nam", link: "#"},
+            {id: 1, name: "Đông A", link:"#"},
+            {id: 2, name: "Đinh Tị", link: "#"},
+            {id: 3, name: "Nhã Nam", link:"#"},
+            {id: 4, name: "NXB Kim Đồng", link:"#"},
+            {id: 5, name: "NXB Trẻ", link: "#"},
+            {id: 6, name: "NXB Giáo dục", link: "#"},
+            {id: 7, name: "NXB Hội Nhà Văn", link: "#"},
+            {id: 8, name: "NXB Phụ nữ Việt Nam", link: "#"},
+            {id: 9, name: "Thái Hà", link: "#"},
+            {id: 10, name: "Alpha Books", link: "#"},
+            {id: 11, name: "AZ Việt Nam", link: "#"},
+            {id: 12, name: "Cty Văn Hoá Văn Lang", link: "#"}
         ]
     },
 
@@ -323,16 +327,18 @@ export const NavbarData = [
         id:4,
         name: "Tác giả",
         icon: <BsPersonBadgeFill className ="absolute top-4 left-1 w-7 h-7 md:hidden" />,
-        link: PATH.author_book,
+        link: PATH.category.dashboard,
         submenu: true, 
         submenuItems: [
-            {name: "Thích Nhất Hạnh", link:"#"},
-            {name: "Nguyễn Nhật Ánh", link: "#"},
-            {name: "Tô Hoài", link:"#"},
-            {name: "Phạm Công Luận", link:"#"},
-            {name: "Keigo Higashino", link: "#"},
-            {name: "Dale Carnegie", link: "#"},
-            {name: "Murakami Haruki", link: "#"}
+            {id: 1, name: "Thích Nhất Hạnh", link:"#"},
+            {id: 2, name: "Nguyễn Nhật Ánh", link: "#"},
+            {id: 3, name: "Tô Hoài", link:"#"},
+            {id: 4, name: "Phạm Công Luận", link:"#"},
+            {id: 5, name: "Keigo Higashino", link: "#"},
+            {id: 6, name: "Dale Carnegie", link: "#"},
+            {id: 7, name: "Murakami Haruki", link: "#"},
+            {id: 8, name: "Phỉ Ngã Tư Tồn", link: "#"},
+            {id: 9, name: "Đồng Hoa", link: "#"}
         ]
     },
 
@@ -340,18 +346,18 @@ export const NavbarData = [
         id: 5, 
         name: "Mới nhất", 
         icon: <BsStars className ="absolute top-4 left-1 w-7 h-7 md:hidden"/>,
-        link: PATH.new_book
+        link: PATH.category.dashboard
     },
     {   
         id: 6, 
         name: "Bán chạy", 
         icon: <GiFireZone className ="absolute top-4 left-1 w-7 h-7 md:hidden" />,
-        link: PATH.bestseller_book
+        link: PATH.category.dashboard
     },
     {   
         id: 7, 
         name: "Phổ biến", 
         icon: <AiOutlineLineChart className ="absolute top-5 left-1 w-7 h-7 md:hidden" />,
-        link: PATH.popular_book
+        link: PATH.category.dashboard
     },
 ];
