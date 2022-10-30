@@ -9,30 +9,29 @@ import { TiSocialTumbler } from "react-icons/ti";
 import { FiTwitter, FiHelpCircle } from "react-icons/fi";
 import { IoMdContacts } from "react-icons/io";
 import { ImNewspaper } from "react-icons/im";
+import { PATH } from "../../constants/path";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+    const navigate = useNavigate(); 
     const serviceData = [
-        { id: 1, name: "Điều khoản sử dụng" },
-        { id: 2, name: "Chính sách bảo mật thông tin cá nhân" },
-        { id: 3, name: "Chính sách bảo mật thanh toán" },
-        { id: 4, name: "Giới thiệu Book Store" },
+        { id: 1, name: "Điều khoản sử dụng", link: PATH.terms.using },
+        { id: 2, name: "Chính sách bảo mật thông tin cá nhân", link: PATH.terms.user_infor_privacy },
+        { id: 3, name: "Chính sách bảo mật thanh toán", link: PATH.terms.payment_privacy },
     ];
 
     const helpData = [
-        { id: 1, name: "Chính sách đổi - trả - hoàn tiền" },
-        { id: 2, name: "Chính sách vận chuyển" },
-        { id: 3, name: "Phương thức thanh toán và xuất HĐ" },
+        { id: 1, name: "Chính sách vận chuyển", link: PATH.terms.transport },
+        { id: 2, name: "Chính sách khách sỉ", link: PATH.terms.wholesale_customer_policy },
     ];
 
     const accountData = [
-        { id: 1, name: "Đăng nhập/Tạo mới tài khoản" },
-        { id: 3, name: "Chi tiết tài khoản" },
-        { id: 4, name: "Lịch sử mua hàng" },
+        { id: 1, name: "Đăng nhập/Tạo mới tài khoản", link: PATH.login },
     ];
 
     const contactData = [
         { id: 1, name: "273 An Dương Vương, Quận 5, TP.HCM", icon: <GoLocation className="w-5 h-5 mt-1 mr-1" /> },
-        { id: 2, name: "BookStoreCSKH@gmail.com.vn", icon: <HiMail className="w-5 h-5 mt-1 mr-1" /> },
+        { id: 2, name: "BookStoreCSKH@gmail.com", icon: <HiMail className="w-5 h-5 mt-1 mr-1" /> },
         { id: 3, name: "19002712", icon: <FiPhoneCall className="w-5 h-5 mt-1 mr-1" /> },
     ];
 
@@ -47,11 +46,11 @@ function Footer() {
     return (
         <footer className="text-white shadow inline-block md:items-center md:justify-between bg-gray-800 w-full">
             <div className="flex w-full px-4 pt-4">
-                <div className="items-center text-base text-gray-500 dark:text-gray-400 mr-3">© 2022
+                <div className="items-center text-sm md:text-base text-gray-500 dark:text-gray-400 mr-3">© 2022
                     <span className="hover:underline ml-2">Book Store™ </span>
                 </div>
             </div>
-            <p className="w-full text-sm mt-2 leading-6 px-4">
+            <p className="w-full text-sm md:text-base mt-2 leading-6 px-4">
                 Book Store nhận đặt hàng trực tuyến và giao hàng tận nơi.
                 KHÔNG hỗ trợ đặt mua và nhận hàng trực tiếp tại văn phòng.
             </p>
@@ -74,12 +73,12 @@ function Footer() {
                     <li className="w-full mt-10 ">
                         <div className="flex w-full">
                             <ImNewspaper className="w-6 h-6 my-0.5 mr-1" />
-                            <span className="mr-4 md:mr-6 text-lg font-semibold">DỊCH VỤ</span>
+                            <span className="mr-4 md:mr-6 text-lg md:text-xl font-semibold">DỊCH VỤ</span>
                         </div>
-                        <ul className="flex flex-col my-2 text-sm">
+                        <ul className="flex flex-col my-2">
                             {serviceData.map((item, index) => {
                                 return (
-                                    <li key={index} className="my-2 cursor-pointer hover:underline md:h-7">{item.name}</li>
+                                    <li onClick={() => navigate(item.link)} key={index} className="my-2 cursor-pointer hover:text-white text-gray-400 transition">{item.name}</li>
                                 )
                             })}
                         </ul>
@@ -89,15 +88,13 @@ function Footer() {
                     <li className="w-full mt-10">
                         <div className="flex w-full">
                             <FiHelpCircle className="w-6 h-6 my-0.5 mr-1" />
-                            <span className="mr-4 md:mr-6 text-lg font-semibold">HỖ TRỢ</span>
+                            <span className="mr-4 md:mr-6 text-lg md:text-xl font-semibold">HỖ TRỢ</span>
                         </div>
 
-                        <ul className="flex flex-col my-2 text-sm">
+                        <ul className="flex flex-col my-2">
                             {helpData.map((item, index) => {
                                 return (
-
-                                    <li key={index} className="my-2 cursor-pointer hover:underline md:h-7">{item.name}</li>
-
+                                    <li onClick={() => navigate(item.link)} key={index} className="my-2 cursor-pointer hover:text-white text-gray-400 transition">{item.name}</li>
                                 )
                             })}
                         </ul>
@@ -107,13 +104,13 @@ function Footer() {
                     <li className="w-full mt-10 ">
                         <div className="flex w-full">
                             <BsPersonCircle className="w-6 h-6 my-0.5 mr-1" />
-                            <span className="mr-4 md:mr-6 text-lg font-semibold">TÀI KHOẢN CỦA TÔI</span>
+                            <span className="mr-4 md:mr-6 text-lg md:text-xl font-semibold">TÀI KHOẢN CỦA TÔI</span>
                         </div>
-                        <ul className="flex flex-col my-2 text-sm">
+                        <ul className="flex flex-col my-2">
                             {accountData.map((item, index) => {
                                 return (
 
-                                    <li key={index} className="my-2 cursor-pointer hover:underline md:h-7">{item.name}</li>
+                                    <li onClick={() => navigate(item.link)} key={index} className="my-2 cursor-pointer hover:text-white text-gray-400 transition">{item.name}</li>
 
                                 )
 
@@ -125,12 +122,12 @@ function Footer() {
                     <li className="w-full mt-10">
                         <div className="flex w-full cursor-pointer">
                             <IoMdContacts className="w-6 h-6 my-0.5 mr-1" />
-                            <span className="mr-4 md:mr-6 text-lg font-semibold">LIÊN HỆ</span>
+                            <span className="mr-4 md:mr-6 text-lg md:text-xl font-semibold">LIÊN HỆ</span>
                         </div>
-                        <ul className="flex flex-col my-2 text-sm">
+                        <ul className="flex flex-col my-2">
                             {contactData.map((item, index) => {
                                 return (
-                                    <li key={index} className="flex my-2 md:h-7 items-center">
+                                    <li key={index} className="flex my-2 md:h-7 items-center text-gray-400">
                                         {item.icon}
                                         {item.name}
                                     </li>

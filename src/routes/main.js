@@ -17,9 +17,14 @@ const UserChangePassword = lazy(() => import('../page/Profile/UserChangePassword
 const UserOrderDetail = lazy(() => import('../page/Profile/UserOrderDetail'));
 const Cart = lazy(() => import('../page/Cart'));
 const Payment = lazy(() => import('../page/Payment'));
-const Invoice = lazy(() => import('../page/Invoice'));
 const CategoryLayout = lazy(() => import('../layout/CategoryLayout'));
 const Category = lazy(() => import('../page/Category'));
+const TermsLayout = lazy(() => import('../layout/TermsLayout'));
+const TermsOfUsing = lazy(() => import('../page/Terms/Using'));
+const TransportTerms = lazy(() => import('../page/Terms/Transport'));
+const TermsOfUserInforPrivacy = lazy(() => import('../page/Terms/UserInforPrivacy'));
+const PaymentPrivacy = lazy(() => import('../page/Terms/PaymentPrivacy'));
+const WholesaleCustomerPolicy = lazy(() => import('../page/Terms/WholesaleCustomerPolicy'));
 
 // Phần Auth
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
@@ -57,8 +62,14 @@ function MainRoutes() {
                     <Route path={PATH.profile.user_change_password} element={<UserChangePassword />}></Route>
                     <Route path={PATH.profile.user_order_detail} element={<UserOrderDetail />}></Route>
                 </Route>
+                <Route element={<Suspense fallback={<Loading center={true} />}><TermsLayout /></Suspense>}>
+                    <Route path={PATH.terms.using} element={<TermsOfUsing />}></Route>
+                    <Route path={PATH.terms.transport} element={<TransportTerms/>}></Route>
+                    <Route path={PATH.terms.user_infor_privacy} element={<TermsOfUserInforPrivacy/>}></Route>
+                    <Route path={PATH.terms.payment_privacy} element={<PaymentPrivacy />}></Route>
+                    <Route path={PATH.terms.wholesale_customer_policy} element={<WholesaleCustomerPolicy />}></Route>
+                </Route>
                 <Route path={PATH.payment} element={<Payment />}></Route>
-                <Route path={PATH.invoice} element={<Invoice />}></Route>
                 <Route path={PATH.category.dashboard} element={<CategoryLayout />}>
                     <Route index element={<Category />} ></Route>
                 </Route>
