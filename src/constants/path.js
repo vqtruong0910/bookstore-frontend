@@ -17,6 +17,13 @@ export const PATH = {
         user_change_password: "/profile/user_change_password",
         user_order_detail: "/profile/user_order_detail",
     },
+    terms: {
+        using: "/terms/using",
+        transport: "/terms/transport",
+        user_infor_privacy: "terms/user_infor_privacy",
+        payment_privacy: "terms/payment_privacy",
+        wholesale_customer_policy: "terms/wholesale_customer_policy",
+    },
     payment: '/payment',
     category: {
         dashboard: "/category",

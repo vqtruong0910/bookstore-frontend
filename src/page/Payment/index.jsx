@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
 import axios from "axios";
+import Notify from "../../components/Notify";
+import { AiOutlineSmile } from "react-icons/ai";
 
 function Payment() {
   const navigate = useNavigate();
+  const [notify, showNotify] = useState(false);
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
   const [ward, setWard] = useState([]);
@@ -191,8 +194,9 @@ function Payment() {
             </div>
             <div className="flex mt-4 lg:w-full lg:text-center">
               <div onClick={() => navigate(PATH.main)} className="lg:hidden px-2 py-1 bg-gray-300 rounded-sm transition mx-4 cursor-pointer text-base md:text-lg hover:bg-gray-400">Giỏ hàng</div>
-              <div onClick={() => navigate(PATH.payment)} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Đặt hàng</div>
+              <div onClick={() => showNotify(!notify)} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Đặt hàng</div>
             </div>
+            {notify && <Notify icon={<AiOutlineSmile className="w-7 h-7"/>} message="Chúc mừng bạn đặt hàng thành công" orderSuccess="true" />}
           </div>
         </div>
       </div>

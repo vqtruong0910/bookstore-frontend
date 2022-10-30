@@ -9,12 +9,9 @@ import { PATH } from "../../constants/path";
 import style from "./DetailBook.module.scss";
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill, BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { BiMessageRoundedEdit } from "react-icons/bi";
-import { FaRegSmileBeam } from "react-icons/fa";
 import { useState } from "react";
-import Notify from "../../components/Notify";
 
 function DetailBook() {
-
     const navigate = useNavigate();
     const [showImage, setShowImage] = useState(1);
     const handleImage = (e) => {
