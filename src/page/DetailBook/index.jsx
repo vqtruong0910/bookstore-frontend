@@ -10,9 +10,10 @@ import style from "./DetailBook.module.scss";
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill, BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { BiMessageRoundedEdit } from "react-icons/bi";
 import { useState } from "react";
-
+import Notify from "../../components/Notify";
 function DetailBook() {
     const navigate = useNavigate();
+    const [notify, setNotify] = useState(false);
     const [showImage, setShowImage] = useState(1);
     const handleImage = (e) => {
         setShowImage(e);
@@ -137,11 +138,16 @@ function DetailBook() {
 
                         <div className="lg:w-7/12 flex flex-row items-center mt-4 mx-4">
                             <div className="rounded-sm cursor-pointer lg:w-1/2">
-                                <div className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500 rounded-sm hover:bg-red-400 transition">
+                                <div onClick={() => setNotify(true)} className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500 rounded-sm hover:bg-red-400 transition">
                                     <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
                                     <span className="mx-1 text-white font-medium text-sm lg:text-lg">Thêm giỏ hàng</span>
                                 </div>
                             </div>
+                            {notify ?
+                                <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
+                                :
+                                <></>
+                            }
                             <div className="flex flex-wrap items-center justify-end lg:w-1/2 lg:justify-center">
                                 <span className="text-gray-500 text-sm md:text-base font-semibold mx-3">Số lượng</span>
                                 <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
@@ -256,25 +262,28 @@ function DetailBook() {
                                     </div>
 
 
-                                    <div className="flex flex-wrap justify-start font-medium text-base mx-4">
+                                    <div className="flex font-medium text-base mx-4">
                                         <span className="text-red-600 w-full text-lg md:text-xl">{item.new_cost}.000đ</span>
-                                        <span className="line-through text-neutral-400 w-full text-sm md:text-base">{item.old_cost}.000đ</span>
+                                        <span className="line-through text-neutral-400 w-full text-sm md:text-base justify-end flex">{item.old_cost}.000đ</span>
                                     </div>
 
                                     <div className="flex w-full mt-3">
-                                        <div className="flex w-full rounded-md border-2 border-slate-700 mx-4 items-center justify-center">
-                                            <FiShoppingBag className="w-5 h-5 text-slate-700" />
-                                            <div className="text-sm md:text-base lg:text-lg text-slate-700 py-1 px-0.5 whitespace-nowrap">Thêm giỏ hàng</div>
+                                        <div onClick={() => setNotify(true)}  className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition mx-4 items-center justify-center">
+                                            <FiShoppingBag className="w-5 h-5 text-white" />
+                                            <div className="text-sm md:text-base lg:text-lg text-white py-2 px-0.5 whitespace-nowrap">Thêm giỏ hàng</div>
                                         </div>
                                     </div>
-                                   
-
                                 </div>
-                               
+
                             )
                         })}
 
                     </Slider>
+                    {notify ?
+                        <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
+                        :
+                        <></>
+                    }
                 </div>
             </div>
 

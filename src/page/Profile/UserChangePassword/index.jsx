@@ -2,14 +2,14 @@ import React from "react";
 import { useState, useCallback } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { BsArrowLeftShort } from "react-icons/bs";
-import { FaRegSmileBeam } from "react-icons/fa";
+import { AiOutlineSmile } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../../constants/path";
 import Notify from "../../../components/Notify";
 
 function UserChangePassword() {
     const navigate = useNavigate();
-    const [change, setChange] = useState(false);
+    const [notify, setNotify] = useState(false);
     const [shown, setShown] = useState({
         1: false,   // Mat khau cu
         2: false,   // Mat khau moi
@@ -18,8 +18,8 @@ function UserChangePassword() {
 
     const showShown = useCallback((location) => {
         setShown({ ...shown, [location]: !shown[location] })
-    }, [shown])
-
+    }, [shown]);
+      
     return (
         <div className="flex w-full">
             <div className="flex flex-wrap w-full bg-gray-100 py-5">
@@ -68,14 +68,14 @@ function UserChangePassword() {
                                 </div>
                             </div>
 
-                            <div onClick={() => setChange(!change)} className="flex justify-center w-full bg-slate-700 hover:bg-slate-500 transition py-2 rounded-sm mt-3 cursor-pointer">
+                            <div onClick={() => setNotify(true)} className="flex justify-center w-full bg-slate-700 hover:bg-slate-500 transition py-2 rounded-sm mt-3 cursor-pointer">
                                 <span className="text-white font-normal">Lưu thay đổi</span>
                             </div>
                         </div>
 
                     </div>
-                    {change ?
-                       <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<FaRegSmileBeam className="w-5 h-5 text-black" />} textMessage="text-black" />
+                    {notify ?
+                        <Notify close="true" message="Chúc mừng bạn lưu thay đổi thành công" icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />} textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} />
                         :
                         <></>
                     }

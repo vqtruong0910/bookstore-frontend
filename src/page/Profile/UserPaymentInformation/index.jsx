@@ -2,9 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Notify from "../../../components/Notify";
-import { BsPersonCheck } from "react-icons/bs";
+import { AiOutlineSmile } from "react-icons/ai";
 function UserPaymentInformation() {
-    const [change, setChange] = useState(false);
+    const [notify, setNotify] = useState(false);
     const [province, setProvince] = useState([]);
     const [district, setDistrict] = useState([]);
     const [ward, setWard] = useState([]);
@@ -146,13 +146,13 @@ function UserPaymentInformation() {
                 </div>
 
                 <div className="w-full flex justify-center py-5 cursor-pointer">
-                    <div onClick={() => setChange(!change)} className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition text-white rounded-sm">
+                    <div onClick={() => setNotify(true)} className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition text-white rounded-sm">
                         <span className="font-normal">Cập nhật</span>
                     </div>
                 </div>
 
-                {change ?
-                    <Notify message="Chúc mừng bạn cập nhật thành công" icon={<BsPersonCheck className="w-5 h-5 text-black" />} textMessage="text-black" />
+                {notify ?
+                    <Notify close="true" message="Chúc mừng bạn cập nhật thành công" icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />} textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} />
                     :
                     <></>
                 }

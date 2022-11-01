@@ -4,9 +4,12 @@ import style from "./Category.module.scss";
 import { CategoryData } from "./CategoryData";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import { useState } from "react";
+import Notify from "../../components/Notify";
 
 function Category() {
     const navigate = useNavigate();
+    const [notify, setNotify] = useState(false);
 
     return (
         <>
@@ -45,7 +48,7 @@ function Category() {
                                 </div>
 
                                 <div className="flex w-full mt-2 mb-4 px-4">
-                                    <div className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition items-center justify-center py-1">
+                                    <div onClick={() => setNotify(true)} className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition items-center justify-center py-1">
                                         <FiShoppingBag className="w-5 h-5 text-white" />
                                         <div className=" text-sm md:text-base lg:text-lg text-white py-1 mx-0.5">Thêm giỏ hàng</div>
                                     </div>
@@ -54,6 +57,12 @@ function Category() {
                             </div>
                         )
                     })}
+                    {notify ?
+                        <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
+                        :
+                        <></>
+                    }
+
                 </div>
 
             </div>

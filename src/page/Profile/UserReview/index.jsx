@@ -6,7 +6,7 @@ import { BsStarFill } from "react-icons/bs";
 import Notify from "../../../components/Notify";
 
 function UserReview() {
-    const [change, setChange] = useState(false);
+    const [notify, setNotify] = useState(false);
     const [showDiv, setShowDiv] = useState(1);
 
     const handleDiv = (e) => {
@@ -74,11 +74,15 @@ function UserReview() {
                                                 type="text" placeholder="Hãy chia sẻ cảm nhận, đánh giá của bạn về sản phẩm này nhé." />
                                         </div>
                                         <div className="w-full flex justify-center py-5 cursor-pointer">
-                                            <div onClick={() => setChange(!change)} className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm">
+                                            <div onClick={() => setNotify(true)} className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm">
                                                 <span className="font-normal text-white">Gửi đánh giá</span>
                                             </div>
                                         </div>
-
+                                        {notify ?
+                                            <Notify close="true" message="Cám ơn bạn vì đã đánh giá" icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />} textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} />
+                                            :
+                                            <></>
+                                        }
 
                                     </div>
                                 </div>
@@ -88,7 +92,6 @@ function UserReview() {
                     </div>
                 </div>
             }
-            {change && <Notify message="Cám ơn bạn vì đã đánh giá" icon={<AiOutlineSmile className="w-5 h-5 text-black" />} textMessage="text-black" />}
 
             {showDiv === 2 &&
                 <div className="w-full px-4 md:px-0">

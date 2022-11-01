@@ -44,9 +44,9 @@ function Footer() {
         { id: 6, icon: <FaPinterestP className="w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 px-1" /> }
     ]
     return (
-        <footer className="text-white shadow inline-block md:items-center md:justify-between bg-gray-800 w-full">
+        <footer className="text-white shadow inline-block md:items-center md:justify-between bg-slate-700 w-full">
             <div className="flex w-full px-4 pt-4">
-                <div className="items-center text-sm md:text-base text-gray-500 dark:text-gray-400 mr-3">© 2022
+                <div className="items-center text-sm md:text-base text-gray-400 mr-3">© 2022
                     <span className="hover:underline ml-2">Book Store™ </span>
                 </div>
             </div>
