@@ -204,7 +204,12 @@ function Navbar() {
                                         <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/avatar.png" className="w-6 h-6" alt="Avatar" />
                                     </div>
 
-                                    <Link to={PATH.cart}><AiOutlineShoppingCart className={clsx(state && 'w-7 h-7 ml-0.5 text-white/75 cursor-pointer', !state && 'w-8 h-8 text-white/75')} /></Link>
+                                    <div className="w-8 h-8 relative flex" onClick={() => navigate(PATH.cart)}>
+                                        <AiOutlineShoppingCart className="w-8 h-8 text-white/75 cursor-pointer" />
+                                        <div className="absolute rounded-full bg-orange-400 text-white w-4 h-4 flex items-center text-xs justify-center right-0">
+                                            <span>0</span>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 {stateMenuChild[5] &&

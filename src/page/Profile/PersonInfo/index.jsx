@@ -1,9 +1,13 @@
-import React from "react";
 import { BiPencil, BiLock } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../../constants/path";
+import Notify from "../../../components/Notify";
+import { AiOutlineSmile } from "react-icons/ai";
+import React, { useState } from "react";
+
 
 function PersonInfo() {
+    const [notify, setNotify] = useState(false);
     const navigate = useNavigate();
     const arrayYear = [];
     const curYear = new Date().getFullYear();
@@ -166,14 +170,18 @@ function PersonInfo() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full flex justify-center py-5 cursor-pointer">
+                        <div onClick={() => setNotify(true)} className="w-full flex justify-center py-5 cursor-pointer">
                             <div className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm">
                                 <span className="font-normal text-white">Lưu thay đổi</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* <Notify close="true" message="Chúc mừng bạn lưu thay đổi thành công" icon={<AiOutlineSmile className="w-5 h-5 text-black" />} textMessage="text-black" /> */}
+                    {notify ?
+                        <Notify close="true" message="Chúc mừng bạn lưu thay đổi thành công" icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />} textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} />
+                        :
+                        <></>
+                    }
 
                     <div className="w-full lg:w-1/3 flex flex-wrap lg:flex-col px-4 lg:border-l lg:my-5 border-gray-300 py-5 lg:py-0">
                         <div className="w-full flex flex-wrap lg:flex-col border-t lg:border-t-0">

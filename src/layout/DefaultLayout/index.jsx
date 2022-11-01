@@ -8,7 +8,9 @@ function DefaultLayout() {
     return (
         <>
             <Header />
-            <Suspense fallback={<Loading />}><Outlet /></Suspense>
+            <div className="w-full bg-gray-100">
+                <Suspense fallback={<Loading />}><Outlet /></Suspense>
+            </div>
             <Footer />
         </>
     );
