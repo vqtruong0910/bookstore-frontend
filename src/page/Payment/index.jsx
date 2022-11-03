@@ -7,7 +7,7 @@ import { AiOutlineSmile } from "react-icons/ai";
 
 function Payment() {
   const navigate = useNavigate();
-  const [notify, showNotify] = useState(false);
+  const [notify, setNotify] = useState(false);
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
   const [ward, setWard] = useState([]);
@@ -194,9 +194,13 @@ function Payment() {
             </div>
             <div className="flex mt-4 lg:w-full lg:text-center">
               <div onClick={() => navigate(PATH.main)} className="lg:hidden px-2 py-1 bg-gray-300 rounded-sm transition mx-4 cursor-pointer text-base md:text-lg hover:bg-gray-400">Giỏ hàng</div>
-              <div onClick={() => showNotify(!notify)} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Đặt hàng</div>
+              <div onClick={() => setNotify(true)} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Đặt hàng</div>
             </div>
-            {notify && <Notify icon={<AiOutlineSmile className="w-7 h-7"/>} message="Chúc mừng bạn đặt hàng thành công" orderSuccess="true" />}
+            {notify ?
+              <Notify close="true" message="Chúc mừng bạn đặt hàng thành công" icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />} orderSuccess="true" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} />
+              :
+              <></>
+            }
           </div>
         </div>
       </div>
