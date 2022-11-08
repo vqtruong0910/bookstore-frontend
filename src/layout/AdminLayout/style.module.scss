@@ -1,0 +1,10 @@
+.open-menu {
+    &:hover {
+        ul {
+            @apply visible;
+        }
+    }
+    ul {
+        @apply invisible;
+    }
+}

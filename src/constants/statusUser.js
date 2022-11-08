@@ -1,3 +1,7 @@
+import { TbLock } from 'react-icons/tb'
+import { RiRadioButtonLine } from 'react-icons/ri'
+import { IoMdCheckmark } from 'react-icons/io'
+
 const gender = {
     0: "Nữ",
     1: "Nam"
@@ -9,13 +13,13 @@ const permission = {
 }
 
 const status = {
-    0: "Đã khóa",
-    1: "Hoạt động"
+    0: <TbLock />,
+    1: <RiRadioButtonLine />
 }
 
 const verifyEmail = {
-    0: "❌",
-    1: "✔"
+    0: "X",
+    1: <IoMdCheckmark />
 }
 
 export { gender, permission, status, verifyEmail }

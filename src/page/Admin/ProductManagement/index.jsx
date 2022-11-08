@@ -1,19 +1,8 @@
 import { BsCardImage } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { PATH } from '../../../constants/path';
-import { API } from '../../../constants/api';
-import axiosJWT from '../../../config/axiosJWT';
 
 function ProductManage() {
-    // useEffectOnce(() => {
-    //     axiosJWT.get(API.GET_LIST_PRODUCT)
-    //         .then(res => {
-    //             console.log(res);
-    //         })
-    //         .catch(err => {
-    //             console.log("Nguoi dung khong hop le: ", err);
-    //         })
-    // })
 
     return (
         <>
@@ -66,28 +55,29 @@ function ProductManage() {
 
             <table className="table-auto border-collapse border rounded-sm w-full bg-white md:table-fixed">
                 <thead>
-                    <tr className="border">
-                        <th className="p-2 w-8"><input type="checkbox" /></th>
+                    <tr className="border bg-slate-800 text-slate-200">
                         <th className="p-2 hidden md:table-cell"><BsCardImage className='mx-auto w-full' /></th>
                         <th className="p-2 text-left">Tên</th>
                         <th className="p-2 text-left">Kho</th>
                         <th className="p-2 text-left">Giá</th>
-                        <th className="p-2 text-left">Danh mục</th>
-                        <th className="p-2 text-left">Danh mục</th>
-                        <th className="p-2 text-left">Danh mục</th>
+                        <th className="p-2 text-left hidden md:table-cell">Danh mục</th>
+                        <th className="p-2 text-left hidden md:table-cell">Danh mục</th>
+                        <th className="p-2 text-left hidden md:table-cell">Danh mục</th>
                     </tr>
                 </thead>
                 <tbody>
                     {Array(5).fill(0).map((item, index) => (
                         <tr key={index} className="odd:bg-slate-100 border">
-                            <td className="p-2"><input className='mx-auto w-full' type="checkbox" /></td>
                             <td className="p-2 hidden md:table-cell"><img className='w-24 h-16 object-fill mx-auto' src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935210289285.jpg" alt="book" /></td>
-                            <td className="p-2">1962</td>
                             <td className="p-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                            <td className="p-2">Malcolm Lockyer</td>
-                            <td className="p-2">1961</td>
-                            <td className="p-2">1961</td>
-                            <td className="p-2">1961</td>
+                            <td className="p-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                            <td className="p-2 hidden md:table-cell">Malcolm Lockyer</td>
+                            <td className="p-2 hidden md:table-cell">1961</td>
+                            <td className="p-2 hidden md:table-cell">1961</td>
+                            <td className="p-2 hidden md:table-cell">1961</td>
+                            {/* <td className={clsx("p-2 hidden md:table-cell", item.TrangThai ? "text-lime-500" : "text-red-500")}><div className="flex justify-center items-center">{status[item.TrangThai]}</div></td>
+                            <td className={clsx("p-2 text-center hidden md:table-cell", item.XacThuc ? "text-lime-500" : "text-red-500")}><div className="flex justify-center items-center">{verifyEmail[item.XacThuc]}</div></td>
+                            <td className="p-2 text-indigo-500 font-semibold cursor-pointer"><BsPencilSquare /></td> */}
                         </tr>
                     ))}
                 </tbody>
