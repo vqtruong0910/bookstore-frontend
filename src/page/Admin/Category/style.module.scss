@@ -1,0 +1,19 @@
+.none-spin {
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+    -ms-overflow-style: none; // IE and Edge 
+    scrollbar-width: none; // Firefox 
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

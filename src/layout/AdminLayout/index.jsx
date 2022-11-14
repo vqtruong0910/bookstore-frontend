@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import jwtDecode from 'jwt-decode';
 import { useCallback, useContext } from 'react';
 import { Suspense, useState } from 'react';
+import { BsPerson } from 'react-icons/bs';
 import { Navigate, Outlet } from 'react-router-dom';
 import bar from '../../assets/svg/bar.svg';
 import DownArrow from '../../assets/svg/DownArrow';
@@ -38,16 +39,26 @@ function AdminLayout() {
                     <div className="w-5 cursor-pointer relative" onClick={() => setStateMenu(true)}>
                         <img className='w-full invert-[.35]' src={bar} alt="Logo Bar" />
                     </div>
-                    <div className="flex ml-auto">
+                    <div className="flex ml-auto items-center">
 
                         <hr className='w-px h-6 bg-slate-200 mx-3' />
                         <div className={clsx(style["open-menu"], "relative")}>
                             <div className="flex items-center cursor-pointer">
-                                <span className='font-semibold'>{user.HoTen} </span>
+                                <div className="flex">
+                                    {
+                                        !user?.Anh ?
+                                            <span className="flex items-center mr-1" ><BsPerson /></span>
+                                            :
+                                            <div className="flex items-center mr-1 w-8">
+                                                <img className='rounded-full' src={user?.Anh} alt="user" />
+                                            </div>
+                                    }
+                                </div>
+                                <span className='font-semibold'>{user.Email} </span>
                                 <DownArrow />
                             </div>
-                            <ul className='absolute bg-white rounded-sm shadow-sm border top-full right-0 px-3 py-2 origin-top-right space-y-2'>
-                                <li><span className='block'>{user.Email}</span></li>
+                            <ul className='absolute bg-white rounded-sm shadow-sm border top-full right-0 px-3 p-2 origin-top-right space-y-2'>
+                                <li><span className='block'>{user.HoTen}</span></li>
                                 <li><span className='block'>Administrator</span></li>
                                 <hr />
                                 <li><button className='block w-full text-left'>Sign Out</button></li>

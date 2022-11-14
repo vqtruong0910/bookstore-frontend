@@ -43,6 +43,9 @@ const Dashboard = lazy(() => import('../page/Admin/Dashboard'));
 const ProductManagement = lazy(() => import('../page/Admin/ProductManagement'));
 const AddProduct = lazy(() => import('../page/Admin/AddProduct'));
 const UserManagement = lazy(() => import('../page/Admin/UserManagement'));
+const OrderManagement = lazy(() => import('../page/Admin/OrderManagement'));
+const CategoryAdmin = lazy(() => import('../page/Admin/Category'));
+const TypeOf = lazy(() => import('../page/Admin/TypeOf'));
 
 
 function MainRoutes() {
@@ -64,8 +67,8 @@ function MainRoutes() {
                 </Route>
                 <Route element={<Suspense fallback={<Loading center={true} />}><TermsLayout /></Suspense>}>
                     <Route path={PATH.terms.using} element={<TermsOfUsing />}></Route>
-                    <Route path={PATH.terms.transport} element={<TransportTerms/>}></Route>
-                    <Route path={PATH.terms.user_infor_privacy} element={<TermsOfUserInforPrivacy/>}></Route>
+                    <Route path={PATH.terms.transport} element={<TransportTerms />}></Route>
+                    <Route path={PATH.terms.user_infor_privacy} element={<TermsOfUserInforPrivacy />}></Route>
                     <Route path={PATH.terms.payment_privacy} element={<PaymentPrivacy />}></Route>
                     <Route path={PATH.terms.wholesale_customer_policy} element={<WholesaleCustomerPolicy />}></Route>
                 </Route>
@@ -89,6 +92,9 @@ function MainRoutes() {
                 <Route path={PATH.admin.product_management} element={<ProductManagement />} />
                 <Route path={PATH.admin.add_product} element={<AddProduct />} />
                 <Route path={PATH.admin.user_management} element={<UserManagement />} />
+                <Route path={PATH.admin.order_management} element={<OrderManagement />} />
+                <Route path={PATH.admin.category} element={<CategoryAdmin />} />
+                <Route path={PATH.admin.typeof} element={<TypeOf />} />
             </Route>
         </Routes>
     );
