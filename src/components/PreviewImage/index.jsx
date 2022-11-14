@@ -5,9 +5,9 @@ function PreviewImage({ fileImage }) {
         <div className="flex justify-center">
             {
                 fileImage ?
-                    <img src={fileImage} className="object-contain max-h-40 sm:max-h-28 shadow-md border rounded-sm" alt="preview" />
+                    <img src={fileImage} className="object-contain sm:w-full max-h-80 sm:max-h-28 shadow-md border rounded-sm" alt="preview" />
                     :
-                    <img src={logo} className="object-contain w-full max-h-28 shadow-md border rounded-sm" alt="preview" />
+                    <img src={logo} className="object-contain sm:w-full max-h-80 sm:max-h-28 shadow-md border rounded-sm" alt="preview" />
             }
         </div>
     );

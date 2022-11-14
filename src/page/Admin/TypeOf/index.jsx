@@ -13,7 +13,7 @@ import { gender, permission, status, verifyEmail } from "../../../constants/stat
 import style from './style.module.scss';
 
 
-function UserManagement() {
+function TypeOf() {
     const id = useId();
 
     const [page, setPage] = useState(1);
@@ -55,7 +55,7 @@ function UserManagement() {
     return (
         <>
             <div className="flex space-x-2">
-                <h2 className="text-xl font-semibold">Tài khoản người dùng ✨</h2>
+                <h2 className="text-xl font-semibold">Loại sách ✨</h2>
             </div>
 
             <div className="py-2 space-y-1">
@@ -199,11 +199,9 @@ function UserManagement() {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full flex pt-8">
-                            <div className="ml-auto space-x-3">
-                                <button className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm">Hủy</button>
-                                <button className="py-2 px-3 bg-slate-700 hover:bg-slate-500 shadow-sm border transition rounded-sm text-white">Cập nhật</button>
-                            </div>
+                        <div className="w-full flex justify-between pt-8">
+                            <button className="py-2 px-3 bg-slate-700 hover:bg-slate-500 transition rounded-sm text-white">Trở lại</button>
+                            <button className="py-2 px-3 bg-cyan-500 hover:bg-cyan-400 transition rounded-sm text-white">Cập nhật</button>
                         </div>
                     </div>
 
@@ -215,4 +213,4 @@ function UserManagement() {
     );
 }
 
-export default UserManagement;
+export default TypeOf;

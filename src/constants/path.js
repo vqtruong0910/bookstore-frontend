@@ -29,7 +29,7 @@ export const PATH = {
         dashboard: "/category",
     },
     detail_book: '/detail_book',
-   
+
     admin: {
         dashboard: "/admin",
         // Product
@@ -46,6 +46,7 @@ export const PATH = {
         // Category
         category: "/admin/category",
         // TypeOf 
+        typeof: "/admin/typeof",
         // Turnover
         turnover_management: "/admin/turnover_management"
 

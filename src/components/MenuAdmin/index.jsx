@@ -69,19 +69,18 @@ function MenuAdmin({ stateMenu }) {
                     </div>
                     <div className={clsx(stateMenuChild[3] && 'flex flex-col pl-10 space-y-2', !stateMenuChild[3] && "hidden")}>
                         <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.order_management))} to={PATH.admin.order_management}>Quản lý Đơn hàng</Link>
-                        <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))} to="">Thống kê Đơn hàng</Link>
                     </div>
                 </li>
                 <li className='p-2'>
-                    <Link to="" className="flex items-center relative space-x-2">
+                    <Link to={PATH.admin.category} className="flex items-center relative space-x-2 text-slate-200">
                         <span className="m-1"><IconCategory /></span>
-                        <span className={clsx('font-medium text-base text-slate-200 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))}>Danh mục</span>
+                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.category))}>Danh mục</span>
                     </Link>
                 </li>
                 <li className='p-2'>
-                    <Link to="" className="flex items-center relative space-x-2">
+                    <Link to={PATH.admin.typeof} className="flex items-center relative space-x-2 text-slate-200">
                         <span className="m-1"><IconTypeBook /></span>
-                        <span className={clsx('font-medium text-base text-slate-200 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))}>Thể loại</span>
+                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.typeof))}>Thể loại</span>
                     </Link>
                 </li>
                 <li className={clsx(stateMenuChild[6] && 'bg-slate-900 rounded-sm', 'p-2')}>
