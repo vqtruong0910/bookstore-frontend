@@ -48,7 +48,7 @@ function Dashboard() {
                 <div className="sm:col-span-1 col-span-3 min-h-24 p-5 border shadow-md bg-white rounded-sm space-y-5">
                     <div className="flex">
                         <div>
-                            <h2 className="text-sm font-bold text-zinc-400 uppercase">Sản phẩm</h2>
+                            <h2 className="text-sm font-bold text-zinc-400 uppercase">Doanh thu</h2>
                             <span className="text-xl font-semibold">2,300</span>
                         </div>
                         <div className="flex justify-center items-center bg-orange-500 w-12 ml-auto rounded-full">
