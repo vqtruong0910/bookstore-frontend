@@ -12,7 +12,6 @@ const ProfileLayout = lazy(() => import('../layout/ProfileLayout'));
 const PersonInfo = lazy(() => import('../page/Profile/PersonInfo'));
 const UserOrderManagement = lazy(() => import('../page/Profile/UserOrderManagement'));
 const UserReview = lazy(() => import('../page/Profile/UserReview'));
-const UserPaymentInformation = lazy(() => import('../page/Profile/UserPaymentInformation'))
 const UserChangePassword = lazy(() => import('../page/Profile/UserChangePassword'));
 const UserOrderDetail = lazy(() => import('../page/Profile/UserOrderDetail'));
 const Cart = lazy(() => import('../page/Cart'));
@@ -58,7 +57,6 @@ function MainRoutes() {
                     <Route index element={<PersonInfo />} ></Route>
                     <Route path={PATH.profile.user_order_management} element={<UserOrderManagement />}></Route>
                     <Route path={PATH.profile.user_review} element={<UserReview />}></Route>
-                    <Route path={PATH.profile.user_payment_information} element={<UserPaymentInformation />}></Route>
                     <Route path={PATH.profile.user_change_password} element={<UserChangePassword />}></Route>
                     <Route path={PATH.profile.user_order_detail} element={<UserOrderDetail />}></Route>
                 </Route>

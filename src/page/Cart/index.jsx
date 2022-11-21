@@ -2,8 +2,25 @@ import { IoMdRemove } from "react-icons/io";
 import { IoAddSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
+import { useState } from "react";
+
 function Cart() {
     const navigate = useNavigate();
+
+    const [count, setCount] = useState(1);
+    const incCount = () => {
+        setCount(count + 1);
+    }
+
+    const decCount = () => {
+        if(count > 1){
+            setCount(count - 1);
+        }
+        else{
+            setCount(1);
+        }
+    }
+
     return (
         <div className="flex flex-wrap w-full bg-gray-100 px-4">
             <div className="flex flex-wrap w-full py-5">
@@ -36,16 +53,15 @@ function Cart() {
 
                                 <div className="w-full flex flex-row justify-center items-center">
                                     <div className="flex flex-row mx-5 items-center w-24 rounded-sm border border-slate-300">
-                                        <div className="w-full border-r-2 flex justify-center cursor-pointer">
-                                            <IoMdRemove className="w-5 h-7 text-gray-300" />
-                                        </div>
+                                        <button onClick={decCount} className="w-full border-r-2 flex justify-center cursor-pointer">
+                                            <IoMdRemove className={count === 1 ?"w-5 h-7 text-gray-300" : "w-5 h-7 text-gray-600"} />
+                                        </button>
                                         <div className="w-full flex justify-center">
-                                            <span className="text-gray-800 font-semibold">1</span>
+                                            <span className="text-gray-800 font-semibold">{count}</span>
                                         </div>
-
-                                        <div className="w-full border-l-2 flex justify-center cursor-pointer">
-                                            <IoAddSharp className="w-5 h-7 text-gray-500" />
-                                        </div>
+                                        <button onClick={incCount} className="w-full border-l-2 flex justify-center cursor-pointer">
+                                            <IoAddSharp className="w-5 h-7 text-gray-600" />
+                                        </button>
                                     </div>
                                     <div className="border px-4 rounded-sm bg-gray-300 hover:bg-gray-400 hover:text-white cursor-pointer">Xoá</div>
                                 </div>

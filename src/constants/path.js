@@ -13,7 +13,6 @@ export const PATH = {
         dashboard: "/profile",
         user_order_management: "/profile/user_order_management",
         user_review: "/profile/user_review",
-        user_payment_information: "/profile/user_payment_information",
         user_change_password: "/profile/user_change_password",
         user_order_detail: "/profile/user_order_detail",
     },
@@ -29,6 +28,9 @@ export const PATH = {
         dashboard: "/category",
     },
     detail_book: '/detail_book',
+    new_book: './new_book',
+    popular_book: './popular_book',
+    bestseller_book: './bestseller_book',
    
     admin: {
         dashboard: "/admin",

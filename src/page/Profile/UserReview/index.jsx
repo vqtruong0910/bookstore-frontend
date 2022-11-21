@@ -4,13 +4,20 @@ import { BiMessageRoundedCheck } from "react-icons/bi";
 import { AiOutlineSmile } from "react-icons/ai";
 import { BsStarFill } from "react-icons/bs";
 import Notify from "../../../components/Notify";
+import { useForm } from "react-hook-form";
 
 function UserReview() {
     const [notify, setNotify] = useState(false);
     const [showDiv, setShowDiv] = useState(1);
+    const { register, handleSubmit, formState: { errors } } = useForm({mode: "onBlur"});
 
     const handleDiv = (e) => {
         setShowDiv(e);
+    }
+
+    const onSubmit = (data) => {
+        console.log(data);
+        return setNotify(true);
     }
     return (
         <div className="flex flex-wrap md:flex-col w-full bg-gray-100 py-5">
@@ -64,20 +71,25 @@ function UserReview() {
                                     </div>
                                 </div>
 
-                                <div className="w-full border-t-2 px-4">
+                                <form onSubmit={handleSubmit(onSubmit)} className="w-full border-t-2 px-4">
                                     <div className="w-full py-2">
                                         <div className="w-full">
                                             <span className="font-semibold text-orange-400">Điều gì làm bạn hài lòng?</span>
                                         </div>
                                         <div className="w-full flex my-2">
-                                            <input className="w-full border rounded-sm px-2 py-7 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
+                                            <input name="review" {...register("review", { required: true })} className="w-full border rounded-sm px-2 py-7 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                                                 type="text" placeholder="Hãy chia sẻ cảm nhận, đánh giá của bạn về sản phẩm này nhé." />
                                         </div>
+                                        {errors.review?.type === "required" &&
+                                            <div className="text-xs text-red-500 md:text-sm">Vui lòng nhập đánh giá cho sản phẩm</div>
+                                        }
+
                                         <div className="w-full flex justify-center py-5 cursor-pointer">
-                                            <div onClick={() => setNotify(true)} className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm">
+                                            <button type="submit" className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm">
                                                 <span className="font-normal text-white">Gửi đánh giá</span>
-                                            </div>
+                                            </button>
                                         </div>
+
                                         {notify ?
                                             <Notify close="true" message="Cám ơn bạn vì đã đánh giá" icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />} textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} />
                                             :
@@ -85,7 +97,7 @@ function UserReview() {
                                         }
 
                                     </div>
-                                </div>
+                                </form>
 
                             </div>
                         </div>
