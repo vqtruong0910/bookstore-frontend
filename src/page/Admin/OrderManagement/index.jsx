@@ -1,16 +1,9 @@
 import { BsCardImage } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-import { PATH } from '../../../constants/path';
 
-function ProductManage() {
-
+function OrderManagement() {
     return (
         <>
-            <div className="flex space-x-2">
-                <h2 className="text-xl font-semibold">Sản phẩm</h2>
-                <Link to={PATH.admin.add_product} className="px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors">Thêm sản phẩm</Link>
-            </div>
-
+            <h2 className="text-xl font-semibold">Đơn hàng ✨</h2>
             <div className="py-2 space-y-1">
                 <div className="hidden md:flex">
                     <div className="flex space-x-3">
@@ -86,4 +79,4 @@ function ProductManage() {
     );
 }
 
-export default ProductManage;
+export default OrderManagement;

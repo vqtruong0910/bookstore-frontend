@@ -93,21 +93,19 @@ const AxiosInterceptor = ({ children }) => {
         }
 
         const errInterceptorRes = error => {
-            if (error) {
-                if (error?.response?.data?.message === "Token not found")
-                    logOut().catch(error => Promise.reject(error));
-                else {
-                    refreshToken()
-                        .then(res => {
-                            localStorage.setItem("token", res?.data?.accessToken);
-                        })
-                        .catch((error) => {
-                            logOut().catch(error => {
-                                return Promise.reject(error);
-                            });
+            if (error?.response?.data?.message === "Token not found")
+                logOut().catch(error => Promise.reject(error));
+            else {
+                refreshToken()
+                    .then(res => {
+                        localStorage.setItem("token", res?.data?.accessToken);
+                    })
+                    .catch((error) => {
+                        logOut().catch(error => {
                             return Promise.reject(error);
-                        })
-                }
+                        });
+                        return Promise.reject(error);
+                    })
             }
             return Promise.reject(error);
         }

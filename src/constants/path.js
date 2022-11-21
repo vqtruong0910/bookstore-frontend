@@ -48,6 +48,7 @@ export const PATH = {
         // Category
         category: "/admin/category",
         // TypeOf 
+        typeof: "/admin/typeof",
         // Turnover
         turnover_management: "/admin/turnover_management"
 

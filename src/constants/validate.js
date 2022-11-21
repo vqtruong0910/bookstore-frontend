@@ -32,5 +32,38 @@ export const VALIDATE = {
             message: 'DD/MM/YYYY'
         }
     },
-    gender: { required: "Giới tính của bạn là gì ?" }
+    name: {
+        required: "Nhập tên sản phẩm"
+    },
+    gender: { required: "Giới tính của bạn là gì ?" },
+    unit: {
+        required: "Nhập đơn vị tính của sản phẩm",
+        min: {
+            value: 1,
+            message: "Xin vui lòng nhập giá lớn hơn 1"
+        }
+    },
+    price: {
+        required: "Nhập giá bán sản phẩm thêm vào"
+    },
+    count: {
+        required: "Nhập số lượng sản phẩm thêm vào",
+        min: {
+            value: 1,
+            message: "Xin vui lòng nhập số lượng lớn hơn 1"
+        }
+    },
+    content: {
+        required: "Viết vài dòng mô tả ngắn về nội dung"
+    },
+    image: {
+        required: "Thêm 1 ảnh cho sản phẩm",
+        validate: {
+            acceptedFormats: files =>
+                ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(
+                    files?.type
+                ) || 'Định dạng ảnh là PNG, JPEG, JPG, GIF',
+            lessThan10MB: files => files?.size < 10485760 || 'Kích thước ảnh tối đa là 10MB',
+        }
+    }
 }

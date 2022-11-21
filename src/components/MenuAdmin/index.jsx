@@ -11,6 +11,7 @@ import IconStatistical from '../../assets/svg/IconStatistical';
 import IconTypeBook from '../../assets/svg/IconTypeBook';
 import IconUser from '../../assets/svg/IconUser';
 import { PATH } from '../../constants/path';
+import style from './style.module.scss';
 
 function MenuAdmin({ stateMenu }) {
     const { pathname } = useLocation();
@@ -29,7 +30,7 @@ function MenuAdmin({ stateMenu }) {
     }, [pathname]);
 
     return (
-        <div className={clsx(stateMenu && "visible translate-x-0", !stateMenu && "invisible -translate-x-64", "flex flex-col w-64 h-full bg-slate-800 fixed z-30 lg:translate-x-0 lg:visible transition-all overscroll-none")}>
+        <div className={clsx(stateMenu && "visible translate-x-0", !stateMenu && "invisible -translate-x-64", "flex flex-col w-64 h-full bg-slate-800 fixed z-30 lg:translate-x-0 lg:visible transition-all overflow-y-scroll", style["hide-scrollbar"])}>
             <Link to={PATH.main} className="text-center font-lobster text-slate-200 font-bold text-4xl p-3 select-none">Book Store</Link>
             <ul className="mt-4 px-4">
                 <li className='p-2'>
@@ -67,20 +68,19 @@ function MenuAdmin({ stateMenu }) {
                         <span className={clsx(stateMenuChild[3] && 'rotate-180 translate-x-1', 'absolute top-2 right-2')}><DownArrow /></span>
                     </div>
                     <div className={clsx(stateMenuChild[3] && 'flex flex-col pl-10 space-y-2', !stateMenuChild[3] && "hidden")}>
-                        <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))} to="">Quản lý Đơn hàng</Link>
-                        <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))} to="">Thống kê Đơn hàng</Link>
+                        <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.order_management))} to={PATH.admin.order_management}>Quản lý Đơn hàng</Link>
                     </div>
                 </li>
                 <li className='p-2'>
-                    <Link to="" className="flex items-center relative space-x-2">
+                    <Link to={PATH.admin.category} className="flex items-center relative space-x-2 text-slate-200">
                         <span className="m-1"><IconCategory /></span>
-                        <span className={clsx('font-medium text-base text-slate-200 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))}>Danh mục</span>
+                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.category))}>Danh mục</span>
                     </Link>
                 </li>
                 <li className='p-2'>
-                    <Link to="" className="flex items-center relative space-x-2">
+                    <Link to={PATH.admin.typeof} className="flex items-center relative space-x-2 text-slate-200">
                         <span className="m-1"><IconTypeBook /></span>
-                        <span className={clsx('font-medium text-base text-slate-200 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))}>Thể loại</span>
+                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.typeof))}>Thể loại</span>
                     </Link>
                 </li>
                 <li className={clsx(stateMenuChild[6] && 'bg-slate-900 rounded-sm', 'p-2')}>
