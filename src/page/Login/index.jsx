@@ -28,8 +28,10 @@ function Login() {
     const sendEmailAgain = useCallback(async (Email) => {
         try {
             await axiosConfig.post(API.SENDVERIFYEMAIL, { Email });
-            window.alert("Chúng tôi vừa gửi 1 link xác nhận email đến tài khoản email của bạn!")
-        } catch (error) { }
+            window.alert("Chúng tôi vừa gửi 1 link xác nhận email đến tài khoản email của bạn!");
+        } catch (error) {
+            window.alert("Gửi mail thất bại bạn hãy thử lại!");
+        }
     }, []);
 
     const onSubmit = useCallback(async (data) => {
@@ -71,13 +73,13 @@ function Login() {
                 if (openWindow.closed) {
                     if (timer) clearInterval(timer);
                     try {
-                        const authUser = JSON.parse(localStorage.getItem('auth-user'));
+                        const authUser = JSON.parse(localStorage.getItem('user'));
                         if (!authUser.error) {
                             setUser(authUser.data);
                             navigate(PATH.main);
                         }
                     } catch (error) {
-                        localStorage.removeItem('auth-user');
+                        localStorage.removeItem('user');
                     }
                 }
             }, 500);

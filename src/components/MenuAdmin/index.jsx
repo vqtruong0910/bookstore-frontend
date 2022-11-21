@@ -19,7 +19,6 @@ function MenuAdmin({ stateMenu }) {
         1: false, // San pham
         2: false, // Tai khoan
         3: false, // Don hang
-        6: false // Doanh thu
     });
 
     const showMenuChild = useCallback((location) => {
@@ -48,7 +47,7 @@ function MenuAdmin({ stateMenu }) {
                     <div className={clsx(stateMenuChild[1] && 'flex flex-col pl-10 space-y-2', !stateMenuChild[1] && "hidden")}>
                         <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.product_management))} to={PATH.admin.product_management}>Xem sản phẩm</Link>
                         <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.add_product))} to={PATH.admin.add_product}>Thêm sản phẩm</Link>
-                        <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))} to="">Thống kê sản phẩm</Link>
+                        <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.product_statistics))} to={PATH.admin.product_statistics}>Thống kê sản phẩm</Link>
                     </div>
                 </li>
                 <li className={clsx(stateMenuChild[2] && 'bg-slate-900 rounded-sm', 'p-2')}>
@@ -69,6 +68,7 @@ function MenuAdmin({ stateMenu }) {
                     </div>
                     <div className={clsx(stateMenuChild[3] && 'flex flex-col pl-10 space-y-2', !stateMenuChild[3] && "hidden")}>
                         <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.order_management))} to={PATH.admin.order_management}>Quản lý Đơn hàng</Link>
+                        <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.order_statistics))} to={PATH.admin.order_statistics}>Thống kê đơn hàng</Link>
                     </div>
                 </li>
                 <li className='p-2'>
@@ -83,16 +83,11 @@ function MenuAdmin({ stateMenu }) {
                         <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.typeof))}>Thể loại</span>
                     </Link>
                 </li>
-                <li className={clsx(stateMenuChild[6] && 'bg-slate-900 rounded-sm', 'p-2')}>
-                    <div className="flex items-center relative space-x-2 cursor-pointer" onClick={() => showMenuChild(6)}>
+                <li className='p-2'>
+                    <Link to={PATH.admin.revenue_statistics} className="flex items-center relative space-x-2 text-slate-200">
                         <span className="m-1"><IconStatistical /></span>
-                        <span className='font-medium text-base text-slate-200 hover:text-slate-50 transition-colors'>Doanh thu</span>
-                        <span className={clsx(stateMenuChild[6] && 'rotate-180 translate-x-1', 'absolute top-2 right-2')}><DownArrow /></span>
-                    </div>
-                    <div className={clsx(stateMenuChild[6] && 'flex flex-col pl-10 space-y-2', !stateMenuChild[6] && "hidden")}>
-                        <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))} to="">Quản lý doanh thu</Link>
-                        <Link className={clsx('font-medium text-base text-slate-400 hover:text-slate-50 transition-colors', locationPage(PATH.admin.dashboard))} to="">Thống kê doanh thu</Link>
-                    </div>
+                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.revenue_statistics))}>Thống kê doanh thu</span>
+                    </Link>
                 </li>
             </ul>
         </div>

@@ -53,6 +53,15 @@ export const VALIDATE = {
             message: "Xin vui lòng nhập số lượng lớn hơn 1"
         }
     },
+    category: {
+        required: "Chọn danh mục cho sản phẩm"
+    },
+    typeof: {
+        required: "Chọn thể loại cho sản phẩm"
+    },
+    publishing: {
+        required: "Chọn nhà xuất bản cho sản phẩm"
+    },
     content: {
         required: "Viết vài dòng mô tả ngắn về nội dung"
     },
