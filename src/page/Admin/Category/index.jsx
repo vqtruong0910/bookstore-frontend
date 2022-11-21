@@ -55,7 +55,7 @@ function Category() {
     return (
         <>
             <div className="flex space-x-2">
-                <h2 className="text-xl font-semibold">Thể loại ✨</h2>
+                <h2 className="text-xl font-semibold">Danh mục ✨</h2>
             </div>
 
             <div className="py-2 space-y-1">

@@ -46,6 +46,9 @@ const UserManagement = lazy(() => import('../page/Admin/UserManagement'));
 const OrderManagement = lazy(() => import('../page/Admin/OrderManagement'));
 const CategoryAdmin = lazy(() => import('../page/Admin/Category'));
 const TypeOf = lazy(() => import('../page/Admin/TypeOf'));
+const ProductStatistics = lazy(() => import('../page/Admin/ProductStatistics'));
+const OrderStatistics = lazy(() => import('../page/Admin/OrderStatistics'));
+const RevenueStatistics = lazy(() => import('../page/Admin/RevenueStatistics'));
 
 
 function MainRoutes() {
@@ -95,6 +98,9 @@ function MainRoutes() {
                 <Route path={PATH.admin.order_management} element={<OrderManagement />} />
                 <Route path={PATH.admin.category} element={<CategoryAdmin />} />
                 <Route path={PATH.admin.typeof} element={<TypeOf />} />
+                <Route path={PATH.admin.product_statistics} element={<ProductStatistics />} />
+                <Route path={PATH.admin.order_statistics} element={<OrderStatistics />} />
+                <Route path={PATH.admin.revenue_statistics} element={<RevenueStatistics />} />
             </Route>
         </Routes>
     );
