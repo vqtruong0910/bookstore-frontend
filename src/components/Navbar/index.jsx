@@ -8,7 +8,6 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { NavbarData } from './NavbarData';
-import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import { useContext } from 'react';
 import Context from '../../store/Context';
 import axiosConfig from '../../config/axiosConfig';
@@ -19,7 +18,6 @@ function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState(false)
-    const [state, setState] = useState(false);
     const { user, setUser } = useContext(Context);
     const [stateMenuChild, setStateMenuChild] = useState({
         1: false,   // Danh muc
@@ -76,7 +74,7 @@ function Navbar() {
             <nav className="bg-white h-auto top-0 md:relative">
                 <div className="flex flex-wrap w-full h-auto">
                     <div className="flex justify-center md:justify-between w-full">
-                        <div className="flex flex-row lg:w-4/12 mr-4">
+                        <div className="flex flex-row mr-4">
                             <Link to={PATH.main} className="flex justify-center items-center">
                                 <img className="h-20" src={logo} alt="Bookstore Logo" />
                                 <span className="flex items-center h-full duration-500 font-bold md:text-4xl text-[35px] font-lobster text-slate-700 whitespace-nowrap">Book Store</span>
@@ -85,9 +83,9 @@ function Navbar() {
 
                         {matches === true ?
                             <>
-                                <div className="flex flex-row items-center w-5/12 ">
+                                <div className="flex flex-row items-center w-72 lg:w-96">
                                     <div id="search_box" className="flex mx-3 md:mx-3 h-10 w-10/12 md:w-11/12 border-2 rounded-md bg-white ">
-                                        <input className="pl-4 bg-white font-[Poppins] text-md outline-0 flex w-10/12 md:w-11/12 text" type="text" placeholder="Tìm kiếm..." name="search"></input>
+                                        <input className="pl-4 bg-white font-[Poppins] text-md outline-0 flex w-10/12 md:w-11/12" type="text" placeholder="Tìm kiếm..." name="search"></input>
                                         <button type="submit" className="hover:rounded-md hover:bg-gray-200 w-2/12 md:w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
                                     </div>
                                 </div>
@@ -97,16 +95,16 @@ function Navbar() {
                             <></>
                         }
 
-                        <div className="flex items-center lg:w-3/12">
+                        <div className="flex items-center">
                             {matches === false ?
                                 <>
                                 </>
 
                                 :
                                 <>
-                                    <div className="flex items-center w-full justify-end mr-3">
+                                    <div className="flex items-center w-full justify-end mr-0.5 lg:mr-3">
                                         <div className="flex">
-                                            <div className="flex flex-wrap w-full justify-end px-5">
+                                            <div className="flex flex-wrap w-full justify-end">
 
                                                 <div className="flex">
                                                     <div className="flex">
@@ -124,7 +122,7 @@ function Navbar() {
                                                         {
                                                             !user ?
                                                                 <>
-                                                                    <div className="flex whitespace-nowrap">
+                                                                    <div className="23">
                                                                         <Link to={PATH.login} className="hover:text-stone-800 hover:cursor:pointer lg:text-sm text-xs  text-black cursor-pointer">
                                                                             <span type="button">Đăng nhập</span>
                                                                         </Link>
@@ -144,23 +142,19 @@ function Navbar() {
                                                                         </span>
                                                                     </div>
 
-                                                                    <div className="flex items-center lg:text-sm text-xs cursor-pointer hover:text-stone-800">
+                                                                    <div className="inline-block items-center group lg:text-sm text-xs cursor-pointer hover:text-stone-800">
                                                                         <span className="flex whitespace-nowrap">{user.Email}</span>
 
-                                                                        <div className="flex" onClick={() => showMenuChild(4)} >{stateMenuChild[4] ? <RiArrowUpSFill className="flex w-5 h-5 relative" /> : <RiArrowDownSFill className="flex w-5 h-5" />}</div>
+                                                                        <div className="hidden group-hover:block lg:top-16 mt-0.5 md:top-14 bg-white border absolute z-20 w-52 text-center font-medium">
+                                                                            <ul>
+                                                                                <li onClick={() => { navigate(PATH.profile.dashboard) }} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
+                                                                                <li onClick={() => { navigate(PATH.profile.user_order_management) }} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
+                                                                                <li onClick={() => { navigate(PATH.profile.user_review) }} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
+                                                                                <li onClick={() => { navigate(PATH.profile.user_payment_information) }} className="p-2 hover:bg-gray-300">Thông tin thanh toán</li>
+                                                                                <li className="p-2 hover:bg-gray-300" onClick={logout}>Đăng xuất</li>
+                                                                            </ul>
 
-                                                                        {stateMenuChild[4] &&
-                                                                            <div className="flex lg:top-16 right-4 md:top-14 bg-white border absolute z-20">
-                                                                                <ul>
-                                                                                    <li onClick={() => { navigate(PATH.profile.dashboard) }} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
-                                                                                    <li onClick={() => { navigate(PATH.profile.user_order_management) }} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
-                                                                                    <li onClick={() => { navigate(PATH.profile.user_review) }} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
-                                                                                    <li onClick={() => { navigate(PATH.profile.user_payment_information) }} className="p-2 hover:bg-gray-300">Thông tin thanh toán</li>
-                                                                                    <li className="p-2 hover:bg-gray-300" onClick={logout}>Đăng xuất</li>
-                                                                                </ul>
-
-                                                                            </div>
-                                                                        }
+                                                                        </div>
                                                                     </div>
                                                                 </>
                                                         }
@@ -241,14 +235,14 @@ function Navbar() {
 
                         {NavbarData.map((menu, index) => {
                             return (
-                                <div onClick={() => navigate(menu.link)} key={index} className={open ? 'p-2 py-5 relative flex hover:bg-slate-900  text-white font-semibold text-base hover:cursor:pointer w-full' : 'hidden'}>
+                                <div onClick={() => navigate(menu.link)} key={index} className={open ? 'p-2 py-5 relative flex hover:bg-slate-900  text-white font-semibold text-base hover:cursor:pointer w-full cursor-pointer' : 'hidden'}>
                                     <div className="flex flex-col w-full">
 
                                         {menu.id === 2 ?
                                             <>
                                                 <div onClick={() => showMenuChild(1)}>{menu.icon}</div>
                                                 <li className="flex items-center ml-7 relative">{menu.name}
-                                                    <div onClick={() => showMenuChild(1)} className="absolute right-0">
+                                                    <div onClick={() => showMenuChild(1)} className="absolute right-0 cursor-pointer">
                                                         <span key={menu.id}>{stateMenuChild[1] ? <BsChevronUp /> : <BsChevronDown />}</span>
                                                     </div>
                                                 </li>
@@ -282,7 +276,7 @@ function Navbar() {
                                                 <>
                                                     <div onClick={() => showMenuChild(2)}>{menu.icon}</div>
                                                     <li className="flex items-center ml-7 relative">{menu.name}
-                                                        <div onClick={() => showMenuChild(2)} className="absolute right-0">
+                                                        <div onClick={() => showMenuChild(2)} className="absolute right-0 cursor-pointer">
                                                             <span key={menu.id}>{stateMenuChild[2] ? <BsChevronUp /> : <BsChevronDown />}</span>
                                                         </div>
                                                     </li>
@@ -304,7 +298,7 @@ function Navbar() {
                                                     <>
                                                         <div onClick={() => showMenuChild(3)}>{menu.icon}</div>
                                                         <li className="flex items-center ml-7 relative">{menu.name}
-                                                            <div onClick={() => showMenuChild(3)} className="absolute right-0">
+                                                            <div onClick={() => showMenuChild(3)} className="absolute right-0 cursor-pointer">
                                                                 <span key={menu.id}>{stateMenuChild[3] ? <BsChevronUp /> : <BsChevronDown />}</span>
                                                             </div>
                                                         </li>

@@ -14,10 +14,6 @@ import Notify from "../../components/Notify";
 function DetailBook() {
     const navigate = useNavigate();
     const [notify, setNotify] = useState(false);
-    const [showImage, setShowImage] = useState(1);
-    const handleImage = (e) => {
-        setShowImage(e);
-    }
     const [showContent, setShowContent] = useState(4);
     const handleContent = (e) => {
         setShowContent(e);
@@ -75,6 +71,23 @@ function DetailBook() {
         ]
     };
 
+    const [count, setCount] = useState(1);
+    const incCount = () => {
+        setCount(count + 1);
+    }
+
+    const decCount = () => {
+        if(count > 1){
+            setCount(count - 1);
+        }
+        else{
+            setCount(1);
+        }
+    }
+
+    const addToCart = () => {
+        return setNotify(true);
+    }
 
     return (
         <div className="w-full flex py-6 flex-wrap">
@@ -82,28 +95,7 @@ function DetailBook() {
                 <div className="w-full my-3 flex flex-wrap lg:flex-nowrap">
                     <div className="flex flex-wrap w-full lg:w-4/12">
                         <div className="w-full flex justify-center">
-                            {showImage === 1 &&
-                                <img src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935246933497.jpg" className="w-64 h-64 lg:w-96 lg:h-96" alt="Book_Image" />
-                            }
-                            {showImage === 2 &&
-                                <img src="https://salt.tikicdn.com/cache/750x750/ts/product/d0/86/b1/0c0368a7b771be7efa0c691d26f148b3.jpg.webp" className="w-64 h-64 lg:w-96 lg:h-96" alt="Book_Image" />
-                            }
-                            {showImage === 3 &&
-                                <img src="https://salt.tikicdn.com/cache/750x750/ts/product/e4/34/94/e249548d6c3d78d1306659f7109c37a7.jpg.webp" className="w-64 h-64 lg:w-96 lg:h-96" alt="Book_Image" />
-                            }
-
-                        </div>
-
-                        <div className="flex justify-center w-full py-4">
-                            <div onClick={() => handleImage(1)} className={showImage === 1 ? "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm  ring-1 ring-blue-600 mx-2 cursor-pointer" : "flex cursor-pointer items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm mx-2"}>
-                                <img src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935246933497.jpg" className="w-full" alt="Book_Image" />
-                            </div>
-                            <div onClick={() => handleImage(2)} className={showImage === 2 ? "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm  ring-1 ring-blue-600 mx-2 cursor-pointer" : "flex cursor-pointer items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm mx-2"}>
-                                <img src="https://salt.tikicdn.com/cache/750x750/ts/product/d0/86/b1/0c0368a7b771be7efa0c691d26f148b3.jpg.webp" className="w-full" alt="Book_Image" />
-                            </div>
-                            <div onClick={() => handleImage(3)} className={showImage === 3 ? "flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm  ring-1 ring-blue-600 mx-2 cursor-pointer" : "flex cursor-pointer items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-sm mx-2"}>
-                                <img src="https://salt.tikicdn.com/cache/750x750/ts/product/e4/34/94/e249548d6c3d78d1306659f7109c37a7.jpg.webp" className="w-full" alt="Book_Image" />
-                            </div>
+                            <img src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935246933497.jpg" className="w-64 h-64 lg:w-96 lg:h-96" alt="Book_Image" />
                         </div>
                     </div>
 
@@ -138,7 +130,7 @@ function DetailBook() {
 
                         <div className="lg:w-7/12 flex flex-row items-center mt-4 mx-4">
                             <div className="rounded-sm cursor-pointer lg:w-1/2">
-                                <div onClick={() => setNotify(true)} className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500 rounded-sm hover:bg-red-400 transition">
+                                <div onClick={addToCart} className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500 rounded-sm hover:bg-red-400 transition">
                                     <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
                                     <span className="mx-1 text-white font-medium text-sm lg:text-lg">Thêm giỏ hàng</span>
                                 </div>
@@ -151,16 +143,16 @@ function DetailBook() {
                             <div className="flex flex-wrap items-center justify-end lg:w-1/2 lg:justify-center">
                                 <span className="text-gray-500 text-sm md:text-base font-semibold mx-3">Số lượng</span>
                                 <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
-                                    <div className="w-full border-r-2 flex justify-center cursor-pointer">
-                                        <IoMdRemove className="w-5 h-7 text-gray-300" />
-                                    </div>
+                                    <button onClick={decCount} className="w-full border-r-2 flex justify-center cursor-pointer">
+                                        <IoMdRemove className={count === 1 ? "w-5 h-7 text-gray-300" : "w-5 h-7 text-gray-600"} />
+                                    </button>
                                     <div className="w-full flex justify-center">
-                                        <span className="text-gray-800 font-semibold">1</span>
+                                        <span className="text-gray-800 font-semibold">{count}</span>
                                     </div>
 
-                                    <div className="w-full border-l-2 flex justify-center cursor-pointer">
-                                        <IoAddSharp className="w-5 h-7 text-gray-500" />
-                                    </div>
+                                    <button onClick={incCount} className="w-full border-l-2 flex justify-center cursor-pointer">
+                                        <IoAddSharp className="w-5 h-7 text-gray-600" />
+                                    </button>
 
                                 </div>
                             </div>
@@ -268,7 +260,7 @@ function DetailBook() {
                                     </div>
 
                                     <div className="flex w-full mt-3">
-                                        <div onClick={() => setNotify(true)}  className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition mx-4 items-center justify-center">
+                                        <div onClick={() => setNotify(true)} className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition mx-4 items-center justify-center">
                                             <FiShoppingBag className="w-5 h-5 text-white" />
                                             <div className="text-sm md:text-base lg:text-lg text-white py-2 px-0.5 whitespace-nowrap">Thêm giỏ hàng</div>
                                         </div>

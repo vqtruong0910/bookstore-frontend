@@ -9,14 +9,12 @@ import { PATH } from "../../constants/path";
 import { RiStarSmileLine } from "react-icons/ri";
 import { TbMoonStars } from "react-icons/tb";
 import { BsFlower1, BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
-import { FiShoppingBag } from "react-icons/fi";
+import { FiShoppingBag } from "react-icons/fi"; 
 import Aos from "aos";
 import "../../../node_modules/aos/dist/aos.css";
 import { useEffect } from "react";
-
 function Main() {
     const navigate = useNavigate();
-
     function NextArrow({ onClick }) {
         return (
             <BsFillArrowRightCircleFill className="absolute right-0 top-1/3 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 z-10 text-slate-600 cursor-pointer" onClick={onClick} />
@@ -75,10 +73,10 @@ function Main() {
 
     return (
         <>
-            <Carousel />
+            <Carousel/>
 
             {/* New Book */}
-            <div data-aos="fade-right" className="w-full py-10 px-4">
+            <div className="w-full">
                 <div className="bg-white shadow-md rounded-sm">
                     <div className="flex w-full justify-center items-center lg:mb-10 border-b-2 py-2 border-gray-300">
                         <BsFlower1 className="flex w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 mx-2 text-slate-700" />
@@ -120,7 +118,7 @@ function Main() {
 
                         </Slider>
                         <div className="w-full flex justify-center py-10">
-                            <Link to="" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
+                            <Link to={PATH.category.dashboard} className="font-semibold text-md hover:drop-shadow-lg bg-gradient-to-tl from-yellow-300 to-orange-700 text-white rounded-full lg:py-3 py-1 lg:px-20 px-10">Xem thêm</Link>
                         </div>
 
                     </div>
@@ -129,7 +127,7 @@ function Main() {
             </div>
 
             {/* Best seller Book */}
-            <div data-aos="fade-left" data-aos-easing="ease-out-cubic" className="w-full py-10 px-4">
+            <div className="w-full">
                 <div className="bg-white shadow-md rounded-sm">
                     <div className="flex w-full justify-center items-center lg:mb-10 border-b-2 py-2 border-gray-300">
                         <RiStarSmileLine className="flex w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 mx-2 text-slate-700" />
@@ -171,7 +169,7 @@ function Main() {
 
                         </Slider>
                         <div className="w-full flex justify-center py-10">
-                            <Link to="" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
+                            <Link to={PATH.category.dashboard} className="font-semibold text-md hover:drop-shadow-lg bg-gradient-to-tl from-yellow-300 to-orange-700 text-white rounded-full lg:py-3 py-1 lg:px-20 px-10">Xem thêm</Link>
                         </div>
 
                     </div>
@@ -180,7 +178,7 @@ function Main() {
             </div>
 
             {/* Popular Book */}
-            <div data-aos="fade-right" className="w-full py-10 px-4">
+            <div className="w-full">
                 <div className="bg-white shadow-md rounded-sm">
                     <div className="flex w-full justify-center items-center lg:mb-10 border-b-2 py-2 border-gray-300">
                         <TbMoonStars className="flex w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 mx-2 text-slate-700" />
@@ -222,7 +220,7 @@ function Main() {
 
                         </Slider>
                         <div className="w-full flex justify-center py-10">
-                            <Link to="" className="font-semibold text-md hover:text-slate-700 bg-gradient-to-tl from-yellow-300 to-orange-700 text-slate-700 rounded-full lg:py-3 py-1 lg:px-20 px-10 transition ease-in-out delay-100 hover:scale-105 duration-100">Xem thêm</Link>
+                            <Link to={PATH.category.dashboard} className="font-semibold text-md hover:drop-shadow-lg bg-gradient-to-tl from-yellow-300 to-orange-700 text-white rounded-full lg:py-3 py-1 lg:px-20 px-10">Xem thêm</Link>
                         </div>
 
                     </div>
