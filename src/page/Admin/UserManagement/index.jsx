@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import { useId } from "react";
+import { useMemo } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { BsCardImage, BsPencilSquare } from "react-icons/bs";
-import { FaRegSmileBeam } from "react-icons/fa";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import Loading from "../../../components/Loading";
-import Notify from "../../../components/Notify";
 import axiosJWT from "../../../config/axiosJWT";
 import { API } from "../../../constants/api";
 import { gender, permission, status, verifyEmail } from "../../../constants/statusUser";
@@ -15,12 +15,35 @@ import style from './style.module.scss';
 
 function UserManagement() {
     const id = useId();
-
+    const queryClient = useQueryClient();
     const [page, setPage] = useState(1);
+    const [formUpdate, setFormUpdate] = useState(false);
+    const [user, setUser] = useState({});
     const { data: users, isLoading, isError } = useQuery(['users', page], async () => {
         const result = await axiosJWT.get(`${API.GET_LIST_USER_IN_PAGE}/${page}`);
         return result.data;
     }, { keepPreviousData: true, staleTime: 5000 });
+    const { mutateAsync } = useMutation(async () => {
+        const result = await axiosJWT.put(`${API.GET_LIST_USER_IN_PAGE}/${page}`)
+        return result.data;
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("users")
+        }
+    })
+    const { register, handleSubmit, setValue, watch } = useForm({
+        mode: 'onBlur',
+        defaultValues: {
+            HoTen: "",
+            Email: "",
+            GioiTinh: "",
+            SoDienThoai: "",
+            NgaySinh: "",
+            TrangThai: "",
+            XacThuc: "",
+            Quyen: ""
+        }
+    });
     const nextPage = useCallback(() => {
         setPage(currentPage => currentPage >= users.SoLuongTrang ? users.SoLuongTrang : ++currentPage);
     }, [page, users]);
@@ -39,7 +62,41 @@ function UserManagement() {
         const value = parseInt(e.target.value);
         if (value > 0 && value <= users.SoLuongTrang)
             setPage(value);
-    }, [users])
+    }, [users]);
+
+    const updateUser = useCallback(data => {
+        setValue("HoTen", data.HoTen)
+        setValue("Email", data.Email)
+        setValue("GioiTinh", data.GioiTinh)
+        setValue("NgaySinh", data.NgaySinh)
+        setValue("SoDienThoai", data.SoDienThoai)
+        setValue("Quyen", data.Quyen)
+        setValue("XacThuc", data.XacThuc)
+        setValue("TrangThai", data.TrangThai)
+        setUser(data);
+        setFormUpdate(true);
+    }, [])
+
+    const checkVerify = useMemo(() => {
+        console.log(watch("XacThuc"));
+        if (watch("XacThuc") === 0)
+            return "Email này chưa xác thực"
+        return ""
+    }, [watch("XacThuc")])
+
+    const onSubmit = useCallback(data => {
+        if (data.Quyen === user.Quyen && data.TrangThai === user.TrangThai) {
+            return window.alert("Không có sự thay đổi nào xảy ra !")
+        }
+        mutateAsync({ Quyen: data.Quyen, TrangThai: data.TrangThai })
+            .then(res => {
+                console.log(res);
+                window.alert("Cập nhật thành công");
+            })
+            .catch(() => {
+                window.alert("Cập nhật thất bại");
+            })
+    }, [])
 
     if (isLoading) {
         return (
@@ -87,32 +144,31 @@ function UserManagement() {
                         <th className="p-2 text-left hidden md:table-cell">Giới tính</th>
                         <th className="p-2 text-left hidden md:table-cell">Ngày Sinh</th>
                         <th className="p-2 text-left hidden md:table-cell">Quyền</th>
-                        <th className="p-2 hidden md:table-cell">Trạng thái</th>
+                        <th className="p-2">Trạng thái</th>
                         <th className="p-2 hidden md:table-cell">Xác thực</th>
-                        <th className="p-2 hidden md:table-cell"></th>
+                        <th className="p-2 md:table-cell"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {users && users?.DanhSach.map((item, index) => (
                         <tr key={id + index} className="odd:bg-slate-100 border">
-                            {/* <td className="p-2"><input className='mx-auto w-full' type="checkbox" /></td> */}
-                            <td className="p-2 hidden md:table-cell"><img className='w-24 h-16 object-fill mx-auto' src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935210289285.jpg" alt="book" /></td>
+                            <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935210289285.jpg" alt="book" /></td>
                             <td className="p-2">{item.HoTen}</td>
                             <td className="p-2">{item.Email}</td>
                             <td className="p-2 hidden md:table-cell">{gender[item.GioiTinh]}</td>
                             <td className="p-2 hidden md:table-cell">{item.NgaySinh}</td>
                             <td className="p-2 hidden md:table-cell">{permission[item.Quyen]}</td>
-                            <td className={clsx("p-2 hidden md:table-cell", item.TrangThai ? "text-lime-500" : "text-red-500")}><div className="flex justify-center items-center">{status[item.TrangThai]}</div></td>
-                            <td className={clsx("p-2 text-center hidden md:table-cell", item.XacThuc ? "text-lime-500" : "text-red-500")}><div className="flex justify-center items-center">{verifyEmail[item.XacThuc]}</div></td>
-                            <td className="p-2 text-indigo-500 font-semibold cursor-pointer"><BsPencilSquare /></td>
+                            <td className="p-2 text-center"><span className={clsx("py-1 px-2 rounded-xl bg-opacity-20 text-center text-sm w-24", item.TrangThai ? "text-lime-500 bg-lime-300" : "text-red-500 bg-red-300")}>{status[item.TrangThai]}</span></td>
+                            <td className="p-2 hidden md:table-cell text-center"><span className={clsx("py-1 px-2 items-center rounded-xl bg-opacity-20 text-center text-sm w-28", item.XacThuc ? "text-lime-500 bg-lime-300" : "text-red-500 bg-red-300")}>{verifyEmail[item.XacThuc]}</span></td>
+                            <td className="p-2 text-indigo-500 font-semibold align-middle"><span className="w-full"><BsPencilSquare onClick={() => updateUser(item)} size={20} className='cursor-pointer mx-auto' /></span></td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            <div className={clsx("fixed flex justify-center items-center inset-0 bg-slate-900 bg-opacity-20 -z-30 transition-opacity duration-200")}>
-                <div className={clsx(style["hide-scrollbar"], "flex w-full flex-col bg-white rounded-sm overflow-y-scroll sm:w-1/2 max-h-screen")}>
-                    <div className="w-full flex flex-col py-4 px-4 sm:p-6">
+            <div className={clsx(formUpdate ? "z-30" : "-z-30", "fixed flex justify-center items-center inset-0 bg-slate-900 bg-opacity-20")}>
+                <div className={clsx(!formUpdate && "scale-0", style["hide-scrollbar"], "flex w-full flex-col bg-white rounded-sm overflow-y-scroll sm:w-1/2 max-h-screen transition-all duration-200")}>
+                    <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col py-4 px-4 sm:p-6">
                         <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>
                         <div className="flex flex-col w-full justify-center h-full sm:px-10">
                             <div className="flex relative py-4 justify-center">
@@ -127,7 +183,7 @@ function UserManagement() {
                                 </div>
 
                                 <div className="w-2/3 lg:w-8/12 flex">
-                                    <input className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" type="text" disabled placeholder="Họ tên" />
+                                    <input {...register("HoTen")} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" type="text" disabled placeholder="Họ tên" />
                                 </div>
 
                             </div>
@@ -138,7 +194,8 @@ function UserManagement() {
                                 </div>
 
                                 <div className="w-2/3 lg:w-8/12 flex">
-                                    <input className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" type="email" disabled placeholder="Email" />
+                                    <input {...register("Email")} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" type="email" disabled placeholder="Email" />
+                                    <span className="px-2 italic text-sm text-red-500">{checkVerify}</span>
                                 </div>
 
                             </div>
@@ -149,7 +206,7 @@ function UserManagement() {
                                 </div>
 
                                 <div className="w-2/3 lg:w-8/12 flex">
-                                    <input className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" disabled placeholder="Ngày sinh" />
+                                    <input {...register("NgaySinh")} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" disabled placeholder="Ngày sinh" />
                                 </div>
 
                             </div>
@@ -160,7 +217,7 @@ function UserManagement() {
                                     <span className="flex text-sm lg:text-base font-semibold text-slate-800">Giới tính</span>
                                 </div>
                                 <div className="w-2/3 lg:w-8/12 flex">
-                                    <input className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" disabled placeholder="Giới tính" />
+                                    <input {...register("GioiTinh")} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" disabled placeholder="Giới tính" />
                                 </div>
                             </div>
                             <div className="flex w-full py-2">
@@ -169,7 +226,7 @@ function UserManagement() {
                                 </div>
 
                                 <div className="w-2/3 lg:w-8/12 flex">
-                                    <input type="tel" disabled placeholder="Số điện thoại"
+                                    <input {...register("SoDienThoai")} type="tel" disabled placeholder="Số điện thoại"
                                         className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" />
                                 </div>
                             </div>
@@ -180,7 +237,7 @@ function UserManagement() {
                                 </div>
 
                                 <div className="w-2/3 lg:w-8/12 flex">
-                                    <select className="border border-sky-200 w-full px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 text-sm lg:text-base">
+                                    <select {...register("Quyen")} className="border border-sky-200 w-full px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 text-sm lg:text-base">
                                         <option value="0">Admin</option>
                                         <option value="1">Khách hàng</option>
                                     </select>
@@ -192,7 +249,7 @@ function UserManagement() {
                                 </div>
 
                                 <div className="w-2/3 lg:w-8/12 flex">
-                                    <select className="border border-sky-200 w-full px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 text-sm lg:text-base">
+                                    <select {...register("TrangThai")} className="border border-sky-200 w-full px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 text-sm lg:text-base">
                                         <option value="0">Khóa tài khoản</option>
                                         <option value="1">Hoạt động</option>
                                     </select>
@@ -201,14 +258,11 @@ function UserManagement() {
                         </div>
                         <div className="w-full flex pt-8">
                             <div className="ml-auto space-x-3">
-                                <button className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm">Hủy</button>
-                                <button className="py-2 px-3 bg-slate-700 hover:bg-slate-500 shadow-sm border transition rounded-sm text-white">Cập nhật</button>
+                                <button type="button" onClick={() => setFormUpdate(false)} className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm">Hủy</button>
+                                <button type="submit" className="py-2 px-3 bg-slate-700 hover:bg-slate-500 shadow-sm border transition rounded-sm text-white">Cập nhật</button>
                             </div>
                         </div>
-                    </div>
-
-                    <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<FaRegSmileBeam className="w-5 h-5 text-black" />} textMessage="text-black" />
-
+                    </form>
                 </div>
             </div>
         </>

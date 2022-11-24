@@ -1,22 +1,50 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { Line } from "react-chartjs-2";
-import { data } from './data';
 import { Chart as ChartJS } from 'chart.js/auto';
+import { useQuery } from "react-query";
+import axiosJWT from "../../../config/axiosJWT";
+import { API } from "../../../constants/api";
+import Loading from "../../../components/Loading";
+import { DAY_CONFIG } from "../../../constants/day";
 
 function OrderStatistics() {
-    const [userData, setUserData] = useState({
-        labels: data.map(data => data.time),
-        datasets: [{
-            label: "User gained",
-            data: data.map(data => data.userGain),
-            // backgroundColor: [
-            //     "#3730a3",
-            //     "#6366f1",
-            //     "#60a5fa",
-            // ],
-            borderColor: "#3730a3",
-        }]
+    const { data: orders, isLoading, isError } = useQuery({
+        queryKey: ["orders statistics"],
+        queryFn: async () => {
+            const result = await axiosJWT.get(API.STATISTIC_ORDER_EVERY_DAY_IN_WEEK);
+            return result.data;
+        },
+        keepPreviousData: true
     })
+
+    const orderChart = useMemo(() => {
+        const dataCount = new Array(7).fill(0);
+        orders?.forEach((value) => {
+            const date = new Date(value.NgayDat)
+            const getDayToDate = date.getDay()
+            dataCount[getDayToDate] = value.TongDon;
+        })
+        return {
+            labels: DAY_CONFIG,
+            datasets: [{
+                label: "Tổng đơn trong ngày",
+                data: dataCount,
+                // backgroundColor: [
+                //     "#3730a3",
+                //     "#6366f1",
+                //     "#60a5fa",
+                // ],
+                borderColor: "#3730a3",
+            }]
+        }
+    }, [orders])
+
+    if (isLoading) {
+        return <Loading />
+    }
+    if (isError) {
+        return <div>Đã có lỗi khi lấy dữ liệu 😥</div>
+    }
     return (
         <>
             <h2 className="text-xl font-semibold">Thống kê đơn hàng ✨</h2>
@@ -46,7 +74,18 @@ function OrderStatistics() {
             </div>
 
             <div className="h-500 bg-white p-6 rounded-sm shadow-sm">
-                <Line data={userData} options={{ maintainAspectRatio: false }} />
+                <Line data={orderChart} options={{
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Biểu đồ cột thể hiện top 10 sản phẩm bán chạy trong tuần'
+                        }
+                    },
+                    maintainAspectRatio: false
+                }} />
             </div>
         </>
     );

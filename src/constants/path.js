@@ -31,13 +31,13 @@ export const PATH = {
     new_book: './new_book',
     popular_book: './popular_book',
     bestseller_book: './bestseller_book',
-   
+
     admin: {
         dashboard: "/admin",
         // Product
         product_management: "/admin/product_management",
         add_product: "/admin/add_product",
-        update_product: "/admin/update_product/:id",
+        update_product: "/admin/update_product",
         product_statistics: "/admin/product_statistics",
         // User
         user_management: "/admin/user_management",

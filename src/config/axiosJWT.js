@@ -41,7 +41,6 @@ const AxiosInterceptor = ({ children }) => {
     const { setUser } = useContext(Context);
     const navigate = useNavigate();
 
-
     useEffect(() => {
         const logOut = async () => {
             try {
@@ -84,7 +83,6 @@ const AxiosInterceptor = ({ children }) => {
         }
 
         const errInterceptorReq = error => {
-            console.log("Error req: ", error);
             return Promise.reject(error);
         }
 

@@ -3,7 +3,7 @@ import Textfield from "../../../components/Textfield";
 import DropFile from "../../../components/DropFile";
 import { VALIDATE } from "../../../constants/validate";
 import clsx from "clsx";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useState } from "react";
 import style from "./style.module.scss";
 import PreviewImage from "../../../components/PreviewImage";
@@ -12,8 +12,11 @@ import { useQueries, useQuery } from "react-query";
 import axiosJWT from "../../../config/axiosJWT";
 import { API } from "../../../constants/api";
 import Loading from "../../../components/Loading";
+import { useLocation } from "react-router-dom";
 
-function AddProduct() {
+function UpdateProduct() {
+    const { state } = useLocation();
+    const [fileImage, setFileImage] = useState();
     const result = useQueries([
         {
             queryKey: ["category"],
@@ -43,21 +46,21 @@ function AddProduct() {
             staleTime: 5000
         }
     ]);
-    const { register, control, formState: { errors }, handleSubmit, setValue, trigger, watch, reset } = useForm({
+    const { register, control, formState: { errors }, handleSubmit, setValue, trigger, watch } = useForm({
         mode: "onBlur",
         defaultValues: {
-            TenSanPham: "",
-            TomTatND: "",
-            IDDanhMuc: "",
-            IDTheLoai: "",
-            IDNhaXuatBan: "",
-            GiaBan: "",
-            IDTacGia: "",
-            GiamGia: "",
-            SoTrang: "",
-            SoLuongConLai: "",
-            DonViTinh: "",
-            HinhAnh: "",
+            TenSanPham: state?.TenSanPham ? state?.TenSanPham : "",
+            TomTatND: state?.TomTatND ? state?.TomTatND : "",
+            IDDanhMuc: state?.IDDanhMuc ? state?.IDDanhMuc : "",
+            IDTheLoai: state?.IDTheLoai ? state?.IDTheLoai : "",
+            IDNhaXuatBan: state?.IDNhaXuatBan ? state?.IDNhaXuatBan : "",
+            GiaBan: state?.GiaBan ? state?.GiaBan : "",
+            IDTacGia: state?.IDTacGia ? state?.IDTacGia : "",
+            GiamGia: state?.GiamGia ? state?.GiamGia : "",
+            SoTrang: state?.SoTrang ? state?.SoTrang : "",
+            SoLuongConLai: state?.SoLuongConLai ? state?.SoLuongConLai : "",
+            DonViTinh: state?.DonViTinh ? state?.DonViTinh : "",
+            HinhAnh: state?.HinhAnh ? state?.HinhAnh : "",
         }
     });
 
@@ -70,11 +73,8 @@ function AddProduct() {
             }
             return []
         },
-        keepPreviousData: true,
-        staleTime: 5000
+        keepPreviousData: true
     });
-
-    const [fileImage, setFileImage] = useState();
 
     const onChangeImage = useCallback(async (e) => {
         const fileImage = e.target.files[0];
@@ -92,29 +92,19 @@ function AddProduct() {
     const onSubmit = useCallback(async (data) => {
         const { IDDanhMuc, ...rest } = data;
         try {
-            const form = await axiosJWT.post(API.CREATE_PRODUCT, rest, { headers: { 'Content-Type': 'multipart/form-data' } });
-            if (!form.error) {
-                reset({
-                    TenSanPham: "",
-                    TomTatND: "",
-                    IDDanhMuc: "",
-                    IDTheLoai: "",
-                    IDNhaXuatBan: "",
-                    GiaBan: "",
-                    IDTacGia: "",
-                    GiamGia: "",
-                    SoTrang: "",
-                    SoLuongConLai: "",
-                    DonViTinh: "",
-                    HinhAnh: "",
-                })
-                setFileImage("");
-                window.alert("Thêm sản phẩm thành công")
-            }
+            await axiosJWT.put(`${API.CREATE_PRODUCT}/${state?.IDSanPham}`, rest, { headers: { 'Content-Type': 'multipart/form-data' } });
+            window.alert("Cập nhật sản phẩm thành công");
         } catch (error) {
-            window.alert("Thêm sản phẩm thất bại")
+            console.log(error);
+            window.alert("Cập nhật sản phẩm thất bại");
         }
     }, []);
+
+    useEffect(() => {
+        if (state?.HinhAnh !== null) {
+            setFileImage(state?.HinhAnh);
+        }
+    }, [])
 
     for (const value of result) {
         if (value.isLoading) {
@@ -124,6 +114,7 @@ function AddProduct() {
             return <div>Đã có lỗi khi lấy dữ liệu 😥</div>
         }
     }
+
     if (isLoading) {
         return <Loading />
     }
@@ -134,7 +125,7 @@ function AddProduct() {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex">
-                <h2 className="text-xl font-semibold">Thêm Sản phẩm</h2>
+                <h2 className="text-xl font-semibold">Cập Nhật Sản phẩm</h2>
                 <button className="px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors ml-auto">Xác nhận</button>
             </div>
             <div className="grid sm:grid-cols-5 grid-cols-1 grid-flow-dense py-2 gap-4">
@@ -200,4 +191,4 @@ function AddProduct() {
     );
 }
 
-export default AddProduct;
+export default UpdateProduct;
