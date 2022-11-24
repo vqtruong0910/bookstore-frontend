@@ -48,6 +48,7 @@ const TypeOf = lazy(() => import('../page/Admin/TypeOf'));
 const ProductStatistics = lazy(() => import('../page/Admin/ProductStatistics'));
 const OrderStatistics = lazy(() => import('../page/Admin/OrderStatistics'));
 const RevenueStatistics = lazy(() => import('../page/Admin/RevenueStatistics'));
+const UpdateProduct = lazy(() => import('../page/Admin/UpdateProduct'));
 
 
 function MainRoutes() {
@@ -92,6 +93,7 @@ function MainRoutes() {
                 <Route path={PATH.admin.dashboard} element={<Dashboard />} />
                 <Route path={PATH.admin.product_management} element={<ProductManagement />} />
                 <Route path={PATH.admin.add_product} element={<AddProduct />} />
+                <Route path={PATH.admin.update_product} element={<UpdateProduct />} />
                 <Route path={PATH.admin.user_management} element={<UserManagement />} />
                 <Route path={PATH.admin.order_management} element={<OrderManagement />} />
                 <Route path={PATH.admin.category} element={<CategoryAdmin />} />

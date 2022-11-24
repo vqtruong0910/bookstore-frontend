@@ -9,13 +9,9 @@ function App() {
     <MainRoutes />
   ), [])
 
-  // const adminRoutes = useCallback(() => (
-  //   <AdminRoutes />
-  // ), [])
   return (
     <>
       {mainRoutes()}
-
     </>
   );
 }
