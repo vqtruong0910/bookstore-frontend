@@ -6,8 +6,8 @@ export const PATH = {
     changepassword: 'change_password',
     verifyemail: '/verify_email',
     verifyemail_checked: '/verify_email_checked',
-    login_google: '/auth/google/*',
-    login_facebook: '/auth/facebook/*',
+    login_google: '/auths/google/*',
+    login_facebook: '/auths/facebook/*',
     cart: '/cart',
     profile: {
         dashboard: "/profile",
@@ -31,26 +31,26 @@ export const PATH = {
     new_book: './new_book',
     popular_book: './popular_book',
     bestseller_book: './bestseller_book',
-   
+
     admin: {
         dashboard: "/admin",
         // Product
         product_management: "/admin/product_management",
         add_product: "/admin/add_product",
-        update_product: "/admin/update_product/",
+        update_product: "/admin/update_product",
+        product_statistics: "/admin/product_statistics",
         // User
         user_management: "/admin/user_management",
-        update_user: "/admin/update_user/",
+        user_statistics: "/admin/user_statistics",
         // Order
         order_management: "/admin/order_management",
-        update_order: "/admin/update_order/",
         order_statistics: "/admin/order_statistics",
         // Category
         category: "/admin/category",
         // TypeOf 
         typeof: "/admin/typeof",
         // Turnover
-        turnover_management: "/admin/turnover_management"
+        revenue_statistics: "/admin/revenue_statistics"
 
     },
     notfound: '*'

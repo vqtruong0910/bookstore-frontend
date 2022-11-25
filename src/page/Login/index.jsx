@@ -28,8 +28,10 @@ function Login() {
     const sendEmailAgain = useCallback(async (Email) => {
         try {
             await axiosConfig.post(API.SENDVERIFYEMAIL, { Email });
-            window.alert("Chúng tôi vừa gửi 1 link xác nhận email đến tài khoản email của bạn!")
-        } catch (error) { }
+            window.alert("Chúng tôi vừa gửi 1 link xác nhận email đến tài khoản email của bạn!");
+        } catch (error) {
+            window.alert("Gửi mail thất bại bạn hãy thử lại!");
+        }
     }, []);
 
     const onSubmit = useCallback(async (data) => {
@@ -41,7 +43,7 @@ function Login() {
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("token", accessToken);
             setUser(user);
-            navigate(PATH.main);
+            navigate(PATH.main, { replace: true });
         } catch (error) {
             const result = error?.response?.data?.message;
             if (result === "0") {
@@ -68,17 +70,15 @@ function Login() {
         const openWindow = window.open(process.env.REACT_APP_API_URI + URL, '_blank', `width=${w}, height=${h}, top=${y}, left=${x}`);
         if (openWindow) {
             const timer = setInterval(() => {
-                if (openWindow.closed) {
-                    if (timer) clearInterval(timer);
-                    try {
-                        const authUser = JSON.parse(localStorage.getItem('auth-user'));
-                        if (!authUser.error) {
-                            setUser(authUser.data);
-                            navigate(PATH.main);
-                        }
-                    } catch (error) {
-                        localStorage.removeItem('auth-user');
+                try {
+                    const authUser = JSON.parse(localStorage.getItem('user'));
+                    if (authUser) {
+                        if (timer) clearInterval(timer);
+                        setUser(authUser);
+                        navigate(PATH.main, { replace: true });
                     }
+                } catch (error) {
+                    localStorage.removeItem('user');
                 }
             }, 500);
         }

@@ -14,8 +14,7 @@ function CheckVerifyEmail() {
         if (token) {
             axiosConfig.post(API.AUTHVERIFYEMAIL, { token })
                 .then(res => {
-                    const data = res.status;
-                    if (data === 200) setError(false);
+                    if (res.status === 200) setError(false);
                 })
                 .catch(() => {
                     setError(true);

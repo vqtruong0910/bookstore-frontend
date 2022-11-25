@@ -1,6 +1,57 @@
 import { BsCardImage } from 'react-icons/bs';
+import { TbListDetails } from 'react-icons/tb';
+import { BsPencilSquare } from 'react-icons/bs';
+import { useCallback, useState } from 'react';
+import { useQuery } from 'react-query';
+import axiosJWT from '../../../config/axiosJWT';
+import { API } from '../../../constants/api';
+import Loading from '../../../components/Loading';
+import clsx from 'clsx';
+import style from './style.module.scss';
 
 function OrderManagement() {
+    const [page, setPage] = useState(1);
+    const { data: orders, isLoading, isError } = useQuery(['orders', page], async () => {
+        const result = await axiosJWT.get(`${API.GET_LIST_ORDER_IN_PAGE}?p=${page}&s=10`);
+        console.log(result.data);
+        return result.data;
+    }, { keepPreviousData: true, staleTime: 5000 });
+
+    const checkDate = useCallback((data) => {
+        if (data !== null) {
+            const date = new Date(data)
+            return ("0" + date.getDate()).slice(-2) + "/" + ("0" + (date.getMonth() + 1)).slice(-2) + "/" + date.getFullYear();
+        }
+    }, [])
+    const nextPage = useCallback(() => {
+        setPage(currentPage => currentPage >= orders.SoLuongTrang ? orders.SoLuongTrang : ++currentPage);
+    }, [page, orders]);
+
+    const prevPage = useCallback(() => {
+        setPage(currentPage => currentPage > 1 ? --currentPage : 1);
+    }, [page]);
+
+    const firstPage = useCallback(() => {
+        setPage(1);
+    }, []);
+    const lastPage = useCallback(() => {
+        setPage(orders.SoLuongTrang);
+    }, [orders]);
+    const changePage = useCallback((e) => {
+        const value = parseInt(e.target.value);
+        if (value > 0 && value <= orders.SoLuongTrang)
+            setPage(value);
+    }, [orders]);
+    if (isLoading) {
+        return (
+            <Loading />
+        )
+    }
+    if (isError) {
+        return (
+            <h1>Không thể tải được dữ liệu 😥</h1>
+        )
+    }
     return (
         <>
             <h2 className="text-xl font-semibold">Đơn hàng ✨</h2>
@@ -34,45 +85,49 @@ function OrderManagement() {
                     </div>
                 </div>
 
-                <div className="flex justify-end space-x-2 py-1">
-                    <div className='px-2 border rounded-sm cursor-pointer'>2.706 mục</div>
-                    <div className='px-2 border rounded-sm cursor-pointer'>&#171;</div>
-                    <div className='px-2 border rounded-sm cursor-pointer'>&#60;</div>
-                    <div><input className='px-2 border rounded-sm cursor-pointer w-14 text-center' defaultValue="1" /></div>
-                    <div className='px-2 border rounded-sm cursor-pointer'>&#62;</div>
-                    <div className='px-2 border rounded-sm cursor-pointer'>&#187;</div>
-                    <div className="px-2 border rounded-sm cursor-pointer">Next page</div>
+                <div className="flex justify-end space-x-2 py-1 select-none">
+                    <div className='px-2 border rounded-sm cursor-pointer'>{orders?.TongDon} mục</div>
+                    <div className='px-2 border rounded-sm cursor-pointer' onClick={firstPage}>&#171;</div>
+                    <div className='px-2 border rounded-sm cursor-pointer' onClick={prevPage}>&#60;</div>
+                    <div><input type="number" className={clsx(style["none-spin"], 'px-2 border rounded-sm cursor-pointer w-14 text-center')} value={page} onChange={(e) => changePage(e)} /> &#47; {orders.SoLuongTrang}</div>
+                    <div className='px-2 border rounded-sm cursor-pointer' onClick={nextPage}>&#62;</div>
+                    <div className='px-2 border rounded-sm cursor-pointer' onClick={lastPage}>&#187;</div>
                 </div>
             </div>
 
 
-            <table className="table-auto border-collapse border rounded-sm w-full bg-white md:table-fixed">
+            <table className="table-auto border-collapse border rounded-sm w-full bg-white">
                 <thead>
                     <tr className="border bg-slate-800 text-slate-200">
-                        <th className="p-2 hidden md:table-cell"><BsCardImage className='mx-auto w-full' /></th>
-                        <th className="p-2 text-left">Tên</th>
-                        <th className="p-2 text-left">Kho</th>
-                        <th className="p-2 text-left">Giá</th>
-                        <th className="p-2 text-left hidden md:table-cell">Danh mục</th>
-                        <th className="p-2 text-left hidden md:table-cell">Danh mục</th>
-                        <th className="p-2 text-left hidden md:table-cell">Danh mục</th>
+                        <th className="p-2 text-center">Mã đơn hàng</th>
+                        <th className="p-2 text-left">Địa chỉ</th>
+                        <th className="p-2 text-left">Tên người đặt</th>
+                        <th className="p-2 text-left hidden md:table-cell">Ngày đặt</th>
+                        <th className="p-2 text-left hidden md:table-cell">Ngày giao</th>
+                        <th className="p-2 text-center hidden md:table-cell">Số lượng</th>
+                        <th className="p-2 text-left hidden md:table-cell">Tổng</th>
+                        <th className="p-2 text-center hidden md:table-cell">Trạng thái</th>
+                        <th className="p-2 w-16"></th>
+                        <th className="p-2 w-16"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {Array(5).fill(0).map((item, index) => (
-                        <tr key={index} className="odd:bg-slate-100 border">
-                            <td className="p-2 hidden md:table-cell"><img className='w-24 h-16 object-fill mx-auto' src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935210289285.jpg" alt="book" /></td>
-                            <td className="p-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                            <td className="p-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                            <td className="p-2 hidden md:table-cell">Malcolm Lockyer</td>
-                            <td className="p-2 hidden md:table-cell">1961</td>
-                            <td className="p-2 hidden md:table-cell">1961</td>
-                            <td className="p-2 hidden md:table-cell">1961</td>
-                            {/* <td className={clsx("p-2 hidden md:table-cell", item.TrangThai ? "text-lime-500" : "text-red-500")}><div className="flex justify-center items-center">{status[item.TrangThai]}</div></td>
-                            <td className={clsx("p-2 text-center hidden md:table-cell", item.XacThuc ? "text-lime-500" : "text-red-500")}><div className="flex justify-center items-center">{verifyEmail[item.XacThuc]}</div></td>
-                            <td className="p-2 text-indigo-500 font-semibold cursor-pointer"><BsPencilSquare /></td> */}
-                        </tr>
-                    ))}
+                    {orders.DanhSach.map((item, index) => {
+                        return (
+                            <tr key={index} className="odd:bg-slate-100 border">
+                                <td className="p-2 text-center">{item.IDDonHang}</td>
+                                <td className="p-2">{item.DiaChi}</td>
+                                <td className="p-2 hidden md:table-cell">{item.IDNguoiDung}</td>
+                                <td className="p-2 hidden md:table-cell">{checkDate(item.NgayDat)}</td>
+                                <td className="p-2 hidden md:table-cell">{checkDate(item.NgayGiao)}</td>
+                                <td className="p-2 text-center hidden md:table-cell">{item.SoLuong}</td>
+                                <td className="p-2 hidden md:table-cell">{item.Tong}</td>
+                                <td className="p-2 text-center hidden md:table-cell">{item.TrangThai}</td>
+                                <td className="p-2 text-indigo-500 font-semibold w-16 align-middle"><span className="w-full"><TbListDetails size={20} className='cursor-pointer mx-auto' /></span></td>
+                                <td className="p-2 text-indigo-500 font-semibold w-16 align-middle"><span className="w-full"><BsPencilSquare size={20} className='cursor-pointer mx-auto' /></span></td>
+                            </tr>
+                        )
+                    })}
                 </tbody>
             </table>
         </>

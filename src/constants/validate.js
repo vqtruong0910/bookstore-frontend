@@ -50,7 +50,33 @@ export const VALIDATE = {
         required: "Nhập số lượng sản phẩm thêm vào",
         min: {
             value: 1,
-            message: "Xin vui lòng nhập số lượng lớn hơn 1"
+            message: "Xin vui lòng nhập số lượng lớn hơn 0"
+        }
+    },
+    category: {
+        required: "Chọn danh mục cho sản phẩm"
+    },
+    typeof: {
+        required: "Chọn thể loại cho sản phẩm"
+    },
+    publishing: {
+        required: "Chọn nhà xuất bản cho sản phẩm"
+    },
+    author: {
+        required: "Chọn tác giả cho sản phẩm"
+    },
+    discount: {
+        required: "Nhập phầm trăm giá giảm cho sản phẩm",
+        min: {
+            value: 0,
+            message: "Xin vui lòng nhập giá lớn hơn hoặc bằng 0"
+        }
+    },
+    numberPage: {
+        required: "Nhập số trang của sản phẩm",
+        min: {
+            value: 1,
+            message: "Xin vui lòng nhập giá lớn hơn 0"
         }
     },
     content: {
@@ -59,11 +85,21 @@ export const VALIDATE = {
     image: {
         required: "Thêm 1 ảnh cho sản phẩm",
         validate: {
-            acceptedFormats: files =>
-                ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(
-                    files?.type
-                ) || 'Định dạng ảnh là PNG, JPEG, JPG, GIF',
-            lessThan10MB: files => files?.size < 10485760 || 'Kích thước ảnh tối đa là 10MB',
+            acceptedFormats: files => {
+                if (files?.type)
+                    return (
+                        ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(
+                            files?.type
+                        ) || 'Định dạng ảnh là PNG, JPEG, JPG, GIF'
+                    )
+
+            },
+            lessThan10MB: files => {
+                if (files?.size)
+                    return (
+                        files?.size < 10485760 || 'Kích thước ảnh tối đa là 10MB'
+                    )
+            }
         }
     }
 }
