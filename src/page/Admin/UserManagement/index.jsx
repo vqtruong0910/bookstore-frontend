@@ -79,8 +79,8 @@ function UserManagement() {
 
     const checkVerify = useMemo(() => {
         if (watch("XacThuc") === 0)
-            return "Email này chưa xác thực"
-        return ""
+            return false
+        return true
     }, [watch("XacThuc")])
 
     const onSubmit = useCallback(data => {
@@ -152,7 +152,7 @@ function UserManagement() {
                 <tbody>
                     {users && users?.DanhSach.map((item, index) => (
                         <tr key={id + index} className="odd:bg-slate-100 border">
-                            <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src={item.HinhAnh} alt="book" /></td>
+                            <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src={item.Anh} alt="book" /></td>
                             <td className="p-2">{item.HoTen}</td>
                             <td className="p-2">{item.Email}</td>
                             <td className="p-2 hidden md:table-cell">{gender[item.GioiTinh]}</td>
@@ -194,8 +194,7 @@ function UserManagement() {
                                 </div>
 
                                 <div className="w-2/3 lg:w-8/12 flex">
-                                    <input {...register("Email")} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" type="email" disabled placeholder="Email" />
-                                    <span className="px-2 italic text-sm text-red-500">{checkVerify}</span>
+                                    <input {...register("Email")} className={clsx(!checkVerify ? "border-red-600 bg-red-100" : "border-green-600 bg-green-100", "w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base")} type="email" disabled placeholder="Email" />
                                 </div>
 
                             </div>
@@ -258,7 +257,7 @@ function UserManagement() {
                         </div>
                         <div className="w-full flex pt-8">
                             <div className="ml-auto space-x-3">
-                                <button type="button" onClick={() => setFormUpdate(false)} className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm">Hủy</button>
+                                <button type="button" onClick={() => setFormUpdate(false)} className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm">Trở lại</button>
                                 <button type="submit" className="py-2 px-3 bg-slate-700 hover:bg-slate-500 shadow-sm border transition rounded-sm text-white">Cập nhật</button>
                             </div>
                         </div>

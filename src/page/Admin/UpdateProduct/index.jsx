@@ -77,12 +77,12 @@ function UpdateProduct() {
     });
 
     const onChangeImage = useCallback(async (e) => {
-        const fileImage = e.target.files[0];
-        if (fileImage) {
-            setValue("HinhAnh", fileImage);
+        const fileImageFolder = e.target.files[0];
+        if (fileImageFolder) {
+            setValue("HinhAnh", fileImageFolder);
             if (await trigger("HinhAnh")) {
                 const fileReader = new FileReader();
-                fileReader.readAsDataURL(fileImage)
+                fileReader.readAsDataURL(fileImageFolder)
                 fileReader.onloadend = () => {
                     setFileImage(fileReader.result);
                 }
