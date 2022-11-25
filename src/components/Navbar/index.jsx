@@ -1,20 +1,28 @@
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import clsx from 'clsx';
 import { PATH } from "../../constants/path";
 import logo from '../../assets/images/logo.png';
-import { BsSearch, BsPerson } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { NavbarData } from './NavbarData';
-import { useContext } from 'react';
 import Context from '../../store/Context';
 import axiosConfig from '../../config/axiosConfig';
 import { API } from '../../constants/api';
 
-
 function Navbar() {
+    const { cart } = useContext(Context);
+
+    const { items, total } = cart.reduce(
+        ({ items, total }, { cost, quantity }) => ({
+            items: items + quantity,
+            total: total + quantity * cost
+        }),
+        { items: 0, total: 0 }
+    );
+
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState(false)
@@ -83,10 +91,10 @@ function Navbar() {
 
                         {matches === true ?
                             <>
-                                <div className="flex flex-row items-center w-72 lg:w-96">
-                                    <div id="search_box" className="flex mx-3 md:mx-3 h-10 w-10/12 md:w-11/12 border-2 rounded-md bg-white ">
-                                        <input className="pl-4 bg-white font-[Poppins] text-md outline-0 flex w-10/12 md:w-11/12" type="text" placeholder="Tìm kiếm..." name="search"></input>
-                                        <button type="submit" className="hover:rounded-md hover:bg-gray-200 w-2/12 md:w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
+                                <div className="flex flex-row items-center w-64 lg:w-96">
+                                    <div id="search_box" className="flex mx-3 md:mx-3 h-10 w-10/12 md:w-11/12 border-2 bg-white ">
+                                        <input className="px-2 bg-white text-md outline-0 flex w-10/12 md:w-11/12" type="text" placeholder="Tìm kiếm..." name="search"></input>
+                                        <button type="submit" className="hover:bg-gray-200 w-2/12 md:w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
                                     </div>
                                 </div>
 
@@ -107,13 +115,15 @@ function Navbar() {
                                             <div className="flex flex-wrap w-full justify-end">
 
                                                 <div className="flex">
-                                                    <div className="flex">
+                                                    <div className="flex items-center justify-center">
                                                         {
                                                             !user?.Anh ?
-                                                                <span className="flex items-center mr-1" ><BsPerson className="lg:w-10 lg:h-10 w-8 h-8" /></span>
+                                                                <img src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8"
+                                                                    className="lg:w-10 lg:h-10 w-8 h-8 flex items-center mr-1 rounded-full" alt="User_Image"
+                                                                />
                                                                 :
                                                                 <Link className="flex items-center mr-1 lg:w-10 lg:h-10 w-8 h-8" to={PATH.profile}>
-                                                                    <img className='rounded-full' src={user?.Anh} alt="user" />
+                                                                    <img className='rounded-full' src={user?.Anh} alt="User_Image" />
                                                                 </Link>
                                                         }
                                                     </div>
@@ -142,15 +152,14 @@ function Navbar() {
                                                                         </span>
                                                                     </div>
 
-                                                                    <div className="inline-block items-center group lg:text-sm text-xs cursor-pointer hover:text-stone-800">
+                                                                    <div className="inline-block items-center group lg:text-sm text-xs cursor-pointer hover:text-stone-800 transition-all">
                                                                         <span className="flex whitespace-nowrap">{user.Email}</span>
 
-                                                                        <div className="hidden group-hover:block lg:top-16 mt-0.5 md:top-14 bg-white border absolute z-20 w-52 text-center font-medium">
+                                                                        <div className="hidden group-hover:block lg:top-15 mt-0.5 md:top-14 bg-white border absolute z-20 w-52 text-center font-medium transition duration-300 delay-500">
                                                                             <ul>
                                                                                 <li onClick={() => { navigate(PATH.profile.dashboard) }} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
                                                                                 <li onClick={() => { navigate(PATH.profile.user_order_management) }} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
                                                                                 <li onClick={() => { navigate(PATH.profile.user_review) }} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
-                                                                                <li onClick={() => { navigate(PATH.profile.user_payment_information) }} className="p-2 hover:bg-gray-300">Thông tin thanh toán</li>
                                                                                 <li className="p-2 hover:bg-gray-300" onClick={logout}>Đăng xuất</li>
                                                                             </ul>
 
@@ -166,7 +175,7 @@ function Navbar() {
                                         <div className="flex relative">
                                             <Link to={PATH.cart}><AiOutlineShoppingCart className="lg:w-10 lg:h-10 w-8 h-8 cursor-pointer" /></Link>
                                             <div className="absolute bg-orange-400 lg:w-5 lg:h-5 w-4 h-4 text-white rounded-full right-0 items-center">
-                                                <span className="text-white flex items-center justify-center h-full text-xs lg:text-sm">0</span>
+                                                <span className="text-white flex items-center justify-center h-full text-xs lg:text-sm">{items}</span>
                                             </div>
                                         </div>
 
@@ -188,32 +197,39 @@ function Navbar() {
                                 </div>
 
 
-                                <div id="search_box" className="flex justify-between mr-2 h-8 border w-9/12 rounded-md bg-white">
-                                    <input className=" outline-0 bg-white mx-2 text-sm flex w-11/12 md:w-11/12" type="text" placeholder="Tìm kiếm..." name="search"></input>
-                                    <button type="submit" className=" hover:rounded-md hover:bg-gray-200 w-1/12 md:w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
+                                <div id="search_box" className="flex justify-between mr-2 h-8 border w-9/12 bg-white">
+                                    <input className="outline-0 bg-white px-2 text-sm flex w-11/12" type="text" placeholder="Tìm kiếm..." name="search"></input>
+                                    <button type="submit" className="hover:bg-gray-200 w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
                                 </div>
 
                                 <div className="flex w-2/12 justify-center items-center">
                                     <div onClick={() => showMenuChild(5)} to={PATH.profile.dashboard} className="flex items-center cursor-pointer">
-                                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/avatar.png" className="w-6 h-6" alt="Avatar" />
+                                        {!user?.Anh ?
+                                            <img src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8"
+                                                className="w-6 h-6 rounded-full" alt="User_Image"
+                                            />
+                                            :
+                                            <img className="rounded-full w-6 h-6" src={user?.Anh} alt="User_Image" />
+
+                                        }
+
                                     </div>
 
                                     <div className="w-8 h-8 relative flex" onClick={() => navigate(PATH.cart)}>
                                         <AiOutlineShoppingCart className="w-8 h-8 text-white/75 cursor-pointer" />
                                         <div className="absolute rounded-full bg-orange-400 text-white w-4 h-4 flex items-center text-xs justify-center right-0">
-                                            <span>0</span>
+                                            <span>{items}</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {stateMenuChild[5] &&
-                                    <div className="absolute z-10 right-10 mt-56">
+                                    <div className="absolute z-10 right-10 mt-48 ">
                                         <div className="flex right-3 bg-white rounded-sm border border-slate-300 cursor-pointer">
                                             <ul className="whitespace-nowrap text-sm">
                                                 <li onClick={() => navigate(PATH.profile.dashboard)} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
                                                 <li onClick={() => navigate(PATH.profile.user_order_management)} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
                                                 <li onClick={() => navigate(PATH.profile.user_review)} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
-                                                <li onClick={() => navigate(PATH.profile.user_payment_information)} className="p-2 hover:bg-gray-300">Thông tin thanh toán</li>
                                                 <li className="p-2 hover:bg-gray-300" onClick={logout}>Đăng xuất</li>
                                             </ul>
 

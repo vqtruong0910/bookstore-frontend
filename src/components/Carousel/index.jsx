@@ -66,7 +66,7 @@ function ListProduct() {
                 {CarouselData.map((item, index) => {
                     return (
                         <Link key={index} to={PATH.detail_book} className="w-full">
-                            <img className="w-full h-fit lg:h-screen" src={item.image} alt="Carousel_image" />
+                            <img className="w-full h-fit" src={item.image} alt="Carousel_image" />
                         </Link>
                     )
                 })}

@@ -2,19 +2,26 @@ import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import style from "./Main.module.scss";
 import Carousel from "../../components/Carousel";
-import { NewBookData } from "./NewBookData";
-import { BestSellerBookData } from "./BestSellerBookData";
-import { PopularBookData } from "./PopularBookData";
 import { PATH } from "../../constants/path";
 import { RiStarSmileLine } from "react-icons/ri";
 import { TbMoonStars } from "react-icons/tb";
 import { BsFlower1, BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
-import { FiShoppingBag } from "react-icons/fi"; 
-import Aos from "aos";
-import "../../../node_modules/aos/dist/aos.css";
+import { FiShoppingBag } from "react-icons/fi";
+import { addToCart } from "../../reducers/cartReducers";
+import Context from "../../store/Context";
+import React, { useContext, useState } from "react";
+import Notify from "../../components/Notify";
 import { useEffect } from "react";
+import axiosConfig from "../../config/axiosConfig";
 function Main() {
     const navigate = useNavigate();
+    const { dispatch } = useContext(Context);
+    const [notify, setNotify] = useState(false);
+
+    const addToCartHandler = (product) => {
+        dispatch(addToCart(product));
+        return setNotify(true);
+    };
     function NextArrow({ onClick }) {
         return (
             <BsFillArrowRightCircleFill className="absolute right-0 top-1/3 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 z-10 text-slate-600 cursor-pointer" onClick={onClick} />
@@ -67,13 +74,46 @@ function Main() {
         ]
     };
 
+    const [newBook, setNewBook] = useState([]);
     useEffect(() => {
-        Aos.init({duration: 3000})
-    }, [])
+        const fetchNewBookData = async () => {
+            const response = await axiosConfig('product/new');
+            setNewBook(response.data.data);
+            // console.log(response.data.data);
+        }
+        fetchNewBookData();
+
+    }, []);
+
+    const [bestSellerBook, setBestSellerBook] = useState([]);
+    useEffect(() => {
+        const fetchBestSellerBookData = async () => {
+            const response = await axiosConfig('product/bestseller');
+            setBestSellerBook(response.data.data);
+            // console.log(response.data.data);
+        }
+        fetchBestSellerBookData();
+
+    }, []);
+
+    const [popularBook, setPopularBook] = useState([]);
+    useEffect(() => {
+        const fetchPopularBookData = async () => {
+            const response = await axiosConfig('product/');
+            setPopularBook(response.data.data);
+            // console.log(response.data.data);
+        }
+        fetchPopularBookData();
+
+    }, []);
+
+    const changeCostWithDots = (item) => {
+        return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+    }
 
     return (
         <>
-            <Carousel/>
+            <Carousel />
 
             {/* New Book */}
             <div className="w-full">
@@ -85,45 +125,52 @@ function Main() {
 
                     <div className="w-full">
                         <Slider {...settings} className="mx-7">
-                            {NewBookData.map((item, index) => {
+                            {newBook.map((item, index) => {
                                 return (
-                                    <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer">
+                                    <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer hover:drop-shadow-xl transition">
 
                                         <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
-                                            <span className="text-sm text-white">{item.sale}%</span>
+                                            <span className="text-sm text-white">{item.GiamGia}%</span>
                                         </div>
 
-                                        <div onClick={() => navigate(PATH.detail_book)} className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
-                                            <img className="w-11/12" src={item.image} alt="New Book" />
+                                        <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="grid w-full justify-self-center mt-3 py-2">
+                                            <img className="w-full h-40 md:h-48 lg:h-64"
+                                                src={`http://localhost:8000/${item.HinhAnh}`}
+                                                alt="New Book" />
                                         </div>
 
                                         <div className="flex w-full px-4 py-2">
-                                            <span className={`${style['product_name']} whitespace-normal w-3/4 text-base md:text-lg lg:text-xl font-medium lg:leading-6 py-1`}>{item.name}</span>
+                                            <span className={`${style['product_name']} whitespace-normal w-full text-sm md:text-base lg:text-lg font-medium`}>{item.TenSanPham}</span>
                                         </div>
 
 
-                                        <div className="flex justify-between items-center font-medium text-center py-2 md:text-md lg:text-xl w-full px-4">
-                                            <div className="text-red-600 md:text-lg lg:text-2xl">{item.new_cost}.000đ</div>
-                                            <div className="line-through text-neutral-400 text-xs md:text-sm lg:text-lg">{item.old_cost}.000đ</div>
+                                        <div className="flex justify-between items-center font-medium text-center md:text-md lg:text-xl w-full px-4">
+                                            <div className="text-red-600 md:text-lg lg:text-xl">{changeCostWithDots(item.GiaBan)}đ</div>
                                         </div>
 
-                                        <div className="flex bg-slate-700 hover:bg-slate-500 transition rounded-sm py-2 items-center justify-center mx-2">
+                                        <div onClick={() => addToCartHandler(item)} className="flex bg-slate-700 hover:bg-slate-500 transition rounded-sm py-2 mt-2 items-center justify-center mx-2">
                                             <FiShoppingBag className="w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 text-white" />
                                             <span className="text-white text-sm md:text-base lg:text-lg mx-1">Thêm giỏ hàng</span>
                                         </div>
-
                                     </div>
                                 )
-                            })}
+                            })
+                            }
 
                         </Slider>
+
                         <div className="w-full flex justify-center py-10">
                             <Link to={PATH.category.dashboard} className="font-semibold text-md hover:drop-shadow-lg bg-gradient-to-tl from-yellow-300 to-orange-700 text-white rounded-full lg:py-3 py-1 lg:px-20 px-10">Xem thêm</Link>
                         </div>
 
                     </div>
-                </div>
 
+                </div>
+                {notify ?
+                    <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
+                    :
+                    <></>
+                }
             </div>
 
             {/* Best seller Book */}
@@ -136,38 +183,43 @@ function Main() {
 
                     <div className="w-full">
                         <Slider {...settings} className="mx-7">
-                            {BestSellerBookData.map((item, index) => {
+                            {bestSellerBook.map((item, index) => {
                                 return (
-                                    <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer">
+                                    <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer hover:drop-shadow-xl transition">
 
                                         <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
-                                            <span className="text-sm text-white">{item.sale}%</span>
+                                            <span className="text-sm text-white">{item.GiamGia}%</span>
                                         </div>
 
-                                        <div onClick={() => navigate(PATH.detail_book)} className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
-                                            <img className="w-11/12" src={item.image} alt="New Book" />
+                                        <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="grid w-full justify-self-center mt-3 py-2">
+                                            <img className="w-full h-40 md:h-48 lg:h-64"
+                                                src={`http://localhost:8000/${item.HinhAnh}`}
+                                                alt="New Book" />
                                         </div>
 
                                         <div className="flex w-full px-4 py-2">
-                                            <span className={`${style['product_name']} whitespace-normal w-3/4 text-base md:text-lg lg:text-xl font-medium lg:leading-6 py-1`}>{item.name}</span>
+                                            <span className={`${style['product_name']} whitespace-normal w-full text-sm md:text-base lg:text-lg font-medium`}>{item.TenSanPham}</span>
                                         </div>
 
 
-                                        <div className="flex justify-between items-center font-medium text-center py-2 md:text-md lg:text-xl w-full px-4">
-                                            <div className="text-red-600 md:text-lg lg:text-2xl">{item.new_cost}.000đ</div>
-                                            <div className="line-through text-neutral-400 text-xs md:text-sm lg:text-lg">{item.old_cost}.000đ</div>
+                                        <div className="flex justify-between items-center font-medium text-center md:text-md lg:text-xl w-full px-4">
+                                            <div className="text-red-600 md:text-lg lg:text-xl">{changeCostWithDots(item.GiaBan)}đ</div>
                                         </div>
 
-                                        <div className="flex bg-slate-700 hover:bg-slate-500 transition rounded-sm py-2 items-center justify-center mx-2">
+                                        <div onClick={() => addToCartHandler(item)} className="flex bg-slate-700 hover:bg-slate-500 transition rounded-sm py-2 mt-2 items-center justify-center mx-2">
                                             <FiShoppingBag className="w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 text-white" />
                                             <span className="text-white text-sm md:text-base lg:text-lg mx-1">Thêm giỏ hàng</span>
                                         </div>
-
                                     </div>
                                 )
-                            })}
-
+                            })
+                            }
                         </Slider>
+                        {notify ?
+                            <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
+                            :
+                            <></>
+                        }
                         <div className="w-full flex justify-center py-10">
                             <Link to={PATH.category.dashboard} className="font-semibold text-md hover:drop-shadow-lg bg-gradient-to-tl from-yellow-300 to-orange-700 text-white rounded-full lg:py-3 py-1 lg:px-20 px-10">Xem thêm</Link>
                         </div>
@@ -187,38 +239,44 @@ function Main() {
 
                     <div className="w-full">
                         <Slider {...settings} className="mx-7">
-                            {PopularBookData.map((item, index) => {
+                            {popularBook.map((item, index) => {
                                 return (
-                                    <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer">
+                                    <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer hover:drop-shadow-xl transition">
 
                                         <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
-                                            <span className="text-sm text-white">{item.sale}%</span>
+                                            <span className="text-sm text-white">{item.GiamGia}%</span>
                                         </div>
 
-                                        <div onClick={() => navigate(PATH.detail_book)} className="grid w-full justify-self-center drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
-                                            <img className="w-11/12" src={item.image} alt="New Book" />
+                                        <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="grid w-full justify-self-center mt-3 py-2">
+                                            <img className="w-full h-40 md:h-48 lg:h-64"
+                                                src={`http://localhost:8000/${item.HinhAnh}`}
+                                                alt="New Book" />
                                         </div>
 
                                         <div className="flex w-full px-4 py-2">
-                                            <span className={`${style['product_name']} whitespace-normal w-3/4 text-base md:text-lg lg:text-xl font-medium lg:leading-6 py-1`}>{item.name}</span>
+                                            <span className={`${style['product_name']} whitespace-normal w-full text-sm md:text-base lg:text-lg font-medium`}>{item.TenSanPham}</span>
                                         </div>
 
 
-                                        <div className="flex justify-between items-center font-medium text-center py-2 md:text-md lg:text-xl w-full px-4">
-                                            <div className="text-red-600 md:text-lg lg:text-2xl">{item.new_cost}.000đ</div>
-                                            <div className="line-through text-neutral-400 text-xs md:text-sm lg:text-lg">{item.old_cost}.000đ</div>
+                                        <div className="flex justify-between items-center font-medium text-center md:text-md lg:text-xl w-full px-4">
+                                            <div className="text-red-600 md:text-lg lg:text-xl">{changeCostWithDots(item.GiaBan)}đ</div>
                                         </div>
 
-                                        <div className="flex bg-slate-700 hover:bg-slate-500 transition rounded-sm py-2 items-center justify-center mx-2">
+                                        <div onClick={() => addToCartHandler(item)} className="flex bg-slate-700 hover:bg-slate-500 transition rounded-sm py-2 mt-2 items-center justify-center mx-2">
                                             <FiShoppingBag className="w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 text-white" />
                                             <span className="text-white text-sm md:text-base lg:text-lg mx-1">Thêm giỏ hàng</span>
                                         </div>
-
                                     </div>
                                 )
-                            })}
+                            })
+                            }
 
                         </Slider>
+                        {notify ?
+                            <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
+                            :
+                            <></>
+                        }
                         <div className="w-full flex justify-center py-10">
                             <Link to={PATH.category.dashboard} className="font-semibold text-md hover:drop-shadow-lg bg-gradient-to-tl from-yellow-300 to-orange-700 text-white rounded-full lg:py-3 py-1 lg:px-20 px-10">Xem thêm</Link>
                         </div>

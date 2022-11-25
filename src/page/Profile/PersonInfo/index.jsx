@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { PATH } from "../../../constants/path";
 import Notify from "../../../components/Notify";
 import { AiOutlineSmile } from "react-icons/ai";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
 function PersonInfo() {
     const [notify, setNotify] = useState(false);
-    const [avatar, setAvartar] = useState();
     const [province, setProvince] = useState([]);
     const [district, setDistrict] = useState([]);
     const [ward, setWard] = useState([]);
@@ -18,9 +17,10 @@ function PersonInfo() {
     const navigate = useNavigate();
     const arrayYear = [];
     const curYear = new Date().getFullYear();
-    const { register, handleSubmit, formState: { errors }, clearErrors } = useForm({
+    const { register, handleSubmit, formState: { errors }, clearErrors, setValue, trigger } = useForm({
         mode: "onBlur",
         defaultValues: {
+            user_image: "",
             fullName: "",
             email: "",
             gender: "",
@@ -32,31 +32,34 @@ function PersonInfo() {
         },
     });
 
+    const [fileImage, setFileImage] = useState();
+
     for (let i = curYear - 122; i <= curYear; i++) {
         arrayYear.push(i);
     };
 
-    const getBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-            reader.readAsDataURL(file);
-        });
-    }
+    const onChangeImage = useCallback(async (e) => {
+        if(!["image/jpeg", "image/png", "image/gif"].includes(e.target.files[0]?.type)) {
+            return (window.alert("Định dạng ảnh là jpg, jpeg, png, gif"));
+        }
 
-    const imageUpload = (event) => {
-        const file = event.target.files[0];
-        file.image = URL.createObjectURL(file);
-        setAvartar(file);
-        getBase64(file).then(base64 => {
-            localStorage["user_image"] = base64;
-            console.debug("file stored", base64);
-        });
-    };
+        const fileImage = e.target.files[0];
+       
+        if (fileImage) {
+            setValue("user_image", fileImage);
+            if (await trigger("user_image")) {
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(fileImage)
+                fileReader.onloadend = () => {
+                    setFileImage(fileReader.result);
+                }
+            } else setFileImage(null);
+        }
+    }, []);
 
     const onSubmit = (data) => {
         let person_info = {
+            user_image: data.user_image,
             fullName: data.fullName,
             email: data.email,
             gender: data.gender,
@@ -64,13 +67,12 @@ function PersonInfo() {
             address: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
         }
 
-        localStorage.setItem("personInfo", JSON.stringify(person_info));
+        // localStorage.setItem("personInfo", JSON.stringify(person_info));
         // let personInfo = localStorage.getItem("personInfo");
-        // console.log(JSON.parse(personInfo));
+
+        console.log(person_info);
         return setNotify(true);
     }
-
-
 
     useEffect(() => {
         const fetchProvinceData = async () => {
@@ -134,28 +136,33 @@ function PersonInfo() {
                             <div className="flex flex-wrap w-full justify-center">
                                 <div className="flex flex-col items-center py-4">
                                     <div className="flex relative justify-end items-end">
-                                        <div className="flex justify-center items-center">
-                                            {avatar ?
-                                                <img  src={avatar.image} alt="Avatar" className="border-2 rounded-full w-24 h-24 border-blue-200" />
+                                        <div name="user_image" {...register("user_image",
+                                            {required: "Vui lòng chọn ảnh đại diện"}
+                                        )}
+                                            className="flex justify-center items-center">
+                                            {fileImage ?
+                                                <img src={fileImage} alt="Avatar" className="border-2 rounded-full w-24 h-24 border-blue-200" />
                                                 :
-                                                <img  src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8" 
-                                                alt="Avatar" className="border-1 rounded-full w-24 h-24" />
+                                                <img src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8"
+                                                    alt="Avatar" className="border-1 rounded-full w-24 h-24" />
                                             }
 
                                         </div>
 
 
                                         <div className="flex flex-col absolute w-6 h-6 items-center justify-center rounded-full border bg-gray-600">
-                                            <input type="file" name="user_image"
-                                                onChange={(event) => imageUpload(event)}
+                                            <input type="file" accept=".gif, .jpg, .png, .jpeg"
+                                                onChange={(event) => onChangeImage(event)}
                                                 className="hidden" id="file"
                                             />
                                             <label htmlFor="file">
                                                 <BiPencil className="w-4 h-4 text-white cursor-pointer" />
                                             </label>
-
                                         </div>
                                     </div>
+                                    {errors.user_image &&
+                                        <div className="text-xs text-red-500 md:text-sm">{errors.user_image.message}</div>
+                                    }
                                 </div>
 
 
@@ -165,9 +172,9 @@ function PersonInfo() {
                                     </div>
 
                                     <div className="w-2/3 lg:w-8/12 flex flex-col">
-                                        <input name="fullName" type="text" {...register("fullName", { required: true })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" placeholder="VD: Nguyễn Văn A" />
-                                        {errors.fullName?.type === "required" &&
-                                            <div className="text-xs text-red-500 md:text-sm">Họ tên không được để trống</div>
+                                        <input name="fullName" type="text" {...register("fullName", { required: "Họ tên không được để trống" })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" placeholder="VD: Nguyễn Văn A" />
+                                        {errors.fullName &&
+                                            <div className="text-xs text-red-500 md:text-sm">{errors.fullName.message}</div>
                                         }
                                     </div>
                                 </div>
@@ -178,9 +185,17 @@ function PersonInfo() {
                                     </div>
 
                                     <div className="w-2/3 lg:w-8/12 flex flex-col">
-                                        <input name="email" type="email" {...register("email", { required: true })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" placeholder="VD: nguyenvana@gmail.com" />
-                                        {errors.email?.type === "required" &&
-                                            <div className="text-xs text-red-500 md:text-sm">Email không được để trống</div>
+                                        <input name="email" type="email" {...register("email",
+                                            {
+                                                required: "Email không được để trống",
+                                                pattern: {
+                                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                                    message: "Vui lòng nhập đúng định dạng email",
+                                                },
+                                            })}
+                                            className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" placeholder="VD: nguyenvana@gmail.com" />
+                                        {errors.email &&
+                                            <div className="text-xs text-red-500 md:text-sm">{errors.email.message}</div>
                                         }
                                     </div>
 
@@ -194,18 +209,18 @@ function PersonInfo() {
                                     <div className="flex flex-col w-2/3 lg:w-8/12 py-2 md:py-3">
                                         <div className="flex w-full">
                                             <div className="w-full">
-                                                <input name="gender" {...register("gender", { required: true })} type="radio" value="Male" />
+                                                <input name="gender" {...register("gender", { required: "Vui lòng chọn giới tính" })} type="radio" value="Male" />
                                                 <label htmlFor="Male" className="mx-2">Nam</label>
                                             </div>
 
                                             <div className="w-full">
-                                                <input name="gender" {...register("gender", { required: true })} type="radio" value="Female" />
+                                                <input name="gender" {...register("gender", { required: "Vui lòng chọn giới tính" })} type="radio" value="Female" />
                                                 <label htmlFor="Female" className="mx-2">Nữ</label>
                                             </div>
                                         </div>
 
-                                        {errors.gender?.type === "required" &&
-                                            <div className="text-xs text-red-500 md:text-sm">Vui lòng chọn giới tính</div>
+                                        {errors.gender &&
+                                            <div className="text-xs text-red-500 md:text-sm">{errors.gender.message}</div>
                                         }
                                     </div>
                                 </div>
@@ -216,10 +231,18 @@ function PersonInfo() {
                                     </div>
 
                                     <div className="w-2/3 lg:w-8/12 flex flex-col">
-                                        <input name="phone" {...register("phone", { required: true })} type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="VD: 0xxxxxxxxx"
+                                        <input name="phone" {...register("phone", {
+                                            required: "Số điện thoại không được để trống",
+                                            pattern:
+                                            {
+                                                value: /[0]{1}[0-9]{9}/,
+                                                message: "Vui lòng chỉ nhập đủ 10 số"
+                                            },
+                                        }
+                                        )} type="tel" placeholder="VD: 0xxxxxxxxx"
                                             className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" />
-                                        {errors.phone?.type === "required" &&
-                                            <div className="text-xs text-red-500 md:text-sm">Số điện thoại không được để trống</div>
+                                        {errors.phone &&
+                                            <div className="text-xs text-red-500 md:text-sm">{errors.phone.message}</div>
                                         }
                                     </div>
 
@@ -231,16 +254,19 @@ function PersonInfo() {
                                     </div>
 
                                     <div className="w-2/3 lg:w-8/12 flex flex-col">
-                                        <input name="address" type="text" {...register("address", { required: true })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" placeholder="VD: 273 An Dương Vương" />
-                                        {errors.address?.type === "required" &&
-                                            <div className="text-xs text-red-500 md:text-sm">Số nhà không được để trống</div>
+                                        <input name="address" type="text" {...register("address",
+                                            {
+                                                required: "Số nhà không được để trống",
+                                            })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" placeholder="VD: 273 An Dương Vương" />
+                                        {errors.address &&
+                                            <div className="text-xs text-red-500 md:text-sm">{errors.address.message}</div>
                                         }
                                     </div>
                                 </div>
 
                                 <div className="flex flex-wrap lg:flex-nowrap w-full justify-between">
                                     <div className="flex flex-col py-2 lg:mr-10 w-full">
-                                        <select name="city" {...register("city", { required: true })}
+                                        <select name="city" {...register("city", { required: "Vui lòng chọn tỉnh thành" })}
                                             onChange={(event) => handleProvince(event)} onClick={() => clearErrors("city")}
                                             className="border rounded-sm w-full px-2 py-1 lg:py-2 border-black/20 focus:outline-none focus:ring-sky-200 focus:ring-1 text-base">
                                             <option value="" disabled>Tỉnh / Thành phố</option>
@@ -252,13 +278,13 @@ function PersonInfo() {
                                                 <></>
                                             }
                                         </select>
-                                        {errors.city?.type === "required" &&
-                                            <div className="text-xs text-red-500 md:text-sm">Vui lòng chọn tỉnh thành</div>
+                                        {errors.city &&
+                                            <div className="text-xs text-red-500 md:text-sm">{errors.city.message}</div>
                                         }
                                     </div>
 
                                     <div className="flex flex-col py-2 w-full">
-                                        <select name="district" {...register("district", { required: true })}
+                                        <select name="district" {...register("district", { required: "Vui lòng chọn quận huyện" })}
                                             onChange={(e) => handleDistrict(e)} onClick={() => clearErrors("district")}
                                             className="border rounded-sm w-full px-2 py-1 lg:py-2 border-black/20 focus:outline-none focus:ring-sky-200 focus:ring-1 text-base">
                                             <option value="" disabled>Quận / huyện</option>
@@ -270,14 +296,14 @@ function PersonInfo() {
                                                 <></>
                                             }
                                         </select>
-                                        {errors.district?.type === "required" &&
-                                            <div className="text-xs text-red-500 md:text-sm">Vui lòng chọn quận huyện</div>
+                                        {errors.district &&
+                                            <div className="text-xs text-red-500 md:text-sm">{errors.district.message}</div>
                                         }
 
                                     </div>
 
                                     <div className="flex flex-col py-2 lg:ml-10 w-full">
-                                        <select name="ward" {...register("ward", { required: true })} onClick={() => clearErrors("ward")}
+                                        <select name="ward" {...register("ward", { required: "Vui lòng chọn phường xã" })} onClick={() => clearErrors("ward")}
                                             className="border rounded-sm w-full px-2 py-1 lg:py-2 border-black/20 focus:outline-none focus:ring-sky-200 focus:ring-1 text-base">
                                             <option value="" disabled>Phường / xã</option>
                                             {ward && ward !== undefined ?
@@ -288,8 +314,8 @@ function PersonInfo() {
                                                 <></>
                                             }
                                         </select>
-                                        {errors.ward?.type === "required" &&
-                                            <div className="text-xs text-red-500 md:text-sm">Vui lòng chọn phường xã</div>
+                                        {errors.ward &&
+                                            <div className="text-xs text-red-500 md:text-sm">{errors.ward.message}</div>
                                         }
                                     </div>
                                 </div>

@@ -27,7 +27,7 @@ export const PATH = {
     category: {
         dashboard: "/category",
     },
-    detail_book: '/detail_book',
+    detail_book: '/books/:bookID',
     new_book: './new_book',
     popular_book: './popular_book',
     bestseller_book: './bestseller_book',

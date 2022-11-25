@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
 import axios from "axios";
+import axiosConfig from "../../config/axiosConfig";
 import Notify from "../../components/Notify";
 import { AiOutlineSmile } from "react-icons/ai";
 import { useForm } from "react-hook-form";
+import Context from "../../store/Context";
+import { API } from '../../constants/api';
 
 function Payment() {
   const navigate = useNavigate();
@@ -28,6 +31,9 @@ function Payment() {
       pay_on_delivery: "",
     },
   });
+
+  const {user} = useContext(Context);
+  // console.log(user);
 
   useEffect(() => {
     const fetchProvinceData = async () => {
@@ -86,11 +92,23 @@ function Payment() {
       pay_on_delivery: data.pay_on_delivery,
     }
 
-    localStorage.setItem("paymentInfo", JSON.stringify(payment_info));
-    const result = localStorage.getItem("paymentInfo");
-    console.log(JSON.parse(result));
+    // localStorage.setItem("paymentInfo", JSON.stringify(payment_info));
+    // const result = localStorage.getItem("paymentInfo");
+
+    console.log(payment_info);
     return setNotify(true);
   }
+
+  const { cart } = useContext(Context);
+  let totalAllProduct = 0;
+  cart.forEach(item => {
+    totalAllProduct += (item.GiaBan * item.quantity);
+  });
+
+  const changeCostWithDots = (item) => {
+      return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+  }
+
   return (
     <div className="flex flex-wrap w-full bg-gray-100 px-4">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-wrap lg:flex-nowrap">
@@ -107,9 +125,9 @@ function Payment() {
                 </div>
 
                 <div className="w-2/3 lg:w-8/12 flex flex-col">
-                  <input name="fullName" type="text" {...register("fullName", { required: true })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" placeholder="VD: Nguyễn Văn A" />
-                  {errors.fullName?.type === "required" &&
-                    <div className="text-xs text-red-500 md:text-sm">Họ tên không được để trống</div>
+                  <input name="fullName" type="text" {...register("fullName", { required: "Họ tên không được để trống" })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" placeholder="VD: Nguyễn Văn A" value={user.HoTen} />
+                  {errors.fullName &&
+                    <div className="text-xs text-red-500 md:text-sm">{errors.fullName.message}</div>
                   }
                 </div>
               </div>
@@ -120,9 +138,17 @@ function Payment() {
                 </div>
 
                 <div className="w-2/3 flex flex-col">
-                  <input name="email" type="email"  {...register("email", { required: true })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" placeholder="VD: nguyenvana@gmail.com" />
-                  {errors.email?.type === "required" &&
-                    <div className="text-xs text-red-500 md:text-sm">Email không được để trống</div>
+                  <input name="email" type="email" value={user.Email}  {...register("email",
+                    {
+                      required: "Email không được để trống",
+                      pattern: {
+                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        message: "Vui lòng nhập đúng định dạng email",
+                      },
+                    })}
+                    className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" placeholder="VD: nguyenvana@gmail.com" />
+                  {errors.email &&
+                    <div className="text-xs text-red-500 md:text-sm">{errors.email.message}</div>
                   }
                 </div>
 
@@ -134,7 +160,15 @@ function Payment() {
                 </div>
 
                 <div className="w-2/3 flex flex-col">
-                  <input name="phone" type="tel" {...register("phone", { required: true })} pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="VD: 0xxxxxxxxx"
+                  <input name="phone" type="tel" {...register("phone", {
+                    required: "Số điện thoại không được để trống",
+                    pattern:
+                    {
+                      value: /[0]{1}[0-9]{9}/,
+                      message: "Vui lòng chỉ nhập đủ 10 số"
+                    },
+                  }
+                  )} placeholder="VD: 0xxxxxxxxx"
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" />
                   {errors.phone?.type === "required" &&
                     <div className="text-xs text-red-500 md:text-sm">Số điện thoại không được để trống</div>
@@ -148,9 +182,9 @@ function Payment() {
                 </div>
 
                 <div className="w-2/3 flex flex-col">
-                  <input name="address" type="text" {...register("address", { required: true })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" placeholder="VD: 273 An Dương Vương" />
+                  <input name="address" type="text" {...register("address", { required: "Số nhà không được để trống" })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" placeholder="VD: 273 An Dương Vương" />
                   {errors.address?.type === "required" &&
-                    <div className="text-xs text-red-500 md:text-sm">Số nhà không được để trống</div>
+                    <div className="text-xs text-red-500 md:text-sm">{errors.address.message}</div>
                   }
                 </div>
 
@@ -158,7 +192,7 @@ function Payment() {
 
               <div className="flex flex-wrap md:flex-nowrap w-full justify-between">
                 <div className="flex flex-col p-2 md:mr-10 w-full">
-                  <select name="city" {...register("city", { required: true })}
+                  <select name="city" {...register("city", { required: "Vui lòng chọn tỉnh thành" })}
                     onChange={(event) => handleProvince(event)} onClick={() => clearErrors("city")}
                     className="border rounded-sm w-full px-2 py-1 lg:py-2 border-black/20 focus:outline-none focus:ring-sky-200 focus:ring-1 text-base">
                     <option value="" disabled>Tỉnh / Thành phố</option>
@@ -170,13 +204,13 @@ function Payment() {
                       <></>
                     }
                   </select>
-                  {errors.city?.type === "required" &&
-                    <div className="text-xs text-red-500 md:text-sm">Vui lòng chọn tỉnh thành</div>
+                  {errors.city &&
+                    <div className="text-xs text-red-500 md:text-sm">{errors.city.message}</div>
                   }
                 </div>
 
                 <div className="flex flex-col p-2 w-full">
-                  <select name="district" {...register("district", { required: true })}
+                  <select name="district" {...register("district", { required: "Vui lòng chọn quận huyện" })}
                     onChange={(e) => handleDistrict(e)} onClick={() => clearErrors("district")}
                     className="border rounded-sm w-full px-2 py-1 lg:py-2 border-black/20 focus:outline-none focus:ring-sky-200 focus:ring-1 text-base">
                     <option value="" disabled>Quận / huyện</option>
@@ -188,14 +222,14 @@ function Payment() {
                       <></>
                     }
                   </select>
-                  {errors.district?.type === "required" &&
-                    <div className="text-xs text-red-500 md:text-sm">Vui lòng chọn quận huyện</div>
+                  {errors.district &&
+                    <div className="text-xs text-red-500 md:text-sm">{errors.district.message}</div>
                   }
 
                 </div>
 
                 <div className="flex flex-col p-2 md:ml-10 w-full">
-                  <select name="ward" {...register("ward", { required: true })} onClick={() => clearErrors("ward")}
+                  <select name="ward" {...register("ward", { required: "Vui lòng chọn phường xã" })} onClick={() => clearErrors("ward")}
                     className="border rounded-sm w-full px-2 py-1 lg:py-2 border-black/20 focus:outline-none focus:ring-sky-200 focus:ring-1 text-base">
                     <option value="" disabled>Phường / xã</option>
                     {ward && ward !== undefined ?
@@ -206,8 +240,8 @@ function Payment() {
                       <></>
                     }
                   </select>
-                  {errors.ward?.type === "required" &&
-                    <div className="text-xs text-red-500 md:text-sm">Vui lòng chọn phường xã</div>
+                  {errors.ward &&
+                    <div className="text-xs text-red-500 md:text-sm">{errors.ward.message}</div>
                   }
                 </div>
 
@@ -256,9 +290,9 @@ function Payment() {
               </div>
 
               <div className="flex flex-col ml-10 items-end">
-                <span className="py-1 font-medium md:text-lg">116.000đ</span>
+                <span className="py-1 font-medium md:text-lg">{changeCostWithDots(totalAllProduct)}đ</span>
                 <span className="py-1 font-medium md:text-lg">30.000đ</span>
-                <span className="py-1 font-semibold text-red-600 text-xl md:text-2xl">256.000đ</span>
+                <span className="py-1 font-semibold text-red-600 text-xl md:text-2xl">{changeCostWithDots(totalAllProduct + 30000)}đ</span>
               </div>
             </div>
             <div className="flex mt-4 lg:w-full lg:text-center">

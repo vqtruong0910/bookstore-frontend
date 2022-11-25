@@ -32,6 +32,7 @@ function AddProduct() {
             } else setFileImage(null);
         }
     }, []);
+    
     const onSubmit = useCallback((data) => {
         console.log(data);
     }, []);
