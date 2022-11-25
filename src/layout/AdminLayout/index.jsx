@@ -25,7 +25,7 @@ function AdminLayout() {
         }
     }, [])
 
-    if (!isAdmin || !user) {
+    if (!isAdmin) {
         return <Navigate replace to={PATH.login} />
     }
 
