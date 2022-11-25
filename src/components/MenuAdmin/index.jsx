@@ -74,13 +74,13 @@ function MenuAdmin({ stateMenu }) {
                 <li className='p-2'>
                     <Link to={PATH.admin.category} className="flex items-center relative space-x-2 text-slate-200">
                         <span className="m-1"><IconCategory /></span>
-                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.category))}>Danh mục</span>
+                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.category))}>Danh mục & Thể loại</span>
                     </Link>
                 </li>
                 <li className='p-2'>
-                    <Link to={PATH.admin.typeof} className="flex items-center relative space-x-2 text-slate-200">
+                    <Link to={PATH.admin.author} className="flex items-center relative space-x-2 text-slate-200">
                         <span className="m-1"><IconTypeBook /></span>
-                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.typeof))}>Thể loại</span>
+                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.author))}>Tác giả</span>
                     </Link>
                 </li>
                 <li className='p-2'>

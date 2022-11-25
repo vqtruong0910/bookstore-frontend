@@ -9,19 +9,53 @@ import axiosJWT from '../../../config/axiosJWT';
 import { API } from '../../../constants/api';
 import { PATH } from '../../../constants/path';
 import style from './style.module.scss';
+import { useForm } from 'react-hook-form';
 
 function ProductManage() {
     const id = useId();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const [page, setPage] = useState(1);
-    const { data: products, isLoading, isError } = useQuery(['products', page], async () => {
-        const result = await axiosJWT.get(API.GET_PRODUCT_IN_PAGE, {
-            params: {
-                p: page, s: 5
-            }
-        });
+    const [search, setSearch] = useState(false);
+    const { register, formState: { errors }, handleSubmit, reset, watch } = useForm({
+        mode: "onBlur",
+        defaultValues: {
+            DanhMuc: "",
+            TheLoai: "",
+            Ngay: "",
+        }
+    });
+    const { data: products, isLoading, isError } = useQuery(['products', page, search], async () => {
+        const param = {}
+        if (search.DanhMuc)
+            param.c = search.DanhMuc
+        if (search.TheLoai)
+            param.k = search.TheLoai
+        if (search.Ngay)
+            param.d = search.Ngay
+        try {
+            const result = await axiosJWT.get(API.GET_PRODUCT_IN_PAGE, {
+                params: {
+                    p: page,
+                    s: 5,
+                    ...param
+                }
+            });
+            return result.data;
+        } catch (error) {
+            return []
+        }
+    }, { keepPreviousData: true, staleTime: 5000 });
+    const { data: category, isError: isErrorCategory } = useQuery(['category'], async () => {
+        const result = await axiosJWT.get(API.GET_LIST_ALL_CATEGORY);
         return result.data;
+    }, { keepPreviousData: true, staleTime: 5000 });
+    const { data: typeOfBook, isError: isErrorTypeOfBook } = useQuery(['typeofbook', watch("DanhMuc")], async () => {
+        if (watch("DanhMuc")) {
+            const result = await axiosJWT.get(`${API.GET_LIST_ALL_TYPEOF_BOOK}/${watch("DanhMuc")}`)
+            return result.data;
+        }
+        return []
     }, { keepPreviousData: true, staleTime: 5000 });
     const { mutateAsync } = useMutation(async (idProduct) => {
         const result = await axiosJWT.delete(`${API.DELETE_PRODUCT}/${idProduct}`)
@@ -61,16 +95,29 @@ function ProductManage() {
     const deleteProduct = useCallback((idProduct) => {
         if (window.confirm("Bạn chắn chắn là muốn xóa sản phẩm này chứ"))
             mutateAsync(idProduct)
-                .then(res => {
+                .then(() => {
                     window.alert("Xóa sản phẩm thành công");
                 })
                 .catch(err => {
+                    console.log(err);
                     window.alert("Xóa sản phẩm thất bại");
                 })
     }, [])
 
     const transferUpdateProduct = useCallback((data) => {
         navigate(PATH.admin.update_product, { state: data })
+    }, []);
+
+    const submitFilter = useCallback((data) => {
+        setSearch({ ...data });
+    }, [])
+    const resetFilter = useCallback(() => {
+        reset({
+            DanhMuc: "",
+            TheLoai: "",
+            Ngay: ""
+        });
+        setSearch(false);
     }, [])
 
     if (isLoading) {
@@ -78,7 +125,7 @@ function ProductManage() {
             <Loading />
         )
     }
-    if (isError) {
+    if (isError || isErrorCategory || isErrorTypeOfBook) {
         return (
             <h1>Không thể tải được dữ liệu 😥</h1>
         )
@@ -97,23 +144,23 @@ function ProductManage() {
                         <input type="text" className="rounded-sm border" />
                         <input type="submit" className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white" value="Tìm" />
                     </div>
-                    <div className="flex ml-auto space-x-3">
-                        <select className="rounded-sm border cursor-pointer">
-                            <option value="">Chọn danh mục</option>
-                            <option value="">Sách giáo khoa</option>
-                            <option value="">Sách kinh tế</option>
-                            <option value="">Khoa học viễn tưởng</option>
-                            <option value="">Truyện tranh</option>
+                    <form onSubmit={handleSubmit(submitFilter)} className="flex ml-auto space-x-3">
+                        <select {...register("DanhMuc")} className="rounded-sm border cursor-pointer">
+                            <option value="">--Select--</option>
+                            {category?.map((item) => (
+                                <option key={item.IDDanhMuc} value={item.IDDanhMuc}>{item.TenDanhMuc}</option>
+                            ))}
                         </select>
-                        <select className="rounded-sm border cursor-pointer">
-                            <option value="">Thể loại</option>
-                            <option value="">Comic</option>
-                            <option value="">Hành động</option>
-                            <option value="">Trinh thám</option>
+                        <select {...register("TheLoai")} className="rounded-sm border cursor-pointer">
+                            <option value="">--Select--</option>
+                            {typeOfBook?.map((item) => (
+                                <option key={item.IDTheLoai} value={item.IDTheLoai}>{item.TenTheLoai}</option>
+                            ))}
                         </select>
                         <input type="date" className="rounded-sm border cursor-pointer" />
                         <input type="submit" className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white" value="Lọc" />
-                    </div>
+                        {search && <input onClick={resetFilter} type="button" className="rounded-sm text-red-500 border px-2 py-1 text-sm cursor-pointer bg-white" value="X" />}
+                    </form>
                 </div>
 
                 <div className="flex justify-end space-x-2 py-1">
@@ -144,7 +191,7 @@ function ProductManage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.DanhSach.map(item => {
+                    {products?.DanhSach?.map(item => {
                         return (
                             <tr key={id + item.IDSanPham} className="odd:bg-slate-100 border">
                                 <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src={item.HinhAnh} alt="book" /></td>

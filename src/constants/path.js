@@ -50,8 +50,8 @@ export const PATH = {
         // TypeOf 
         typeof: "/admin/typeof",
         // Turnover
-        revenue_statistics: "/admin/revenue_statistics"
-
+        revenue_statistics: "/admin/revenue_statistics",
+        author: "/admin/author"
     },
     notfound: '*'
 }
