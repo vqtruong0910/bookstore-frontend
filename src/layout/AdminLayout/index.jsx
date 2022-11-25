@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import jwtDecode from 'jwt-decode';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { Suspense, useState } from 'react';
 import { BsPerson } from 'react-icons/bs';
 import { Navigate, Outlet } from 'react-router-dom';
@@ -16,7 +16,7 @@ function AdminLayout() {
     const [stateMenu, setStateMenu] = useState(false);
     const { user } = useContext(Context);
 
-    const isAdmin = useCallback(() => {
+    const isAdmin = useMemo(() => {
         try {
             const { Quyen } = jwtDecode(localStorage.getItem("token"));
             return Quyen === 0 ? true : false;
@@ -26,6 +26,10 @@ function AdminLayout() {
     }, [])
 
     if (!isAdmin) {
+        return <Navigate replace to={PATH.login} />
+    }
+
+    if (!user) {
         return <Navigate replace to={PATH.login} />
     }
 
