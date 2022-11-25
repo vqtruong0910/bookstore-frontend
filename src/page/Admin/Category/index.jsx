@@ -78,37 +78,37 @@ function Category() {
     }, [categories])
 
     const handleAddCategory = useCallback((data) => {
-        if (window.confirm("Bạn chắc chắn là muốn thêm sản phẩm này chứ"))
+        if (window.confirm("Bạn chắc chắn là muốn thêm danh mục này chứ"))
             addCategory(data)
                 .then(() => {
-                    window.alert("Thêm sản phẩm thành công");
+                    window.alert("Thêm danh mục thành công");
                 })
                 .catch(err => {
                     console.log(err);
-                    window.alert("Thêm sản phẩm thất bại");
+                    window.alert("Thêm danh mục thất bại");
                 })
     }, [])
 
     const handleUpdateCategory = useCallback((data) => {
-        if (window.confirm("Bạn chắc chắn là muốn thay đổi sản phẩm này chứ"))
+        if (window.confirm("Bạn chắc chắn là muốn thay đổi danh mục này chứ"))
             addCategory(data)
                 .then(() => {
-                    window.alert("Thay đổi sản phẩm thành công");
+                    window.alert("Thay đổi danh mục thành công");
                 })
                 .catch(err => {
                     console.log(err);
-                    window.alert("Thay đổi sản phẩm thất bại");
+                    window.alert("Thay đổi danh mục thất bại");
                 })
     }, [])
     const handleDeleteCategory = useCallback((idCategory) => {
-        if (window.confirm("Bạn chắc chắn là muốn thêm sản phẩm này chứ"))
+        if (window.confirm("Bạn chắc chắn là muốn thêm danh mục này chứ"))
             deleteCategory(idCategory)
                 .then(() => {
-                    window.alert("Thêm sản phẩm thành công");
+                    window.alert("Thêm danh mục thành công");
                 })
                 .catch(err => {
                     console.log(err);
-                    window.alert("Thêm sản phẩm thất bại");
+                    window.alert("Thêm danh mục thất bại");
                 })
     }, [])
 

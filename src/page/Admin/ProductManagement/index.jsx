@@ -10,7 +10,7 @@ import { API } from '../../../constants/api';
 import { PATH } from '../../../constants/path';
 import style from './style.module.scss';
 import { useForm } from 'react-hook-form';
-
+import { VALIDATE } from '../../../constants/validate'
 function ProductManage() {
     const id = useId();
     const navigate = useNavigate();
@@ -157,7 +157,7 @@ function ProductManage() {
                                 <option key={item.IDTheLoai} value={item.IDTheLoai}>{item.TenTheLoai}</option>
                             ))}
                         </select>
-                        <input type="date" className="rounded-sm border cursor-pointer" />
+                        <input type="date" {...register("Ngay", VALIDATE.filterDate)} className="rounded-sm border cursor-pointer" />
                         <input type="submit" className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white" value="Lọc" />
                         {search && <input onClick={resetFilter} type="button" className="rounded-sm text-red-500 border px-2 py-1 text-sm cursor-pointer bg-white" value="X" />}
                     </form>
@@ -177,9 +177,9 @@ function ProductManage() {
             <table className="table-auto border-collapse border rounded-sm w-full bg-white md:table-fixed">
                 <thead>
                     <tr className="border bg-slate-800 text-slate-200">
-                        <th className="p-2 hidden md:table-cell"><BsCardImage className='mx-auto w-full' /></th>
-                        <th className="p-2 text-left">Tên</th>
-                        <th className="p-2 text-left">Danh mục</th>
+                        <th className="p-2 w-24 hidden md:table-cell"><BsCardImage className='mx-auto w-full' /></th>
+                        <th className="p-2 w-40 text-left">Tên</th>
+                        <th className="p-2 w-40 text-left">Danh mục</th>
                         <th className="p-2 text-left">Thể loại</th>
                         <th className="p-2 text-left">Giá (VNĐ)</th>
                         <th className="p-2 text-left hidden md:table-cell">Giảm giá</th>
@@ -194,7 +194,7 @@ function ProductManage() {
                     {products?.DanhSach?.map(item => {
                         return (
                             <tr key={id + item.IDSanPham} className="odd:bg-slate-100 border">
-                                <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src={item.HinhAnh} alt="book" /></td>
+                                <td className="p-2 hidden md:table-cell"><img className='object-contain h-24 mx-auto' src={item.HinhAnh} alt="book" /></td>
                                 <td className="p-2">{item.TenSanPham}</td>
                                 <td className="p-2">{item.TenDanhMuc}</td>
                                 <td className="p-2">{item.TenTheLoai}</td>

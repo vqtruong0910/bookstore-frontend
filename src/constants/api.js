@@ -26,6 +26,7 @@ export const API = {
     STATISTIC_USER_IN_WEEK: "users/statistic",
     REVANUE_IN_WEEK: "order/revanue",
     AMOUNT_ORDER_IN_WEEK: "order/amount",
+    ORDER_DETAIL: "order/order_detail",
 
     STATISTIC_USER_EVERY_DAY_IN_WEEK: "users/statisticperday",
     STATISTIC_ORDER_EVERY_DAY_IN_WEEK: "order/amountperday",
@@ -35,4 +36,5 @@ export const API = {
     CREATE_PRODUCT: "product",
     DELETE_PRODUCT: "product",
     MANAGE_CATEGORY: "category",
+    MANAGE_ORDER: "order"
 }
