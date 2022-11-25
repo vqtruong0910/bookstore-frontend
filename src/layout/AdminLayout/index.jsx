@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import jwtDecode from 'jwt-decode';
-import { useCallback, useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { Suspense, useState } from 'react';
 import { BsPerson } from 'react-icons/bs';
 import { Navigate, Outlet } from 'react-router-dom';

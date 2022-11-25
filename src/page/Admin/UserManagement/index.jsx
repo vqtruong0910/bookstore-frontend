@@ -166,7 +166,7 @@ function UserManagement() {
                 </tbody>
             </table>
 
-            <div onClick={() => setFormUpdate(false)} className={clsx(formUpdate ? "z-30" : "-z-30", "fixed flex justify-center items-center inset-0 bg-slate-900 bg-opacity-20")}>
+            <div className={clsx(formUpdate ? "z-30" : "-z-30", "fixed flex justify-center items-center inset-0 bg-slate-900 bg-opacity-20")}>
                 <div className={clsx(!formUpdate && "scale-0", style["hide-scrollbar"], "flex w-full flex-col bg-white rounded-sm overflow-y-scroll sm:w-1/2 max-h-screen transition-all duration-200")}>
                     <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col py-4 px-4 sm:p-6">
                         <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>
