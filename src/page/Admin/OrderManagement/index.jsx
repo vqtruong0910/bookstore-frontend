@@ -23,12 +23,7 @@ function OrderManagement() {
         const result = await axiosJWT.get(`${API.GET_LIST_ORDER_IN_PAGE}?p=${page}&s=12`);
         console.log(result.data);
         return result.data;
-    }, { keepPreviousData: true, staleTime: 5000 });
-    // const { data: name, isLoading: isLoadingName, isError: isErrorName } = useQuery(['usersname', page], async () => {
-    //     const result = await axiosJWT.get(`${API.GET_LIST_ALL_USER}/${}`);
-    //     console.log(result.data);
-    //     return result.data;
-    // }, { keepPreviousData: true, staleTime: 5000 });
+    }, { keepPreviousData: true });
 
     const { mutateAsync } = useMutation(async (data) => {
         const result = await axiosJWT.put(`${API.MANAGE_ORDER}/${order.IDDonHang}`, data);
@@ -116,6 +111,7 @@ function OrderManagement() {
             .then(res => {
                 console.log(res);
                 window.alert("Cập nhật thành công");
+                setFormUpdate(false);
             })
             .catch(() => {
                 window.alert("Cập nhật thất bại");
@@ -191,9 +187,9 @@ function OrderManagement() {
                     </tr>
                 </thead>
                 <tbody>
-                    {orders.DanhSach.map((item, index) => {
+                    {orders.DanhSach.map(item => {
                         return (
-                            <tr key={index} className="odd:bg-slate-100 border">
+                            <tr key={item.IDDonHang} className="odd:bg-slate-100 border">
                                 <td className="p-2 hidden md:table-cell">{item.HoTen}</td>
                                 <td className="p-2">{item.DiaChi}</td>
                                 <td className="p-2 hidden md:table-cell">{checkDate(item.NgayDat)}</td>

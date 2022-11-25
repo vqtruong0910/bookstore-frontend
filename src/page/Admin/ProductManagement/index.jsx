@@ -45,7 +45,7 @@ function ProductManage() {
         } catch (error) {
             return []
         }
-    }, { keepPreviousData: true, staleTime: 5000 });
+    }, { keepPreviousData: true });
     const { data: category, isError: isErrorCategory } = useQuery(['category'], async () => {
         const result = await axiosJWT.get(API.GET_LIST_ALL_CATEGORY);
         return result.data;
@@ -140,10 +140,10 @@ function ProductManage() {
 
             <div className="py-2 space-y-1">
                 <div className="hidden md:flex">
-                    <div className="flex space-x-3">
+                    {/* <div className="flex space-x-3">
                         <input type="text" className="rounded-sm border" />
                         <input type="submit" className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white" value="Tìm" />
-                    </div>
+                    </div> */}
                     <form onSubmit={handleSubmit(submitFilter)} className="flex ml-auto space-x-3">
                         <select {...register("DanhMuc")} className="rounded-sm border cursor-pointer">
                             <option value="">--Select--</option>
@@ -182,7 +182,7 @@ function ProductManage() {
                         <th className="p-2 w-40 text-left">Danh mục</th>
                         <th className="p-2 text-left">Thể loại</th>
                         <th className="p-2 text-left">Giá (VNĐ)</th>
-                        <th className="p-2 text-left hidden md:table-cell">Giảm giá</th>
+                        <th className="p-2 text-center hidden md:table-cell">Giảm giá</th>
                         <th className="p-2 text-left hidden md:table-cell">Đơn vị</th>
                         <th className="p-2 text-left hidden md:table-cell">Ngày thêm</th>
                         <th className="p-2 text-center hidden md:table-cell">Số lượng</th>
@@ -199,7 +199,7 @@ function ProductManage() {
                                 <td className="p-2">{item.TenDanhMuc}</td>
                                 <td className="p-2">{item.TenTheLoai}</td>
                                 <td className="p-2">{item.GiaBan}</td>
-                                <td className="p-2 hidden md:table-cell">{item.GiamGia}</td>
+                                <td className="p-2 text-center hidden md:table-cell">{item.GiamGia}</td>
                                 <td className="p-2 hidden md:table-cell">{item.DonViTinh}</td>
                                 <td className="p-2 hidden md:table-cell">{checkDate(item.NgayThem)}</td>
                                 <td className="p-2 hidden md:table-cell text-center">{item.SoLuongConLai}</td>

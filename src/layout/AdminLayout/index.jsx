@@ -1,20 +1,23 @@
 import clsx from 'clsx';
 import jwtDecode from 'jwt-decode';
-import { useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { Suspense, useState } from 'react';
 import { BsPerson } from 'react-icons/bs';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import bar from '../../assets/svg/bar.svg';
 import DownArrow from '../../assets/svg/DownArrow';
 import Loading from '../../components/Loading';
 import MenuAdmin from '../../components/MenuAdmin';
+import axiosConfig from '../../config/axiosConfig';
+import { API } from '../../constants/api';
 import { PATH } from '../../constants/path';
 import Context from '../../store/Context';
 import style from './style.module.scss';
 
 function AdminLayout() {
+    const navigate = useNavigate();
     const [stateMenu, setStateMenu] = useState(false);
-    const { user } = useContext(Context);
+    const { user, setUser } = useContext(Context);
 
     const isAdmin = useMemo(() => {
         try {
@@ -22,6 +25,18 @@ function AdminLayout() {
             return Quyen === 0 ? true : false;
         } catch (error) {
             return false;
+        }
+    }, [])
+
+    const logOut = useCallback(async () => {
+        try {
+            await axiosConfig.delete(API.LOGOUT);
+        } catch (error) { throw error }
+        finally {
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+            setUser(false);
+            navigate(PATH.login, { replace: true });
         }
     }, [])
 
@@ -65,7 +80,7 @@ function AdminLayout() {
                                 <li><span className='block'>{user.HoTen}</span></li>
                                 <li><span className='block'>Administrator</span></li>
                                 <hr />
-                                <li><button className='block w-full text-left'>Sign Out</button></li>
+                                <li><button className='block w-full text-left' onClick={logOut}>Sign Out</button></li>
                             </ul>
                         </div>
                     </div>

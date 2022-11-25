@@ -2,44 +2,116 @@ import clsx from "clsx";
 import { useId } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
-import { BsCardImage, BsPencilSquare } from "react-icons/bs";
-import { FaRegSmileBeam } from "react-icons/fa";
-import { useQuery } from "react-query";
+import { useForm } from "react-hook-form";
+import { AiFillDelete } from "react-icons/ai";
+import { BsPencilSquare } from "react-icons/bs";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
 import Loading from "../../../components/Loading";
-import Notify from "../../../components/Notify";
 import axiosJWT from "../../../config/axiosJWT";
 import { API } from "../../../constants/api";
-import { gender, permission, status, verifyEmail } from "../../../constants/statusUser";
 import style from './style.module.scss';
 
 
 function TypeOf() {
-    const id = useId();
-
-    const [page, setPage] = useState(1);
-    const { data: users, isLoading, isError } = useQuery(['users', page], async () => {
-        const result = await axiosJWT.get(`${API.GET_LIST_USER_IN_PAGE}/${page}`);
-        return result.data;
+    const uid = useId();
+    const { id } = useParams();
+    const queryClient = useQueryClient();
+    const [typeOfBook, setTypeOfBook] = useState({});
+    const [formUpdate, setFormUpdate] = useState(false);
+    const { data: typeOfBooks, isLoading, isError } = useQuery(['typeofbooks'], async () => {
+        if (!isNaN(id)) {
+            try {
+                const result = await axiosJWT.get(`${API.GET_TYPEOF_BOOK_IN_PAGE}/${id}`);
+                console.log(result.data);
+                return result.data;
+            } catch (error) {
+                return []
+            }
+        }
+        return []
     }, { keepPreviousData: true, staleTime: 5000 });
-    const nextPage = useCallback(() => {
-        setPage(currentPage => currentPage >= users.SoLuongTrang ? users.SoLuongTrang : ++currentPage);
-    }, [page, users]);
 
-    const prevPage = useCallback(() => {
-        setPage(currentPage => currentPage > 1 ? --currentPage : 1);
-    }, [page]);
+    const { register, formState: { errors }, handleSubmit, reset } = useForm({
+        mode: "onBlur",
+        defaultValues: {
+            TenTheLoai: ""
+        }
+    });
+    const { register: registerUpdate, formState: { errors: errorsUpdate }, handleSubmit: handleSubmitUpdate, reset: resetUpdate, setValue } = useForm({
+        mode: "onBlur",
+        defaultValues: {
+            TheLoai: ""
+        }
+    });
 
-    const firstPage = useCallback(() => {
-        setPage(1);
-    }, []);
-    const lastPage = useCallback(() => {
-        setPage(users.SoLuongTrang);
-    }, [users]);
-    const changePage = useCallback((e) => {
-        const value = parseInt(e.target.value);
-        if (value > 0 && value <= users.SoLuongTrang)
-            setPage(value);
-    }, [users])
+    const { mutateAsync: addTypeOfBook } = useMutation(async (data) => {
+        const result = await axiosJWT.post(API.MANAGE_TYPEOF_BOOK, { TenTheLoai: data.TenTheLoai, IDDanhMuc: id })
+        return result.data;
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("typeofbooks")
+        }
+    })
+    const { mutateAsync: updateTypeOfBook } = useMutation(async (data) => {
+        const result = await axiosJWT.put(`${API.MANAGE_TYPEOF_BOOK}/${typeOfBook.IDTheLoai}`, { TenTheLoai: data.TheLoai, IDDanhMuc: id });
+        return result.data;
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("typeofbooks")
+        }
+    })
+    const { mutateAsync: deleteTypeOfBook } = useMutation(async (idProduct) => {
+        const result = await axiosJWT.delete(`${API.MANAGE_TYPEOF_BOOK}/${idProduct}`)
+        return result.data;
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("typeofbooks")
+        }
+    })
+
+    const showUpdateTypeOfBook = useCallback(data => {
+        setValue("TheLoai", data.TenTheLoai)
+        setTypeOfBook(data);
+        setFormUpdate(true);
+    }, [])
+
+    const handleAddTypeOfBook = useCallback(data => {
+        if (window.confirm("Bạn chắc chắn là muốn thêm danh mục này chứ"))
+            addTypeOfBook(data)
+                .then(() => {
+                    window.alert("Thêm danh mục thành công");
+                    reset({ TenDanhMuc: "" })
+                })
+                .catch(err => {
+                    console.log(err);
+                    window.alert("Thêm danh mục thất bại");
+                })
+    }, [])
+
+    const handleUpdateTypeOfBook = useCallback(data => {
+        if (window.confirm("Bạn chắc chắn là muốn thay đổi danh mục này chứ"))
+            updateTypeOfBook(data)
+                .then(() => {
+                    window.alert("Thay đổi danh mục thành công");
+                    setFormUpdate(false);
+                })
+                .catch(err => {
+                    console.log(err);
+                    window.alert("Thay đổi danh mục thất bại");
+                })
+    }, [])
+    const handleDeleteTypeOfBook = useCallback(idTypeOfBook => {
+        if (window.confirm("Bạn chắc chắn là muốn xóa danh mục này chứ"))
+            deleteTypeOfBook(idTypeOfBook)
+                .then(() => {
+                    window.alert("Xóa danh mục thành công");
+                })
+                .catch(err => {
+                    console.log(err);
+                    window.alert("Xóa danh mục thất bại");
+                })
+    }, [])
 
     if (isLoading) {
         return (
@@ -60,19 +132,10 @@ function TypeOf() {
 
             <div className="py-2 space-y-1">
                 <div className="hidden md:flex">
-                    <div className="flex space-x-3">
-                        <input type="text" className="rounded-sm border" />
-                        <input type="submit" className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white" value="Tìm" />
-                    </div>
-                </div>
-
-                <div className="flex justify-end space-x-2 py-1 select-none">
-                    <div className='px-2 border rounded-sm cursor-pointer'>{users?.TongNguoiDung} mục</div>
-                    <div className='px-2 border rounded-sm cursor-pointer' onClick={firstPage}>&#171;</div>
-                    <div className='px-2 border rounded-sm cursor-pointer' onClick={prevPage}>&#60;</div>
-                    <div><input type="number" className={clsx(style["none-spin"], 'px-2 border rounded-sm cursor-pointer w-14 text-center')} value={page} onChange={(e) => changePage(e)} /> &#47; {users?.SoLuongTrang}</div>
-                    <div className='px-2 border rounded-sm cursor-pointer' onClick={nextPage}>&#62;</div>
-                    <div className='px-2 border rounded-sm cursor-pointer' onClick={lastPage}>&#187;</div>
+                    <form onSubmit={handleSubmit(handleAddTypeOfBook)} className="flex space-x-3">
+                        <input {...register("TenTheLoai", { required: true })} placeholder="Tên thể loại..." type="text" className={clsx(errors["TenTheLoai"] && "border-red-600", "focus:outline-none rounded-sm border")} />
+                        <button className="px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors ml-auto">Thêm</button>
+                    </form>
                 </div>
             </div>
 
@@ -80,133 +143,44 @@ function TypeOf() {
             <table className="border-collapse border rounded-sm w-full bg-white">
                 <thead>
                     <tr className="border bg-slate-800 text-slate-200">
-                        {/* <th className="p-2 w-8"><input type="checkbox" /></th> */}
-                        <th className="p-2 hidden md:table-cell"><BsCardImage className='mx-auto w-full' /></th>
-                        <th className="p-2 text-left">Tên</th>
-                        <th className="p-2 text-left">Email</th>
-                        <th className="p-2 text-left hidden md:table-cell">Giới tính</th>
-                        <th className="p-2 text-left hidden md:table-cell">Ngày Sinh</th>
-                        <th className="p-2 text-left hidden md:table-cell">Quyền</th>
-                        <th className="p-2 hidden md:table-cell">Trạng thái</th>
-                        <th className="p-2 hidden md:table-cell">Xác thực</th>
-                        <th className="p-2 hidden md:table-cell"></th>
+                        <th className="p-2 text-left">Tên thể loại</th>
+                        <th className="p-2 text-center w-16"></th>
+                        <th className="p-2 text-center w-16"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users && users?.DanhSach.map((item, index) => (
-                        <tr key={id + index} className="odd:bg-slate-100 border">
-                            {/* <td className="p-2"><input className='mx-auto w-full' type="checkbox" /></td> */}
-                            <td className="p-2 hidden md:table-cell"><img className='w-24 h-16 object-fill mx-auto' src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935210289285.jpg" alt="book" /></td>
-                            <td className="p-2">{item.HoTen}</td>
-                            <td className="p-2">{item.Email}</td>
-                            <td className="p-2 hidden md:table-cell">{gender[item.GioiTinh]}</td>
-                            <td className="p-2 hidden md:table-cell">{item.NgaySinh}</td>
-                            <td className="p-2 hidden md:table-cell">{permission[item.Quyen]}</td>
-                            <td className={clsx("p-2 hidden md:table-cell", item.TrangThai ? "text-lime-500" : "text-red-500")}><div className="flex justify-center items-center">{status[item.TrangThai]}</div></td>
-                            <td className={clsx("p-2 text-center hidden md:table-cell", item.XacThuc ? "text-lime-500" : "text-red-500")}><div className="flex justify-center items-center">{verifyEmail[item.XacThuc]}</div></td>
-                            <td className="p-2 text-indigo-500 font-semibold cursor-pointer"><BsPencilSquare /></td>
+                    {typeOfBooks && typeOfBooks?.map((item, index) => (
+                        <tr key={uid + index} className="odd:bg-slate-100 border">
+                            <td className="p-2">{item.TenTheLoai}</td>
+                            <td className="p-2 text-indigo-500 font-semibold w-16 align-middle"><span className="w-full"><BsPencilSquare onClick={() => showUpdateTypeOfBook(item)} size={20} className='cursor-pointer mx-auto' /></span></td>
+                            <td className="p-2 text-red-500 font-semibold w-16 align-middle"><span className="w-full"><AiFillDelete onClick={() => handleDeleteTypeOfBook(item.IDTheLoai)} size={20} className='cursor-pointer mx-auto' /></span></td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
-            <div className={clsx("fixed flex justify-center items-center inset-0 bg-slate-900 bg-opacity-20 -z-30 transition-opacity duration-200")}>
-                <div className={clsx(style["hide-scrollbar"], "flex w-full flex-col bg-white rounded-sm overflow-y-scroll sm:w-1/2 max-h-screen")}>
-                    <div className="w-full flex flex-col py-4 px-4 sm:p-6">
-                        <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>
+            <div className={clsx(formUpdate ? "z-30" : "-z-30", "fixed flex justify-center items-center inset-0 bg-slate-900 bg-opacity-20")}>
+                <div className={clsx(!formUpdate && "scale-0", style["hide-scrollbar"], "flex w-full flex-col bg-white rounded-sm overflow-y-scroll sm:w-1/2 max-h-screen transition-all duration-200")}>
+                    <form onSubmit={handleSubmitUpdate(handleUpdateTypeOfBook)} className="w-full flex flex-col py-4 px-4 sm:p-6">
+                        <span className="w-full flex text-slate-600 lg:text-lg">Thông tin thể loại</span>
                         <div className="flex flex-col w-full justify-center h-full sm:px-10">
-                            <div className="flex relative py-4 justify-center">
-                                <div className="flex justify-center items-center rounded-full border-2 w-24 h-24 border-blue-300 bg-blue-100">
-                                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/avatar.png" alt="Avatar" className=" w-12 h-12 text-blue-500" />
-                                </div>
-                            </div>
-
                             <div className="flex w-full py-2">
                                 <div className="w-1/3 lg:w-4/12 items-center flex">
-                                    <span className="flex text-sm lg:text-base font-semibold text-slate-800">Họ & Tên</span>
+                                    <span className="flex text-sm lg:text-base font-semibold text-slate-800">Tên Thể loại</span>
                                 </div>
 
                                 <div className="w-2/3 lg:w-8/12 flex">
-                                    <input className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" type="text" disabled placeholder="Họ tên" />
+                                    <input {...registerUpdate("TheLoai")} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" type="text" placeholder="Tên thể loại" />
                                 </div>
 
-                            </div>
-
-                            <div className="flex w-full py-2">
-                                <div className="w-1/3 lg:w-4/12 items-center flex">
-                                    <span className="flex text-sm lg:text-base font-semibold text-slate-800">Email</span>
-                                </div>
-
-                                <div className="w-2/3 lg:w-8/12 flex">
-                                    <input className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" type="email" disabled placeholder="Email" />
-                                </div>
-
-                            </div>
-
-                            <div className="flex w-full py-2">
-                                <div className="w-1/3 lg:w-4/12 items-center flex">
-                                    <span className="flex text-sm lg:text-base font-semibold text-slate-800">Ngày sinh</span>
-                                </div>
-
-                                <div className="w-2/3 lg:w-8/12 flex">
-                                    <input className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" disabled placeholder="Ngày sinh" />
-                                </div>
-
-                            </div>
-
-
-                            <div className="flex w-full py-2">
-                                <div className="w-1/3 lg:w-4/12 items-center flex">
-                                    <span className="flex text-sm lg:text-base font-semibold text-slate-800">Giới tính</span>
-                                </div>
-                                <div className="w-2/3 lg:w-8/12 flex">
-                                    <input className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" disabled placeholder="Giới tính" />
-                                </div>
-                            </div>
-                            <div className="flex w-full py-2">
-                                <div className="w-1/3 lg:w-4/12 items-center flex">
-                                    <span className="flex text-sm lg:text-base font-semibold text-slate-800">Số điện thoại</span>
-                                </div>
-
-                                <div className="w-2/3 lg:w-8/12 flex">
-                                    <input type="tel" disabled placeholder="Số điện thoại"
-                                        className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" />
-                                </div>
-                            </div>
-
-                            <div className="flex w-full py-2">
-                                <div className="w-1/3 lg:w-4/12 items-center flex">
-                                    <span className="flex text-sm lg:text-base font-semibold text-slate-800">Quyền</span>
-                                </div>
-
-                                <div className="w-2/3 lg:w-8/12 flex">
-                                    <select className="border border-sky-200 w-full px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 text-sm lg:text-base">
-                                        <option value="0">Admin</option>
-                                        <option value="1">Khách hàng</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="flex w-full py-2">
-                                <div className="w-1/3 lg:w-4/12 items-center flex">
-                                    <span className="flex text-sm lg:text-base font-semibold text-slate-800">Trạng thái</span>
-                                </div>
-
-                                <div className="w-2/3 lg:w-8/12 flex">
-                                    <select className="border border-sky-200 w-full px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 text-sm lg:text-base">
-                                        <option value="0">Khóa tài khoản</option>
-                                        <option value="1">Hoạt động</option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
-                        <div className="w-full flex justify-between pt-8">
-                            <button className="py-2 px-3 bg-slate-700 hover:bg-slate-500 transition rounded-sm text-white">Trở lại</button>
-                            <button className="py-2 px-3 bg-cyan-500 hover:bg-cyan-400 transition rounded-sm text-white">Cập nhật</button>
+                        <div className="w-full flex pt-8">
+                            <div className="ml-auto space-x-3">
+                                <button type="button" onClick={() => setFormUpdate(false)} className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm">Trở lại</button>
+                                <button type="submit" className="py-2 px-3 bg-slate-700 hover:bg-slate-500 shadow-sm border transition rounded-sm text-white">Cập nhật</button>
+                            </div>
                         </div>
-                    </div>
-
-                    <Notify message="Chúc mừng bạn lưu thay đổi thành công" icon={<FaRegSmileBeam className="w-5 h-5 text-black" />} textMessage="text-black" />
-
+                    </form>
                 </div>
             </div>
         </>

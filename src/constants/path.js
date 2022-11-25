@@ -50,7 +50,8 @@ export const PATH = {
         // Category
         category: "/admin/category",
         // TypeOf 
-        typeof: "/admin/typeof",
+        typeof: "/admin/typeof/:id",
+        typeof_transfer_page: "/admin/typeof",
         // Turnover
         revenue_statistics: "/admin/revenue_statistics",
         author: "/admin/author"
