@@ -23,12 +23,12 @@ function UserManagement() {
         const result = await axiosJWT.get(`${API.GET_LIST_USER_IN_PAGE}/${page}`);
         return result.data;
     }, { keepPreviousData: true, staleTime: 5000 });
-    const { mutateAsync } = useMutation(async () => {
-        const result = await axiosJWT.put(`${API.GET_LIST_USER_IN_PAGE}/${page}`)
+    const { mutateAsync } = useMutation(async (data) => {
+        const result = await axiosJWT.put(`${API.GET_LIST_ALL_USER}/${user.IDNguoiDung}`, data);
         return result.data;
     }, {
         onSuccess: () => {
-            queryClient.invalidateQueries("users")
+            queryClient.invalidateQueries('users')
         }
     })
     const { register, handleSubmit, setValue, watch } = useForm({
@@ -78,7 +78,6 @@ function UserManagement() {
     }, [])
 
     const checkVerify = useMemo(() => {
-        console.log(watch("XacThuc"));
         if (watch("XacThuc") === 0)
             return "Email này chưa xác thực"
         return ""
@@ -88,6 +87,7 @@ function UserManagement() {
         if (data.Quyen === user.Quyen && data.TrangThai === user.TrangThai) {
             return window.alert("Không có sự thay đổi nào xảy ra !")
         }
+        console.log(data.Quyen, data.TrangThai);
         mutateAsync({ Quyen: data.Quyen, TrangThai: data.TrangThai })
             .then(res => {
                 console.log(res);
@@ -152,7 +152,7 @@ function UserManagement() {
                 <tbody>
                     {users && users?.DanhSach.map((item, index) => (
                         <tr key={id + index} className="odd:bg-slate-100 border">
-                            <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935210289285.jpg" alt="book" /></td>
+                            <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src={item.HinhAnh} alt="book" /></td>
                             <td className="p-2">{item.HoTen}</td>
                             <td className="p-2">{item.Email}</td>
                             <td className="p-2 hidden md:table-cell">{gender[item.GioiTinh]}</td>
@@ -166,7 +166,7 @@ function UserManagement() {
                 </tbody>
             </table>
 
-            <div className={clsx(formUpdate ? "z-30" : "-z-30", "fixed flex justify-center items-center inset-0 bg-slate-900 bg-opacity-20")}>
+            <div onClick={() => setFormUpdate(false)} className={clsx(formUpdate ? "z-30" : "-z-30", "fixed flex justify-center items-center inset-0 bg-slate-900 bg-opacity-20")}>
                 <div className={clsx(!formUpdate && "scale-0", style["hide-scrollbar"], "flex w-full flex-col bg-white rounded-sm overflow-y-scroll sm:w-1/2 max-h-screen transition-all duration-200")}>
                     <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col py-4 px-4 sm:p-6">
                         <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>

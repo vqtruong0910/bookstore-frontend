@@ -49,7 +49,7 @@ function OrderStatistics() {
         <>
             <h2 className="text-xl font-semibold">Thống kê đơn hàng ✨</h2>
 
-            <div className="hidden md:flex my-4">
+            {/* <div className="hidden md:flex my-4">
                 <div className="flex ml-auto space-x-3">
                     <select className="rounded-sm border cursor-pointer">
                         <option value="">Chọn danh mục</option>
@@ -71,7 +71,7 @@ function OrderStatistics() {
                         <option value=""></option>
                     </select>
                 </div>
-            </div>
+            </div> */}
 
             <div className="h-500 bg-white p-6 rounded-sm shadow-sm">
                 <Line data={orderChart} options={{

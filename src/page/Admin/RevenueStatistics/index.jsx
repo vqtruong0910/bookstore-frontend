@@ -5,12 +5,13 @@ import { Chart as ChartJS } from 'chart.js/auto';
 import axiosJWT from "../../../config/axiosJWT";
 import { API } from "../../../constants/api";
 import Loading from "../../../components/Loading";
+import { DAY_CONFIG } from "../../../constants/day";
 
 function RevenueStatistics() {
     const { data: Revenue, isLoading, isError } = useQuery({
         queryKey: ["revenue statistics"],
         queryFn: async () => {
-            const result = await axiosJWT.get(API.REVANUE_IN_WEEK);
+            const result = await axiosJWT.get(API.STATISTIC_REVANUE_EVERY_DAY_IN_WEEK);
             console.log(result.data);
             return result.data;
         },
@@ -18,40 +19,18 @@ function RevenueStatistics() {
     })
 
     const revenueChart = useMemo(() => {
-        const labelsList = new Array(10).fill("");
-        Revenue?.forEach((value, index) => {
-            labelsList[index] = value.TenSanPham
+        const data = new Array(7).fill(0);
+        Revenue?.forEach((value) => {
+            const date = new Date(value.NgayDat)
+            const getDayToDate = date.getDay();
+            data[getDayToDate] = value.DoanhThu;
         })
         return {
-            labels: labelsList,
+            labels: DAY_CONFIG,
             datasets: [{
                 label: "Số lượng sản phẩm bán ra",
-                data: Revenue?.map(data => data.soluong),
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(201, 203, 207, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                ],
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(54, 162, 235)',
-                    'rgb(153, 102, 255)',
-                    'rgb(201, 203, 207)',
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                ],
-                borderWidth: 1,
+                data: data,
+                borderColor: "#3730a3",
             }],
         }
     }, [Revenue])
@@ -66,7 +45,7 @@ function RevenueStatistics() {
         <>
             <h2 className="text-xl font-semibold">Thống kê sản phẩm ✨</h2>
 
-            <div className="hidden md:flex my-4">
+            {/* <div className="hidden md:flex my-4">
                 <div className="flex ml-auto space-x-3">
                     <select className="rounded-sm border cursor-pointer">
                         <option value="">Chọn danh mục</option>
@@ -88,7 +67,7 @@ function RevenueStatistics() {
                         <option value=""></option>
                     </select>
                 </div>
-            </div>
+            </div> */}
 
             <div className="h-500 bg-white p-6 rounded-sm shadow-sm">
                 <Line data={revenueChart} options={{
@@ -98,7 +77,7 @@ function RevenueStatistics() {
                         },
                         title: {
                             display: true,
-                            text: 'Biểu đồ cột thể hiện top 10 sản phẩm bán chạy trong tuần'
+                            text: 'Biểu đường thể hiện doanh thu trong tuần'
                         }
                     },
                     maintainAspectRatio: false
