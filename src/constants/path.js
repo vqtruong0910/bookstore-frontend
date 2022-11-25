@@ -45,6 +45,8 @@ export const PATH = {
         // Order
         order_management: "/admin/order_management",
         order_statistics: "/admin/order_statistics",
+        order_detail: "/admin/order_detail/:id",
+        order_detail_transfer_page: "/admin/order_detail",
         // Category
         category: "/admin/category",
         // TypeOf 
