@@ -2,16 +2,86 @@ import { IoAddSharp } from "react-icons/io5";
 import { IoMdRemove } from "react-icons/io";
 import { BsCart3 } from "react-icons/bs";
 import { FiShoppingBag } from "react-icons/fi";
-import { DetailBookData } from "./DetailBookData";
 import Slider from "react-slick";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PATH } from "../../constants/path";
 import style from "./DetailBook.module.scss";
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill, BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { BiMessageRoundedEdit } from "react-icons/bi";
-import { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Notify from "../../components/Notify";
+import Context from "../../store/Context";
+import { addToCart } from "../../reducers/cartReducers";
+import axiosConfig from "../../config/axiosConfig";
+import { incrementItemQuantity, decrementItemQuantity } from "../../reducers/cartReducers";
+
 function DetailBook() {
+    const { bookID } = useParams();
+    const [book, setBook] = useState([]);
+    const [authorID, genreID, publisherID, categoryID] = useState('');
+    const [genreName, setGenreName] = useState('');
+    const [authorName, setAuthorName] = useState('');
+    const [publisherName, setPublisherName] = useState('');
+    const [categoryName, setCategoryName] = useState('');
+    const [quantity, setQuantity] = useState(1);
+    const [procsInSameCategory ,setProcsInSameCategory] = useState([]);
+
+    useEffect(() => {
+        let authorID = '';
+        let genreID = '';
+        let publisherID = '';
+        let categoryID = '';
+        let arr = [];
+
+        try {
+            const fetchDetailBookData = async () => {
+                const response = await axiosConfig(`product/${bookID}`);
+                setBook(response.data.data);
+                response.data.data.forEach((item) => {
+                    authorID = item.IDNhaXuatBan;
+                    genreID = item.IDTheLoai;
+                    publisherID = item.IDNhaXuatBan;
+                });
+
+                const responseAuthorName = await axiosConfig(`author/${authorID}`);
+                responseAuthorName.data.data.forEach((item) => {
+                    setAuthorName(item.TenTacGia);
+                })
+
+                const responseGenreName = await axiosConfig(`kind_product/${genreID}`);
+                responseGenreName.data.data.forEach((item) => {
+                    setGenreName(item.TenTheLoai);
+                    categoryID = item.IDDanhMuc;
+                })
+
+                const responsePublisherName = await axiosConfig(`publishing/${publisherID}`);
+                responsePublisherName.data.data.forEach((item) => {
+                    setPublisherName(item.TenNhaXuatBan);
+                })
+
+                const responseCategoryName = await axiosConfig(`category/${categoryID}`);
+                responseCategoryName.data.data.forEach((item) => {
+                    setCategoryName(item.TenDanhMuc);
+                })
+
+                const responseProcsInSameCategory = await axiosConfig(`product/id_nhaxuatban/${publisherID}`);
+                responseProcsInSameCategory.data.data.map((item) => {
+                    setProcsInSameCategory(item);
+                });         
+            }
+            fetchDetailBookData();
+        } catch (error) { }
+    }, [bookID, authorID, genreID, publisherID, categoryID]);
+
+    const { dispatch } = useContext(Context);
+    const addToCartHandler = (product) => {
+        dispatch(addToCart(product, quantity));
+        return setNotify(true);
+
+    };
+    const decrementQuantity = (item) => dispatch(decrementItemQuantity(item));
+    const incrementQuantity = (item) => dispatch(incrementItemQuantity(item));
+
     const navigate = useNavigate();
     const [notify, setNotify] = useState(false);
     const [showContent, setShowContent] = useState(4);
@@ -71,174 +141,140 @@ function DetailBook() {
         ]
     };
 
-    const [count, setCount] = useState(1);
-    const incCount = () => {
-        setCount(count + 1);
-    }
-
-    const decCount = () => {
-        if(count > 1){
-            setCount(count - 1);
-        }
-        else{
-            setCount(1);
-        }
-    }
-
-    const addToCart = () => {
-        return setNotify(true);
+    const changeCostWithDots = (item) => {
+        return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
     }
 
     return (
-        <div className="w-full flex py-6 flex-wrap">
-            <div className="w-full bg-white rounded-sm flex shadow-md">
-                <div className="w-full my-3 flex flex-wrap lg:flex-nowrap">
-                    <div className="flex flex-wrap w-full lg:w-4/12">
-                        <div className="w-full flex justify-center">
-                            <img src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935246933497.jpg" className="w-64 h-64 lg:w-96 lg:h-96" alt="Book_Image" />
-                        </div>
-                    </div>
-
-
-                    <div className="w-full flex-col flex lg:w-8/12">
-                        <div className="w-full flex-wrap py-2 mx-4">
-                            <span className="text-base lg:text-2xl lg:font-medium font-normal text-gray-700">Sách - Xé vài trang thanh xuân, đổi lấy một bản thân nỗ lực</span>
-                        </div>
-
-                        <div className="hidden lg:flex lg:flex-wrap">
-                            <div className="flex flex-col mx-4">
-                                <span className="py-0.5">Tác giả</span>
-                                <span className="py-0.5">Nhà xuất bản</span>
-                                <span className="py-0.5">Số trang</span>
-                                <span className="py-0.5">Danh mục</span>
-                            </div>
-                            <div className="flex flex-col mx-4">
-                                <span className="py-0.5 font-semibold">Văn Cát Nhi</span>
-                                <span className="py-0.5 font-semibold">NXB Hồng Đức</span>
-                                <span className="py-0.5 font-semibold">232</span>
-                                <span className="py-0.5 font-semibold">Tâm lí - Kĩ năng sống</span>
-                            </div>
-                        </div>
-
-                        <div className="w-full flex flex-row items-center mx-4 lg:py-5">
-                            <span className="text-xl lg:text-3xl text-red-500 font-semibold">83.000đ</span>
-                            <span className="text-lg lg:text-xl line-through text-neutral-400 mx-4">96.000đ</span>
-                            <div className="w-14 lg:w-16 lg:py-0.5 flex justify-center border rounded-md bg-orange-400">
-                                <span className="text-white font-semibold mx-0.5 lg:text-lg">- 13%</span>
-                            </div>
-                        </div>
-
-                        <div className="lg:w-7/12 flex flex-row items-center mt-4 mx-4">
-                            <div className="rounded-sm cursor-pointer lg:w-1/2">
-                                <div onClick={addToCart} className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500 rounded-sm hover:bg-red-400 transition">
-                                    <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
-                                    <span className="mx-1 text-white font-medium text-sm lg:text-lg">Thêm giỏ hàng</span>
-                                </div>
-                            </div>
-                            {notify ?
-                                <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
-                                :
-                                <></>
-                            }
-                            <div className="flex flex-wrap items-center justify-end lg:w-1/2 lg:justify-center">
-                                <span className="text-gray-500 text-sm md:text-base font-semibold mx-3">Số lượng</span>
-                                <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
-                                    <button onClick={decCount} className="w-full border-r-2 flex justify-center cursor-pointer">
-                                        <IoMdRemove className={count === 1 ? "w-5 h-7 text-gray-300" : "w-5 h-7 text-gray-600"} />
-                                    </button>
+        <div className="w-full flex py-6 flex-col">
+            {book.map((item, index) => {
+                return (
+                    <div key={item.IDSanPham}>
+                        <div className="w-full bg-white rounded-sm flex shadow-md">
+                            <div className="w-full my-3 flex flex-wrap lg:flex-nowrap">
+                                <div className="flex flex-wrap w-full lg:w-4/12">
                                     <div className="w-full flex justify-center">
-                                        <span className="text-gray-800 font-semibold">{count}</span>
+                                        <img src={`http://localhost:8000/${item.HinhAnh}`} className="w-64 h-64 lg:w-96 lg:h-96" alt="Book_Image" />
+                                    </div>
+                                </div>
+
+
+                                <div className="w-full flex-col flex lg:w-8/12">
+                                    <div className="w-full flex-wrap justify-center py-2 px-4">
+                                        <span className="text-base lg:text-2xl lg:font-medium font-normal text-gray-700">{item.TenSanPham}</span>
                                     </div>
 
-                                    <button onClick={incCount} className="w-full border-l-2 flex justify-center cursor-pointer">
-                                        <IoAddSharp className="w-5 h-7 text-gray-600" />
-                                    </button>
+                                    <div className="hidden lg:flex lg:flex-wrap">
+                                        <div className="flex flex-col mx-4">
+                                            <span className="py-0.5">Tác giả</span>
+                                            <span className="py-0.5">Nhà xuất bản</span>
+                                            <span className="py-0.5">Số trang</span>
+                                            <span className="py-0.5">Danh mục</span>
+                                            <span className="py-0.5">Thể loại</span>
+                                        </div>
+                                        <div className="flex flex-col mx-4">
+                                            <span className="py-0.5 font-semibold">{authorName}</span>
+                                            <span className="py-0.5 font-semibold">{publisherName}</span>
+                                            <span className="py-0.5 font-semibold">{item.SoTrang}</span>
+                                            <span className="py-0.5 font-semibold">{categoryName}</span>
+                                            <span className="py-0.5 font-semibold">{genreName}</span>
+                                        </div>
+                                    </div>
 
+                                    <div className="w-full flex flex-row items-center px-4 lg:py-5">
+                                        <span className="text-xl lg:text-3xl text-red-500 font-semibold">{changeCostWithDots(item.GiaBan)}đ</span>
+                                        <div className="w-14 lg:w-16 lg:py-0.5 mx-7 flex justify-center border rounded-md bg-orange-400">
+                                            <span className="text-white font-semibold mx-0.5 lg:text-lg">- {item.GiamGia}%</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="lg:w-7/12 flex flex-row items-center mt-4 mx-4">
+                                        <div className="rounded-sm cursor-pointer lg:w-1/2">
+                                            <div onClick={() => { addToCartHandler(item) }} className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500 rounded-sm hover:bg-red-400 transition">
+                                                <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
+                                                <span className="mx-1 text-white font-medium text-sm lg:text-lg">Thêm giỏ hàng</span>
+                                            </div>
+                                        </div>
+                                        {notify ?
+                                            <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
+                                            :
+                                            <></>
+                                        }
+                                        <div className="flex flex-wrap items-center justify-end lg:w-1/2 lg:justify-center">
+                                            <span className="text-gray-500 text-sm md:text-base font-semibold mx-3">Số lượng</span>
+                                            <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
+                                                <button onClick={() => { setQuantity(quantity - 1) }} className="w-full border-r-2 flex justify-center cursor-pointer">
+                                                    <IoMdRemove className="w-5 h-7 text-gray-600" />
+                                                </button>
+                                                <div className="w-full flex justify-center">
+                                                    <span className="text-gray-800 font-semibold">
+                                                        {quantity}
+                                                        
+                                                    </span>
+                                                </div>
+
+                                                <button onClick={() => { setQuantity(quantity + 1) }} className="w-full border-l-2 flex justify-center cursor-pointer">
+                                                    <IoAddSharp className="w-5 h-7 text-gray-600" />
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+                            </div>
+
+                        </div>
+
+                        <div className="flex flex-wrap w-full bg-white my-4 shadow-md">
+                            <div className="flex flex-row cursor-pointer">
+                                <div onClick={() => handleContent(4)} className={showContent === 4 ? "px-4 py-1 text-sm md:text-lg font-semibold bg-gray-400 text-slate-800" : "px-4 py-1 text-sm md:text-lg font-semibold"}>Mô tả sản phẩm</div>
+                                <div onClick={() => handleContent(5)} className={showContent === 5 ? "px-4 py-1 text-sm md:text-lg font-semibold bg-gray-400 text-slate-800" : "px-4 py-1 text-sm md:text-lg font-semibold"}>Thông tin chi tiết</div>
+                            </div>
+
+                            <div className="flex flex-wrap w-full">
+                                {showContent === 4 &&
+                                    <div className="p-4 break-normal">
+                                        {item.TomTatND}
+                                    </div>
+                                }
+
+
+                                {showContent === 5 &&
+                                    <>
+                                        <div className="flex flex-col py-1 px-4">
+                                            <span className="text-sm md:text-base py-2">Tác giả</span>
+                                            <span className="text-sm md:text-base py-2">Nhà xuất bản</span>
+                                            <span className="text-sm md:text-base py-2">Số trang</span>
+                                            <span className="text-sm md:text-base py-2">Danh mục</span>
+                                            <span className="text-sm md:text-base py-2">Thể loại</span>
+                                        </div>
+                                        <div className="flex flex-col py-1 px-4">
+                                            <span className="text-sm md:text-base py-2">{authorName}</span>
+                                            <span className="text-sm md:text-base py-2">{publisherName}</span>
+                                            <span className="text-sm md:text-base py-2">{item.SoTrang}</span>
+                                            <span className="text-sm md:text-base py-2">{categoryName}</span>
+                                            <span className="text-sm md:text-base py-2">{genreName}</span>
+                                        </div>
+                                    </>
+
+                                }
                             </div>
                         </div>
                     </div>
 
-                </div>
+                )
+            })}
 
-            </div>
-
-            <div className="flex flex-wrap w-full bg-white my-4 shadow-md">
-                <div className="flex flex-row cursor-pointer">
-                    <div onClick={() => handleContent(4)} className={showContent === 4 ? "px-4 py-1 text-sm md:text-lg font-semibold bg-gray-400 text-slate-800" : "px-4 py-1 text-sm md:text-lg font-semibold"}>Mô tả sản phẩm</div>
-                    <div onClick={() => handleContent(5)} className={showContent === 5 ? "px-4 py-1 text-sm md:text-lg font-semibold bg-gray-400 text-slate-800" : "px-4 py-1 text-sm md:text-lg font-semibold"}>Thông tin chi tiết</div>
-                </div>
-
-                <div className="flex flex-wrap w-full">
-                    {showContent === 4 &&
-                        <div className="mx-4">
-                            <p className="w-full text-sm md:text-base my-2">
-                                "Cuộc đời con người giống như một cuốn sách!
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2">
-                                Ai cũng có một vài trang muốn xé đi trong đời"
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2" >
-                                Bạn có biết làm sao để cảm nhận rằng mình đang trưởng thành hay không? Đó chính là hai khoảnh khắc khi nhắm mắt và mở mắt mỗi ngày của chúng ta đấy. Với từng ngày trôi qua trong cuộc đời mà chúng ta đang sống, không chỉ cần phải cố gắng bước về phía trước, mà còn phải học được cách tìm kiếm niềm hạnh phúc cho chính mình. Tuổi trẻ này chính là nguồn vốn tốt nhất của bạn. Cho dù chỉ còn một tia hy vọng, bạn cũng phải nỗ lực để thay đổi bởi trên thế giới này, ngoại trừ chính bản thân mình ra, không một ai có thể giúp bạn. Có người cười nhạo bạn, có người gây trở ngại cho cuộc sống của bạn, nhưng tất cả đều không hề quan trọng bằng việc bạn có đủ dũng khí, đủ nỗ lực để vươn tới ngày mai rạng rỡ. Bởi vậy cô gái à, nếu bạn chân thành và nỗ lực, ắt sẽ có vì sao sáng soi rọi con đường phía trước cho mình.
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2">
-                                Những câu chuyện có thật ngoài đời thực cùng với giọng văn sắc sảo nhưng cũng không kém phần hài hước và ấm áp của Văn Cát Nhi, cuốn sách Xé Vài Trang Thanh Xuân, Đổi Lấy Một Bản Thân Nỗ Lực sẽ giúp những người trẻ đang hoang mang, mơ hồ nhìn ra chân lý của cuộc sống mà vẫn tin yêu cuộc đời, đồng thời truyền cảm hứng để người trẻ trưởng thành hơn thông qua thông điệp: “Dù cuộc đời có cả ngàn lý do khiến bạn khóc thì bạn cũng phải viện ra cả vạn lý do để cười.”
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2">
-                                Những trích dẫn hay trong cuốn sách Xé Vài Trang Thanh Xuân, Đổi Lấy Một Bản Thân Nỗ Lực
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2">
-                                -  Có rất nhiều người thích hoài niệm những chuyện thanh xuân xưa cũ của mình, lúc đó, lòng ta chưa từng trống trải, chứ đâu như bây giờ, khi không lại cứ cảm thấy năm tháng vô vị chẳng có gì hay ho cả. Khi xưa, chúng ta chẳng bao giờ thích mặc chiếc áo đồng phục trường xấu xí, người mà ta thích lại ngồi ở dãy bên kia lớp học, xa ơi là xa. Đến khi trưởng thành rồi mới nhận ra, tấm áo khi xưa rực rỡ, chói mắt nhường nào, chỉ cần được nhìn thấy người mình thích thì có xa cách bao nhiêu cũng sẽ như gần ngay bên cạnh vậy.
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2">
-                                -  Có người nói rằng: “Tôi chẳng muốn là kẻ xuất sắc hơn người làm gì, mệt mỏi lắm. Tôi chỉ muốn sống những ngày tháng nhàn nhã, bình thản, ngày ngày chơi với mèo, trồng cây cỏ.” Thử hỏi quanh bạn xem, có ai mà lại không muốn được như thế? Những người ngày ngày chen chúc trên quãng đường đi làm, có lẽ quá nửa đương mong mỏi được tua nhanh đến quãng đời nghỉ hưu nhàn nhã. Thế nhưng, chi phí để cung ứng cho quãng đời thảnh thơi này từ đâu mà ra cơ chứ? Bởi vậy, đương cái tuổi cần phải cố gắng phấn đấu thì đừng lựa chọn hưởng thụ, an nhàn.
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2">
-                                -  Tôi chẳng thích phải bước trên con đường mờ tối âm u, muốn có ánh sáng chiếu rọi thì hãy cứ tự mình tỏa sáng. Đôi khi, tính khí tôi sẽ hơi thất thường, lời an ủi hiệu quả nhất mà tôi từng nghe là: “Cậu chỉ mới xuống dốc được hôm nay thôi, có người còn tụt dốc cả đời kia kìa!” Tuổi càng lớn thì càng từng trải, cũng là phải đối diện với đủ loại khủng hoảng tâm lý khác nhau. Thế nhưng, còn có thể làm gì được đây? Đời này làm người, đến thì cũng đã đến rồi, học được cách dung hòa với vận mệnh mới là quan trọng nhất.
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2">
-                                -  Bạn có biết làm sao để cảm nhận rằng mình đang trưởng thành hay không? Đó chính là hai khoảnh khắc khi nhắm mắt và mở mắt mỗi ngày của chúng ta đấy. Nhắm mắt lại, ngủ đi thôi, những trải nghiệm tồi tệ đều đã trôi qua cả rồi, giờ phút này, mình vẫn có thể nằm trên giường để tập trung vào giấc ngủ cũng có nghĩa là mình hãy còn sống, chẳng có chuyện gì là to tát cả. Mở mắt ra, tỉnh dậy thôi, lại một ngày mới bắt đầu với bao điều còn chưa hé mở, hãy ôm ấp niềm mong mỏi để đón nhận những sắp xếp mà vận mệnh đã an bài, có lẽ ngày hôm nay, ta sẽ gặp được điều gì đó mới mẻ tuyệt vời nhất không chừng!
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2">
-                                -  Rất nhiều người trải qua thất bại sẽ an ủi mình rằng: Khi Thượng đế đóng một cánh cửa, ngài sẽ mở ra một cánh cửa khác. Một cánh cửa đã bị đóng lại rồi, mở thêm một cánh cửa khác nữa thì có tác dụng gì đây? Hít thở bầu không khí trong lành, rồi giương mắt nhìn những phong cảnh chẳng thuộc về mình qua khung cửa đó hay sao? Thất bại có đáng sợ không? Đáng sợ chứ. Khi ta cố gắng biến mình trở thành một con át chủ bài tiềm tàng thì hãy tự hỏi xem, làm sao để có thể biến nó thành một con bài tẩy!
-                            </p>
-                            <p className="w-full text-sm md:text-base my-2">
-                                -  Cuộc sống không phải là vòng lặp vô tận, bước vào ngõ cụt cũng là bởi bản thân mình đi nhầm đường mà thôi. Vẫn còn có người thương bạn, vẫn còn có việc để làm, vẫn còn có thể thấy được hy vọng, vậy thì hãy cứ gió mặc gió, mưa mặc mưa.
-                            </p>
-                        </div>
-                    }
-
-
-                    {showContent === 5 &&
-                        <>
-                            <div className="flex flex-col py-1 px-4">
-                                <span className="text-sm md:text-base py-2">Loại sản phẩm</span>
-                                <span className="text-sm md:text-base py-2">Kích thước</span>
-                                <span className="text-sm md:text-base py-2">Số trang</span>
-                                <span className="text-sm md:text-base py-2">Tác giả</span>
-                                <span className="text-sm md:text-base py-2">Nhà xuất bả</span>
-                            </div>
-                            <div className="flex flex-col py-1 px-4">
-                                <span className="text-sm md:text-base py-2">Bìa mềm</span>
-                                <span className="text-sm md:text-base py-2">14 x 20.5 cm</span>
-                                <span className="text-sm md:text-base py-2">231</span>
-                                <span className="text-sm md:text-base py-2">Văn Cát Nhi</span>
-                                <span className="text-sm md:text-base py-2">NXB Hồng Đức</span>
-                            </div>
-                        </>
-
-                    }
-                </div>
-            </div>
 
             <div className="flex flex-wrap w-full bg-white rounded-sm py-3 shadow-md">
                 <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 w-full">SẢN PHẨM LIÊN QUAN</span>
 
                 <div className="w-full">
-                    <Slider {...settings}>
-                        {DetailBookData.map((item, index) => {
+                    {/* <Slider {...settings}>
+                        {procsInSameCategory.map((item, index) => {
                             return (
-                                <div key={index} className="grid relative w-full hover:cursor-pointer">
+                                <div key={item.IDSanPham} className="grid relative w-full hover:cursor-pointer">
                                     <div onClick={() => navigate(PATH.detail_book)} className="flex relative justify-center w-full drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
                                         <img className="w-2/3 justify-center" src={item.image} alt="New Book" />
                                         <div className="flex w-full z-20 absolute px-4">
@@ -260,17 +296,16 @@ function DetailBook() {
                                     </div>
 
                                     <div className="flex w-full mt-3">
-                                        <div onClick={() => setNotify(true)} className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition mx-4 items-center justify-center">
+                                        <div onClick={() => addToCartHandler(item)} className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition mx-4 items-center justify-center">
                                             <FiShoppingBag className="w-5 h-5 text-white" />
                                             <div className="text-sm md:text-base lg:text-lg text-white py-2 px-0.5 whitespace-nowrap">Thêm giỏ hàng</div>
                                         </div>
                                     </div>
                                 </div>
-
                             )
                         })}
 
-                    </Slider>
+                    </Slider> */}
                     {notify ?
                         <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
                         :
