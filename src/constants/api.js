@@ -22,6 +22,7 @@ export const API = {
     GET_LIST_ALL_TYPEOF_BOOK: "kind_product/idcategory",
     GET_LIST_ALL_PUBLISHING: "publishing",
     GET_LIST_ALL_AUTHOR: "author",
+    GET_TYPEOF_BOOK_IN_PAGE: "kind_product/idcategory",
 
     STATISTIC_USER_IN_WEEK: "users/statistic",
     REVANUE_IN_WEEK: "order/revanue",
@@ -36,5 +37,6 @@ export const API = {
     CREATE_PRODUCT: "product",
     DELETE_PRODUCT: "product",
     MANAGE_CATEGORY: "category",
-    MANAGE_ORDER: "order"
+    MANAGE_ORDER: "order",
+    MANAGE_TYPEOF_BOOK: "kind_product"
 }

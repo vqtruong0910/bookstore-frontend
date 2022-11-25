@@ -22,7 +22,7 @@ function UserManagement() {
     const { data: users, isLoading, isError } = useQuery(['users', page], async () => {
         const result = await axiosJWT.get(`${API.GET_LIST_USER_IN_PAGE}/${page}`);
         return result.data;
-    }, { keepPreviousData: true, staleTime: 5000 });
+    }, { keepPreviousData: true });
     const { mutateAsync } = useMutation(async (data) => {
         const result = await axiosJWT.put(`${API.GET_LIST_ALL_USER}/${user.IDNguoiDung}`, data);
         return result.data;
@@ -116,12 +116,12 @@ function UserManagement() {
             </div>
 
             <div className="py-2 space-y-1">
-                <div className="hidden md:flex">
+                {/* <div className="hidden md:flex">
                     <div className="flex space-x-3">
                         <input type="text" className="rounded-sm border" />
                         <input type="submit" className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white" value="Tìm" />
                     </div>
-                </div>
+                </div> */}
 
                 <div className="flex justify-end space-x-2 py-1 select-none">
                     <div className='px-2 border rounded-sm cursor-pointer'>{users?.TongNguoiDung} mục</div>
