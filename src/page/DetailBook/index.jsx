@@ -24,7 +24,7 @@ function DetailBook() {
     const [publisherName, setPublisherName] = useState('');
     const [categoryName, setCategoryName] = useState('');
     const [quantity, setQuantity] = useState(1);
-    const [procsInSameCategory ,setProcsInSameCategory] = useState({});
+    const [procsInSameCategory ,setProcsInSameCategory] = useState([]);
 
     useEffect(() => {
         let authorID = '';
@@ -277,28 +277,28 @@ function DetailBook() {
                 <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 w-full">SẢN PHẨM LIÊN QUAN</span>
 
                 <div className="w-full">
-                    {/* <Slider {...settings}>
-                        {procsInSameCategory.map((item, index) => {
+                    <Slider {...settings}>
+                        {procsInSameCategory?.map((item, index) => {
                             return (
                                 <div key={item.IDSanPham} className="grid relative w-full hover:cursor-pointer">
                                     <div onClick={() => navigate(PATH.detail_book)} className="flex relative justify-center w-full drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
-                                        <img className="w-2/3 justify-center" src={item.image} alt="New Book" />
+                                        <img className="w-2/3 justify-center" src={`http://localhost:8000/${item.HinhAnh}`} alt="New Book" />
                                         <div className="flex w-full z-20 absolute px-4">
                                             <div className="bg-orange-400 w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center">
-                                                <span className="text-sm md:text-base text-white font-semibold text-center">{item.sale}%</span>
+                                                <span className="text-sm md:text-base text-white font-semibold text-center">{item.GiamGia}%</span>
                                             </div>
 
                                         </div>
                                     </div>
 
                                     <div className="grid w-full py-3 mx-4">
-                                        <span className={`${style['product_name']} self-center whitespace-normal w-3/4 text-sm md:text-base lg:text-lg font-medium break-words`}>{item.name}</span>
+                                        <span className={`${style['product_name']} self-center whitespace-normal w-3/4 text-sm md:text-base lg:text-lg font-medium break-words`}>{item.TenSanPham}</span>
                                     </div>
 
 
                                     <div className="flex font-medium text-base mx-4">
-                                        <span className="text-red-600 w-full text-lg md:text-xl">{item.new_cost}.000đ</span>
-                                        <span className="line-through text-neutral-400 w-full text-sm md:text-base justify-end flex">{item.old_cost}.000đ</span>
+                                        <span className="text-red-600 w-full text-lg md:text-xl">{changeCostWithDots(item.GiaBan)}đ</span>
+                                       
                                     </div>
 
                                     <div className="flex w-full mt-3">
@@ -311,7 +311,7 @@ function DetailBook() {
                             )
                         })}
 
-                    </Slider> */}
+                    </Slider>
                     {notify ?
                         <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
                         :
@@ -320,7 +320,7 @@ function DetailBook() {
                 </div>
             </div>
 
-            <div className="flex flex-wrap w-full bg-white rounded-sm py-3 mt-4 shadow-md">
+            {/* <div className="flex flex-wrap w-full bg-white rounded-sm py-3 mt-4 shadow-md">
                 <span className="text-base md:text-lg lg:text-xl font-semibold w-full px-4">ĐÁNH GIÁ SẢN PHẨM</span>
 
                 <div className="w-full flex flex-col">
@@ -372,7 +372,7 @@ function DetailBook() {
                     <span className="mx-2 font-medium text-sm md:text-base lg:text-lg">1</span>
                     <BsArrowRightCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-700" />
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

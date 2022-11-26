@@ -24,15 +24,12 @@ function UserOrderDetail() {
         IDSanPham = item.IDSanPham;
     })
 
-    console.log(IDSanPham);
-
     const [bookName, setBookName] = useState('');
     useEffect(() => {
         const fetchProductData = async () => {
-            const response = await axiosJWT.get(`product/${IDSanPham}`);
+            const response = await axiosConfig(`product/7`);
             setBookName(response);
-            console.log(response);
-            // console.log(response.data.data);
+            console.log(response.data.data);
         }
         fetchProductData();
     }, []);

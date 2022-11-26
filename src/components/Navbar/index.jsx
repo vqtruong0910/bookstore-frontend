@@ -168,7 +168,7 @@ function Navbar() {
 
                                                                         <div className="hidden group-hover:block lg:top-15 mt-0.5 md:top-14 bg-white border absolute z-20 w-52 text-center font-medium transition duration-300 delay-500">
                                                                             <ul>
-                                                                                {isAdmin && <li onClick={() => { navigate(PATH.admin) }} className="p-2 hover:bg-gray-300">Admin</li>}
+                                                                                {isAdmin && <li onClick={() => { navigate(PATH.admin.dashboard) }} className="p-2 hover:bg-gray-300">Admin</li>}
                                                                                 <li onClick={() => { navigate(PATH.profile.dashboard) }} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
                                                                                 <li onClick={() => { navigate(PATH.profile.user_order_management) }} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
                                                                                 <li onClick={() => { navigate(PATH.profile.user_review) }} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>

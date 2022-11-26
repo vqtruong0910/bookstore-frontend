@@ -173,11 +173,11 @@ function UserManagement() {
                         <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>
                         <div className="flex flex-col w-full justify-center h-full sm:px-10">
                             <div className="flex relative py-4 justify-center">
-                                <div className="flex justify-center items-center rounded-full border-2 w-24 h-24 border-blue-300 bg-blue-100">
+                                <div className="flex justify-center items-center">
                                     {user.Anh ?
-                                        <img src={`http://localhost:8000/${user.Anh}`} alt="Avatar" className=" w-12 h-12 text-blue-500" />
+                                        <img src={`http://localhost:8000/${user.Anh}`} alt="Avatar" className="rounded-full border-2 w-24 h-24 text-blue-500" />
                                         :
-                                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/avatar.png" alt="Avatar" className=" w-12 h-12 text-blue-500" />
+                                        <img src={Avartar} alt="Avatar" className="rounded-full border-2 w-24 h-24 text-blue-500" />
                                     }
                                 </div>
                             </div>
