@@ -1,11 +1,10 @@
 import { IoMdRemove } from "react-icons/io";
 import { IoAddSharp } from "react-icons/io5";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
 import React, { useContext } from "react";
 import Context from "../../store/Context";
 import { incrementItemQuantity, decrementItemQuantity, removeFromCart } from "../../reducers/cartReducers";
-import { useState } from "react";
 function Cart() {
     const navigate = useNavigate();
 
@@ -26,22 +25,25 @@ function Cart() {
     const decrementQuantity = (item) => dispatch(decrementItemQuantity(item));
     const incrementQuantity = (item) => dispatch(incrementItemQuantity(item));
 
-    const { items, total } = cart.reduce(
-        ({ items, total }, { cost, quantity }) => ({
+    const { items } = cart.reduce(
+        ({ items }, { cost, quantity }) => ({
             items: items + quantity,
-            total: total + quantity * cost
         }),
-        { items: 0, total: 0 }
+        { items: 0 }
     );
 
     let totalAllProduct = 0;
+    let disable = false;
     cart.forEach(item => {
         totalAllProduct += (item.GiaBan * item.quantity);
+        if(item.quantity > item.SoLuongConLai){
+            disable = true;
+         }
     });
 
     const changeCostWithDots = (item) => {
         return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
-    }
+    };
 
     return (
         <div className="flex flex-wrap w-full bg-gray-100 px-4">
@@ -79,7 +81,7 @@ function Cart() {
                                             <div className="hidden md:px-4 md:py-1 md:block">Số lượng còn lại : {item.SoLuongConLai}</div>
                                             <div className="hidden md:flex md:flex-row md:mx-2 md:my-7 md:justify-between md:w-full">
 
-                                                <div className="flex w-full flex-col items-center justify-center">
+                                                <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="cursor-pointer flex w-full flex-col items-center justify-center">
                                                     <img src={`http://localhost:8000/${item.HinhAnh}`} className="w-36 h-36" alt="Book_Image" />
                                                     <div className="mt-2 flex justify-center">
                                                         <span className="text-base font-medium text-center">{item.TenSanPham}</span>
@@ -189,7 +191,7 @@ function Cart() {
                                 <span className="text-gray-500 text-sm md:text-base italic">Phí vận chuyển sẽ được tính ở trang thanh toán</span>
                                 <div className="flex mt-4 lg:w-full lg:text-center">
                                     <div onClick={() => navigate(PATH.main)} className="lg:hidden px-2 py-1 bg-gray-300 rounded-sm transition mx-4 cursor-pointer text-base md:text-lg hover:bg-gray-400">Tiếp tục mua hàng</div>
-                                    <button onClick={() => handleClickPayment()} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Thanh toán</button>
+                                    <button onClick={() => handleClickPayment()} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg" disabled={disable}>Thanh toán</button>
                                 </div>
                             </div>
                         </div>

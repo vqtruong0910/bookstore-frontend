@@ -2,12 +2,11 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/path";
 import axios from "axios";
-import axiosConfig from "../../config/axiosConfig";
+import axiosJWT from "../../config/axiosJWT";
 import Notify from "../../components/Notify";
 import { AiOutlineSmile } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import Context from "../../store/Context";
-import { API } from '../../constants/api';
 
 function Payment() {
   const navigate = useNavigate();
@@ -31,9 +30,7 @@ function Payment() {
       pay_on_delivery: "",
     },
   });
-
-  const {user} = useContext(Context);
-  // console.log(user);
+  const { user, cart } = useContext(Context);
 
   useEffect(() => {
     const fetchProvinceData = async () => {
@@ -81,32 +78,40 @@ function Payment() {
 
   }, [districtCode]);
 
-  const onSubmit = (data) => {
-    let payment_info = {
-      fullName: data.fullName,
-      email: data.email,
-      gender: data.gender,
-      phone: data.phone,
-      address: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
-      shipping_cost: data.shipping_cost,
-      pay_on_delivery: data.pay_on_delivery,
+
+  const onSubmit = async (data) => {
+    const detail = []
+    cart.forEach(item => {
+      const { IDSanPham, quantity, GiaBan } = item;
+      detail.push({ IDSanPham, SoLuong: quantity, GiaBan });
+    })
+    try {
+      const response = await axiosJWT.post('order/',
+        {
+          DiaChi: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
+          PhiShip: 30000,
+          ChiTietDonHang: detail,
+        });
+      if (response)
+        return setNotify(true);
+    } catch (error) {
+      console.log(error);
     }
 
-    // localStorage.setItem("paymentInfo", JSON.stringify(payment_info));
-    // const result = localStorage.getItem("paymentInfo");
-
-    console.log(payment_info);
     return setNotify(true);
   }
 
-  const { cart } = useContext(Context);
   let totalAllProduct = 0;
   cart.forEach(item => {
     totalAllProduct += (item.GiaBan * item.quantity);
   });
 
   const changeCostWithDots = (item) => {
-      return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+    return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+  }
+
+  const handlePay = () => {
+    localStorage.removeItem("userCart");
   }
 
   return (
@@ -297,7 +302,7 @@ function Payment() {
             </div>
             <div className="flex mt-4 lg:w-full lg:text-center">
               <div onClick={() => navigate(PATH.main)} className="lg:hidden px-2 py-1 bg-gray-300 rounded-sm transition mx-4 cursor-pointer text-base md:text-lg hover:bg-gray-400">Giỏ hàng</div>
-              <button type="submit" className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Đặt hàng</button>
+              <button type="submit" onClick={() => handlePay()} className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg">Đặt hàng</button>
             </div>
             {notify ?
               <Notify close="true" message="Chúc mừng bạn đặt hàng thành công" icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />} orderSuccess="true" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} />

@@ -24,14 +24,13 @@ function DetailBook() {
     const [publisherName, setPublisherName] = useState('');
     const [categoryName, setCategoryName] = useState('');
     const [quantity, setQuantity] = useState(1);
-    const [procsInSameCategory ,setProcsInSameCategory] = useState([]);
+    const [procsInSameCategory ,setProcsInSameCategory] = useState({});
 
     useEffect(() => {
         let authorID = '';
         let genreID = '';
         let publisherID = '';
         let categoryID = '';
-        let arr = [];
 
         try {
             const fetchDetailBookData = async () => {
@@ -62,12 +61,10 @@ function DetailBook() {
                 const responseCategoryName = await axiosConfig(`category/${categoryID}`);
                 responseCategoryName.data.data.forEach((item) => {
                     setCategoryName(item.TenDanhMuc);
-                })
+                })  
 
-                const responseProcsInSameCategory = await axiosConfig(`product/id_nhaxuatban/${publisherID}`);
-                responseProcsInSameCategory.data.data.map((item) => {
-                    setProcsInSameCategory(item);
-                });         
+                const responseProcsInSameCategory = await axiosConfig(`product/id_theloai/${genreID}`);
+                setProcsInSameCategory(responseProcsInSameCategory.data.data);
             }
             fetchDetailBookData();
         } catch (error) { }
@@ -79,8 +76,18 @@ function DetailBook() {
         return setNotify(true);
 
     };
-    const decrementQuantity = (item) => dispatch(decrementItemQuantity(item));
-    const incrementQuantity = (item) => dispatch(incrementItemQuantity(item));
+    const decrementQuantity = (item) => {
+        setQuantity((item) => {
+            if(item - 1 < 1) return 1;
+
+            return item - 1;
+        })
+     
+    }
+
+    const incrementQuantity = (item) => {
+        setQuantity(item + 1);
+    }
 
     const navigate = useNavigate();
     const [notify, setNotify] = useState(false);
@@ -203,17 +210,16 @@ function DetailBook() {
                                         <div className="flex flex-wrap items-center justify-end lg:w-1/2 lg:justify-center">
                                             <span className="text-gray-500 text-sm md:text-base font-semibold mx-3">Số lượng</span>
                                             <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
-                                                <button onClick={() => { setQuantity(quantity - 1) }} className="w-full border-r-2 flex justify-center cursor-pointer">
+                                                <button onClick={() => decrementQuantity(quantity)} className="w-full border-r-2 flex justify-center cursor-pointer">
                                                     <IoMdRemove className="w-5 h-7 text-gray-600" />
                                                 </button>
                                                 <div className="w-full flex justify-center">
                                                     <span className="text-gray-800 font-semibold">
                                                         {quantity}
-                                                        
                                                     </span>
                                                 </div>
 
-                                                <button onClick={() => { setQuantity(quantity + 1) }} className="w-full border-l-2 flex justify-center cursor-pointer">
+                                                <button onClick={() => incrementQuantity(quantity)} className="w-full border-l-2 flex justify-center cursor-pointer">
                                                     <IoAddSharp className="w-5 h-7 text-gray-600" />
                                                 </button>
 

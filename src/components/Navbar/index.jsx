@@ -14,13 +14,13 @@ import { API } from '../../constants/api';
 
 function Navbar() {
     const { cart } = useContext(Context);
+    // console.log(cart)
 
-    const { items, total } = cart.reduce(
-        ({ items, total }, { cost, quantity }) => ({
+    const { items } = cart.reduce(
+        ({ items }, { quantity }) => ({
             items: items + quantity,
-            total: total + quantity * cost
         }),
-        { items: 0, total: 0 }
+        { items: 0 }
     );
 
     const navigate = useNavigate();
@@ -122,13 +122,13 @@ function Navbar() {
                                                                     className="lg:w-10 lg:h-10 w-8 h-8 flex items-center mr-1 rounded-full" alt="User_Image"
                                                                 />
                                                                 :
-                                                                <Link className="flex items-center mr-1 lg:w-10 lg:h-10 w-8 h-8" to={PATH.profile}>
-                                                                    <img className='rounded-full' src={user?.Anh} alt="User_Image" />
+                                                                <Link className="flex items-center mr-1" to={PATH.profile}>
+                                                                    <img className="rounded-full border w-10 h-10" src={user?.Anh} alt="User_Image" />
                                                                 </Link>
                                                         }
                                                     </div>
 
-                                                    <div className="flex flex-col ml=0.5">
+                                                    <div className="inline-block ml-0.5">
                                                         {
                                                             !user ?
                                                                 <>

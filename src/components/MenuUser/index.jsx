@@ -4,8 +4,12 @@ import { BiMessageEdit } from "react-icons/bi";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PATH } from "../../constants/path";
+import Context from "../../store/Context";
+import { useContext } from "react";
 
 function MenuUser({ children }) {
+    const { user } = useContext(Context);
+
     let location = useLocation();
 
     const activeLink = 'bg-slate-700 w-full';
@@ -18,13 +22,19 @@ function MenuUser({ children }) {
             <div className="flex items-end justify-center">
                 <div className="mt-5 items-center justify-center flex relative">
                     <div className="flex justify-center items-center">
-                        <img src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8" 
-                        alt="Avatar" className="border-1 rounded-full w-24 h-24" />
+                        {user.Anh ?
+                            <img src={user.Anh}
+                                alt="Avatar" className="border-1 rounded-full w-24 h-24 border-2" />
+                            :
+                            <img src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8"
+                                alt="Avatar" className="border-1 rounded-full w-24 h-24 border-2" />
+                        }
+
                     </div>
                 </div>
             </div>
 
-            <h1 className="text-gray-800 font-semibold text-xl mt-3 text-center w-full">Họ và tên</h1>
+            <h1 className="text-gray-800 font-semibold text-xl mt-3 text-center w-full">{user.HoTen}</h1>
             <h1 className="text-gray-500 text-sm w-full text-center mt-2">Khách hàng</h1>
 
             <div className="mt-5 w-full flex flex-wrap">
