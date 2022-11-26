@@ -11,6 +11,7 @@ import axiosJWT from "../../../config/axiosJWT";
 import { API } from "../../../constants/api";
 import { gender, permission, status, verifyEmail } from "../../../constants/statusUser";
 import style from './style.module.scss';
+import Avartar from '../../../assets/images/—Pngtree—camera icon photography_4015139.png'
 
 
 function UserManagement() {
@@ -152,7 +153,7 @@ function UserManagement() {
                 <tbody>
                     {users && users?.DanhSach.map((item, index) => (
                         <tr key={id + index} className="odd:bg-slate-100 border">
-                            <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src={item.Anh} alt="book" /></td>
+                            <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src={item.Anh ? `http://localhost:8000/${item.Anh}` : Avartar} alt="book" /></td>
                             <td className="p-2">{item.HoTen}</td>
                             <td className="p-2">{item.Email}</td>
                             <td className="p-2 hidden md:table-cell">{gender[item.GioiTinh]}</td>
@@ -173,7 +174,11 @@ function UserManagement() {
                         <div className="flex flex-col w-full justify-center h-full sm:px-10">
                             <div className="flex relative py-4 justify-center">
                                 <div className="flex justify-center items-center rounded-full border-2 w-24 h-24 border-blue-300 bg-blue-100">
-                                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/avatar.png" alt="Avatar" className=" w-12 h-12 text-blue-500" />
+                                    {user.Anh ?
+                                        <img src={`http://localhost:8000/${user.Anh}`} alt="Avatar" className=" w-12 h-12 text-blue-500" />
+                                        :
+                                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/avatar.png" alt="Avatar" className=" w-12 h-12 text-blue-500" />
+                                    }
                                 </div>
                             </div>
 

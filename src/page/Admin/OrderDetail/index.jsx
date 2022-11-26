@@ -51,7 +51,7 @@ function OrderDetail() {
                     {orderDetail?.map((item, index) => {
                         return (
                             <tr key={index} className="odd:bg-slate-100 border">
-                                <td className="p-2 hidden md:table-cell"><img className='object-contain h-24 mx-auto' src={item.HinhAnh} alt="book" /></td>
+                                <td className="p-2 hidden md:table-cell"><img className='object-contain h-24 mx-auto' src={`http://localhost:8000/${item.HinhAnh}`} alt="book" /></td>
                                 <td className="p-2 hidden md:table-cell">{item.TenSanPham}</td>
                                 <td className="p-2">{item.DanhMuc}</td>
                                 <td className="p-2 hidden md:table-cell">{item.TheLoai}</td>
