@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext, useMemo } from 'react';
 import clsx from 'clsx';
 import { PATH } from "../../constants/path";
 import logo from '../../assets/images/logo.png';
@@ -11,6 +11,8 @@ import { NavbarData } from './NavbarData';
 import Context from '../../store/Context';
 import axiosConfig from '../../config/axiosConfig';
 import { API } from '../../constants/api';
+import jwtDecode from 'jwt-decode';
+
 
 function Navbar() {
     const { cart } = useContext(Context);
@@ -34,6 +36,15 @@ function Navbar() {
         4: false,   // Tai khoan
         5: false,
     });
+
+    const isAdmin = useMemo(() => {
+        try {
+            const { Quyen } = jwtDecode(localStorage.getItem("token"));
+            return Quyen === 0 ? true : false;
+        } catch (error) {
+            return false;
+        }
+    }, [])
 
     const showMenuChild = useCallback((location) => {
         setStateMenuChild({ ...stateMenuChild, [location]: !stateMenuChild[location] })
@@ -157,6 +168,7 @@ function Navbar() {
 
                                                                         <div className="hidden group-hover:block lg:top-15 mt-0.5 md:top-14 bg-white border absolute z-20 w-52 text-center font-medium transition duration-300 delay-500">
                                                                             <ul>
+                                                                                {isAdmin && <li onClick={() => { navigate(PATH.admin) }} className="p-2 hover:bg-gray-300">Admin</li>}
                                                                                 <li onClick={() => { navigate(PATH.profile.dashboard) }} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
                                                                                 <li onClick={() => { navigate(PATH.profile.user_order_management) }} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
                                                                                 <li onClick={() => { navigate(PATH.profile.user_review) }} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
