@@ -1,5 +1,5 @@
 import { BsArrowLeftShort } from "react-icons/bs";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../../../constants/path";
 import { IoReload } from "react-icons/io5";
 import { useState, useEffect } from "react";
@@ -20,20 +20,18 @@ function UserOrderDetail() {
     }, []);
 
     let IDSanPham = '';
-    orderDetail.map((item) => {
+    orderDetail.forEach((item) => {
         IDSanPham = item.IDSanPham;
-    })
+    });
 
-    const [bookName, setBookName] = useState('');
+    const [bookData, setBookData] = useState([]);
     useEffect(() => {
-        const fetchProductData = async () => {
-            const response = await axiosConfig(`product/7`);
-            setBookName(response);
-            console.log(response.data.data);
+        const fetchBookData = async () => {
+            const response = await axiosJWT.get(`product/${IDSanPham}`);
+            setBookData(response.data);
         }
-        fetchProductData();
-    }, []);
-
+        fetchBookData();
+    })
 
     const changeCostWithDots = (item) => {
         return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
@@ -41,13 +39,14 @@ function UserOrderDetail() {
 
     return (
         <div className="flex flex-wrap md:flex-col w-full bg-gray-100 py-5">
+            <div className="flex w-full px-4 md:px-0">
+                <span className="w-full text-lg font-normal mb-5 lg:text-xl">Chi tiết đơn hàng #</span>
+            </div>
             {orderDetail.map((item, index) => {
                 return (
                     <div key={index}>
-                        <div className="flex w-full px-4 md:px-0">
-                            <span className="w-full text-lg font-normal mb-5 lg:text-xl">Chi tiết đơn hàng #{item.IDDonHang}</span>
-                        </div>
-{/* 
+
+                        {/* 
                         <div className="w-full justify-between flex mx-4 md:mx-0 mb-2">
                             <div className="text-sm text-gray-700 font-medium flex items-center w-full">
                                 <IoReload className="w-5 h-5" />
@@ -95,12 +94,18 @@ function UserOrderDetail() {
                                     <div className="w-full flex justify-center my-3">
                                         <span className="text-sm lg:text-base">{item.SoLuong}</span>
                                     </div>
+
+                                    {bookData.map((item, index) => {
+                                        return (
+                                            <div key={index} className="w-full flex justify-center my-3">
+                                                <span className="text-sm lg:text-base">{item.GiamGia}%</span>
+                                            </div>
+                                        )
+                                    })}
                                     <div className="w-full flex justify-center my-3">
-                                        <span className="text-sm lg:text-base">0%</span>
+                                        <span className="text-sm lg:text-base">đ</span>
                                     </div>
-                                    <div className="w-full flex justify-center my-3">
-                                        <span className="text-sm lg:text-base">68.000đ</span>
-                                    </div>
+
                                 </div>
 
                             </div>
@@ -119,7 +124,7 @@ function UserOrderDetail() {
                             </div>
 
                             {/* Mobile */}
-                            <div className="flex w-full flex-wrap justify-between md:hidden">
+                            {/* <div className="flex w-full flex-wrap justify-between md:hidden">
                                 <div className="w-full py-2">
                                     <div className="w-full mx-4">
                                         <div className="w-full my-1 flex">
@@ -168,18 +173,15 @@ function UserOrderDetail() {
                                         <span className="text-base py-1 text-red-600 font-normal">327.000đ</span>
                                     </div>
                                 </div>
-                            </div>
-
-                        </div>
-
-                        <div onClick={() => navigate(PATH.profile.user_order_management)} className="flex w-full px-4 items-center pt-5">
-                            <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 text-slate-700 cursor-pointer" />
-                            <span className="text-sm text-slate-700 cursor-pointer lg:text-base">Quay lại đơn hàng của tôi</span>
+                            </div> */}
                         </div>
                     </div>
                 )
             })}
-
+            <div onClick={() => navigate(PATH.profile.user_order_management)} className="flex w-full px-4 items-center pt-5">
+                <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 text-slate-700 cursor-pointer" />
+                <span className="text-sm text-slate-700 cursor-pointer lg:text-base">Quay lại đơn hàng của tôi</span>
+            </div>
         </div>
 
     )

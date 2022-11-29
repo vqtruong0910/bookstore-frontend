@@ -1,4 +1,3 @@
-import { PATH } from "../../constants/path";
 import { useNavigate } from "react-router-dom";
 import style from "./Category.module.scss";
 import { FiShoppingBag } from "react-icons/fi";
@@ -13,7 +12,6 @@ import { useEffect } from "react";
 function Category() {
     const navigate = useNavigate();
     const [notify, setNotify] = useState(false);
-
     const { dispatch } = useContext(Context);
 
     const addToCartHandler = (product) => {
@@ -21,27 +19,41 @@ function Category() {
         return setNotify(true);
     };
 
-    const[allBook, setAllBook] = useState([]);
-    const[paginationBook, setPaginationBook] = useState([]);
-    useEffect(() => {
-        const fetchCategoryBookData = async () => {
-            const response = await axiosConfig('product/');
-            setAllBook(response.data.data);
-            // console.log(response.data.data);
-
-            // const responsePagination = await axiosConfig('product/pages?1=page&s=5');
-            // setPaginationBook(response.data.data);
-            // console.log(responsePagination.data.data);
-            
-        }
-        fetchCategoryBookData();
-
-    }, []);
-
-
     const changeCostWithDots = (item) => {
         return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
     }
+
+    const [page, setPage] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const sizePerPage = 3;
+    let arrSoTrang = [];
+    for (let i = 1; i <= page.SoLuongTrang; i++) {
+        arrSoTrang.push(i);
+    }
+
+    const nextPage = (item) => {
+        setCurrentPage((item) => {
+            if(item + 1 > page.SoLuongTrang) return page.SoLuongTrang;
+            return item + 1;
+        });
+    }
+
+    const prevPage = (item) => {
+        setCurrentPage((item) => {
+            if(item - 1 < 1) return 1;
+            return item - 1;
+        })
+    }
+
+    useEffect(() => {
+        const fetchBookData = async () => {
+            const response = await axiosConfig(`product/pages?p=${currentPage}&s=${sizePerPage}`);
+            setPage(response.data.data);
+            // console.log(response.data.data);
+        }
+        fetchBookData();
+    }, [currentPage]);
+
 
     return (
         <>
@@ -57,7 +69,7 @@ function Category() {
             </div>
             <div className="w-full bg-white">
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-5">
-                    {allBook.map((item, index) => {
+                    {page.DanhSach?.map((item, index) => {
                         return (
                             <div key={index} className="grid justify-self-center items-self-center relative w-full hover:cursor-pointer">
 
@@ -99,9 +111,13 @@ function Category() {
             </div>
 
             <div className="flex flex-wrap w-full justify-end items-center py-4">
-                <BsArrowLeftCircleFill className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-slate-400" />
-                <span className="mx-2 font-medium text-sm md:text-base lg:text-lg">1</span>
-                <BsArrowRightCircleFill className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-slate-700" />
+                <BsArrowLeftCircleFill onClick={() => prevPage(currentPage)} className={currentPage === 1 ? "w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-white cursor-pointer" : "w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-slate-700 cursor-pointer" } />
+                {arrSoTrang.map((item, index) => {
+                    return (
+                        <span onClick={() => setCurrentPage(item)} key={index} className={currentPage === item ? "mx-2 font-medium text-sm md:text-base lg:text-lg cursor-pointer bg-slate-400 px-2 text-white" : "mx-2 font-medium text-sm md:text-base lg:text-lg cursor-pointer"}>{item}</span>
+                    )
+                })}
+                <BsArrowRightCircleFill onClick={() => nextPage(currentPage)} className={ currentPage === page.SoLuongTrang ? "w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-white cursor-pointer" : "w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-slate-700 cursor-pointer" } />
             </div>
         </>
 
