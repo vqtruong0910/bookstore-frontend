@@ -39,7 +39,7 @@ function Menu() {
         { id: 12, name: "Cty Văn Hoá Văn Lang", link: "#" }
     ]
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col md:pb-4">
             <div className="flex flex-col w-full bg-gray-100" >
                 <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:mt-16 md:w-64 lg:w-80 md:shadow-md">
                     <div className="w-full px-4 py-1 border-black/20 border text-lg lg:text-xl text-white font-semibold bg-slate-700">

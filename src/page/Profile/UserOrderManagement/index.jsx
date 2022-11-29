@@ -45,7 +45,7 @@ function UserOrderManagement() {
                     <div className="flex absolute inset-y-0 left-0 items-center px-3 h-full hover:bg-blue-100 cursor-pointer rounded-sm">
                         <button type="submit"><AiOutlineSearch className="w-5 h-5" /></button>
                     </div>
-                    <input type="search" className="focus:outline-none focus:ring-1 focus:ring-blue-200 block py-2 pl-12 w-full text-sm lg:text-base lg:placeholder:text-lg text-gray-900 bg-gray-50 border border-gray-300" placeholder="Tìm kiếm theo Mã đơn hàng hoặc Tên sản phẩm" />
+                    <input type="search" className="focus:outline-none focus:ring-1 focus:ring-blue-200 block py-2 pl-12 w-full text-sm lg:text-base lg:placeholder:text-lg text-gray-900 bg-gray-50 border border-gray-300" placeholder="Tìm kiếm theo ID đơn đặt hàng hoặc Tên sản phẩm" />
 
                 </div>
             </form>
@@ -106,7 +106,7 @@ function UserOrderManagement() {
                         return (
                             <div key={index} className="bg-white w-full my-4">
                                 <div className="flex py-3 items-center mx-4 font-medium">
-                                    ID Đơn Đặt Hàng : {item.IDDonHang}
+                                    ID đơn đặt hàng : {item.IDDonHang}
                                 </div>
 
                                 <div className="w-full border-t-2 flex-row flex">
