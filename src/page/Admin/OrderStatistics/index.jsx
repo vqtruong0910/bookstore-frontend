@@ -75,6 +75,11 @@ function OrderStatistics() {
 
             <div className="h-500 bg-white p-6 rounded-sm shadow-sm">
                 <Line data={orderChart} options={{
+                    scales: {
+                        yAxes: {
+                            beginAtZero: true
+                        }
+                    },
                     plugins: {
                         legend: {
                             display: false

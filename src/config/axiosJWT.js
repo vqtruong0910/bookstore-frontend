@@ -16,30 +16,30 @@ const axiosJWT = axios.create({
     }
 })
 // luồng gọi chỉ 1 lần
-const useEffectOnce = (effect) => {
+// const useEffectOnce = (effect) => {
 
-    const destroyFunc = useRef();
-    const effectCalled = useRef(false);
-    const renderAfterCalled = useRef(false);
-    if (effectCalled.current) {
-        renderAfterCalled.current = true;
-    }
-    useEffect(() => {
-        if (!effectCalled.current) {
-            destroyFunc.current = effect();
-            effectCalled.current = true;
-        }
+//     const destroyFunc = useRef();
+//     const effectCalled = useRef(false);
+//     const renderAfterCalled = useRef(false);
+//     if (effectCalled.current) {
+//         renderAfterCalled.current = true;
+//     }
+//     useEffect(() => {
+//         if (!effectCalled.current) {
+//             destroyFunc.current = effect();
+//             effectCalled.current = true;
+//         }
 
-        return () => {
-            if (!renderAfterCalled.current) { return; }
-            if (destroyFunc.current) { destroyFunc.current(); }
-        };
-    }, []);
-};
+//         return () => {
+//             if (!renderAfterCalled.current) { return; }
+//             if (destroyFunc.current) { destroyFunc.current(); }
+//         };
+//     }, []);
+// };
 
 const AxiosInterceptor = ({ children }) => {
-    const { setUser } = useContext(Context);
-    const navigate = useNavigate();
+    const { setUser } = useContext(Context)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const logOut = async () => {
@@ -47,73 +47,68 @@ const AxiosInterceptor = ({ children }) => {
                 await axiosConfig.delete(API.LOGOUT);
             } catch (error) { throw error }
             finally {
-                localStorage.removeItem("user");
-                localStorage.removeItem("token");
-                setUser(false);
-                navigate(PATH.login, { replace: true });
+                localStorage.removeItem("user")
+                localStorage.removeItem("token")
+                setUser(false)
+                navigate(PATH.login, { replace: true })
             }
         }
         const refreshToken = async () => {
             try {
                 const res = await axiosConfig.get(API.REFESHTOKEN);
-                return res.data;
+                return res.data
             } catch (error) {
-                throw error;
+                console.log(error)
             }
         }
         const reqInterceptor = async (config) => {
-            const date = new Date();
-            const token = localStorage.getItem("token");
-            let decodedToken;
             try {
-                decodedToken = jwtDecode(token);
-            } catch (error) {
-                decodedToken = false;
-            }
-            if (decodedToken.exp < date.getTime() / 1000 || !decodedToken || !token) {
-                try {
-                    const newToken = await refreshToken();
-                    localStorage.setItem("token", newToken?.data?.accessToken);
-                } catch (error) {
-                    throw error;
+                const date = new Date()
+                const decodedToken = jwtDecode(localStorage.getItem("token"))
+                if (decodedToken.exp < date.getTime() / 1000) {
+                    const newToken = await refreshToken()
+                    localStorage.setItem("token", newToken?.data?.accessToken)
                 }
+            } catch (error) {
+                const newToken = await refreshToken()
+                localStorage.setItem("token", newToken?.data?.accessToken)
             }
-            config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
-            return config;
+            config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
+            return config
         }
 
         const errInterceptorReq = error => {
-            return Promise.reject(error);
+            return Promise.reject(error)
         }
 
         const resInterceptor = async (response) => {
-            return response.data;
+            return response.data
         }
 
         const errInterceptorRes = error => {
-            if (error?.response?.data?.message === "Token not found")
-                logOut().catch(error => Promise.reject(error));
+            if (error?.response?.data?.message == "Token not found")
+                logOut().catch(error => Promise.reject(error))
             // else {
             //     refreshToken()
             //         .then(res => {
             //             localStorage.setItem("token", res?.data?.accessToken);
             //         })
             //         .catch((error) => {
-            //             logOut().catch(error => {
-            //                 return Promise.reject(error);
-            //             });
+            //             // logOut().catch(error => {
+            //             //     return Promise.reject(error);
+            //             // });
             //             return Promise.reject(error);
             //         })
             // }
-            return Promise.reject(error);
+            return Promise.reject(error)
         }
 
-        const interceptorRequest = axiosJWT.interceptors.request.use(reqInterceptor, errInterceptorReq);
-        const interceptorResponse = axiosJWT.interceptors.response.use(resInterceptor, errInterceptorRes);
+        const interceptorRequest = axiosJWT.interceptors.request.use(reqInterceptor, errInterceptorReq)
+        const interceptorResponse = axiosJWT.interceptors.response.use(resInterceptor, errInterceptorRes)
 
         return () => {
-            axiosJWT.interceptors.request.eject(interceptorRequest);
-            axiosJWT.interceptors.response.eject(interceptorResponse);
+            axiosJWT.interceptors.request.eject(interceptorRequest)
+            axiosJWT.interceptors.response.eject(interceptorResponse)
         }
 
     }, []);
@@ -122,4 +117,4 @@ const AxiosInterceptor = ({ children }) => {
 }
 
 export default axiosJWT;
-export { AxiosInterceptor, useEffectOnce };
+export { AxiosInterceptor };

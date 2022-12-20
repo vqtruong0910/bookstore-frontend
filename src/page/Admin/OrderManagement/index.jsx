@@ -170,9 +170,7 @@ function OrderManagement() {
                     <div className='px-2 border rounded-sm cursor-pointer' onClick={lastPage}>&#187;</div>
                 </div>
             </div>
-
-
-            <table className="table-auto border-collapse border rounded-sm w-full bg-white">
+            <table className="border-collapse border rounded-sm w-full bg-white">
                 <thead>
                     <tr className="border bg-slate-800 text-slate-200">
                         <th className="p-2 text-left">Tên người đặt</th>
@@ -190,7 +188,7 @@ function OrderManagement() {
                     {orders.DanhSach.map(item => {
                         return (
                             <tr key={item.IDDonHang} className="odd:bg-slate-100 border">
-                                <td className="p-2 hidden md:table-cell">{item.HoTen}</td>
+                                <td className="p-2">{item.HoTen}</td>
                                 <td className="p-2">{item.DiaChi}</td>
                                 <td className="p-2 hidden md:table-cell">{checkDate(item.NgayDat)}</td>
                                 <td className="p-2 hidden md:table-cell">{checkDate(item.NgayGiao)}</td>

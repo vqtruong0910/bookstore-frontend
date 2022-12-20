@@ -52,7 +52,6 @@ function Category() {
         }
     })
     const { mutateAsync: updateCategory } = useMutation(async (data) => {
-        console.log(data.IDDanhMuc);
         const result = await axiosJWT.put(`${API.MANAGE_CATEGORY}/${category.IDDanhMuc}`, { TenDanhMuc: data.DanhMuc });
         return result.data;
     }, {

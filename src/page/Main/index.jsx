@@ -135,7 +135,7 @@ function Main() {
 
                                         <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="grid w-full justify-self-center mt-3 py-2">
                                             <img className="w-full h-40 md:h-48 lg:h-64"
-                                                src={`http://localhost:8000/${item.HinhAnh}`}
+                                                src={item.HinhAnh}
                                                 alt="New Book" />
                                         </div>
 
@@ -193,7 +193,7 @@ function Main() {
 
                                         <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="grid w-full justify-self-center mt-3 py-2">
                                             <img className="w-full h-40 md:h-48 lg:h-64"
-                                                src={`http://localhost:8000/${item.HinhAnh}`}
+                                                src={item.HinhAnh}
                                                 alt="New Book" />
                                         </div>
 
@@ -249,7 +249,7 @@ function Main() {
 
                                         <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="grid w-full justify-self-center mt-3 py-2">
                                             <img className="w-full h-40 md:h-48 lg:h-64"
-                                                src={`http://localhost:8000/${item.HinhAnh}`}
+                                                src={item.HinhAnh}
                                                 alt="New Book" />
                                         </div>
 

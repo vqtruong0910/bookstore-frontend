@@ -53,10 +53,10 @@ function AddProduct() {
             IDNhaXuatBan: "",
             GiaBan: "",
             IDTacGia: "",
-            GiamGia: "",
+            GiamGia: "0",
             SoTrang: "",
             SoLuongConLai: "",
-            DonViTinh: "",
+            DonViTinh: "Quyển",
             HinhAnh: "",
         }
     });
@@ -102,7 +102,7 @@ function AddProduct() {
                     IDNhaXuatBan: "",
                     GiaBan: "",
                     IDTacGia: "",
-                    GiamGia: "",
+                    GiamGia: "0",
                     SoTrang: "",
                     SoLuongConLai: "",
                     DonViTinh: "",

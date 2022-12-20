@@ -13,13 +13,11 @@ function LineChart({ chartData }) {
         },
         scales: {
             xAxes: {
-                display: false
+                display: false,
             },
             yAxes: {
                 display: false,
-                ticks: {
-                    beginAtZero: true
-                }
+                beginAtZero: true
             },
         },
         interaction: {

@@ -153,7 +153,7 @@ function UserManagement() {
                 <tbody>
                     {users && users?.DanhSach.map((item, index) => (
                         <tr key={id + index} className="odd:bg-slate-100 border">
-                            <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src={item.Anh ? `http://localhost:8000/${item.Anh}` : Avartar} alt="book" /></td>
+                            <td className="p-2 hidden md:table-cell w-24 h-24"><img className='object-contain mx-auto' src={item.Anh ? item.Anh : Avartar} alt="book" /></td>
                             <td className="p-2">{item.HoTen}</td>
                             <td className="p-2">{item.Email}</td>
                             <td className="p-2 hidden md:table-cell">{gender[item.GioiTinh]}</td>
@@ -174,11 +174,7 @@ function UserManagement() {
                         <div className="flex flex-col w-full justify-center h-full sm:px-10">
                             <div className="flex relative py-4 justify-center">
                                 <div className="flex justify-center items-center">
-                                    {user.Anh ?
-                                        <img src={`http://localhost:8000/${user.Anh}`} alt="Avatar" className="rounded-full border-2 w-24 h-24 text-blue-500" />
-                                        :
-                                        <img src={Avartar} alt="Avatar" className="rounded-full border-2 w-24 h-24 text-blue-500" />
-                                    }
+                                    <img src={user.Anh ? user.Anh : Avartar} alt="Avatar" className="rounded-full border-2 w-24 h-24 text-blue-500" />
                                 </div>
                             </div>
 
@@ -224,7 +220,7 @@ function UserManagement() {
                                     <input {...register("GioiTinh")} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" disabled placeholder="Giới tính" />
                                 </div>
                             </div>
-                            <div className="flex w-full py-2">
+                            {/* <div className="flex w-full py-2">
                                 <div className="w-1/3 lg:w-4/12 items-center flex">
                                     <span className="flex text-sm lg:text-base font-semibold text-slate-800">Số điện thoại</span>
                                 </div>
@@ -233,7 +229,7 @@ function UserManagement() {
                                     <input {...register("SoDienThoai")} type="tel" disabled placeholder="Số điện thoại"
                                         className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base" />
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="flex w-full py-2">
                                 <div className="w-1/3 lg:w-4/12 items-center flex">
