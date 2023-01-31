@@ -8,7 +8,7 @@ import Context from "../../store/Context";
 import { addToCart } from "../../reducers/cartReducers";
 import axiosConfig from "../../config/axiosConfig";
 import { useEffect } from "react";
-
+import ReactPaginate from "react-paginate";
 function Category() {
     const navigate = useNavigate();
     const [notify, setNotify] = useState(false);
@@ -25,7 +25,7 @@ function Category() {
 
     const [page, setPage] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const sizePerPage = 3;
+    const sizePerPage = 10;
     let arrSoTrang = [];
     for (let i = 1; i <= page.SoLuongTrang; i++) {
         arrSoTrang.push(i);
@@ -45,6 +45,7 @@ function Category() {
         })
     }
 
+
     useEffect(() => {
         const fetchBookData = async () => {
             const response = await axiosConfig(`product/pages?p=${currentPage}&s=${sizePerPage}`);
@@ -53,7 +54,6 @@ function Category() {
         }
         fetchBookData();
     }, [currentPage]);
-
 
     return (
         <>
@@ -118,6 +118,7 @@ function Category() {
                     )
                 })}
                 <BsArrowRightCircleFill onClick={() => nextPage(currentPage)} className={ currentPage === page.SoLuongTrang ? "w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-white cursor-pointer" : "w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-slate-700 cursor-pointer" } />
+         
             </div>
         </>
 

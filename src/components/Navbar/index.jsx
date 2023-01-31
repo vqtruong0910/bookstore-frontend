@@ -69,7 +69,6 @@ function Navbar() {
 
 
     useEffect(() => {
-
         window
             .matchMedia("(min-width: 767px)")
             .addEventListener('change', e => setMatches(e.matches));
@@ -86,6 +85,23 @@ function Navbar() {
             window.removeEventListener("scroll", event);
         }
     }, [])
+
+    const [loading, setLoading] = useState(false);
+    const [posts, setPosts] = useState([]);
+    const [searchTitle, setSearchTitle] = useState("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            const response = await axiosConfig(`product/`);
+            setPosts(response.data.data);
+            setLoading(false);
+
+            console.log(response.data.data);
+        }
+
+        fetchData();
+    },[]);
 
     return (
         <>

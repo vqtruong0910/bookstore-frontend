@@ -132,7 +132,6 @@ function PersonInfo() {
 
     }, [districtCode]);
 
-
     return (
 
         <div className="flex flex-row">
@@ -181,7 +180,6 @@ function PersonInfo() {
 
 
                                 <form onSubmit={handleSubmit(onSubmit)}>
-
                                     <div className="flex w-full py-2">
                                         <div className="w-1/3 lg:w-4/12 items-center flex">
                                             <span className="flex text-sm lg:text-base">Họ & Tên</span>
