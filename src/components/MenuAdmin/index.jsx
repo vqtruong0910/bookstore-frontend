@@ -78,9 +78,9 @@ function MenuAdmin({ stateMenu }) {
                     </Link>
                 </li>
                 <li className='p-2'>
-                    <Link to={PATH.admin.author} className="flex items-center relative space-x-2 text-slate-200">
+                    <Link to={PATH.admin.author_management} className="flex items-center relative space-x-2 text-slate-200">
                         <span className="m-1"><IconTypeBook /></span>
-                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.author))}>Tác giả</span>
+                        <span className={clsx('font-medium text-base hover:text-slate-50 transition-colors', locationPage(PATH.admin.author_management))}>Tác giả</span>
                     </Link>
                 </li>
                 <li className='p-2'>

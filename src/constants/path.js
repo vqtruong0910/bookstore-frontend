@@ -52,9 +52,11 @@ export const PATH = {
         // TypeOf 
         typeof: "/admin/typeof/:id",
         typeof_transfer_page: "/admin/typeof",
+
+        // Author
+        author_management: "/admin/author_management",
         // Turnover
-        revenue_statistics: "/admin/revenue_statistics",
-        author: "/admin/author"
+        revenue_statistics: "/admin/revenue_statistics"
     },
     notfound: '*'
 }

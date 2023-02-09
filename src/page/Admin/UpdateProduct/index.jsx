@@ -39,7 +39,7 @@ function UpdateProduct() {
         {
             queryKey: ["authors"],
             queryFn: async () => {
-                const result = await axiosJWT.get(API.GET_LIST_ALL_AUTHOR);
+                const result = await axiosJWT.get(API.AUTHOR);
                 return result.data;
             },
             keepPreviousData: true,

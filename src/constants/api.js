@@ -21,7 +21,7 @@ export const API = {
     GET_LIST_ALL_CATEGORY: "category",
     GET_LIST_ALL_TYPEOF_BOOK: "kind_product/idcategory",
     GET_LIST_ALL_PUBLISHING: "publishing",
-    GET_LIST_ALL_AUTHOR: "author",
+    AUTHOR: "author",
     GET_TYPEOF_BOOK_IN_PAGE: "kind_product/idcategory",
 
     STATISTIC_USER_IN_WEEK: "users/statistic",
