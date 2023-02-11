@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[8164],{8164:function(e,t,n){n.r(t);var s=n(184);t.default=function(){return(0,s.jsxs)("div",{className:"py-60",children:[(0,s.jsx)("h1",{className:"text-center text-6xl font-bold",children:"404"}),(0,s.jsx)("h2",{className:"text-center text-4xl",children:"Not Found"})]})}}}]);
+//# sourceMappingURL=8164.b7ec3ecd.chunk.js.map
