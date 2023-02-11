@@ -70,8 +70,12 @@ const AxiosInterceptor = ({ children }) => {
                     localStorage.setItem("token", newToken?.data?.accessToken)
                 }
             } catch (error) {
-                const newToken = await refreshToken()
-                localStorage.setItem("token", newToken?.data?.accessToken)
+                try {
+                    const newToken = await refreshToken()
+                    localStorage.setItem("token", newToken?.data?.accessToken)
+                } catch (error) {
+                    logOut()
+                }
             }
             config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
             return config
