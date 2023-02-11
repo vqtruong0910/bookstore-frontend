@@ -54,12 +54,8 @@ const AxiosInterceptor = ({ children }) => {
             }
         }
         const refreshToken = async () => {
-            try {
-                const res = await axiosConfig.get(API.REFESHTOKEN);
-                return res.data
-            } catch (error) {
-                console.log(error)
-            }
+            const res = await axiosConfig.get(API.REFESHTOKEN);
+            return res.data
         }
         const reqInterceptor = async (config) => {
             try {
