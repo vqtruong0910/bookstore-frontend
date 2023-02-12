@@ -1,7 +1,6 @@
 import { BsArrowLeftShort } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../../../constants/path";
-import { IoReload } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import axiosJWT from "../../../config/axiosJWT";
 import axiosConfig from "../../../config/axiosConfig";
@@ -17,7 +16,7 @@ function UserOrderDetail() {
         }
         fetchOrderDetailData();
 
-    }, []);
+    }, [state]);
 
     let IDSanPham = '';
     orderDetail.forEach((item) => {

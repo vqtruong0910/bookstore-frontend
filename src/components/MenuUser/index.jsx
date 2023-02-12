@@ -23,11 +23,9 @@ function MenuUser({ children }) {
                 <div className="mt-5 items-center justify-center flex relative">
                     <div className="flex justify-center items-center">
                         {user.Anh ?
-                            <img src={user.Anh}
-                                alt="Avatar" className="border-1 rounded-full w-24 h-24 border-2" />
+                            <img src={user.Anh} alt="Avatar" className="rounded-full w-24 h-24 border-2" />
                             :
-                            <img src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8"
-                                alt="Avatar" className="border-1 rounded-full w-24 h-24 border-2" />
+                            <AiOutlineUser className="border-2 border-blue-200 text-blue-300 rounded-full w-24 h-24"></AiOutlineUser>
                         }
 
                     </div>

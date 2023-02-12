@@ -50,8 +50,12 @@ function UserChangePassword() {
                                 <div className="text-base">Mật khẩu hiện tại</div>
 
                                 <div className="flex w-full relative items-center justify-end">
-                                    <input name="current_password" {...register("current_password", { required: true })} type={shown[1] ? "text" : "password"} placeholder="Nhập mật khẩu hiện tại"
-                                        className="w-full flex border rounded-sm px-2 py-2 my-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" />
+                                    <input
+                                        name="current_password" {...register("current_password", { required: true })}
+                                        type={shown[1] ? "text" : "password"}
+                                        placeholder="Nhập mật khẩu hiện tại"
+                                        className="w-full flex border rounded-sm px-2 py-2 my-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm"
+                                    />
                                     <div className="absolute flex px-2" onClick={() => showShown(1)}>
                                         {shown[1] ? <FiEyeOff className="w-5 h-5 text-gray-500" /> : <FiEye className="w-5 h-5 text-gray-500" />}
                                     </div>
@@ -65,8 +69,12 @@ function UserChangePassword() {
                                 <div className="text-base">Mật khẩu mới</div>
 
                                 <div className="flex w-full relative items-center justify-end">
-                                    <input name="new_password" {...register("new_password", { required: true })} type={shown[2] ? "text" : "password"} placeholde="Nhập mật khẩu mới"
-                                        className="w-full flex border rounded-sm px-2 py-2 my-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" />
+                                    <input
+                                        name="new_password" {...register("new_password", { required: true })}
+                                        type={shown[2] ? "text" : "password"}
+                                        placeholder="Nhập mật khẩu mới"
+                                        className="w-full flex border rounded-sm px-2 py-2 my-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm"
+                                    />
                                     <div className="absolute flex px-2" onClick={() => showShown(2)}>
                                         {shown[2] ? <FiEyeOff className="w-5 h-5 text-gray-500" /> : <FiEye className="w-5 h-5 text-gray-500" />}
                                     </div>
@@ -82,8 +90,12 @@ function UserChangePassword() {
                                 <div className="text-base">Nhập lại mật khẩu mới</div>
 
                                 <div className="flex w-full relative items-center justify-end">
-                                    <input name="retype_new_password" {...register("retype_new_password", { required: true })} type={shown[3] ? "text" : "password"} placeholde="Nhập lại mật khẩu mới"
-                                        className="w-full flex border rounded-sm px-2 py-2 my-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" />
+                                    <input
+                                        name="retype_new_password" {...register("retype_new_password", { required: true })}
+                                        type={shown[3] ? "text" : "password"}
+                                        placeholder="Nhập lại mật khẩu mới"
+                                        className="w-full flex border rounded-sm px-2 py-2 my-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm"
+                                    />
                                     <div className="absolute flex px-2" onClick={() => showShown(3)}>
                                         {shown[3] ? <FiEyeOff className="w-5 h-5 text-gray-500" /> : <FiEye className="w-5 h-5 text-gray-500" />}
                                     </div>

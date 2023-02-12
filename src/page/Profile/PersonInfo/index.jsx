@@ -2,7 +2,7 @@ import { BiPencil, BiLock } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../../constants/path";
 import Notify from "../../../components/Notify";
-import { AiOutlineSmile } from "react-icons/ai";
+import { AiOutlineSmile, AiOutlineUser } from "react-icons/ai";
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import axios from "axios";
 import Context from "../../../store/Context";
@@ -30,11 +30,11 @@ function PersonInfo() {
             fullName: "",
             email: "",
             gender: "",
-            phone: "",
-            city: "",
-            district: "",
-            ward: "",
-            address: "",
+            // phone: "",
+            // city: "",
+            // district: "",
+            // ward: "",
+            // address: "",
         },
     });
 
@@ -80,57 +80,57 @@ function PersonInfo() {
             fullName: data.fullName,
             email: data.email,
             gender: data.gender,
-            phone: data.phone,
-            address: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
+            // phone: data.phone,
+            // address: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
         }
 
         return setNotify(true);
     }
 
-    useEffect(() => {
-        const fetchProvinceData = async () => {
-            const response = await axios('https://provinces.open-api.vn/api/p');
-            setProvince(response.data);
-        }
-        fetchProvinceData();
+    // useEffect(() => {
+    //     const fetchProvinceData = async () => {
+    //         const response = await axios('https://provinces.open-api.vn/api/p');
+    //         setProvince(response.data);
+    //     }
+    //     fetchProvinceData();
 
-    }, []);
+    // }, []);
 
-    const handleProvince = (event) => {
-        const index = event.target.selectedIndex;
-        const el = event.target.childNodes[index]
-        const getProvinceCode = el.getAttribute('id');
-        // console.log(getProvinceCode);
-        setProvinceCode(getProvinceCode);
+    // const handleProvince = (event) => {
+    //     const index = event.target.selectedIndex;
+    //     const el = event.target.childNodes[index]
+    //     const getProvinceCode = el.getAttribute('id');
+    //     // console.log(getProvinceCode);
+    //     setProvinceCode(getProvinceCode);
 
-    }
+    // }
 
-    useEffect(() => {
-        const fetchDistrictData = async () => {
-            const response = await axios(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`);
-            setDistrict(response.data.districts);
-            // console.log(response.data.districts);
-        }
-        fetchDistrictData();
+    // useEffect(() => {
+    //     const fetchDistrictData = async () => {
+    //         const response = await axios(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`);
+    //         setDistrict(response.data.districts);
+    //         // console.log(response.data.districts);
+    //     }
+    //     fetchDistrictData();
 
-    }, [provinceCode]);
+    // }, [provinceCode]);
 
-    const handleDistrict = (event) => {
-        const index = event.target.selectedIndex;
-        const el = event.target.childNodes[index]
-        const getDistrictCode = el.getAttribute('id');
-        // console.log(getDistrictCode);
-        setDistrictCode(getDistrictCode);
-    }
+    // const handleDistrict = (event) => {
+    //     const index = event.target.selectedIndex;
+    //     const el = event.target.childNodes[index]
+    //     const getDistrictCode = el.getAttribute('id');
+    //     // console.log(getDistrictCode);
+    //     setDistrictCode(getDistrictCode);
+    // }
 
-    useEffect(() => {
-        const fetchWardData = async () => {
-            const response = await axios(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`);
-            setWard(response.data.wards);
-        }
-        fetchWardData();
+    // useEffect(() => {
+    //     const fetchWardData = async () => {
+    //         const response = await axios(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`);
+    //         setWard(response.data.wards);
+    //     }
+    //     fetchWardData();
 
-    }, [districtCode]);
+    // }, [districtCode]);
 
 
     return (
@@ -157,8 +157,7 @@ function PersonInfo() {
                                                 {user.Anh ?
                                                     <img src={user.Anh} alt="Avatar" className="border-2 rounded-full w-24 h-24 border-blue-200" />
                                                     :
-                                                    <img src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8"
-                                                        alt="Avatar" className="border-1 rounded-full w-24 h-24" />
+                                                    <AiOutlineUser className="border-2 border-blue-200 text-blue-300 rounded-full w-24 h-24"></AiOutlineUser>
                                                 }
 
                                             </div>
@@ -201,7 +200,7 @@ function PersonInfo() {
                                         </div>
 
                                         <div className="w-2/3 lg:w-8/12 flex flex-col">
-                                            <input name="email" type="email" value={user.HoTen} {...register("email",
+                                            <input name="email" type="email" value={user.Email} {...register("email",
                                                 {
                                                     required: "Email không được để trống",
                                                     pattern: {
@@ -225,13 +224,32 @@ function PersonInfo() {
                                         <div className="flex flex-col w-2/3 lg:w-8/12 py-2 md:py-3">
                                             <div className="flex w-full">
                                                 <div className="w-full">
-                                                    <input name="gender" {...register("gender", { required: "Vui lòng chọn giới tính" })} type="radio" value="Male" />
-                                                    <label htmlFor="Male" className="mx-2">Nam</label>
-                                                </div>
+                                                    {user?.GioiTinh === 1 ?
+                                                        <>
+                                                            <input name="gender" {...register("gender", { required: "Vui lòng chọn giới tính" })} type="radio" value="Male" />
+                                                            <label htmlFor="Male" className="mx-2">Nam</label>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <input checked name="gender" {...register("gender", { required: "Vui lòng chọn giới tính" })} type="radio" value="Male" />
+                                                            <label htmlFor="Male" className="mx-2">Nam</label>
+                                                        </>
 
+                                                    }
+
+                                                </div>
                                                 <div className="w-full">
-                                                    <input name="gender" {...register("gender", { required: "Vui lòng chọn giới tính" })} type="radio" value="Female" />
-                                                    <label htmlFor="Female" className="mx-2">Nữ</label>
+                                                    {user?.GioiTinh === 0 ?
+                                                        <>
+                                                            <input name="gender" {...register("gender", { required: "Vui lòng chọn giới tính" })} type="radio" value="Female" />
+                                                            <label htmlFor="Female" className="mx-2">Nữ</label>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <input checked name="gender" {...register("gender", { required: "Vui lòng chọn giới tính" })} type="radio" value="Female" />
+                                                            <label htmlFor="Female" className="mx-2">Nữ</label>
+                                                        </>}
+
                                                 </div>
                                             </div>
 
@@ -241,7 +259,7 @@ function PersonInfo() {
                                         </div>
                                     </div>
 
-                                    <div className="flex w-full py-2">
+                                    {/* <div className="flex w-full py-2">
                                         <div className="w-1/3 lg:w-4/12 items-center flex">
                                             <span className="flex text-sm lg:text-base">Số điện thoại</span>
                                         </div>
@@ -334,16 +352,16 @@ function PersonInfo() {
                                                 <div className="text-xs text-red-500 md:text-sm">{errors.ward.message}</div>
                                             }
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </form>
 
                             </div>
                         </div>
-                        <div className="w-full flex justify-center py-5 cursor-pointer">
+                        {/* <div className="w-full flex justify-center py-5 cursor-pointer">
                             <button type="submit" className="w-40 h-10 flex text-white items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm">
                                 Lưu thay đổi
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
                     {notify ?

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { PATH } from "../../constants/path";
 import logo from '../../assets/images/logo.png';
 import { BsSearch } from "react-icons/bs";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { NavbarData } from './NavbarData';
@@ -129,13 +129,14 @@ function Navbar() {
                                                     <div className="flex items-center justify-center">
                                                         {
                                                             !user?.Anh ?
-                                                                <img src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8"
-                                                                    className="lg:w-10 lg:h-10 w-8 h-8 flex items-center mr-1 rounded-full" alt="User_Image"
-                                                                />
+                                                                <AiOutlineUser className="lg:w-10 lg:h-10 w-8 h-8 flex items-center mr-1 rounded-full text-gray-400 border border-gray-400"></AiOutlineUser>
                                                                 :
-                                                                <Link className="flex items-center mr-1" to={PATH.profile}>
-                                                                    <img className="rounded-full border w-10 h-10" src={user?.Anh} alt="User_Image" />
-                                                                </Link>
+                                                                user.Anh ?
+                                                                    <Link className="flex items-center mr-1" to={PATH.profile}>
+                                                                        <img className="rounded-full border w-10 h-10" src={user.Anh} alt="User_Image" />
+                                                                    </Link>
+                                                                    :
+                                                                    <AiOutlineUser className="lg:w-10 lg:h-10 w-8 h-8 flex items-center mr-1 rounded-full text-gray-400 border border-gray-400"></AiOutlineUser>
                                                         }
                                                     </div>
 
@@ -217,11 +218,12 @@ function Navbar() {
                                 <div className="flex w-2/12 justify-center items-center">
                                     <div onClick={() => showMenuChild(5)} to={PATH.profile.dashboard} className="flex items-center cursor-pointer">
                                         {!user?.Anh ?
-                                            <img src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=yk93IQ_5_XkAX-s-OzS&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfBOf2W262cuu5MxtuaJUvcfuiNVfxU3F7xPh1JhNjpNeg&oe=63A194B8"
-                                                className="w-6 h-6 rounded-full" alt="User_Image"
-                                            />
+                                            <AiOutlineUser className="w-6 h-6 rounded-full text-white/75 border-white/75 border-2"></AiOutlineUser>
                                             :
-                                            <img className="rounded-full w-6 h-6" src={user?.Anh} alt="User_Image" />
+                                            user.Anh ?
+                                                <img className="rounded-full w-6 h-6" src={user.Anh} alt="User_Image" />
+                                                :
+                                                <AiOutlineUser className="w-6 h-6 rounded-full text-white/75 border-white/75 border-2"></AiOutlineUser>
 
                                         }
 
