@@ -82,7 +82,7 @@ function UserChangePassword() {
 
                                 <div className="text-xs">Mật khẩu phải từ 8 kí tự trở lên, bao gồm chữ và số và 1 kí tự in hoa</div>
                                 {errors.new_password?.type === "required" &&
-                                    <div className="text-xs text-red-500 md:text-sm">Vui lòng nhập mật khẩu hiện tại</div>
+                                    <div className="text-xs text-red-500 md:text-sm">Vui lòng nhập mật khẩu mới</div>
                                 }
                             </div>
 
@@ -102,7 +102,7 @@ function UserChangePassword() {
                                 </div>
 
                                 {errors.retype_new_password?.type === "required" &&
-                                    <div className="text-xs text-red-500 md:text-sm">Vui lòng nhập mật khẩu hiện tại</div>
+                                    <div className="text-xs text-red-500 md:text-sm">Vui lòng nhập lại mật khẩu mới</div>
                                 }
                             </div>
 

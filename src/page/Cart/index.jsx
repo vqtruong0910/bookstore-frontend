@@ -82,7 +82,7 @@ function Cart() {
                                             <div className="hidden md:flex md:flex-row md:mx-2 md:my-7 md:justify-between md:w-full">
 
                                                 <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="cursor-pointer flex w-full flex-col items-center justify-center">
-                                                    <img src={`http://localhost:8000/${item.HinhAnh}`} className="w-36 h-36" alt="Book_Image" />
+                                                    <img src={item.HinhAnh} className="w-36 h-36" alt="Book_Image" />
                                                     <div className="mt-2 flex justify-center">
                                                         <span className="text-base font-medium text-center">{item.TenSanPham}</span>
                                                     </div>

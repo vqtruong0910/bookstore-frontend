@@ -10,6 +10,7 @@ import Context from "../../store/Context";
 
 function Payment() {
   const navigate = useNavigate();
+  const { user, cart } = useContext(Context);
   const [notify, setNotify] = useState(false);
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
@@ -19,8 +20,8 @@ function Payment() {
   const { register, handleSubmit, formState: { errors }, clearErrors } = useForm({
     mode: "onBlur",
     defaultValues: {
-      fullName: "",
-      email: "",
+      fullName: user?.HoTen,
+      email: user?.Email,
       phone: "",
       address: "",
       city: "",
@@ -30,7 +31,7 @@ function Payment() {
       pay_on_delivery: "",
     },
   });
-  const { user, cart } = useContext(Context);
+
 
   useEffect(() => {
     const fetchProvinceData = async () => {
@@ -126,14 +127,18 @@ function Payment() {
             <div className="flex flex-wrap justify-center w-full bg-white shadow-md mt-2 lg:mx-4">
               <div className="flex w-full p-2">
                 <div className="w-1/3 items-center flex">
-                  <span className="flex text-sm font-medium lg:text-base">Họ & Tên</span>
+                  <span className="flex text-sm font-medium lg:text-base ">Họ & Tên</span>
                 </div>
 
                 <div className="w-2/3 lg:w-8/12 flex flex-col">
-                  <input name="fullName" type="text" {...register("fullName", { required: "Họ tên không được để trống" })} className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" placeholder="VD: Nguyễn Văn A" value={user.HoTen} />
-                  {errors.fullName &&
-                    <div className="text-xs text-red-500 md:text-sm">{errors.fullName.message}</div>
-                  }
+                  <input
+                    name="fullName"
+                    type="text"
+                    {...register("fullName", { required: "Họ tên không được để trống" })}
+                    className="w-full border rounded-sm px-2 py-1 lg:py-2 text-black/50 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm"
+                    defaultValue={user.HoTen}
+                    disabled
+                  />
                 </div>
               </div>
 
@@ -143,18 +148,13 @@ function Payment() {
                 </div>
 
                 <div className="w-2/3 flex flex-col">
-                  <input name="email" type="email" value={user.Email}  {...register("email",
-                    {
-                      required: "Email không được để trống",
-                      pattern: {
-                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                        message: "Vui lòng nhập đúng định dạng email",
-                      },
-                    })}
-                    className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm" placeholder="VD: nguyenvana@gmail.com" />
-                  {errors.email &&
-                    <div className="text-xs text-red-500 md:text-sm">{errors.email.message}</div>
-                  }
+                  <input
+                    name="email"
+                    type="email"
+                    defaultValue={user.Email}
+                    className="w-full border rounded-sm px-2 py-1 lg:py-2 text-black/50 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm"
+                    disabled
+                  />
                 </div>
 
               </div>
