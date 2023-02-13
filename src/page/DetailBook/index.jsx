@@ -1,19 +1,14 @@
 import { IoAddSharp } from "react-icons/io5";
 import { IoMdRemove } from "react-icons/io";
 import { BsCart3 } from "react-icons/bs";
-import { FiShoppingBag } from "react-icons/fi";
-import Slider from "react-slick";
-import { useNavigate, useParams } from "react-router-dom";
-import { PATH } from "../../constants/path";
+import { useParams } from "react-router-dom";
 import style from "./DetailBook.module.scss";
-import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill, BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
-import { BiMessageRoundedEdit } from "react-icons/bi";
 import React, { useState, useContext, useEffect } from "react";
 import Notify from "../../components/Notify";
 import Context from "../../store/Context";
 import { addToCart } from "../../reducers/cartReducers";
 import axiosConfig from "../../config/axiosConfig";
-import { incrementItemQuantity, decrementItemQuantity } from "../../reducers/cartReducers";
+import RelatedBook from "../RelatedBook";
 
 function DetailBook() {
     const { bookID } = useParams();
@@ -24,7 +19,7 @@ function DetailBook() {
     const [publisherName, setPublisherName] = useState('');
     const [categoryName, setCategoryName] = useState('');
     const [quantity, setQuantity] = useState(1);
-    const [procsInSameCategory ,setProcsInSameCategory] = useState([]);
+    const [procsInSameCategory, setProcsInSameCategory] = useState([]);
 
     useEffect(() => {
         let authorID = '';
@@ -61,7 +56,7 @@ function DetailBook() {
                 const responseCategoryName = await axiosConfig(`category/${categoryID}`);
                 responseCategoryName.data.data.forEach((item) => {
                     setCategoryName(item.TenDanhMuc);
-                })  
+                })
 
                 const responseProcsInSameCategory = await axiosConfig(`product/id_theloai/${genreID}`);
                 setProcsInSameCategory(responseProcsInSameCategory.data.data);
@@ -78,75 +73,22 @@ function DetailBook() {
     };
     const decrementQuantity = (item) => {
         setQuantity((item) => {
-            if(item - 1 < 1) return 1;
+            if (item - 1 < 1) return 1;
 
             return item - 1;
         })
-     
+
     }
 
     const incrementQuantity = (item) => {
         setQuantity(item + 1);
     }
 
-    const navigate = useNavigate();
     const [notify, setNotify] = useState(false);
     const [showContent, setShowContent] = useState(4);
     const handleContent = (e) => {
         setShowContent(e);
     }
-
-    function NextArrow({ onClick }) {
-        return (
-            <BsFillArrowRightCircleFill className="absolute right-0 top-1/3 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 z-10 text-slate-600 cursor-pointer" onClick={onClick} />
-        );
-    }
-
-    function PrevArrow({ onClick }) {
-        return (
-            <BsFillArrowLeftCircleFill className="absolute left-0 top-1/3 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 z-10 text-slate-600 cursor-pointer" onClick={onClick} />
-        );
-    }
-
-    const settings = {
-        dots: false,
-        speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 4,
-        initialSlide: 1,
-        infinite: true,
-        arrows: true,
-        lazyLoad: true,
-        prevArrow: <PrevArrow />,
-        nextArrow: <NextArrow />,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                    infinite: true,
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    initialSlide: 2,
-                    infinite: true,
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    infinite: true,
-                }
-            }
-        ]
-    };
 
     const changeCostWithDots = (item) => {
         return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
@@ -161,7 +103,7 @@ function DetailBook() {
                             <div className="w-full my-3 flex flex-wrap lg:flex-nowrap">
                                 <div className="flex flex-wrap w-full lg:w-4/12">
                                     <div className="w-full flex justify-center">
-                                        <img src={`http://localhost:8000/${item.HinhAnh}`} className="w-64 h-64 lg:w-96 lg:h-96" alt="Book_Image" />
+                                        <img src={item.HinhAnh} className="w-64 h-64 lg:w-96 lg:h-96" alt="Book_Image" />
                                     </div>
                                 </div>
 
@@ -276,48 +218,15 @@ function DetailBook() {
             <div className="flex flex-wrap w-full bg-white rounded-sm py-3 shadow-md">
                 <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 w-full">SẢN PHẨM LIÊN QUAN</span>
 
-                <div className="w-full">
-                    <Slider {...settings}>
-                        {procsInSameCategory?.map((item, index) => {
-                            return (
-                                <div key={item.IDSanPham} className="grid relative w-full hover:cursor-pointer">
-                                    <div onClick={() => navigate(PATH.detail_book)} className="flex relative justify-center w-full drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 ">
-                                        <img className="w-2/3 justify-center" src={`http://localhost:8000/${item.HinhAnh}`} alt="New Book" />
-                                        <div className="flex w-full z-20 absolute px-4">
-                                            <div className="bg-orange-400 w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center">
-                                                <span className="text-sm md:text-base text-white font-semibold text-center">{item.GiamGia}%</span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div className="grid w-full py-3 mx-4">
-                                        <span className={`${style['product_name']} self-center whitespace-normal w-3/4 text-sm md:text-base lg:text-lg font-medium break-words`}>{item.TenSanPham}</span>
-                                    </div>
-
-
-                                    <div className="flex font-medium text-base mx-4">
-                                        <span className="text-red-600 w-full text-lg md:text-xl">{changeCostWithDots(item.GiaBan)}đ</span>
-                                       
-                                    </div>
-
-                                    <div className="flex w-full mt-3">
-                                        <div onClick={() => addToCartHandler(item)} className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition mx-4 items-center justify-center">
-                                            <FiShoppingBag className="w-5 h-5 text-white" />
-                                            <div className="text-sm md:text-base lg:text-lg text-white py-2 px-0.5 whitespace-nowrap">Thêm giỏ hàng</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
-
-                    </Slider>
-                    {notify ?
-                        <Notify close="true" message="Sản phẩm đã được thêm vào giỏ hàng" textMessage="text-slate-700" notify={notify} setNotify={(data) => setNotify(data)} addToCart="true" />
-                        :
-                        <></>
-                    }
-                </div>
+                <RelatedBook
+                    style={style}
+                    procsInSameCategory={procsInSameCategory}
+                    changeCostWithDots={changeCostWithDots}
+                    addToCartHandler={addToCartHandler}
+                    notify={notify}
+                    setNotify={setNotify}
+                >
+                </RelatedBook>
             </div>
 
             {/* <div className="flex flex-wrap w-full bg-white rounded-sm py-3 mt-4 shadow-md">

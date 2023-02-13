@@ -65,7 +65,7 @@ function ListProduct() {
             <Slider {...settings}>
                 {CarouselData.map((item, index) => {
                     return (
-                        <Link key={index} to={PATH.detail_book} className="w-full">
+                        <Link key={index} to={PATH.category.dashboard} className="w-full">
                             <img className="w-full h-fit" src={item.image} alt="Carousel_image" />
                         </Link>
                     )
