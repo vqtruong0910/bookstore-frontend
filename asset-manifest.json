@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/bookstore-frontend/static/css/main.6a4a604c.css",
-    "main.js": "/bookstore-frontend/static/js/main.72951fcd.js",
+    "main.js": "/bookstore-frontend/static/js/main.b0c2a1c1.js",
     "static/js/5742.ca23d638.chunk.js": "/bookstore-frontend/static/js/5742.ca23d638.chunk.js",
     "static/css/2287.a676f66c.chunk.css": "/bookstore-frontend/static/css/2287.a676f66c.chunk.css",
     "static/js/2287.c06e3605.chunk.js": "/bookstore-frontend/static/js/2287.c06e3605.chunk.js",
@@ -39,7 +39,7 @@
     "static/js/1663.d84fa375.chunk.js": "/bookstore-frontend/static/js/1663.d84fa375.chunk.js",
     "static/js/4119.6f119f1d.chunk.js": "/bookstore-frontend/static/js/4119.6f119f1d.chunk.js",
     "static/css/7224.70fe2f21.chunk.css": "/bookstore-frontend/static/css/7224.70fe2f21.chunk.css",
-    "static/js/7224.1065aa00.chunk.js": "/bookstore-frontend/static/js/7224.1065aa00.chunk.js",
+    "static/js/7224.c73a603b.chunk.js": "/bookstore-frontend/static/js/7224.c73a603b.chunk.js",
     "static/js/1244.9a57837c.chunk.js": "/bookstore-frontend/static/js/1244.9a57837c.chunk.js",
     "static/css/9981.76e77204.chunk.css": "/bookstore-frontend/static/css/9981.76e77204.chunk.css",
     "static/js/9981.10d9b03c.chunk.js": "/bookstore-frontend/static/js/9981.10d9b03c.chunk.js",
@@ -50,7 +50,7 @@
     "static/css/2295.9ec02c13.chunk.css": "/bookstore-frontend/static/css/2295.9ec02c13.chunk.css",
     "static/js/2295.79b50640.chunk.js": "/bookstore-frontend/static/js/2295.79b50640.chunk.js",
     "static/css/9180.ae828ea8.chunk.css": "/bookstore-frontend/static/css/9180.ae828ea8.chunk.css",
-    "static/js/9180.233d265d.chunk.js": "/bookstore-frontend/static/js/9180.233d265d.chunk.js",
+    "static/js/9180.8d6dbc07.chunk.js": "/bookstore-frontend/static/js/9180.8d6dbc07.chunk.js",
     "static/css/1183.161e2945.chunk.css": "/bookstore-frontend/static/css/1183.161e2945.chunk.css",
     "static/js/1183.c901b370.chunk.js": "/bookstore-frontend/static/js/1183.c901b370.chunk.js",
     "static/js/3118.d4def8b1.chunk.js": "/bookstore-frontend/static/js/3118.d4def8b1.chunk.js",
@@ -60,7 +60,7 @@
     "static/js/5573.02a59f4b.chunk.js": "/bookstore-frontend/static/js/5573.02a59f4b.chunk.js",
     "static/js/6444.c6fd669a.chunk.js": "/bookstore-frontend/static/js/6444.c6fd669a.chunk.js",
     "static/css/7252.e79a0651.chunk.css": "/bookstore-frontend/static/css/7252.e79a0651.chunk.css",
-    "static/js/7252.0a58a5f2.chunk.js": "/bookstore-frontend/static/js/7252.0a58a5f2.chunk.js",
+    "static/js/7252.3f849b8f.chunk.js": "/bookstore-frontend/static/js/7252.3f849b8f.chunk.js",
     "static/js/9126.e1af6d5e.chunk.js": "/bookstore-frontend/static/js/9126.e1af6d5e.chunk.js",
     "static/js/1134.ef479f0a.chunk.js": "/bookstore-frontend/static/js/1134.ef479f0a.chunk.js",
     "static/js/8820.4b3bc584.chunk.js": "/bookstore-frontend/static/js/8820.4b3bc584.chunk.js",
@@ -87,7 +87,7 @@
     "index.html": "/bookstore-frontend/index.html",
     "static/media/bar.svg": "/bookstore-frontend/static/media/bar.fa328dd2d058448004892ecf5fa02050.svg",
     "main.6a4a604c.css.map": "/bookstore-frontend/static/css/main.6a4a604c.css.map",
-    "main.72951fcd.js.map": "/bookstore-frontend/static/js/main.72951fcd.js.map",
+    "main.b0c2a1c1.js.map": "/bookstore-frontend/static/js/main.b0c2a1c1.js.map",
     "5742.ca23d638.chunk.js.map": "/bookstore-frontend/static/js/5742.ca23d638.chunk.js.map",
     "2287.a676f66c.chunk.css.map": "/bookstore-frontend/static/css/2287.a676f66c.chunk.css.map",
     "2287.c06e3605.chunk.js.map": "/bookstore-frontend/static/js/2287.c06e3605.chunk.js.map",
@@ -125,7 +125,7 @@
     "1663.d84fa375.chunk.js.map": "/bookstore-frontend/static/js/1663.d84fa375.chunk.js.map",
     "4119.6f119f1d.chunk.js.map": "/bookstore-frontend/static/js/4119.6f119f1d.chunk.js.map",
     "7224.70fe2f21.chunk.css.map": "/bookstore-frontend/static/css/7224.70fe2f21.chunk.css.map",
-    "7224.1065aa00.chunk.js.map": "/bookstore-frontend/static/js/7224.1065aa00.chunk.js.map",
+    "7224.c73a603b.chunk.js.map": "/bookstore-frontend/static/js/7224.c73a603b.chunk.js.map",
     "1244.9a57837c.chunk.js.map": "/bookstore-frontend/static/js/1244.9a57837c.chunk.js.map",
     "9981.76e77204.chunk.css.map": "/bookstore-frontend/static/css/9981.76e77204.chunk.css.map",
     "9981.10d9b03c.chunk.js.map": "/bookstore-frontend/static/js/9981.10d9b03c.chunk.js.map",
@@ -136,7 +136,7 @@
     "2295.9ec02c13.chunk.css.map": "/bookstore-frontend/static/css/2295.9ec02c13.chunk.css.map",
     "2295.79b50640.chunk.js.map": "/bookstore-frontend/static/js/2295.79b50640.chunk.js.map",
     "9180.ae828ea8.chunk.css.map": "/bookstore-frontend/static/css/9180.ae828ea8.chunk.css.map",
-    "9180.233d265d.chunk.js.map": "/bookstore-frontend/static/js/9180.233d265d.chunk.js.map",
+    "9180.8d6dbc07.chunk.js.map": "/bookstore-frontend/static/js/9180.8d6dbc07.chunk.js.map",
     "1183.161e2945.chunk.css.map": "/bookstore-frontend/static/css/1183.161e2945.chunk.css.map",
     "1183.c901b370.chunk.js.map": "/bookstore-frontend/static/js/1183.c901b370.chunk.js.map",
     "3118.d4def8b1.chunk.js.map": "/bookstore-frontend/static/js/3118.d4def8b1.chunk.js.map",
@@ -146,7 +146,7 @@
     "5573.02a59f4b.chunk.js.map": "/bookstore-frontend/static/js/5573.02a59f4b.chunk.js.map",
     "6444.c6fd669a.chunk.js.map": "/bookstore-frontend/static/js/6444.c6fd669a.chunk.js.map",
     "7252.e79a0651.chunk.css.map": "/bookstore-frontend/static/css/7252.e79a0651.chunk.css.map",
-    "7252.0a58a5f2.chunk.js.map": "/bookstore-frontend/static/js/7252.0a58a5f2.chunk.js.map",
+    "7252.3f849b8f.chunk.js.map": "/bookstore-frontend/static/js/7252.3f849b8f.chunk.js.map",
     "9126.e1af6d5e.chunk.js.map": "/bookstore-frontend/static/js/9126.e1af6d5e.chunk.js.map",
     "1134.ef479f0a.chunk.js.map": "/bookstore-frontend/static/js/1134.ef479f0a.chunk.js.map",
     "8820.4b3bc584.chunk.js.map": "/bookstore-frontend/static/js/8820.4b3bc584.chunk.js.map",
@@ -166,6 +166,6 @@
   },
   "entrypoints": [
     "static/css/main.6a4a604c.css",
-    "static/js/main.72951fcd.js"
+    "static/js/main.b0c2a1c1.js"
   ]
 }
