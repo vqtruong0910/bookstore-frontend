@@ -6,7 +6,6 @@ import { BsPerson } from 'react-icons/bs';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import bar from '../../assets/svg/bar.svg';
 import DownArrow from '../../assets/svg/DownArrow';
-import Loading from '../../components/Loading';
 import MenuAdmin from '../../components/MenuAdmin';
 import axiosConfig from '../../config/axiosConfig';
 import { API } from '../../constants/api';
@@ -87,7 +86,8 @@ function AdminLayout() {
                 </div>
             </header>
             <section className="pt-20 px-5 lg:pl-72 lg:pr-8">
-                <Suspense fallback={<Loading />}><Outlet /></Suspense>
+                {/* <Suspense fallback={<Loading />}><Outlet /></Suspense> */}
+                <Suspense fallback={<></>}><Outlet /></Suspense>
             </section>
         </div>
     );

@@ -38,7 +38,7 @@ function Category() {
         const result = await axiosJWT.get(API.GET_LIST_CATEGORY_IN_PAGE, {
             params: {
                 p: page,
-                s: 5
+                s: 10
             }
         });
         return result.data;

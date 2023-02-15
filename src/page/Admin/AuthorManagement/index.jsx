@@ -35,7 +35,7 @@ function AuthorManagement() {
         const result = await axiosJWT.get(`${API.AUTHOR}/pages`, {
             params: {
                 p: page,
-                s: 5
+                s: 10
             }
         });
         return result.data;
@@ -99,7 +99,7 @@ function AuthorManagement() {
             addAuthor(data)
                 .then(() => {
                     window.alert("Thêm tác giả thành công");
-                    reset({ TenDanhMuc: "" })
+                    reset({ TenTacGia: "", DiaChi: "" })
                 })
                 .catch(err => {
                     console.log(err);

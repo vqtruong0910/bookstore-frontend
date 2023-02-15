@@ -12,8 +12,10 @@ import { useQueries, useQuery } from "react-query";
 import axiosJWT from "../../../config/axiosJWT";
 import { API } from "../../../constants/api";
 import Loading from "../../../components/Loading";
+import LoadingSmaller from '../../../assets/svg/LoadingSmaller';
 
 function AddProduct() {
+    const [loadingState, setLoadingState] = useState(false);
     const result = useQueries([
         {
             queryKey: ["category"],
@@ -92,6 +94,7 @@ function AddProduct() {
     const onSubmit = useCallback(async (data) => {
         const { IDDanhMuc, ...rest } = data;
         try {
+            setLoadingState(true)
             const form = await axiosJWT.post(API.CREATE_PRODUCT, rest, { headers: { 'Content-Type': 'multipart/form-data' } });
             if (!form.error) {
                 reset({
@@ -105,7 +108,7 @@ function AddProduct() {
                     GiamGia: "0",
                     SoTrang: "",
                     SoLuongConLai: "",
-                    DonViTinh: "",
+                    DonViTinh: "Quyển",
                     HinhAnh: "",
                 })
                 setFileImage("");
@@ -113,6 +116,8 @@ function AddProduct() {
             }
         } catch (error) {
             window.alert("Thêm sản phẩm thất bại")
+        } finally {
+            setLoadingState(false);
         }
     }, []);
 
@@ -135,7 +140,11 @@ function AddProduct() {
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex">
                 <h2 className="text-xl font-semibold">Thêm Sản phẩm</h2>
-                <button className="px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors ml-auto">Xác nhận</button>
+                {loadingState ?
+                    <button className="w-28 px-3 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors ml-auto" disabled><LoadingSmaller /> Loading...</button>
+                    :
+                    <button className="w-28 px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors ml-auto">Xác nhận</button>
+                }
             </div>
             <div className="grid sm:grid-cols-5 grid-cols-1 grid-flow-dense py-2 gap-4">
                 <div className="col-span-1 sm:col-span-3">
