@@ -12,9 +12,7 @@ const axiosJWT = axios.create({
     baseURL: process.env.REACT_APP_API_URI,
     withCredentials: true,
     headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': '*',
-        'Access-Control-Allow-Credentials': 'true',
+        'Origin': 'https://bookstore-backend-xxnl.onrender.com',
         'Content-Type': 'application/json'
     }
 })
