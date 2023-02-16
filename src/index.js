@@ -14,8 +14,7 @@ const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
-    {/* <BrowserRouter basename={process.env.REACT_APP_BASENAME}> */}
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
       <Provider>
         <AxiosInterceptor>
           <QueryClientProvider client={queryClient}>
