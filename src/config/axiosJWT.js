@@ -12,7 +12,7 @@ const axiosJWT = axios.create({
     baseURL: process.env.REACT_APP_API_URI,
     withCredentials: true,
     headers: {
-        'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
     }
 })
