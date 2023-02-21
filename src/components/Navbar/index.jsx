@@ -1,9 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useState, useEffect, useCallback, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useContext, useMemo, useRef } from 'react';
 import clsx from 'clsx';
 import { PATH } from "../../constants/path";
 import logo from '../../assets/images/logo.png';
-import { BsSearch } from "react-icons/bs";
 import { AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -12,6 +11,7 @@ import Context from '../../store/Context';
 import axiosConfig from '../../config/axiosConfig';
 import { API } from '../../constants/api';
 import jwtDecode from 'jwt-decode';
+import Search from '../Search';
 
 
 function Navbar() {
@@ -34,7 +34,6 @@ function Navbar() {
         2: false,   // Nha xuat ban
         3: false,   // Tac gia
         4: false,   // Tai khoan
-        5: false,
     });
 
     const isAdmin = useMemo(() => {
@@ -67,6 +66,24 @@ function Navbar() {
         window.matchMedia("(min-width: 767px)").matches
     );
 
+    const [showUserInfo, setShowUserInfo] = useState(false);
+    const dropdownRef = useRef();
+
+    useEffect(() => {
+        const handleClickOutDropdown = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+                setShowUserInfo(false);
+            }
+            else {
+                setShowUserInfo(true);
+            }
+
+        }
+        document.addEventListener("click", handleClickOutDropdown);
+        return () => {
+            document.removeEventListener("click", handleClickOutDropdown);
+        }
+    }, [])
 
     useEffect(() => {
 
@@ -101,15 +118,7 @@ function Navbar() {
                         </div>
 
                         {matches === true ?
-                            <>
-                                <div className="flex flex-row items-center w-64 lg:w-96">
-                                    <div id="search_box" className="flex mx-3 md:mx-3 h-10 w-10/12 md:w-11/12 border-2 bg-white ">
-                                        <input className="px-2 bg-white text-md outline-0 flex w-10/12 md:w-11/12" type="text" placeholder="Tìm kiếm..." name="search"></input>
-                                        <button type="submit" className="hover:bg-gray-200 w-2/12 md:w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
-                                    </div>
-                                </div>
-
-                            </>
+                            <Search></Search>
                             :
                             <></>
                         }
@@ -167,7 +176,7 @@ function Navbar() {
                                                                     <div className="inline-block items-center group lg:text-sm text-xs cursor-pointer hover:text-stone-800 transition-all">
                                                                         <span className="flex whitespace-nowrap">{user.Email}</span>
 
-                                                                        <div className="hidden group-hover:block lg:top-15 mt-0.5 md:top-14 bg-white border absolute z-20 w-52 text-center font-medium transition duration-300 delay-500">
+                                                                        <div className="hidden group-hover:block lg:top-14 translate-y-0.5 -translate-x-1/2 bg-white border absolute z-20 w-52 text-center font-medium transition duration-300 delay-500">
                                                                             <ul>
                                                                                 {isAdmin && <li onClick={() => { navigate(PATH.admin.dashboard) }} className="p-2 hover:bg-gray-300">Admin</li>}
                                                                                 <li onClick={() => { navigate(PATH.profile.dashboard) }} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
@@ -209,14 +218,15 @@ function Navbar() {
                                     <button onClick={() => setOpen(true)} className="flex items-center justify-center text-[24px]"><GiHamburgerMenu className="text-white/75" /></button>
                                 </div>
 
-
-                                <div id="search_box" className="flex justify-between mr-2 h-8 border w-9/12 bg-white">
-                                    <input className="outline-0 bg-white px-2 text-sm flex w-11/12" type="text" placeholder="Tìm kiếm..." name="search"></input>
-                                    <button type="submit" className="hover:bg-gray-200 w-1/12 flex relative items-center justify-center" ><BsSearch /></button>
-                                </div>
+                                <Search></Search>
 
                                 <div className="flex w-2/12 justify-center items-center">
-                                    <div onClick={() => showMenuChild(5)} to={PATH.profile.dashboard} className="flex items-center cursor-pointer">
+                                    <div
+                                        onClick={() => setShowUserInfo(!showUserInfo)}
+                                        to={PATH.profile.dashboard}
+                                        className="flex items-center cursor-pointer"
+                                        ref={dropdownRef}
+                                    >
                                         {!user?.Anh ?
                                             <AiOutlineUser className="w-6 h-6 rounded-full text-white/75 border-white/75 border-2"></AiOutlineUser>
                                             :
@@ -237,14 +247,20 @@ function Navbar() {
                                     </div>
                                 </div>
 
-                                {stateMenuChild[5] &&
-                                    <div className="absolute z-10 right-10 mt-48 ">
+                                {showUserInfo &&
+                                    <div className="absolute z-10 right-10 translate-y-2/4 top-10">
                                         <div className="flex right-3 bg-white rounded-sm border border-slate-300 cursor-pointer">
                                             <ul className="whitespace-nowrap text-sm">
-                                                <li onClick={() => navigate(PATH.profile.dashboard)} className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
-                                                <li onClick={() => navigate(PATH.profile.user_order_management)} className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
-                                                <li onClick={() => navigate(PATH.profile.user_review)} className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
-                                                <li className="p-2 hover:bg-gray-300" onClick={logout}>Đăng xuất</li>
+                                                {isAdmin && <li onClick={() => { navigate(PATH.admin.dashboard) }}
+                                                    className="p-2 hover:bg-gray-300">Admin</li>}
+                                                <li onClick={() => navigate(PATH.profile.dashboard)}
+                                                    className="p-2 hover:bg-gray-300">Thông tin tài khoản</li>
+                                                <li onClick={() => navigate(PATH.profile.user_order_management)}
+                                                    className="p-2 hover:bg-gray-300">Quản lý đơn hàng</li>
+                                                <li onClick={() => navigate(PATH.profile.user_review)}
+                                                    className="p-2 hover:bg-gray-300">Đánh giá sản phẩm</li>
+                                                <li className="p-2 hover:bg-gray-300"
+                                                    onClick={logout}>Đăng xuất</li>
                                             </ul>
 
                                         </div>

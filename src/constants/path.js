@@ -31,6 +31,7 @@ export const PATH = {
     new_book: './new_book',
     popular_book: './popular_book',
     bestseller_book: './bestseller_book',
+    search: '/search',
 
     admin: {
         dashboard: "/admin",
