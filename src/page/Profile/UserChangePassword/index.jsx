@@ -35,7 +35,6 @@ function UserChangePassword() {
         return setNotify(true);
     }
 
-
     return (
         <div className="flex w-full">
             <div className="flex flex-wrap w-full bg-gray-100 py-5">

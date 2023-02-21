@@ -24,6 +24,7 @@ const TransportTerms = lazy(() => import('../page/Terms/Transport'));
 const TermsOfUserInforPrivacy = lazy(() => import('../page/Terms/UserInforPrivacy'));
 const PaymentPrivacy = lazy(() => import('../page/Terms/PaymentPrivacy'));
 const WholesaleCustomerPolicy = lazy(() => import('../page/Terms/WholesaleCustomerPolicy'));
+const Search = lazy(() => import('../page/Search'));
 
 // Phần Auth
 const AuthLayout = lazy(() => import('../layout/AuthLayout'));
@@ -80,6 +81,7 @@ function MainRoutes() {
                 <Route path={PATH.category.dashboard} element={<CategoryLayout />}>
                     <Route index element={<Category />} ></Route>
                 </Route>
+                <Route path={PATH.search} element={<Search />}></Route>
             </Route>
 
             <Route path={PATH.login} element={DefaultLayoutAuth(Login)}></Route>

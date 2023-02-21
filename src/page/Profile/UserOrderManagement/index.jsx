@@ -138,13 +138,22 @@ function UserOrderManagement() {
                                     <div className="my-4 flex flex-col mx-4">
                                         <div>{item.SoLuong}</div>
                                         <div>{item.NgayDat}</div>
-                                        <div>{item.NgayGiao === null ? <span className="italic text-gray-500">Chưa giao</span> : item.NgayGiao}</div>
+                                        <div>
+                                            {item.NgayGiao === null
+                                                ?
+                                                <span className="italic text-gray-500">
+                                                    Chưa giao
+                                                </span>
+                                                :
+                                                item.NgayGiao
+                                            }
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="w-full border-t-2">
                                     <div className="w-full pt-2 flex justify-end px-4">
-                                        <span className="text-sm md:text-base lg:text-lg">Tổng tiền: {changeCostWithDots(item.Tong)}đ</span>
+                                        <span className="text-sm md:text-base lg:text-lg">Tổng tiền: {changeCostWithDots(item.Tong+30000)}đ</span>
                                     </div>
                                     <Link
                                         to={PATH.profile.user_order_detail}
