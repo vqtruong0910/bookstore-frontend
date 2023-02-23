@@ -129,9 +129,9 @@ function Main() {
                                 return (
                                     <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer hover:drop-shadow-xl transition">
 
-                                        <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
+                                        {/* <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
                                             <span className="text-sm text-white">{item.GiamGia}%</span>
-                                        </div>
+                                        </div> */}
 
                                         <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="grid w-full justify-self-center mt-3 py-2">
                                             <img className="w-full h-40 md:h-48 lg:h-64"
@@ -187,9 +187,9 @@ function Main() {
                                 return (
                                     <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer hover:drop-shadow-xl transition">
 
-                                        <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
+                                        {/* <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
                                             <span className="text-sm text-white">{item.GiamGia}%</span>
-                                        </div>
+                                        </div> */}
 
                                         <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="grid w-full justify-self-center mt-3 py-2">
                                             <img className="w-full h-40 md:h-48 lg:h-64"
@@ -243,9 +243,9 @@ function Main() {
                                 return (
                                     <div key={index} className="grid justify-self-center relative w-full hover:cursor-pointer hover:drop-shadow-xl transition">
 
-                                        <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
+                                        {/* <div className="grid z-20 mt-3 font-semibold text-white text-center items-center absolute ml-2.5 bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
                                             <span className="text-sm text-white">{item.GiamGia}%</span>
-                                        </div>
+                                        </div> */}
 
                                         <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="grid w-full justify-self-center mt-3 py-2">
                                             <img className="w-full h-40 md:h-48 lg:h-64"

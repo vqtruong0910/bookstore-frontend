@@ -1,64 +1,64 @@
-import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense, useCallback } from "react";
-import { PATH } from "../constants/path";
-import Loading from "../components/Loading";
+import { Routes, Route } from 'react-router-dom'
+import { lazy, Suspense, useCallback } from 'react'
+import { PATH } from '../constants/path'
+import Loading from '../components/Loading'
 
 // Phần Main
-const DefaultLayout = lazy(() => import("../layout/DefaultLayout"));
-const Main = lazy(() => import("../page/Main"));
-const DetailBook = lazy(() => import("../layout/DetailBookLayout"));
-const NotFound = lazy(() => import("../page/NotFound"));
-const ProfileLayout = lazy(() => import("../layout/ProfileLayout"));
-const PersonInfo = lazy(() => import("../page/Profile/PersonInfo"));
+const DefaultLayout = lazy(() => import('../layout/DefaultLayout'))
+const Main = lazy(() => import('../page/Main'))
+const DetailBook = lazy(() => import('../layout/DetailBookLayout'))
+const NotFound = lazy(() => import('../page/NotFound'))
+const ProfileLayout = lazy(() => import('../layout/ProfileLayout'))
+const PersonInfo = lazy(() => import('../page/Profile/PersonInfo'))
 const UserOrderManagement = lazy(() =>
-  import("../page/Profile/UserOrderManagement")
-);
-const UserReview = lazy(() => import("../page/Profile/UserReview"));
+  import('../page/Profile/UserOrderManagement')
+)
+const UserReview = lazy(() => import('../page/Profile/UserReview'))
 const UserChangePassword = lazy(() =>
-  import("../page/Profile/UserChangePassword")
-);
-const UserOrderDetail = lazy(() => import("../page/Profile/UserOrderDetail"));
-const Cart = lazy(() => import("../page/Cart"));
-const Payment = lazy(() => import("../page/Payment"));
-const CategoryLayout = lazy(() => import("../layout/CategoryLayout"));
-const Category = lazy(() => import("../page/Category"));
-const TermsLayout = lazy(() => import("../layout/TermsLayout"));
-const TermsOfUsing = lazy(() => import("../page/Terms/Using"));
-const TransportTerms = lazy(() => import("../page/Terms/Transport"));
+  import('../page/Profile/UserChangePassword')
+)
+const UserOrderDetail = lazy(() => import('../page/Profile/UserOrderDetail'))
+const Cart = lazy(() => import('../page/Cart'))
+const Payment = lazy(() => import('../page/Payment'))
+const CategoryLayout = lazy(() => import('../layout/CategoryLayout'))
+const Category = lazy(() => import('../page/Category'))
+const TermsLayout = lazy(() => import('../layout/TermsLayout'))
+const TermsOfUsing = lazy(() => import('../page/Terms/Using'))
+const TransportTerms = lazy(() => import('../page/Terms/Transport'))
 const TermsOfUserInforPrivacy = lazy(() =>
-  import("../page/Terms/UserInforPrivacy")
-);
-const PaymentPrivacy = lazy(() => import("../page/Terms/PaymentPrivacy"));
+  import('../page/Terms/UserInforPrivacy')
+)
+const PaymentPrivacy = lazy(() => import('../page/Terms/PaymentPrivacy'))
 const WholesaleCustomerPolicy = lazy(() =>
-  import("../page/Terms/WholesaleCustomerPolicy")
-);
+  import('../page/Terms/WholesaleCustomerPolicy')
+)
 
 // Phần Auth
-const AuthLayout = lazy(() => import("../layout/AuthLayout"));
-const Login = lazy(() => import("../page/Login"));
-const Register = lazy(() => import("../page/Register"));
-const ForgotPassword = lazy(() => import("../page/Forgotpassword"));
-const ChangePassword = lazy(() => import("../page/ChangePassword"));
-const VerifyEmail = lazy(() => import("../page/VerifyEmail"));
-const CheckVerifyEmail = lazy(() => import("../page/VerifyEmail/check"));
-const AccuracyGoogle = lazy(() => import("../page/Login/authGoogle"));
-const AccuracyFaceBook = lazy(() => import("../page/Login/authFaceBook"));
+const AuthLayout = lazy(() => import('../layout/AuthLayout'))
+const Login = lazy(() => import('../page/Login'))
+const Register = lazy(() => import('../page/Register'))
+const ForgotPassword = lazy(() => import('../page/Forgotpassword'))
+const ChangePassword = lazy(() => import('../page/ChangePassword'))
+const VerifyEmail = lazy(() => import('../page/VerifyEmail'))
+const CheckVerifyEmail = lazy(() => import('../page/VerifyEmail/check'))
+const AccuracyGoogle = lazy(() => import('../page/Login/authGoogle'))
+const AccuracyFaceBook = lazy(() => import('../page/Login/authFaceBook'))
 
 // Phần Admin
-const AdminLayout = lazy(() => import("../layout/AdminLayout"));
-const Dashboard = lazy(() => import("../page/Admin/Dashboard"));
-const ProductManagement = lazy(() => import("../page/Admin/ProductManagement"));
-const AddProduct = lazy(() => import("../page/Admin/AddProduct"));
-const UserManagement = lazy(() => import("../page/Admin/UserManagement"));
-const OrderManagement = lazy(() => import("../page/Admin/OrderManagement"));
-const CategoryAdmin = lazy(() => import("../page/Admin/Category"));
-const TypeOf = lazy(() => import("../page/Admin/TypeOf"));
-const ProductStatistics = lazy(() => import("../page/Admin/ProductStatistics"));
-const OrderStatistics = lazy(() => import("../page/Admin/OrderStatistics"));
-const RevenueStatistics = lazy(() => import("../page/Admin/RevenueStatistics"));
-const UpdateProduct = lazy(() => import("../page/Admin/UpdateProduct"));
-const OrderDetail = lazy(() => import("../page/Admin/OrderDetail"));
-const AuthorManagement = lazy(() => import("../page/Admin/AuthorManagement"));
+const AdminLayout = lazy(() => import('../layout/AdminLayout'))
+const Dashboard = lazy(() => import('../page/Admin/Dashboard'))
+const ProductManagement = lazy(() => import('../page/Admin/ProductManagement'))
+const AddProduct = lazy(() => import('../page/Admin/AddProduct'))
+const UserManagement = lazy(() => import('../page/Admin/UserManagement'))
+const OrderManagement = lazy(() => import('../page/Admin/OrderManagement'))
+const CategoryAdmin = lazy(() => import('../page/Admin/Category'))
+const TypeOf = lazy(() => import('../page/Admin/TypeOf'))
+const ProductStatistics = lazy(() => import('../page/Admin/ProductStatistics'))
+const OrderStatistics = lazy(() => import('../page/Admin/OrderStatistics'))
+const RevenueStatistics = lazy(() => import('../page/Admin/RevenueStatistics'))
+const UpdateProduct = lazy(() => import('../page/Admin/UpdateProduct'))
+const OrderDetail = lazy(() => import('../page/Admin/OrderDetail'))
+const AuthorManagement = lazy(() => import('../page/Admin/AuthorManagement'))
 
 function MainRoutes() {
   const DefaultLayoutAuth = useCallback(
@@ -70,7 +70,7 @@ function MainRoutes() {
       </Suspense>
     ),
     []
-  );
+  )
   return (
     <Routes>
       <Route
@@ -209,7 +209,7 @@ function MainRoutes() {
         />
       </Route>
     </Routes>
-  );
+  )
 }
 
-export default MainRoutes;
+export default MainRoutes

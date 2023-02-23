@@ -2,12 +2,11 @@ import { useNavigate } from "react-router-dom";
 import style from "./Category.module.scss";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Notify from "../../components/Notify";
 import Context from "../../store/Context";
 import { addToCart } from "../../reducers/cartReducers";
 import axiosConfig from "../../config/axiosConfig";
-import { useEffect } from "react";
 
 function Category() {
     const navigate = useNavigate();
@@ -67,15 +66,15 @@ function Category() {
                     <option value="giagiamdan">Giá giảm dần</option>
                 </select>
             </div>
-            <div className="w-full bg-white">
+            <div className="w-full">
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-5">
                     {page.DanhSach?.map((item, index) => {
                         return (
                             <div key={index} className="grid justify-self-center items-self-center relative w-full hover:cursor-pointer">
 
-                                <div className="grid z-10 font-semibold text-white text-center items-center absolute bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
+                                {/* <div className="grid z-10 font-semibold text-white text-center items-center absolute bg-orange-400 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 lg:rounded-full rounded-full">
                                     <span className="text-sm text-white">{item.GiamGia}%</span>
-                                </div>
+                                </div> */}
 
                                 <div onClick={() => navigate(`/books/${item.IDSanPham}`)} className="flex w-full justify-center drop-shadow-md mt-3 cursor-pointer">
                                     <img className="w-11/12" src={`http://localhost:8000/${item.HinhAnh}`} alt="New Book" />
