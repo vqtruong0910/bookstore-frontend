@@ -67,7 +67,7 @@ function UpdateProduct() {
       IDNhaXuatBan: state?.IDNhaXuatBan ? state?.IDNhaXuatBan : '',
       GiaBan: state?.GiaBan ? state?.GiaBan : '',
       IDTacGia: state?.IDTacGia ? state?.IDTacGia : '',
-      GiamGia: state?.GiamGia ? state?.GiamGia : '',
+      GiamGia: state?.GiamGia ? state?.GiamGia : '0',
       SoTrang: state?.SoTrang ? state?.SoTrang : '',
       SoLuongConLai: state?.SoLuongConLai ? state?.SoLuongConLai : '',
       DonViTinh: state?.DonViTinh ? state?.DonViTinh : '',
@@ -83,9 +83,7 @@ function UpdateProduct() {
     queryKey: ['type of product', watch('IDDanhMuc')],
     queryFn: async () => {
       if (watch('IDDanhMuc')) {
-        const result = await axiosJWT.get(
-          `${API.GET_LIST_ALL_TYPEOF_BOOK}/${watch('IDDanhMuc')}`
-        )
+        const result = await axiosJWT.get(`${API.GET_LIST_ALL_TYPEOF_BOOK}/${watch('IDDanhMuc')}`)
         return result.data
       }
       return []
@@ -166,7 +164,7 @@ function UpdateProduct() {
       </div>
       <div className="grid sm:grid-cols-5 grid-cols-1 grid-flow-dense py-2 gap-4">
         <div className="col-span-1 sm:col-span-3">
-          <span>Tên sản phẩm</span>
+          <span className="font-medium text-slate-700">Tên sản phẩm</span>
           <Textfield
             rounded="rounded-sm"
             name="TenSanPham"
@@ -176,7 +174,7 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-3 row-span-2">
-          <span>Nội dung</span>
+          <span className="font-medium text-slate-700">Nội dung</span>
           <textarea
             {...register('TomTatND', VALIDATE.content)}
             className={clsx(
@@ -188,13 +186,11 @@ function UpdateProduct() {
             placeholder="Mô tả sản phẩm..."
           ></textarea>
           {errors.TomTatND && (
-            <span className="px-2 italic text-sm text-red-500">
-              {errors.TomTatND.message}*
-            </span>
+            <span className="px-2 italic text-sm text-red-500">{errors.TomTatND.message}*</span>
           )}
         </div>
         <div className="col-span-1 sm:col-span-3">
-          <span>Tác giả</span>
+          <span className="font-medium text-slate-700">Tác giả</span>
           <MenuSelect
             name="IDTacGia"
             control={control}
@@ -203,7 +199,7 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span>Danh mục</span>
+          <span className="font-medium text-slate-700">Danh mục</span>
           <MenuSelect
             name="IDDanhMuc"
             control={control}
@@ -212,7 +208,7 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span>Thể loại</span>
+          <span className="font-medium text-slate-700">Thể loại</span>
           <MenuSelect
             name="IDTheLoai"
             control={control}
@@ -221,7 +217,7 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span>Nhà xuất bản</span>
+          <span className="font-medium text-slate-700">Nhà xuất bản</span>
           <MenuSelect
             name="IDNhaXuatBan"
             control={control}
@@ -230,7 +226,7 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span>Đơn vị tính</span>
+          <span className="font-medium text-slate-700">Đơn vị tính</span>
           <Textfield
             rounded="rounded-sm"
             name="DonViTinh"
@@ -241,7 +237,7 @@ function UpdateProduct() {
         </div>
         <div className="col-span-1 sm:col-span-3 grid grid-cols-2 gap-4">
           <div className="col-span-2 sm:col-span-1">
-            <span>Giá bán</span>
+            <span className="font-medium text-slate-700">Giá bán</span>
             <Textfield
               type="number"
               rounded="rounded-sm"
@@ -252,7 +248,7 @@ function UpdateProduct() {
             />
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <span>Phần trăm giảm giá</span>
+            <span className="font-medium text-slate-700">Phần trăm giảm giá</span>
             <Textfield
               type="number"
               rounded="rounded-sm"
@@ -265,7 +261,7 @@ function UpdateProduct() {
         </div>
         <div className="col-span-1 sm:col-span-2 grid grid-cols-2 gap-4">
           <div className="col-span-2 sm:col-span-1">
-            <span>Số lượng</span>
+            <span className="font-medium text-slate-700">Số lượng</span>
             <Textfield
               type="number"
               rounded="rounded-sm"
@@ -276,7 +272,7 @@ function UpdateProduct() {
             />
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <span>Số Trang</span>
+            <span className="font-medium text-slate-700">Số Trang</span>
             <Textfield
               type="number"
               rounded="rounded-sm"
@@ -288,7 +284,7 @@ function UpdateProduct() {
           </div>
         </div>
         <div className="col-span-1 sm:col-span-3 ">
-          <span>Hình ảnh</span>
+          <span className="font-medium text-slate-700">Hình ảnh</span>
           <DropFile
             name="HinhAnh"
             control={control}
@@ -297,11 +293,8 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span>Xem Trước</span>
-          <PreviewImage
-            fileImage={fileImage}
-            handleImageError={handleImageError}
-          />
+          <span className="font-medium text-slate-700">Xem Trước</span>
+          <PreviewImage fileImage={fileImage} handleImageError={handleImageError} />
         </div>
       </div>
     </form>

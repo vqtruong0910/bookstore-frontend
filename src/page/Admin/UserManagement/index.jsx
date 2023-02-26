@@ -9,12 +9,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import Loading from '../../../components/Loading'
 import axiosJWT from '../../../config/axiosJWT'
 import { API } from '../../../constants/api'
-import {
-  gender,
-  permission,
-  status,
-  verifyEmail,
-} from '../../../constants/statusUser'
+import { gender, permission, status, verifyEmail } from '../../../constants/statusUser'
 import style from './style.module.scss'
 import Avartar from '../../../assets/images/—Pngtree—camera icon photography_4015139.png'
 import imageAvailable from '../../../assets/images/no-image-found.b1edc35f0fa6.png'
@@ -39,10 +34,7 @@ function UserManagement() {
   )
   const { mutateAsync } = useMutation(
     async (data) => {
-      const result = await axiosJWT.put(
-        `${API.GET_LIST_ALL_USER}/${user.IDNguoiDung}`,
-        data
-      )
+      const result = await axiosJWT.put(`${API.GET_LIST_ALL_USER}/${user.IDNguoiDung}`, data)
       return result.data
     },
     {
@@ -146,19 +138,11 @@ function UserManagement() {
                 </div> */}
 
         <div className="flex justify-end space-x-2 py-1 select-none">
-          <div className="px-2 border rounded-sm cursor-pointer">
-            {users?.TongNguoiDung} mục
-          </div>
-          <div
-            className="px-2 border rounded-sm cursor-pointer"
-            onClick={firstPage}
-          >
+          <div className="px-2 border rounded-sm cursor-pointer">{users?.TongNguoiDung} mục</div>
+          <div className="px-2 border rounded-sm cursor-pointer" onClick={firstPage}>
             &#171;
           </div>
-          <div
-            className="px-2 border rounded-sm cursor-pointer"
-            onClick={prevPage}
-          >
+          <div className="px-2 border rounded-sm cursor-pointer" onClick={prevPage}>
             &#60;
           </div>
           <div>
@@ -173,98 +157,85 @@ function UserManagement() {
             />{' '}
             &#47; {users?.SoLuongTrang}
           </div>
-          <div
-            className="px-2 border rounded-sm cursor-pointer"
-            onClick={nextPage}
-          >
+          <div className="px-2 border rounded-sm cursor-pointer" onClick={nextPage}>
             &#62;
           </div>
-          <div
-            className="px-2 border rounded-sm cursor-pointer"
-            onClick={lastPage}
-          >
+          <div className="px-2 border rounded-sm cursor-pointer" onClick={lastPage}>
             &#187;
           </div>
         </div>
       </div>
-
-      <table className="border-collapse border rounded-sm w-full bg-white">
-        <thead>
-          <tr className="border bg-slate-800 text-slate-200">
-            {/* <th className="p-2 w-8"><input type="checkbox" /></th> */}
-            <th className="p-2 hidden md:table-cell">
-              <BsCardImage className="mx-auto w-full" />
-            </th>
-            <th className="p-2 text-left">Tên</th>
-            <th className="p-2 text-left">Email</th>
-            <th className="p-2 text-left hidden md:table-cell">Giới tính</th>
-            <th className="p-2 text-left hidden md:table-cell">Ngày Sinh</th>
-            <th className="p-2 text-left hidden md:table-cell">Quyền</th>
-            <th className="p-2">Trạng thái</th>
-            <th className="p-2 hidden md:table-cell">Xác thực</th>
-            <th className="p-2 md:table-cell"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {users &&
-            users?.DanhSach.map((item, index) => (
-              <tr key={id + index} className="odd:bg-slate-100 border">
-                <td className="p-2 hidden md:table-cell w-24 h-24">
-                  <img
-                    className="object-contain mx-auto"
-                    src={item.Anh ? item.Anh : Avartar}
-                    alt="book"
-                    onError={(e) => {
-                      handleImageError(e)
-                    }}
-                  />
-                </td>
-                <td className="p-2">{item.HoTen}</td>
-                <td className="p-2">{item.Email}</td>
-                <td className="p-2 hidden md:table-cell">
-                  {gender[item.GioiTinh]}
-                </td>
-                <td className="p-2 hidden md:table-cell">{item.NgaySinh}</td>
-                <td className="p-2 hidden md:table-cell">
-                  {permission[item.Quyen]}
-                </td>
-                <td className="p-2 text-center">
-                  <span
-                    className={clsx(
-                      'py-1 px-2 rounded-xl bg-opacity-20 text-center text-sm w-24',
-                      item.TrangThai
-                        ? 'text-lime-500 bg-lime-300'
-                        : 'text-red-500 bg-red-300'
-                    )}
-                  >
-                    {status[item.TrangThai]}
-                  </span>
-                </td>
-                <td className="p-2 hidden md:table-cell text-center">
-                  <span
-                    className={clsx(
-                      'py-1 px-2 items-center rounded-xl bg-opacity-20 text-center text-sm w-28',
-                      item.XacThuc
-                        ? 'text-lime-500 bg-lime-300'
-                        : 'text-red-500 bg-red-300'
-                    )}
-                  >
-                    {verifyEmail[item.XacThuc]}
-                  </span>
-                </td>
-                <td className="p-2 text-indigo-500 font-semibold align-middle">
-                  <span className="w-full">
-                    <BsPencilSquare
-                      onClick={() => updateUser(item)}
-                      size={20}
-                      className="cursor-pointer mx-auto"
+      <div className="overflow-x-auto w-full">
+        <table className="border-collapse border rounded-sm w-full bg-white">
+          <thead>
+            <tr className="border bg-slate-800 text-slate-200">
+              {/* <th className="p-2 w-8"><input type="checkbox" /></th> */}
+              <th className="p-2 min-w-[6rem]">
+                <BsCardImage className="mx-auto w-full" />
+              </th>
+              <th className="p-2 text-left">Tên</th>
+              <th className="p-2 text-left">Email</th>
+              <th className="p-2 text-left">Giới tính</th>
+              <th className="p-2 text-left">Ngày Sinh</th>
+              <th className="p-2 text-left">Quyền</th>
+              <th className="p-2">Trạng thái</th>
+              <th className="p-2">Xác thực</th>
+              <th className="p-2 md:table-cell"></th>
+            </tr>
+          </thead>
+          <tbody className="font-medium text-slate-700">
+            {users &&
+              users?.DanhSach.map((item, index) => (
+                <tr key={id + index} className="odd:bg-slate-100 border">
+                  <td className="p-2 h-24 w-24">
+                    <img
+                      className="object-contain h-full w-full mx-auto"
+                      src={item.Anh ? item.Anh : Avartar}
+                      alt="book"
+                      onError={(e) => {
+                        handleImageError(e)
+                      }}
                     />
-                  </span>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+                  </td>
+                  <td className="p-2">{item.HoTen}</td>
+                  <td className="p-2">{item.Email}</td>
+                  <td className="p-2 min-w-[6rem]">{gender[item.GioiTinh]}</td>
+                  <td className="p-2 min-w-[7rem]">{item.NgaySinh}</td>
+                  <td className="p-2 min-w-[7rem]">{permission[item.Quyen]}</td>
+                  <td className="p-2 text-center min-w-[7rem]">
+                    <span
+                      className={clsx(
+                        'py-1 px-2 rounded-xl bg-opacity-20 text-center text-sm w-24',
+                        item.TrangThai ? 'text-lime-500 bg-lime-300' : 'text-red-500 bg-red-300'
+                      )}
+                    >
+                      {status[item.TrangThai]}
+                    </span>
+                  </td>
+                  <td className="p-2 text-center min-w-[8rem]">
+                    <span
+                      className={clsx(
+                        'py-1 px-2 items-center rounded-xl bg-opacity-20 text-center text-sm w-28',
+                        item.XacThuc ? 'text-lime-500 bg-lime-300' : 'text-red-500 bg-red-300'
+                      )}
+                    >
+                      {verifyEmail[item.XacThuc]}
+                    </span>
+                  </td>
+                  <td className="p-2 text-indigo-500 font-semibold align-middle">
+                    <span className="w-full">
+                      <BsPencilSquare
+                        onClick={() => updateUser(item)}
+                        size={20}
+                        className="cursor-pointer mx-auto"
+                      />
+                    </span>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
 
       <div
         className={clsx(
@@ -279,13 +250,8 @@ function UserManagement() {
             'flex w-full flex-col bg-white rounded-sm overflow-y-scroll sm:w-1/2 max-h-screen transition-all duration-200'
           )}
         >
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="w-full flex flex-col py-4 px-4 sm:p-6"
-          >
-            <span className="w-full flex text-slate-600 lg:text-lg">
-              Thông tin cá nhân
-            </span>
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col py-4 px-4 sm:p-6">
+            <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>
             <div className="flex flex-col w-full justify-center h-full sm:px-10">
               <div className="flex relative py-4 justify-center">
                 <div className="flex justify-center items-center">
@@ -326,9 +292,7 @@ function UserManagement() {
                   <input
                     {...register('Email')}
                     className={clsx(
-                      !checkVerify
-                        ? 'border-red-600 bg-red-100'
-                        : 'border-green-600 bg-green-100',
+                      !checkVerify ? 'border-red-600 bg-red-100' : 'border-green-600 bg-green-100',
                       'w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base'
                     )}
                     type="email"

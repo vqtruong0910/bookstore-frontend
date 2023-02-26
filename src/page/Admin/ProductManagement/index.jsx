@@ -70,9 +70,7 @@ function ProductManage() {
     ['typeofbook', watch('DanhMuc')],
     async () => {
       if (watch('DanhMuc')) {
-        const result = await axiosJWT.get(
-          `${API.GET_LIST_ALL_TYPEOF_BOOK}/${watch('DanhMuc')}`
-        )
+        const result = await axiosJWT.get(`${API.GET_LIST_ALL_TYPEOF_BOOK}/${watch('DanhMuc')}`)
         return result.data
       }
       return []
@@ -105,9 +103,7 @@ function ProductManage() {
 
   const nextPage = useCallback(() => {
     setPage((currentPage) =>
-      currentPage >= products.SoLuongTrang
-        ? products.SoLuongTrang
-        : ++currentPage
+      currentPage >= products.SoLuongTrang ? products.SoLuongTrang : ++currentPage
     )
   }, [page, products])
 
@@ -180,19 +176,13 @@ function ProductManage() {
       </div>
 
       <div className="py-2 space-y-1">
-        <div className="hidden md:flex">
+        <div className="flex">
           {/* <div className="flex space-x-3">
                         <input type="text" className="rounded-sm border" />
                         <input type="submit" className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white" value="Tìm" />
                     </div> */}
-          <form
-            onSubmit={handleSubmit(submitFilter)}
-            className="flex ml-auto space-x-3"
-          >
-            <select
-              {...register('DanhMuc')}
-              className="rounded-sm border cursor-pointer"
-            >
+          <form onSubmit={handleSubmit(submitFilter)} className="flex ml-auto space-x-3">
+            <select {...register('DanhMuc')} className="rounded-sm border cursor-pointer">
               <option value="">--Select--</option>
               {category?.map((item) => (
                 <option key={item.IDDanhMuc} value={item.IDDanhMuc}>
@@ -200,10 +190,7 @@ function ProductManage() {
                 </option>
               ))}
             </select>
-            <select
-              {...register('TheLoai')}
-              className="rounded-sm border cursor-pointer"
-            >
+            <select {...register('TheLoai')} className="rounded-sm border cursor-pointer">
               <option value="">--Select--</option>
               {typeOfBook?.map((item) => (
                 <option key={item.IDTheLoai} value={item.IDTheLoai}>
@@ -233,19 +220,11 @@ function ProductManage() {
         </div>
 
         <div className="flex justify-end space-x-2 py-1">
-          <div className="px-2 border rounded-sm cursor-pointer">
-            {products.TongSanPham} mục
-          </div>
-          <div
-            className="px-2 border rounded-sm cursor-pointer"
-            onClick={firstPage}
-          >
+          <div className="px-2 border rounded-sm cursor-pointer">{products.TongSanPham} mục</div>
+          <div className="px-2 border rounded-sm cursor-pointer" onClick={firstPage}>
             &#171;
           </div>
-          <div
-            className="px-2 border rounded-sm cursor-pointer"
-            onClick={prevPage}
-          >
+          <div className="px-2 border rounded-sm cursor-pointer" onClick={prevPage}>
             &#60;
           </div>
           <div>
@@ -260,90 +239,79 @@ function ProductManage() {
             />{' '}
             &#47; {products?.SoLuongTrang}
           </div>
-          <div
-            className="px-2 border rounded-sm cursor-pointer"
-            onClick={nextPage}
-          >
+          <div className="px-2 border rounded-sm cursor-pointer" onClick={nextPage}>
             &#62;
           </div>
-          <div
-            className="px-2 border rounded-sm cursor-pointer"
-            onClick={lastPage}
-          >
+          <div className="px-2 border rounded-sm cursor-pointer" onClick={lastPage}>
             &#187;
           </div>
         </div>
       </div>
-
-      <table className="table-auto border-collapse border rounded-sm w-full bg-white md:table-fixed">
-        <thead>
-          <tr className="border bg-slate-800 text-slate-200">
-            <th className="p-2 w-24 hidden md:table-cell">
-              <BsCardImage className="mx-auto w-full" />
-            </th>
-            <th className="p-2 w-40 text-left">Tên</th>
-            <th className="p-2 w-40 text-left">Danh mục</th>
-            <th className="p-2 text-left">Thể loại</th>
-            <th className="p-2 text-left">Giá (VNĐ)</th>
-            <th className="p-2 text-center hidden md:table-cell">Giảm giá</th>
-            <th className="p-2 text-left hidden md:table-cell">Đơn vị</th>
-            <th className="p-2 text-left hidden md:table-cell">Ngày thêm</th>
-            <th className="p-2 text-center hidden md:table-cell">Số lượng</th>
-            <th className="p-2 text-center w-16"></th>
-            <th className="p-2 text-center w-16"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {products?.DanhSach?.map((item) => {
-            return (
-              <tr key={id + item.IDSanPham} className="odd:bg-slate-100 border">
-                <td className="p-2 hidden md:table-cell">
-                  <img
-                    className="object-contain h-24 mx-auto"
-                    src={item.HinhAnh}
-                    alt="book"
-                    onError={(e) => {
-                      handleImageError(e)
-                    }}
-                  />
-                </td>
-                <td className="p-2">{item.TenSanPham}</td>
-                <td className="p-2">{item.TenDanhMuc}</td>
-                <td className="p-2">{item.TenTheLoai}</td>
-                <td className="p-2">{item.GiaBan}</td>
-                <td className="p-2 text-center hidden md:table-cell">
-                  {item.GiamGia}
-                </td>
-                <td className="p-2 hidden md:table-cell">{item.DonViTinh}</td>
-                <td className="p-2 hidden md:table-cell">
-                  {checkDate(item.NgayThem)}
-                </td>
-                <td className="p-2 hidden md:table-cell text-center">
-                  {item.SoLuongConLai}
-                </td>
-                <td className="p-2 text-indigo-500 font-semibold w-16 align-middle">
-                  <span className="w-full">
-                    <BsPencilSquare
-                      onClick={() => transferUpdateProduct(item)}
-                      size={20}
-                      className="cursor-pointer mx-auto"
+      <div className="overflow-x-auto">
+        <table className="table-auto border-collapse border rounded-sm bg-white w-full">
+          <thead>
+            <tr className="border bg-slate-800 text-slate-200">
+              <th className="p-2 min-w-[6rem] w-24">
+                <BsCardImage className="mx-auto w-full" />
+              </th>
+              <th className="p-2 w-40 text-left min-w-[6rem]">Tên</th>
+              <th className="p-2 w-40 text-left min-w-[6rem]">Danh mục</th>
+              <th className="p-2 text-left min-w-[6rem]">Thể loại</th>
+              <th className="p-2 text-left min-w-[6rem]">Giá (VNĐ)</th>
+              <th className="p-2 text-center min-w-[6rem]">Giảm giá</th>
+              <th className="p-2 text-left min-w-[6rem]">Đơn vị</th>
+              <th className="p-2 text-left min-w-[7rem]">Ngày thêm</th>
+              <th className="p-2 text-center min-w-[6rem]">Số lượng</th>
+              <th className="p-2 text-center w-16"></th>
+              <th className="p-2 text-center w-16"></th>
+            </tr>
+          </thead>
+          <tbody className="font-medium text-slate-700">
+            {products?.DanhSach?.map((item) => {
+              return (
+                <tr key={id + item.IDSanPham} className="odd:bg-slate-100 border">
+                  <td className="p-2 h-24">
+                    <img
+                      className="object-contain h-full w-full mx-auto"
+                      src={item.HinhAnh}
+                      alt="book"
+                      onError={(e) => {
+                        handleImageError(e)
+                      }}
                     />
-                  </span>
-                </td>
-                <td className="p-2 text-red-500 font-semibold w-16 align-middle">
-                  <span className="w-full">
-                    <AiFillDelete
-                      onClick={() => deleteProduct(item.IDSanPham)}
-                      size={20}
-                      className="cursor-pointer mx-auto"
-                    />
-                  </span>
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+                  </td>
+                  <td className="p-2">{item.TenSanPham}</td>
+                  <td className="p-2">{item.TenDanhMuc}</td>
+                  <td className="p-2">{item.TenTheLoai}</td>
+                  <td className="p-2">{item.GiaBan}</td>
+                  <td className="p-2 text-center">{item.GiamGia}</td>
+                  <td className="p-2">{item.DonViTinh}</td>
+                  <td className="p-2">{checkDate(item.NgayThem)}</td>
+                  <td className="p-2 text-center">{item.SoLuongConLai}</td>
+                  <td className="p-2 text-indigo-500 font-semibold w-16 align-middle">
+                    <span className="w-full">
+                      <BsPencilSquare
+                        onClick={() => transferUpdateProduct(item)}
+                        size={20}
+                        className="cursor-pointer mx-auto"
+                      />
+                    </span>
+                  </td>
+                  <td className="p-2 text-red-500 font-semibold w-16 align-middle">
+                    <span className="w-full">
+                      <AiFillDelete
+                        onClick={() => deleteProduct(item.IDSanPham)}
+                        size={20}
+                        className="cursor-pointer mx-auto"
+                      />
+                    </span>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
     </>
   )
 }
