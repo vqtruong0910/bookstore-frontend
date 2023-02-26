@@ -302,7 +302,7 @@ function Category() {
                 <div className="w-2/3 lg:w-8/12 flex">
                   <input
                     {...registerUpdate('DanhMuc')}
-                    className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 px-2 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
+                    className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     type="text"
                     placeholder="Tên danh mục"
                   />
