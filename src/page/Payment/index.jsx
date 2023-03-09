@@ -10,6 +10,7 @@ import Context from '../../store/Context'
 import LoadingSkeletonPayment from '../../components/Loading/LoadingSkeletonPayment'
 
 function Payment() {
+
   const navigate = useNavigate()
   const { user, cart } = useContext(Context)
   const [notify, setNotify] = useState(false)
@@ -20,6 +21,7 @@ function Payment() {
   const [districtCode, setDistrictCode] = useState('')
   const [loading, isLoading] = useState(true)
   let totalAllProduct = 0
+
   const {
     register,
     handleSubmit,
@@ -56,7 +58,6 @@ function Payment() {
     } catch (error) {
       console.log(error)
     }
-
     return setNotify(true)
   }
   cart.forEach((item) => {
@@ -286,7 +287,6 @@ function Payment() {
                   </div>
                 </div>
               </div>
-
               <div className="flex flex-wrap w-full py-5">
                 <div className="flex w-full lg:px-4">
                   <span className="w-full text-lg">Phương thức vận chuyển</span>
@@ -337,7 +337,6 @@ function Payment() {
                 </div>
               </div>
             </div>
-
             <div className="w-full lg:py-14 py-5 lg:w-6/12 lg:mx-4">
               <div className="w-full flex flex-col bg-white shadow-md lg:mt-0 items-end p-3">
                 <div className="flex flex-wrap lg:justify-between lg:w-full">
