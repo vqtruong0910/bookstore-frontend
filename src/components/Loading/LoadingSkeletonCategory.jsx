@@ -1,11 +1,11 @@
 const LoadingSkeletonCategory = () => {
   return (
     <>
-      <div className="w-full flex items-center justify-end py-4">
+      <div className="w-full flex items-center justify-end py-4 animate-pulse">
         <div className="mx-2 bg-slate-200 px-10 py-3 rounded-sm"></div>
         <div className="w-36 py-5 bg-slate-200"></div>
       </div>
-      <div className="w-full">
+      <div className="w-full animate-pulse">
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-5 mb-5">
           <div className="relative w-full hover:cursor-pointer">
             <div className="mt-3 cursor-pointer h-56 md:h-72 bg-slate-200"></div>

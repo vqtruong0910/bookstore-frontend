@@ -1,6 +1,6 @@
 const LoadingSkeletonPayment = () => {
   return (
-    <div className="flex flex-wrap w-full bg-gray-100 px-4">
+    <div className="flex flex-wrap w-full bg-gray-100 px-4 animate-pulse">
       <div className="w-full flex flex-wrap lg:flex-nowrap">
         <div className="flex flex-wrap w-full">
           <div className="flex flex-wrap w-full py-5">

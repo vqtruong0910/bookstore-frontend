@@ -1,6 +1,6 @@
 const LoadingSkeletonDetailBook = () => {
   return (
-    <div className="w-full flex py-6 flex-col">
+    <div className="w-full flex py-6 flex-col animate-pulse">
       <div>
         <div className="w-full bg-white rounded-sm flex shadow-md">
           <div className="w-full my-3 flex flex-wrap lg:flex-nowrap">

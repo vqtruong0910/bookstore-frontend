@@ -2,7 +2,7 @@ import LoadingSkeletonSearch from './LoadingSkeletonSearch'
 
 const LoadingSkeleton = () => {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white animate-pulse">
       {/* New Book */}
       <div className="w-full pt-10">
         <div className=" rounded-sm">

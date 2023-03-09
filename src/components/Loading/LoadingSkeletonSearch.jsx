@@ -1,6 +1,6 @@
 const LoadingSkeletonSearch = () => {
   return (
-    <div className="flex flex-row w-full">
+    <div className="flex flex-row w-full animate-pulse">
       <div className="flex flex-col w-full items-start px-4">
         <div className="flex items-center h-16">
           <div className="mt-4 text-xl font-semibold py-4 bg-slate-200 w-56"></div>

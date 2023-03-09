@@ -1,6 +1,6 @@
 const LoadingSkeletonCart = () => {
   return (
-    <div className="flex flex-wrap w-full bg-gray-100 px-4">
+    <div className="flex flex-wrap w-full bg-gray-100 px-4 animate-pulse">
       <div className="flex flex-wrap w-full py-5">
         <div className="flex w-full">
           <div className="w-full text-lg font-medium py-4 bg-slate-200"></div>
