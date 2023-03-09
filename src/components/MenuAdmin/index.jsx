@@ -39,7 +39,7 @@ function MenuAdmin({ stateMenu }) {
       className={clsx(
         stateMenu && 'visible translate-x-0',
         !stateMenu && 'invisible -translate-x-64',
-        'flex flex-col w-64 h-full bg-slate-800 fixed z-30 lg:translate-x-0 lg:visible transition-all overflow-y-scroll',
+        'flex flex-col w-64 h-full bg-slate-800 fixed z-30 lg:translate-x-0 lg:visible transition-all overflow-y-scroll select-none',
         style['hide-scrollbar']
       )}
     >
@@ -122,7 +122,9 @@ function MenuAdmin({ stateMenu }) {
             </Link>
           </div>
         </li>
-        <li className={clsx(stateMenuChild[2] && 'bg-slate-900 rounded-sm', 'p-2')}>
+        <li
+          className={clsx(stateMenuChild[2] && 'bg-slate-900 rounded-sm', 'p-2 transition-colors')}
+        >
           <div
             className="flex items-center relative space-x-2 cursor-pointer"
             onClick={() => showMenuChild(2)}
@@ -144,8 +146,8 @@ function MenuAdmin({ stateMenu }) {
           </div>
           <div
             className={clsx(
-              stateMenuChild[2] && 'flex flex-col pl-10 space-y-2',
-              !stateMenuChild[2] && 'hidden'
+              'flex flex-col pl-10 space-y-2 transition-all overflow-hidden',
+              stateMenuChild[2] ? 'h-8' : 'h-0'
             )}
           >
             <Link
@@ -159,7 +161,9 @@ function MenuAdmin({ stateMenu }) {
             </Link>
           </div>
         </li>
-        <li className={clsx(stateMenuChild[3] && 'bg-slate-900 rounded-sm', 'p-2')}>
+        <li
+          className={clsx(stateMenuChild[3] && 'bg-slate-900 rounded-sm', 'p-2 transition-colors')}
+        >
           <div
             className="flex items-center relative space-x-2 cursor-pointer"
             onClick={() => showMenuChild(3)}
@@ -181,8 +185,8 @@ function MenuAdmin({ stateMenu }) {
           </div>
           <div
             className={clsx(
-              stateMenuChild[3] && 'flex flex-col pl-10 space-y-2',
-              !stateMenuChild[3] && 'hidden'
+              'flex flex-col pl-10 space-y-2 transition-all overflow-hidden',
+              stateMenuChild[3] ? 'h-16' : 'h-0'
             )}
           >
             <Link

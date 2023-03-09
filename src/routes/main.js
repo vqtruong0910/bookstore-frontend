@@ -10,9 +10,11 @@ const DetailBook = lazy(() => import('../layout/DetailBookLayout'))
 const NotFound = lazy(() => import('../page/NotFound'))
 const ProfileLayout = lazy(() => import('../layout/ProfileLayout'))
 const PersonInfo = lazy(() => import('../page/Profile/PersonInfo'))
+
 const UserOrderManagement = lazy(() => import('../page/Profile/UserOrderManagement'))
 const UserReview = lazy(() => import('../page/Profile/UserReview'))
 const UserChangePassword = lazy(() => import('../page/Profile/UserChangePassword'))
+
 const UserOrderDetail = lazy(() => import('../page/Profile/UserOrderDetail'))
 const Cart = lazy(() => import('../page/Cart'))
 const Payment = lazy(() => import('../page/Payment'))
@@ -21,9 +23,12 @@ const Category = lazy(() => import('../page/Category'))
 const TermsLayout = lazy(() => import('../layout/TermsLayout'))
 const TermsOfUsing = lazy(() => import('../page/Terms/Using'))
 const TransportTerms = lazy(() => import('../page/Terms/Transport'))
+
 const TermsOfUserInforPrivacy = lazy(() => import('../page/Terms/UserInforPrivacy'))
 const PaymentPrivacy = lazy(() => import('../page/Terms/PaymentPrivacy'))
 const WholesaleCustomerPolicy = lazy(() => import('../page/Terms/WholesaleCustomerPolicy'))
+const SearchLayout = lazy(() => import('../layout/SearchLayout'))
+const Search = lazy(() => import('../page/Search'))
 
 // Phần Auth
 const AuthLayout = lazy(() => import('../layout/AuthLayout'))
@@ -82,6 +87,7 @@ function MainRoutes() {
             path={PATH.profile.user_order_management}
             element={<UserOrderManagement />}
           ></Route>
+
           <Route path={PATH.profile.user_review} element={<UserReview />}></Route>
           <Route path={PATH.profile.user_change_password} element={<UserChangePassword />}></Route>
           <Route path={PATH.profile.user_order_detail} element={<UserOrderDetail />}></Route>
@@ -105,6 +111,10 @@ function MainRoutes() {
         <Route path={PATH.payment} element={<Payment />}></Route>
         <Route path={PATH.category.dashboard} element={<CategoryLayout />}>
           <Route index element={<Category />}></Route>
+        </Route>
+
+        <Route path={PATH.search} element={<SearchLayout />}>
+          <Route index element={<Search />}></Route>
         </Route>
       </Route>
 
