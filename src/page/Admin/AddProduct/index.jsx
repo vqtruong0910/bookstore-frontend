@@ -24,7 +24,7 @@ function AddProduct() {
         return result.data
       },
       keepPreviousData: true,
-      staleTime: 5000,
+      staleTime: 1000,
     },
     {
       queryKey: ['publishing company'],
@@ -33,7 +33,7 @@ function AddProduct() {
         return result.data
       },
       keepPreviousData: true,
-      staleTime: 5000,
+      staleTime: 1000,
     },
     {
       queryKey: ['authors'],
@@ -42,7 +42,7 @@ function AddProduct() {
         return result.data
       },
       keepPreviousData: true,
-      staleTime: 5000,
+      staleTime: 1000,
     },
   ])
   const {

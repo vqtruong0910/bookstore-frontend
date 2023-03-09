@@ -18,7 +18,7 @@ function Dashboard() {
         return result.data
       },
       keepPreviousData: true,
-      staleTime: 5000,
+      staleTime: 1000,
     },
     {
       queryKey: ['revenue'],
@@ -27,7 +27,7 @@ function Dashboard() {
         return result.data
       },
       keepPreviousData: true,
-      staleTime: 5000,
+      staleTime: 1000,
     },
     {
       queryKey: ['orders'],
@@ -36,7 +36,7 @@ function Dashboard() {
         return result.data
       },
       keepPreviousData: true,
-      staleTime: 5000,
+      staleTime: 1000,
     },
     {
       queryKey: ['users every day'],
@@ -45,7 +45,7 @@ function Dashboard() {
         return result.data
       },
       keepPreviousData: true,
-      staleTime: 5000,
+      staleTime: 1000,
     },
     {
       queryKey: ['orders every day'],
@@ -54,7 +54,7 @@ function Dashboard() {
         return result.data
       },
       keepPreviousData: true,
-      staleTime: 5000,
+      staleTime: 1000,
     },
   ])
   const userData = useMemo(() => {

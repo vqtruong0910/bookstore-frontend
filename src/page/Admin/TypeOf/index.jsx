@@ -36,7 +36,7 @@ function TypeOf() {
       }
       return []
     },
-    { keepPreviousData: true, staleTime: 5000 }
+    { keepPreviousData: true, staleTime: 1000 }
   )
 
   const {

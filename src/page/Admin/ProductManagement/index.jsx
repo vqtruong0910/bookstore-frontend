@@ -64,7 +64,7 @@ function ProductManage() {
       const result = await axiosJWT.get(API.GET_LIST_ALL_CATEGORY)
       return result.data
     },
-    { keepPreviousData: true, staleTime: 5000 }
+    { keepPreviousData: true, staleTime: 1000 }
   )
   const { data: typeOfBook, isError: isErrorTypeOfBook } = useQuery(
     ['typeofbook', watch('DanhMuc')],
@@ -75,7 +75,7 @@ function ProductManage() {
       }
       return []
     },
-    { keepPreviousData: true, staleTime: 5000 }
+    { keepPreviousData: true, staleTime: 1000 }
   )
   const { mutateAsync } = useMutation(
     async (idProduct) => {
