@@ -208,8 +208,8 @@ function OrderManagement() {
             <tr className="border bg-slate-800 text-slate-200">
               <th className="p-2 text-left min-w-[8rem]">Tên người đặt</th>
               <th className="p-2 text-left">Địa chỉ</th>
-              <th className="p-2 text-left">Ngày đặt</th>
-              <th className="p-2 text-left">Ngày giao</th>
+              <th className="p-2 text-left min-w-[6rem]">Ngày đặt</th>
+              <th className="p-2 text-left min-w-[6rem]">Ngày giao</th>
               <th className="p-2 text-center min-w-[6rem]">Số lượng</th>
               <th className="p-2 text-left">Tổng</th>
               <th className="p-2 text-center min-w-[8rem]">Trạng thái</th>

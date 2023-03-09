@@ -10,13 +10,9 @@ const DetailBook = lazy(() => import('../layout/DetailBookLayout'))
 const NotFound = lazy(() => import('../page/NotFound'))
 const ProfileLayout = lazy(() => import('../layout/ProfileLayout'))
 const PersonInfo = lazy(() => import('../page/Profile/PersonInfo'))
-const UserOrderManagement = lazy(() =>
-  import('../page/Profile/UserOrderManagement')
-)
+const UserOrderManagement = lazy(() => import('../page/Profile/UserOrderManagement'))
 const UserReview = lazy(() => import('../page/Profile/UserReview'))
-const UserChangePassword = lazy(() =>
-  import('../page/Profile/UserChangePassword')
-)
+const UserChangePassword = lazy(() => import('../page/Profile/UserChangePassword'))
 const UserOrderDetail = lazy(() => import('../page/Profile/UserOrderDetail'))
 const Cart = lazy(() => import('../page/Cart'))
 const Payment = lazy(() => import('../page/Payment'))
@@ -25,13 +21,9 @@ const Category = lazy(() => import('../page/Category'))
 const TermsLayout = lazy(() => import('../layout/TermsLayout'))
 const TermsOfUsing = lazy(() => import('../page/Terms/Using'))
 const TransportTerms = lazy(() => import('../page/Terms/Transport'))
-const TermsOfUserInforPrivacy = lazy(() =>
-  import('../page/Terms/UserInforPrivacy')
-)
+const TermsOfUserInforPrivacy = lazy(() => import('../page/Terms/UserInforPrivacy'))
 const PaymentPrivacy = lazy(() => import('../page/Terms/PaymentPrivacy'))
-const WholesaleCustomerPolicy = lazy(() =>
-  import('../page/Terms/WholesaleCustomerPolicy')
-)
+const WholesaleCustomerPolicy = lazy(() => import('../page/Terms/WholesaleCustomerPolicy'))
 
 // Phần Auth
 const AuthLayout = lazy(() => import('../layout/AuthLayout'))
@@ -90,18 +82,9 @@ function MainRoutes() {
             path={PATH.profile.user_order_management}
             element={<UserOrderManagement />}
           ></Route>
-          <Route
-            path={PATH.profile.user_review}
-            element={<UserReview />}
-          ></Route>
-          <Route
-            path={PATH.profile.user_change_password}
-            element={<UserChangePassword />}
-          ></Route>
-          <Route
-            path={PATH.profile.user_order_detail}
-            element={<UserOrderDetail />}
-          ></Route>
+          <Route path={PATH.profile.user_review} element={<UserReview />}></Route>
+          <Route path={PATH.profile.user_change_password} element={<UserChangePassword />}></Route>
+          <Route path={PATH.profile.user_order_detail} element={<UserOrderDetail />}></Route>
         </Route>
         <Route
           element={
@@ -111,18 +94,9 @@ function MainRoutes() {
           }
         >
           <Route path={PATH.terms.using} element={<TermsOfUsing />}></Route>
-          <Route
-            path={PATH.terms.transport}
-            element={<TransportTerms />}
-          ></Route>
-          <Route
-            path={PATH.terms.user_infor_privacy}
-            element={<TermsOfUserInforPrivacy />}
-          ></Route>
-          <Route
-            path={PATH.terms.payment_privacy}
-            element={<PaymentPrivacy />}
-          ></Route>
+          <Route path={PATH.terms.transport} element={<TransportTerms />}></Route>
+          <Route path={PATH.terms.user_infor_privacy} element={<TermsOfUserInforPrivacy />}></Route>
+          <Route path={PATH.terms.payment_privacy} element={<PaymentPrivacy />}></Route>
           <Route
             path={PATH.terms.wholesale_customer_policy}
             element={<WholesaleCustomerPolicy />}
@@ -136,22 +110,10 @@ function MainRoutes() {
 
       <Route path={PATH.login} element={DefaultLayoutAuth(Login)}></Route>
       <Route path={PATH.register} element={DefaultLayoutAuth(Register)}></Route>
-      <Route
-        path={PATH.forgotpassword}
-        element={DefaultLayoutAuth(ForgotPassword)}
-      ></Route>
-      <Route
-        path={PATH.changepassword}
-        element={DefaultLayoutAuth(ChangePassword)}
-      ></Route>
-      <Route
-        path={PATH.verifyemail}
-        element={DefaultLayoutAuth(VerifyEmail)}
-      ></Route>
-      <Route
-        path={PATH.verifyemail_checked}
-        element={DefaultLayoutAuth(CheckVerifyEmail)}
-      ></Route>
+      <Route path={PATH.forgotpassword} element={DefaultLayoutAuth(ForgotPassword)}></Route>
+      <Route path={PATH.changepassword} element={DefaultLayoutAuth(ChangePassword)}></Route>
+      <Route path={PATH.verifyemail} element={DefaultLayoutAuth(VerifyEmail)}></Route>
+      <Route path={PATH.verifyemail_checked} element={DefaultLayoutAuth(CheckVerifyEmail)}></Route>
       <Route
         path={PATH.login_google}
         element={
@@ -177,36 +139,18 @@ function MainRoutes() {
         }
       >
         <Route path={PATH.admin.dashboard} element={<Dashboard />} />
-        <Route
-          path={PATH.admin.product_management}
-          element={<ProductManagement />}
-        />
+        <Route path={PATH.admin.product_management} element={<ProductManagement />} />
         <Route path={PATH.admin.add_product} element={<AddProduct />} />
         <Route path={PATH.admin.update_product} element={<UpdateProduct />} />
         <Route path={PATH.admin.user_management} element={<UserManagement />} />
-        <Route
-          path={PATH.admin.order_management}
-          element={<OrderManagement />}
-        />
-        <Route
-          path={PATH.admin.order_statistics}
-          element={<OrderStatistics />}
-        />
+        <Route path={PATH.admin.order_management} element={<OrderManagement />} />
+        <Route path={PATH.admin.order_statistics} element={<OrderStatistics />} />
         <Route path={PATH.admin.order_detail} element={<OrderDetail />} />
         <Route path={PATH.admin.category} element={<CategoryAdmin />} />
         <Route path={PATH.admin.typeof} element={<TypeOf />} />
-        <Route
-          path={PATH.admin.author_management}
-          element={<AuthorManagement />}
-        />
-        <Route
-          path={PATH.admin.product_statistics}
-          element={<ProductStatistics />}
-        />
-        <Route
-          path={PATH.admin.revenue_statistics}
-          element={<RevenueStatistics />}
-        />
+        <Route path={PATH.admin.author_management} element={<AuthorManagement />} />
+        <Route path={PATH.admin.product_statistics} element={<ProductStatistics />} />
+        <Route path={PATH.admin.revenue_statistics} element={<RevenueStatistics />} />
       </Route>
     </Routes>
   )

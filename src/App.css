@@ -1,6 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 *::selection {
-    background-color: #334155;
-    color: #f8fafc;
+  background-color: #334155;
+  color: #f8fafc;
 }
+/* 
+.slides-enter {
+  opacity: 0;
+}
+
+.slides-enter-active {
+  opacity: 1;
+}
+.slides-appear {
+  opacity: 0;
+}
+
+.slides-appear-active {
+  opacity: 1;
+}
+.slides-exit {
+  opacity: 1;
+}
+.slides-exit-active {
+  opacity: 0;
+}
+.slides-enter-active,
+.slides-exit-active,
+.slides-appear-active {
+  transition: opacity 5000ms;
+} */

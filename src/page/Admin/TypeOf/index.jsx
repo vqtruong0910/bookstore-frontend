@@ -52,9 +52,7 @@ function TypeOf() {
   })
   const {
     register: registerUpdate,
-    formState: { errors: errorsUpdate },
     handleSubmit: handleSubmitUpdate,
-    reset: resetUpdate,
     setValue,
   } = useForm({
     mode: 'onBlur',
