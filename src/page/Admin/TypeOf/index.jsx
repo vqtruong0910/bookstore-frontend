@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useId } from 'react'
+import { useEffect, useId } from 'react'
 import { useCallback } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -21,6 +21,7 @@ function TypeOf() {
   const {
     data: typeOfBooks,
     isLoading,
+    remove,
     isError,
   } = useQuery(
     ['typeofbooks'],
@@ -81,6 +82,7 @@ function TypeOf() {
         TenTheLoai: data.TheLoai,
         IDDanhMuc: id,
       })
+      console.log(result.data)
       return result.data
     },
     {
@@ -142,6 +144,12 @@ function TypeOf() {
           console.log(err)
           window.alert('Xóa danh mục thất bại')
         })
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      remove()
+    }
   }, [])
 
   if (isLoading) {
