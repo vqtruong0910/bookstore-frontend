@@ -103,7 +103,7 @@ function DetailBook() {
       {loading && <LoadingSkeletonDetailBook></LoadingSkeletonDetailBook>}
 
       {!loading && (
-        <div className="w-full flex py-6 flex-col">
+        <div className="w-full flex py-6 flex-col items-center">
           {book.map((item, index) => {
             return (
               <div key={item.IDSanPham}>
