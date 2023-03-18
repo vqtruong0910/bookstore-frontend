@@ -98,12 +98,17 @@ function DetailBook() {
       isLoading(false)
     }
   }, [bookID, authorID, genreID, publisherID, categoryID])
+
+  useEffect(() => {
+    document.body.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [bookID])
+
   return (
     <>
       {loading && <LoadingSkeletonDetailBook></LoadingSkeletonDetailBook>}
 
       {!loading && (
-        <div className="w-full flex py-6 flex-col items-center">
+        <div className="w-full flex py-6 flex-col items-center drop-shadow-lg">
           {book.map((item) => {
             return (
               <div key={item.IDSanPham}>
