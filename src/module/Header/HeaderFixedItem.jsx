@@ -108,11 +108,17 @@ const HeaderFixedItem = ({
           </div>
         )}
         {!user && (
-          <AiOutlineUser className="w-8 h-8 text-white rounded-full border border-white"></AiOutlineUser>
+          <AiOutlineUser
+            className="w-8 h-8 text-white rounded-full border border-white"
+            onClick={() => navigate(PATH.login)}
+          ></AiOutlineUser>
         )}
 
         <div className="relative">
-          <AiOutlineShoppingCart className="w-8 h-8 text-white"></AiOutlineShoppingCart>
+          <AiOutlineShoppingCart
+            onClick={() => navigate(PATH.cart)}
+            className="w-8 h-8 text-white"
+          ></AiOutlineShoppingCart>
           <div className="rounded-full w-4 h-4 bg-orange-500 absolute right-0 top-0">
             <span className="text-white text-sm flex items-center justify-center h-full">
               {items}

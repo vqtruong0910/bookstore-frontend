@@ -104,7 +104,7 @@ function DetailBook() {
 
       {!loading && (
         <div className="w-full flex py-6 flex-col items-center">
-          {book.map((item, index) => {
+          {book.map((item) => {
             return (
               <div key={item.IDSanPham}>
                 <div className="w-full bg-white rounded-sm flex shadow-md">
