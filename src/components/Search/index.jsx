@@ -77,7 +77,7 @@ const Search = () => {
       {/* Mobile */}
       <div
         id="search_box"
-        className="flex justify-between mr-2 h-8 border w-9/12 bg-white md:hidden"
+        className="flex justify-between mr-2 h-8 border w-full bg-white md:hidden"
         ref={dropdownRef}
       >
         <input

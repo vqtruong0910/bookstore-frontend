@@ -1,26 +1,32 @@
 export const CarouselData = [
-    {   
-        name: "slide 1", 
-        image: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/09/20/Quote_A2_Lucy_0920.jpg"
-    },
-    {   
-        name: "slide 2", 
-        image: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/02/09/Gateway_Quote_A1_02-09.jpg"
-    },
-    {
-        name: "slide 3", 
-        image: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/09/13/24470_Quote_A2_Stephanie_09-13.jpg"
-    },
-    {
-        name: "slide 4", 
-        image: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/09/23/24742_Quote_A5_Lore_Olympus_09-23.jpg"
-    },
-    {
-        name: "slide 5",
-        image: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/09/20/Quote_A1_Osman_09-20.jpg"
-    },
-    {
-        name: "slide 6",
-        image: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/09/25/23996_BB_C_nook_08-02.jpg"
-    }
+  {
+    name: 'slide 1',
+    image:
+      'https://images.pexels.com/photos/694740/pexels-photo-694740.jpeg?auto=compress&cs=tinysrgb&w=600',
+  },
+  {
+    name: 'slide 2',
+    image:
+      'https://images.pexels.com/photos/6850288/pexels-photo-6850288.jpeg?auto=compress&cs=tinysrgb&w=600',
+  },
+  {
+    name: 'slide 3',
+    image:
+      'https://images.unsplash.com/photo-1591961172040-ee974a422616?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDZ8fGJvb2slMjBzdG9yZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+  },
+  {
+    name: 'slide 4',
+    image:
+      'https://images.unsplash.com/photo-1599901723404-e38e7192b930?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDh8fGJvb2slMjBzdG9yZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+  },
+  {
+    name: 'slide 5',
+    image:
+      'https://images.unsplash.com/photo-1616376545788-9526fca42581?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTU0fHxib29rJTIwc3RvcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+  },
+  {
+    name: 'slide 6',
+    image:
+      'https://images.unsplash.com/photo-1542796094-2f74a97fbf66?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTUzfHxib29rJTIwc3RvcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+  },
 ]

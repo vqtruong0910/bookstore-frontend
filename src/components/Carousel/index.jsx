@@ -77,7 +77,7 @@ function ListProduct() {
   return (
     <>
       {loading && (
-        <div className="w-full h-[200px] md:h-[300px] lg:h-[400px] bg-slate-200">
+        <div className="w-4/5 mx-auto mt-10 h-[200px] md:h-[300px] lg:h-[400px] bg-slate-200">
           <div className="w-full ">
             <div className="w-full h-fit" />
           </div>
@@ -85,12 +85,16 @@ function ListProduct() {
       )}
 
       {!loading && (
-        <div className="w-full">
+        <div className="w-4/5 mx-auto mt-10 ">
           <Slider {...settings}>
             {CarouselData.map((item, index) => {
               return (
-                <Link key={index} to={PATH.category.dashboard} className="w-full">
-                  <img className="w-full h-fit" src={item.image} alt="Carousel_image" />
+                <Link key={index} to={PATH.category.dashboard}>
+                  <img
+                    className="h-[200px] md:h-[300px] lg:h-[400px] rounded-sm object-cover w-full"
+                    src={item.image}
+                    alt="Carousel_image"
+                  />
                 </Link>
               )
             })}

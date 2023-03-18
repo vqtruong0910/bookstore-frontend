@@ -176,10 +176,10 @@ function Navbar() {
                                   </span>
                                 </div>
 
-                                <div className="inline-block items-center group lg:text-sm text-xs cursor-pointer hover:text-stone-800 transition-all">
+                                <div className="inline-block items-center group lg:text-sm text-xs cursor-pointer hover:text-stone-800 transition-all relative">
                                   <span className="flex whitespace-nowrap">{user.Email}</span>
 
-                                  <div className="hidden group-hover:block lg:top-14 translate-y-0.5 -translate-x-1/2 bg-white border absolute z-20 w-52 text-center font-medium transition duration-300 delay-500">
+                                  <div className="hidden group-hover:block lg:top-4 translate-y-0.5 -translate-x-1/2 bg-white border absolute z-20 w-52 text-center font-medium transition-all duration-300 delay-500">
                                     <ul>
                                       {isAdmin && (
                                         <li
@@ -263,7 +263,6 @@ function Navbar() {
                     <GiHamburgerMenu className="text-white/75" />
                   </button>
                 </div>
-
                 <Search></Search>
 
                 <div className="flex w-2/12 justify-center items-center">
@@ -291,7 +290,7 @@ function Navbar() {
                 </div>
 
                 {showUserInfo && (
-                  <div className="absolute z-10 right-10 translate-y-2/4 top-10">
+                  <div className="absolute z-50 right-10 translate-y-2/4 top-10">
                     <div className="flex right-3 bg-white rounded-sm border border-slate-300 cursor-pointer">
                       <ul className="whitespace-nowrap text-sm">
                         {isAdmin && (

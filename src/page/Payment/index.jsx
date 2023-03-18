@@ -10,7 +10,6 @@ import Context from '../../store/Context'
 import LoadingSkeletonPayment from '../../components/Loading/LoadingSkeletonPayment'
 
 function Payment() {
-
   const navigate = useNavigate()
   const { user, cart } = useContext(Context)
   const [notify, setNotify] = useState(false)
@@ -135,7 +134,7 @@ function Payment() {
                         type="text"
                         {...register('fullName', { required: 'Họ tên không được để trống' })}
                         className="w-full border rounded-sm px-2 py-1 lg:py-2 text-black/50 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm"
-                        defaultValue={user.HoTen}
+                        defaultValue={user?.HoTen}
                         disabled
                       />
                     </div>
@@ -150,7 +149,7 @@ function Payment() {
                       <input
                         name="email"
                         type="email"
-                        defaultValue={user.Email}
+                        defaultValue={user?.Email}
                         className="w-full border rounded-sm px-2 py-1 lg:py-2 text-black/50 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm"
                         disabled
                       />
