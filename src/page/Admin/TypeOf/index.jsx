@@ -227,7 +227,7 @@ function TypeOf() {
       >
         <div
           className={clsx(
-            !formUpdate && 'scale-0',
+            !formUpdate ? 'scale-90 opacity-0' : 'scale-100 opacity-100',
             style['hide-scrollbar'],
             'flex w-full flex-col bg-white rounded-sm overflow-y-scroll sm:w-1/2 max-h-screen transition-all duration-200'
           )}
