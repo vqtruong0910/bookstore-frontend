@@ -29,7 +29,7 @@ const BestSellerBook = ({ data, settings }) => {
         <div className="flex items-center">
           <img
             src={sachbanchay}
-            className="flex w-10 h-10 lg:w-12 lg:h-12 mx-2 text-slate-700"
+            className="flex w-10 h-10 lg:w-12 lg:h-12 mx-2 text-slate-700 object-fit"
             alt="best-seller"
           />
           <span className="w-full flex text-2xl font-bolder font-lobster lg:text-4xl md:text-3xl text-orange-500">

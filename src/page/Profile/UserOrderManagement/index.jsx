@@ -36,9 +36,9 @@ function UserOrderManagement() {
   //   const formatDate = new Date(time).toLocaleDateString('vi-VI')
 
   return (
-    <div className="flex flex-wrap md:flex-col w-full bg-gray-100 py-5">
+    <div className="flex flex-wrap md:flex-col w-full">
       <div className="flex w-full px-4 md:px-0">
-        <span className="w-full text-lg font-normal mb-5 lg:text-xl">Quản lý đơn hàng</span>
+        <span className="w-full text-lg font-semibold mb-5 lg:text-xl">Quản lý đơn hàng</span>
       </div>
 
       <form className="w-full px-4 md:px-0 pb-4">
@@ -65,8 +65,8 @@ function UserOrderManagement() {
             onClick={() => handleDiv(1)}
             className={
               showDiv === 1
-                ? 'px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300 cursor-pointer'
-                : 'px-4 w-full flex justify-between items-center py-4 md:py-2 cursor-pointer'
+                ? 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap bg-slate-300 cursor-pointer'
+                : 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap cursor-pointer'
             }
           >
             <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
@@ -83,8 +83,8 @@ function UserOrderManagement() {
             onClick={() => handleDiv(2)}
             className={
               showDiv === 2
-                ? 'px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300 cursor-pointer'
-                : 'px-4 w-full flex justify-between items-center py-4 md:py-2 cursor-pointer'
+                ? 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap bg-slate-300 cursor-pointer'
+                : 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap cursor-pointer'
             }
           >
             <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
@@ -101,8 +101,8 @@ function UserOrderManagement() {
             onClick={() => handleDiv(3)}
             className={
               showDiv === 3
-                ? 'px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300 cursor-pointer'
-                : 'px-4 w-full flex justify-between items-center py-4 md:py-2 cursor-pointer'
+                ? 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap bg-slate-300 cursor-pointer'
+                : 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap cursor-pointer'
             }
           >
             <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
@@ -119,8 +119,8 @@ function UserOrderManagement() {
             onClick={() => handleDiv(4)}
             className={
               showDiv === 4
-                ? 'px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300 cursor-pointer'
-                : 'px-4 w-full flex justify-between items-center py-4 md:py-2 cursor-pointer'
+                ? 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap bg-slate-300 cursor-pointer'
+                : 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap cursor-pointer'
             }
           >
             <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
@@ -137,8 +137,8 @@ function UserOrderManagement() {
             onClick={() => handleDiv(5)}
             className={
               showDiv === 5
-                ? 'px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300 cursor-pointer'
-                : 'px-4 w-full flex justify-between items-center py-4 md:py-2 cursor-pointer'
+                ? 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap bg-slate-300 cursor-pointer'
+                : 'px-4 w-full flex justify-between items-center py-4 whitespace-nowrap cursor-pointer'
             }
           >
             <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
@@ -158,7 +158,10 @@ function UserOrderManagement() {
         <div className="w-full px-4 md:px-0">
           {order.map((item, index) => {
             return (
-              <div key={index} className="bg-white w-full my-4">
+              <div
+                key={index}
+                className="bg-white w-full my-4 border border-gray-100 drop-shadow-lg"
+              >
                 <div className="flex py-3 items-center mx-4 font-medium">
                   ID đơn đặt hàng : {item.IDDonHang}
                 </div>
@@ -210,7 +213,10 @@ function UserOrderManagement() {
           {UserAllOrderData.map((item, index) => {
             if (item.status_id === 1)
               return (
-                <div key={index} className="bg-white w-full my-4">
+                <div
+                  key={index}
+                  className="bg-white w-full my-4 border border-gray-100 drop-shadow-lg"
+                >
                   <div className="flex py-3 items-center">
                     {item.icon}
                     <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">
@@ -266,7 +272,10 @@ function UserOrderManagement() {
           {UserAllOrderData.map((item, index) => {
             if (item.status_id === 2)
               return (
-                <div key={index} className="bg-white w-full my-4">
+                <div
+                  key={index}
+                  className="bg-white w-full my-4 border border-gray-100 drop-shadow-lg"
+                >
                   <div className="flex py-3 items-center">
                     {item.icon}
                     <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">
@@ -322,7 +331,10 @@ function UserOrderManagement() {
           {UserAllOrderData.map((item, index) => {
             if (item.status_id === 3)
               return (
-                <div key={index} className="bg-white w-full my-4">
+                <div
+                  key={index}
+                  className="bg-white w-full my-4 border border-gray-100 drop-shadow-lg"
+                >
                   <div className="flex py-3 items-center">
                     {item.icon}
                     <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">
@@ -378,7 +390,10 @@ function UserOrderManagement() {
           {UserAllOrderData.map((item, index) => {
             if (item.status_id === 4)
               return (
-                <div key={index} className="bg-white w-full my-4">
+                <div
+                  key={index}
+                  className="bg-white w-full my-4 border border-gray-100 drop-shadow-lg"
+                >
                   <div className="flex py-3 items-center">
                     {item.icon}
                     <span className="mx-1 text-slate-500 text-sm lg:text-base font-semibold">

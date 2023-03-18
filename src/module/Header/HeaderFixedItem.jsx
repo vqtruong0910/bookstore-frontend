@@ -18,7 +18,6 @@ const HeaderFixedItem = ({
   isAdmin,
 }) => {
   const [menu, setMenu] = useState(false)
-
   const navigate = useNavigate()
   const dropdownRef = useRef()
   return (

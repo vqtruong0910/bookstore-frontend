@@ -81,7 +81,7 @@ function Main() {
           setTimeout(() => {
             isLoading(false)
             setNewBook(response.data.data)
-          }, 500)
+          }, 250)
         }
       }
 
@@ -91,7 +91,7 @@ function Main() {
           setTimeout(() => {
             isLoading(false)
             setBestSellerBook(response.data.data)
-          }, 500)
+          }, 250)
         }
       }
       const fetchPopularBookData = async () => {
@@ -100,7 +100,7 @@ function Main() {
           setTimeout(() => {
             isLoading(false)
             setPopularBook(response.data.data)
-          }, 500)
+          }, 250)
         }
       }
       fetchNewBookData()

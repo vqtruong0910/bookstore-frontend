@@ -7,7 +7,7 @@ function DefaultLayout() {
   return (
     <>
       <Header />
-      <div className="w-full rounded-sm block mt-56 lg:mt-0 mx-auto">
+      <div className="w-full rounded-sm block mt-40 lg:mt-8 mx-auto">
         <Suspense>
           <Outlet />
         </Suspense>

@@ -2,7 +2,7 @@ import { IoMdRemove } from 'react-icons/io'
 import { IoAddSharp } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/path'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import Context from '../../store/Context'
 import {
   incrementItemQuantity,
@@ -46,15 +46,15 @@ function Cart() {
     isLoading(true)
     setTimeout(() => {
       isLoading(false)
-    }, 500)
+    }, 250)
   }, [])
   return (
     <>
       {loading && <LoadingSkeletonCart></LoadingSkeletonCart>}
 
       {!loading && (
-        <div className="flex flex-wrap w-full bg-gray-100 px-4">
-          <div className="flex flex-wrap w-full py-5">
+        <div className="flex flex-wrap w-full px-4">
+          <div className="flex flex-wrap w-full">
             <div className="flex w-full lg:px-4">
               <span className="w-full text-lg font-medium">GIỎ HÀNG CỦA BẠN</span>
             </div>
@@ -93,7 +93,10 @@ function Cart() {
                   <div className="w-full bg-white shadow-md flex flex-col mt-4">
                     {cart.map((item, index) => {
                       return (
-                        <div key={index}>
+                        <div
+                          key={index}
+                          className="border border-gray-200 mb-8 rounded-sm drop-shadow-lg"
+                        >
                           <div className="hidden md:px-4 md:py-1 md:block">
                             Số lượng còn lại : {item.SoLuongConLai}
                           </div>
@@ -227,7 +230,7 @@ function Cart() {
                 </div>
 
                 <div className="w-full lg:w-4/12 lg:pl-4">
-                  <div className="w-full flex flex-col bg-white shadow-md mt-4 items-end lg:justify-between p-3">
+                  <div className="w-full flex flex-col bg-white shadow-md mt-4 items-end lg:justify-between p-3 mb-4">
                     <div className="flex flex-wrap lg:w-full lg:justify-between">
                       <div className="flex flex-col">
                         <span className="py-1 font-light md:text-lg">Tạm tính</span>

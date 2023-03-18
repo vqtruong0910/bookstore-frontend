@@ -39,9 +39,9 @@ function UserOrderDetail() {
   })
 
   return (
-    <div className="flex flex-col w-full bg-gray-100 py-5">
+    <div className="flex flex-col w-full">
       <div className="flex w-full px-4 md:px-0">
-        <span className="w-full text-lg font-normal mb-5 lg:text-xl">
+        <span className="w-full text-lg font-semibold mb-5 lg:text-xl">
           Chi tiết đơn hàng #{orderDetailID}
         </span>
       </div>

@@ -3,7 +3,7 @@ import { IoMdRemove } from 'react-icons/io'
 import { BsCart3 } from 'react-icons/bs'
 import { useParams } from 'react-router-dom'
 import style from './DetailBook.module.scss'
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, Fragment } from 'react'
 import Notify from '../../components/Notify'
 import Context from '../../store/Context'
 import { addToCart } from '../../reducers/cartReducers'
@@ -11,7 +11,7 @@ import axiosConfig from '../../config/axiosConfig'
 import RelatedBook from '../RelatedBook'
 import LoadingSkeletonDetailBook from '../../components/Loading/LoadingSkeletonDetailBook'
 
-function DetailBook() {
+const DetailBook = () => {
   const { bookID } = useParams()
   const [book, setBook] = useState([])
   const [authorID, genreID, publisherID, categoryID] = useState('')
@@ -65,7 +65,7 @@ function DetailBook() {
               genreID = item.IDTheLoai
               publisherID = item.IDNhaXuatBan
             })
-          }, 500)
+          }, 250)
         }
 
         const responseAuthorName = await axiosConfig(`author/${authorID}`)
@@ -108,17 +108,17 @@ function DetailBook() {
       {loading && <LoadingSkeletonDetailBook></LoadingSkeletonDetailBook>}
 
       {!loading && (
-        <div className="w-full flex py-6 flex-col items-center drop-shadow-lg">
+        <div className="w-full flex flex-col items-center drop-shadow-lg">
           {book.map((item) => {
             return (
-              <div key={item.IDSanPham}>
-                <div className="w-full bg-white rounded-sm flex shadow-md">
+              <Fragment key={item.IDSanPham}>
+                <div className="w-4/5 bg-white rounded-sm flex shadow-md border border-gray-200">
                   <div className="w-full my-3 flex flex-wrap lg:flex-nowrap">
                     <div className="flex flex-wrap w-full lg:w-4/12">
                       <div className="w-full flex justify-center">
                         <img
                           src={item.HinhAnh}
-                          className="w-64 h-64 lg:w-96 lg:h-96"
+                          className="w-64 h-64 lg:w-96 lg:h-96 object-fit"
                           alt="Book_Image"
                         />
                       </div>
@@ -208,7 +208,7 @@ function DetailBook() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap w-full bg-white my-4 shadow-md">
+                <div className="flex flex-wrap w-4/5 bg-white my-4 shadow-md">
                   <div className="flex flex-row cursor-pointer">
                     <div
                       onClick={() => handleContent(4)}
@@ -255,11 +255,11 @@ function DetailBook() {
                     )}
                   </div>
                 </div>
-              </div>
+              </Fragment>
             )
           })}
 
-          <div className="flex flex-wrap w-full bg-white rounded-sm py-3 shadow-md">
+          <div className="flex flex-wrap w-4/5 bg-white rounded-sm py-3 shadow-md mb-7">
             <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 w-full">
               SẢN PHẨM LIÊN QUAN
             </span>

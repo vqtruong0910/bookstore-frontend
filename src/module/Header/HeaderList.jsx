@@ -4,18 +4,18 @@ import { NavbarData } from '../../components/Navbar/NavbarData'
 const HeaderList = () => {
   const navigate = useNavigate()
   return (
-    <ul className="hidden lg:flex justify-between w-full flex-1 items-center">
+    <ul className="hidden lg:flex justify-between w-full items-center">
       {NavbarData.map((menu, index) => (
         <li
           key={index}
           onClick={() => navigate(menu.link)}
-          className="flex items-center w-full justify-center group transition-colors relative font-semibold text-white h-full hover:bg-slate-400 cursor-pointer"
+          className="flex items-center w-full py-1 justify-center group transition-colors relative font-semibold text-white hover:bg-slate-400 cursor-pointer"
         >
           {menu.name}
 
           {menu.id === 2 ? (
             <>
-              <div className="hidden group-hover:block text-start w-800 absolute z-20 bg-white top-12 left-0 border rounded-sm shadow-md">
+              <div className="hidden group-hover:block text-start w-800 absolute z-20 bg-white top-8 left-0 border rounded-sm shadow-md">
                 <div className="grid grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-5 p-2">
                   {menu.subMenuItem1.map((item1, index) => {
                     return (
@@ -44,7 +44,7 @@ const HeaderList = () => {
 
           {menu.id === 3 ? (
             <>
-              <div className="hidden group-hover:block max-w-[300px] w-[203px] text-start absolute z-20 bg-white top-12 left-0 border rounded-sm shadow-md">
+              <div className="hidden group-hover:block max-w-[300px] w-[203px] text-start absolute z-20 bg-white top-8 left-0 border rounded-sm shadow-md">
                 <ul className="flex flex-col w-full">
                   {menu.submenuItems.map((submenuItem, index) => {
                     return (
@@ -65,7 +65,7 @@ const HeaderList = () => {
 
           {menu.id === 4 ? (
             <>
-              <div className="hidden group-hover:block text-start max-w-[300px] w-[203px] absolute z-20 bg-white top-12 left-0 border rounded-sm shadow-md">
+              <div className="hidden group-hover:block text-start max-w-[300px] w-[203px] absolute z-20 bg-white top-8 left-0 border rounded-sm shadow-md">
                 <ul className="flex flex-col w-full">
                   {menu.submenuItems.map((submenuItem, index) => {
                     return (

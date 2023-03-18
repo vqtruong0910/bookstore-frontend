@@ -88,7 +88,7 @@ function Payment() {
         setTimeout(() => {
           setProvince(response.data)
           isLoading(false)
-        }, 500)
+        }, 250)
       }
     }
     fetchProvinceData()
@@ -114,15 +114,15 @@ function Payment() {
     <>
       {loading && <LoadingSkeletonPayment></LoadingSkeletonPayment>}
       {!loading && (
-        <div className="flex flex-wrap w-full bg-gray-100 px-4">
+        <div className="flex flex-wrap w-full px-4">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-wrap lg:flex-nowrap">
             <div className="flex flex-wrap w-full">
-              <div className="flex flex-wrap w-full py-5">
+              <div className="flex flex-wrap w-full">
                 <div className="flex w-full lg:px-4">
                   <span className="w-full text-lg lg:text-xl">Thông tin giao hàng</span>
                 </div>
 
-                <div className="flex flex-wrap justify-center w-full bg-white shadow-md mt-2 lg:mx-4">
+                <div className="flex flex-wrap justify-center w-full bg-white border border-gray-200 drop-shadow-lg mt-2 lg:mx-4">
                   <div className="flex w-full p-2">
                     <div className="w-1/3 items-center flex">
                       <span className="flex text-sm font-medium lg:text-base ">Họ & Tên</span>
@@ -291,7 +291,7 @@ function Payment() {
                   <span className="w-full text-lg">Phương thức vận chuyển</span>
                 </div>
 
-                <div className="flex justify-center items-center w-full bg-white shadow-md mt-2 lg:mx-4">
+                <div className="flex justify-center items-center w-full border rounded-sm border-gray-200 bg-white drop-shadow-lg mt-2 lg:mx-4">
                   <div className="w-full p-2">
                     <input
                       name="shipping_cost"
@@ -314,7 +314,7 @@ function Payment() {
                   <span className="w-full text-lg">Phương thức thanh toán</span>
                 </div>
 
-                <div className="flex justify-center items-center w-full bg-white shadow-md mt-2 lg:mx-4">
+                <div className="flex justify-center items-center w-full border border-gray-200 drop-shadow-lg bg-white mt-2 lg:mx-4">
                   <div className="w-full p-2 flex items-center">
                     <input
                       name="pay_on_delivery"
@@ -336,8 +336,8 @@ function Payment() {
                 </div>
               </div>
             </div>
-            <div className="w-full lg:py-14 py-5 lg:w-6/12 lg:mx-4">
-              <div className="w-full flex flex-col bg-white shadow-md lg:mt-0 items-end p-3">
+            <div className="w-full lg:py-9 py-5 lg:w-6/12 lg:mx-4">
+              <div className="w-full flex flex-col bg-white border border-gray-200 drop-shadow-lg lg:mt-0 items-end p-3">
                 <div className="flex flex-wrap lg:justify-between lg:w-full">
                   <div className="flex flex-col">
                     <span className="py-1 font-light md:text-lg">Tạm tính</span>

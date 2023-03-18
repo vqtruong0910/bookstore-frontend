@@ -66,7 +66,7 @@ function Category() {
 
       {!loading && (
         <>
-          <div className="w-full flex items-center justify-end py-4">
+          <div className="w-full flex items-center justify-end pb-8">
             <span className="mx-2 text-base md:text-lg font-medium text-gray-500">Sắp xếp</span>
             <select className="border text-black/70 rounded-sm px-3 py-1 cursor-pointer bg-white border-black/70 focus:outline-none focus:ring-black/40 focus:ring-1 text-base font-semibold">
               <option value="moinhat">Mới nhất</option>
@@ -76,16 +76,16 @@ function Category() {
               <option value="giagiamdan">Giá giảm dần</option>
             </select>
           </div>
-          <div className="w-full">
+          <div className="w-full bg-white border border-gray-100 drop-shadow-lg">
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-5">
               {page.DanhSach?.map((item, index) => {
                 return (
                   <div key={index} className="relative w-full hover:cursor-pointer">
                     <div
                       onClick={() => navigate(`/books/${item.IDSanPham}`)}
-                      className="flex w-full justify-center drop-shadow-md mt-3 cursor-pointer h-56 md:h-72"
+                      className="flex w-full justify-center drop-shadow-md mt-3 cursor-pointer h-64 md:h-72"
                     >
-                      <img className="w-full" src={item.HinhAnh} alt="New Book" />
+                      <img className="w-full object-fit px-5" src={item.HinhAnh} alt="New Book" />
                     </div>
 
                     <div className="grid w-full py-3 px-4">

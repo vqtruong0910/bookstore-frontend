@@ -1,65 +1,103 @@
-import { AiOutlineUser } from "react-icons/ai";
-import { TbTruck } from "react-icons/tb";
-import { BiMessageEdit } from "react-icons/bi";
-import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { PATH } from "../../constants/path";
-import Context from "../../store/Context";
-import { useContext } from "react";
+import { AiOutlineUser } from 'react-icons/ai'
+import { TbTruck } from 'react-icons/tb'
+import { BiMessageEdit } from 'react-icons/bi'
+import React from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { PATH } from '../../constants/path'
+import Context from '../../store/Context'
+import { useContext } from 'react'
 
 function MenuUser({ children }) {
-    const { user } = useContext(Context);
+  const { user } = useContext(Context)
 
-    let location = useLocation();
+  let location = useLocation()
 
-    const activeLink = 'bg-slate-700 w-full';
+  const activeLink = 'bg-slate-700 w-full'
 
-    const navigate = useNavigate();
+  const navigate = useNavigate()
 
-
-    return (
-        <div className="w-full h-full md:w-64 bg-gray-100">
-            <div className="flex items-end justify-center">
-                <div className="mt-5 items-center justify-center flex relative">
-                    <div className="flex justify-center items-center">
-                        {user.Anh ?
-                            <img src={user.Anh} alt="Avatar" className="rounded-full w-24 h-24 border-2" />
-                            :
-                            <AiOutlineUser className="border-2 border-blue-200 text-blue-300 rounded-full w-24 h-24"></AiOutlineUser>
-                        }
-
-                    </div>
-                </div>
-            </div>
-
-            <h1 className="text-gray-800 font-semibold text-xl mt-3 text-center w-full">{user.HoTen}</h1>
-            <h1 className="text-gray-500 text-sm w-full text-center mt-2">Khách hàng</h1>
-
-            <div className="mt-5 w-full flex flex-wrap">
-                <div onClick={() => navigate(PATH.profile.dashboard)} className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${location.pathname === PATH.profile.dashboard && activeLink} `}>
-                    <div className="w-full flex items-center px-5 md:px-10">
-                        <AiOutlineUser className={`w-8 h-8 ${location.pathname === PATH.profile.dashboard && 'text-white'} `} />
-                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.dashboard && 'text-white'} `}>Thông tin tài khoản</div>
-                    </div>
-                </div>
-                <div onClick={() => navigate(PATH.profile.user_order_management)} className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${location.pathname === PATH.profile.user_order_management && activeLink} `}>
-                    <div className="w-full flex items-center px-5 md:px-10">
-                        <TbTruck className={`w-8 h-8 ${location.pathname === PATH.profile.user_order_management && 'text-white'} `} />
-                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.user_order_management && 'text-white'} `}>Quản lý đơn hàng</div>
-                    </div>
-                </div>
-                <div onClick={() => navigate(PATH.profile.user_review)} className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${location.pathname === PATH.profile.user_review && activeLink} `}>
-                    <div className="w-full flex items-center px-5 md:px-10">
-                        <BiMessageEdit className={`w-8 h-8 ${location.pathname === PATH.profile.user_review && 'text-white'} `} />
-                        <div className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${location.pathname === PATH.profile.user_review && 'text-white'} `}>Đánh giá sản phẩm</div>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="w-full h-full md:w-64 bg-blue-100 drop-shadow-lg rounded-sm">
+      <div className="flex items-end justify-center">
+        <div className="mt-5 items-center justify-center flex relative">
+          <div className="flex justify-center items-center">
+            {user.Anh ? (
+              <img src={user.Anh} alt="Avatar" className="rounded-full w-24 h-24 border-2" />
+            ) : (
+              <AiOutlineUser className="border-2 border-blue-200 text-blue-300 rounded-full w-24 h-24"></AiOutlineUser>
+            )}
+          </div>
         </div>
+      </div>
 
-    )
+      <h1 className="text-gray-800 font-semibold text-xl mt-3 text-center w-full">{user.HoTen}</h1>
+      <h1 className="text-gray-500 text-sm w-full text-center mt-2">Khách hàng</h1>
+
+      <div className="mt-5 w-full flex flex-wrap">
+        <div
+          onClick={() => navigate(PATH.profile.dashboard)}
+          className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${
+            location.pathname === PATH.profile.dashboard && activeLink
+          } `}
+        >
+          <div className="w-full flex items-center px-5 md:px-10">
+            <AiOutlineUser
+              className={`w-8 h-8 ${location.pathname === PATH.profile.dashboard && 'text-white'} `}
+            />
+            <div
+              className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${
+                location.pathname === PATH.profile.dashboard && 'text-white'
+              } `}
+            >
+              Thông tin tài khoản
+            </div>
+          </div>
+        </div>
+        <div
+          onClick={() => navigate(PATH.profile.user_order_management)}
+          className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${
+            location.pathname === PATH.profile.user_order_management && activeLink
+          } `}
+        >
+          <div className="w-full flex items-center px-5 md:px-10">
+            <TbTruck
+              className={`w-8 h-8 ${
+                location.pathname === PATH.profile.user_order_management && 'text-white'
+              } `}
+            />
+            <div
+              className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${
+                location.pathname === PATH.profile.user_order_management && 'text-white'
+              } `}
+            >
+              Quản lý đơn hàng
+            </div>
+          </div>
+        </div>
+        <div
+          onClick={() => navigate(PATH.profile.user_review)}
+          className={`flex w-full focus:bg-gray-300 items-center py-3 cursor-pointer ${
+            location.pathname === PATH.profile.user_review && activeLink
+          } `}
+        >
+          <div className="w-full flex items-center px-5 md:px-10">
+            <BiMessageEdit
+              className={`w-8 h-8 ${
+                location.pathname === PATH.profile.user_review && 'text-white'
+              } `}
+            />
+            <div
+              className={`font-semibold text-sm w-full mx-1 whitespace-nowrap ${
+                location.pathname === PATH.profile.user_review && 'text-white'
+              } `}
+            >
+              Đánh giá sản phẩm
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-
-
-export default MenuUser;
+export default MenuUser
