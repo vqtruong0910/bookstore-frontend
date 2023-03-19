@@ -43,6 +43,8 @@ function Cart() {
   }
 
   useEffect(() => {
+    const topOfElement = document.querySelector('#detail-book') - 200
+    window.scroll({ top: topOfElement, behavior: 'smooth' })
     isLoading(true)
     setTimeout(() => {
       isLoading(false)

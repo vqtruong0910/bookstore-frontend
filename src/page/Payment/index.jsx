@@ -83,6 +83,8 @@ function Payment() {
 
   useEffect(() => {
     const fetchProvinceData = async () => {
+      const topOfElement = document.querySelector('#payment') - 200
+      window.scroll({ top: topOfElement, behavior: 'smooth' })
       const response = await axios('https://provinces.open-api.vn/api/p')
       if (response.data) {
         setTimeout(() => {
@@ -114,7 +116,7 @@ function Payment() {
     <>
       {loading && <LoadingSkeletonPayment></LoadingSkeletonPayment>}
       {!loading && (
-        <div className="flex flex-wrap w-full px-4">
+        <div className="flex flex-wrap w-full px-4" id="payment">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-wrap lg:flex-nowrap">
             <div className="flex flex-wrap w-full">
               <div className="flex flex-wrap w-full">

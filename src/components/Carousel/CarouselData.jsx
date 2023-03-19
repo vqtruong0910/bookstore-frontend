@@ -7,12 +7,12 @@ export const CarouselData = [
   {
     name: 'slide 2',
     image:
-      'https://images.pexels.com/photos/6850288/pexels-photo-6850288.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.unsplash.com/photo-1527908290749-8c9518e0db09?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Ym9vayUyMHN0b3JlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
   },
   {
     name: 'slide 3',
     image:
-      'https://images.unsplash.com/photo-1591961172040-ee974a422616?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDZ8fGJvb2slMjBzdG9yZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+      'https://images.pexels.com/photos/2101704/pexels-photo-2101704.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
     name: 'slide 4',
@@ -22,7 +22,7 @@ export const CarouselData = [
   {
     name: 'slide 5',
     image:
-      'https://images.unsplash.com/photo-1616376545788-9526fca42581?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTU0fHxib29rJTIwc3RvcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+      'https://images.pexels.com/photos/2607687/pexels-photo-2607687.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
     name: 'slide 6',

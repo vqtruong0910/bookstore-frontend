@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react'
-import { BsChevronDown, BsChevronUp, BsFillArrowLeftCircleFill } from 'react-icons/bs'
+import { BsChevronDown, BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import { NavbarData } from '../Navbar/NavbarData'
 import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
+import clsx from 'clsx'
 
 const Sidebar = ({ open, onClick = () => {} }) => {
   const navigate = useNavigate()
@@ -21,9 +22,11 @@ const Sidebar = ({ open, onClick = () => {} }) => {
   )
   return (
     <div
-      className={`lg:hidden flex flex-col overflow-y-auto fixed z-50 top-0 bottom-0 left-0 bg-gray-800 w-72 duration-300 ease-linear transition-all ${
-        open ? 'visible translate-x-0 ' : 'invisible -translate-x-full'
-      }`}
+      className={clsx(
+        'hide-scrollbar lg:hidden flex flex-col overflow-y-auto fixed z-50 top-0 bottom-0 left-0 bg-gray-800 w-72 duration-300 ease-linear transition-all',
+        open && 'visible translate-x-0 ',
+        !open && 'invisible -translate-x-full'
+      )}
     >
       <div className="flex items-center w-full justify-between px-2">
         <div className="w-14 h-14">
@@ -44,14 +47,14 @@ const Sidebar = ({ open, onClick = () => {} }) => {
               key={index}
               className={
                 open
-                  ? 'px-2 py-5 relative flex hover:bg-slate-900 text-white font-semibold text-base hover:cursor:pointer cursor-pointer'
+                  ? 'px-2 py-5 mx-2 relative flex hover:bg-slate-900 text-white font-semibold text-base hover:cursor:pointer cursor-pointer'
                   : 'hidden'
               }
             >
               <div className="flex flex-col w-full justify-center">
                 {menu.id === 2 ? (
                   <>
-                    <div onClick={() => showMenuChild(1)}>{menu.icon}</div>
+                    <div>{menu.icon}</div>
                     <li className="flex justify-between items-center ml-10 relative">
                       {menu.name}
                       <div
@@ -59,98 +62,113 @@ const Sidebar = ({ open, onClick = () => {} }) => {
                         onClick={() => showMenuChild(1)}
                         className="absolute right-0 cursor-pointer"
                       >
-                        {stateMenuChild[1] ? <BsChevronUp /> : <BsChevronDown />}
+                        <BsChevronDown
+                          className={clsx(
+                            stateMenuChild[1] && 'rotate-180 transition-all duration-400'
+                          )}
+                        />
                       </div>
                     </li>
-                    {stateMenuChild[1] ? (
-                      <>
-                        {menu.subMenuItem1.map((item1, index) => {
-                          return (
-                            <div key={index} className="py-3 w-full px-7">
-                              <div className="flex py-2 w-full justify-between text-gray-400 cursor-pointer text-sm border-b">
-                                {item1.name}
-                              </div>
-                              <div className="w-full flex flex-col text-base font-normal mt-1">
-                                {item1.subMenuItem2.map((item2, index) => {
-                                  return (
-                                    <div
-                                      key={index}
-                                      className="py-2 focus:underline cursor-pointer"
-                                    >
-                                      {item2.name}
-                                    </div>
-                                  )
-                                })}
-                              </div>
+
+                    <div
+                      className={clsx(
+                        'transition-all overflow-hidden',
+                        stateMenuChild[1]
+                          ? 'h-auto visible translate-y-0'
+                          : 'h-0 invisible translate-y-10'
+                      )}
+                    >
+                      {menu.subMenuItem1.map((item1, index) => {
+                        return (
+                          <div key={index} className="py-3 w-full px-7">
+                            <div className="flex py-2 w-full justify-between text-gray-400 cursor-pointer text-sm border-b">
+                              {item1.name}
                             </div>
-                          )
-                        })}
-                      </>
-                    ) : (
-                      <></>
-                    )}
+                            <div className="w-full flex flex-col text-base font-normal mt-1">
+                              {item1.subMenuItem2.map((item2, index) => {
+                                return (
+                                  <div key={index} className="py-2 focus:underline cursor-pointer">
+                                    {item2.name}
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
                   </>
                 ) : menu.id === 3 ? (
                   <>
-                    <div onClick={() => showMenuChild(2)}>{menu.icon}</div>
+                    <div>{menu.icon}</div>
                     <li className="flex items-center ml-10 relative">
                       {menu.name}
                       <div
                         onClick={() => showMenuChild(2)}
                         className="absolute right-0 cursor-pointer"
                       >
-                        <span key={menu.id}>
-                          {stateMenuChild[2] ? <BsChevronUp /> : <BsChevronDown />}
-                        </span>
+                        <BsChevronDown
+                          className={clsx(
+                            stateMenuChild[2] && 'rotate-180 transition-all duration-400'
+                          )}
+                        />
                       </div>
                     </li>
-                    {stateMenuChild[2] ? (
-                      <>
-                        {menu.submenuItems.map((submenuItem, index) => {
-                          return (
-                            <div
-                              key={index}
-                              className="flex py-3 text-gray-400 w-full px-7 cursor-pointer"
-                            >
-                              {submenuItem.name}
-                            </div>
-                          )
-                        })}
-                      </>
-                    ) : (
-                      <></>
-                    )}
+
+                    <div
+                      className={clsx(
+                        'transition-all overflow-hidden',
+                        stateMenuChild[2]
+                          ? 'h-auto visible translate-y-0'
+                          : 'h-0 invisible translate-y-10'
+                      )}
+                    >
+                      {menu.submenuItems.map((submenuItem, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="flex py-3 text-gray-400 w-full px-7 cursor-pointer"
+                          >
+                            {submenuItem.name}
+                          </div>
+                        )
+                      })}
+                    </div>
                   </>
                 ) : menu.id === 4 ? (
                   <>
-                    <div onClick={() => showMenuChild(3)}>{menu.icon}</div>
+                    <div>{menu.icon}</div>
                     <li className="flex items-center ml-10 relative">
                       {menu.name}
                       <div
                         onClick={() => showMenuChild(3)}
                         className="absolute right-0 cursor-pointer"
                       >
-                        <span key={menu.id}>
-                          {stateMenuChild[3] ? <BsChevronUp /> : <BsChevronDown />}
-                        </span>
+                        <BsChevronDown
+                          className={clsx(
+                            stateMenuChild[3] && 'rotate-180 transition-all duration-400'
+                          )}
+                        />
                       </div>
                     </li>
-                    {stateMenuChild[3] ? (
-                      <>
-                        {menu.submenuItems.map((submenuItem, index) => {
-                          return (
-                            <div
-                              key={index}
-                              className="flex py-3 text-gray-400 w-full px-7 cursor-pointer"
-                            >
-                              {submenuItem.name}
-                            </div>
-                          )
-                        })}
-                      </>
-                    ) : (
-                      <></>
-                    )}
+
+                    <div
+                      className={clsx(
+                        'transition-all overflow-hidden',
+                        stateMenuChild[3] ? 'h-auto visible translate-y-0' : 'h-0 translate-y-10'
+                      )}
+                    >
+                      {menu.submenuItems.map((submenuItem, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="flex py-3 text-gray-400 w-full px-7 cursor-pointer"
+                          >
+                            {submenuItem.name}
+                          </div>
+                        )
+                      })}
+                    </div>
                   </>
                 ) : (
                   <>

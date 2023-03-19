@@ -54,11 +54,9 @@ const Search = () => {
       {!loading && (
         <>
           <div className="flex flex-row w-full">
-            <div className="flex flex-col w-full items-start px-4">
-              <div className="flex items-center h-16">
-                <div className="mt-4 text-xl font-semibold py-4 w-full">
-                  Từ khóa tìm kiếm : {state}
-                </div>
+            <div className="flex flex-col w-full items-start px-4 pb-8">
+              <div className="flex items-center pb-4">
+                <div className="text-xl font-semibold w-full">Từ khóa tìm kiếm : {state}</div>
               </div>
 
               <div className="w-full m-2">

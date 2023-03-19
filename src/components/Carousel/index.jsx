@@ -77,7 +77,7 @@ function ListProduct() {
   return (
     <>
       {loading && (
-        <div className="w-4/5 mx-auto mt-10 h-[200px] md:h-[300px] lg:h-[400px] bg-slate-200">
+        <div className="w-4/5 mx-auto mt-10 h-[350px] md:h-[450px] lg:h-[550px] bg-slate-200">
           <div className="w-full ">
             <div className="w-full h-fit" />
           </div>
@@ -91,7 +91,7 @@ function ListProduct() {
               return (
                 <Link key={index} to={PATH.category.dashboard}>
                   <img
-                    className="h-[200px] md:h-[300px] lg:h-[400px] rounded-sm object-fit w-full"
+                    className="h-[350px] md:h-[450px] lg:h-[550px] rounded-sm object-fit w-full"
                     src={item.image}
                     alt="Carousel_image"
                   />

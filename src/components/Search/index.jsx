@@ -38,7 +38,7 @@ const Search = () => {
       >
         <div
           id="search_box"
-          className="flex mx-3 md:mx-3 h-10 w-10/12 md:w-11/12 border-2 bg-white "
+          className="flex mx-3 md:mx-3 h-10 w-10/12 md:w-11/12 border-2 bg-white"
         >
           <input
             className="px-2 bg-white text-md outline-0 flex w-10/12 md:w-11/12"
