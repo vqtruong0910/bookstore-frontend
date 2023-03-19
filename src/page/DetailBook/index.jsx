@@ -56,6 +56,7 @@ const DetailBook = () => {
       const fetchDetailBookData = async () => {
         isLoading(true)
         const response = await axiosConfig(`product/${bookID}`)
+
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)
@@ -100,15 +101,15 @@ const DetailBook = () => {
   }, [bookID, authorID, genreID, publisherID, categoryID])
 
   useEffect(() => {
-    document.body.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const topOfElement = document.querySelector('#detail-book') - 200
+    window.scroll({ top: topOfElement, behavior: 'smooth' })
   }, [bookID])
-
   return (
     <>
       {loading && <LoadingSkeletonDetailBook></LoadingSkeletonDetailBook>}
 
       {!loading && (
-        <div className="w-full flex flex-col items-center drop-shadow-lg">
+        <div className="w-full flex flex-col items-center drop-shadow-lg" id="detail-book">
           {book.map((item) => {
             return (
               <Fragment key={item.IDSanPham}>

@@ -71,7 +71,7 @@ function ListProduct() {
     isLoading(true)
     setTimeout(() => {
       isLoading(false)
-    }, 500)
+    }, 250)
   }, [])
 
   return (
@@ -91,7 +91,7 @@ function ListProduct() {
               return (
                 <Link key={index} to={PATH.category.dashboard}>
                   <img
-                    className="h-[200px] md:h-[300px] lg:h-[400px] rounded-sm object-cover w-full"
+                    className="h-[200px] md:h-[300px] lg:h-[400px] rounded-sm object-fit w-full"
                     src={item.image}
                     alt="Carousel_image"
                   />

@@ -37,7 +37,7 @@ const Search = () => {
           setTimeout(() => {
             isLoading(false)
             setData(response.data.data)
-          }, 500)
+          }, 250)
         }
       } catch (error) {
         isLoading(false)

@@ -38,8 +38,13 @@ function UserOrderDetail() {
     return total
   })
 
+  useEffect(() => {
+    const topOfElement = document.querySelector('#user-order-detail').offsetTop - 200
+    window.scroll({ top: topOfElement, behavior: 'smooth' })
+  }, [state])
+
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full" id="user-order-detail">
       <div className="flex w-full px-4 md:px-0">
         <span className="w-full text-lg font-semibold mb-5 lg:text-xl">
           Chi tiết đơn hàng #{orderDetailID}
@@ -171,7 +176,7 @@ function UserOrderDetail() {
 
       <div
         onClick={() => navigate(PATH.profile.user_order_management)}
-        className="flex w-full px-4 items-center pt-5"
+        className="flex w-full px-4 items-center pt-5 mb-8"
       >
         <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 text-slate-700 cursor-pointer" />
         <span className="text-sm text-slate-700 cursor-pointer lg:text-base">

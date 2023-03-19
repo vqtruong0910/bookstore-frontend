@@ -50,7 +50,7 @@ function Category() {
           setTimeout(() => {
             isLoading(false)
             setPage(response.data.data)
-          }, 500)
+          }, 250)
         }
       } catch (error) {
         console.log(error)
@@ -83,9 +83,9 @@ function Category() {
                   <div key={index} className="relative w-full hover:cursor-pointer">
                     <div
                       onClick={() => navigate(`/books/${item.IDSanPham}`)}
-                      className="flex w-full justify-center drop-shadow-md mt-3 cursor-pointer h-64 md:h-72"
+                      className="flex w-full justify-center drop-shadow-md mt-3 cursor-pointer h-52 md:h-64 lg:h-72"
                     >
-                      <img className="w-full object-fit px-5" src={item.HinhAnh} alt="New Book" />
+                      <img className="w-full object-fit" src={item.HinhAnh} alt="New Book" />
                     </div>
 
                     <div className="grid w-full py-3 px-4">

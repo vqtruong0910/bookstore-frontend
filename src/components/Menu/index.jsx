@@ -47,7 +47,7 @@ function Menu() {
     isLoading(true)
     setTimeout(() => {
       isLoading(false)
-    }, 500)
+    }, 250)
   }, [])
 
   return (
