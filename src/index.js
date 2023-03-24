@@ -1,15 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import Provider from "./store/Provider";
-import { BrowserRouter } from "react-router-dom";
-import { AxiosInterceptor } from "./config/axiosJWT";
-import { QueryClient, QueryClientProvider } from "react-query";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.scss'
+import App from './App'
+import Provider from './store/Provider'
+import { BrowserRouter } from 'react-router-dom'
+import { AxiosInterceptor } from './config/axiosJWT'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'))
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
 root.render(
   <React.StrictMode>
@@ -23,4 +23,4 @@ root.render(
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
-);
+)
