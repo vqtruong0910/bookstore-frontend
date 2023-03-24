@@ -272,8 +272,8 @@ function AuthorManagement() {
 
       <div
         className={clsx(
-          formUpdate ? 'z-30' : '-z-30',
-          'fixed flex justify-center items-center inset-0 bg-slate-900 bg-opacity-20'
+          formUpdate ? 'z-30 bg-opacity-100' : '-z-30 bg-opacity-20',
+          'fixed flex justify-center transition-all duration-200 items-center inset-0 bg-slate-900'
         )}
       >
         <div
