@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { MenuData } from './MenuData'
-import LoadingSkeletonMenu, { LoadingSkeleton } from '../Loading/LoadingSkeletonMenu'
+import LoadingSkeletonMenu from '../Loading/LoadingSkeletonMenu'
 
 function Menu() {
   const [stateMenuChild, setStateMenuChild] = useState({

@@ -16,11 +16,11 @@ import { useMemo } from 'react'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
-  const dropdownRef = useRef()
   const { cart } = useContext(Context)
   const { user, setUser } = useContext(Context)
   const [query, setQuery] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
+  const dropdownRef = useRef()
   const navigate = useNavigate()
   const [stateMenuChild, setStateMenuChild] = useState({
     1: false, // Danh muc
@@ -64,6 +64,14 @@ const Navbar = () => {
     }
   }, [])
 
+  const handleSearch = () => {
+    navigate(PATH.search, { state: query, replace: true })
+    // const search = document.getElementsByName("search").value;
+    const search = []
+    search.push({})
+    localStorage.setItem('userSearch', JSON.stringify(search))
+  }
+
   useEffect(() => {
     const handleClickOutDropdown = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -78,13 +86,6 @@ const Navbar = () => {
     }
   }, [])
 
-  const handleSearch = () => {
-    navigate(PATH.search, { state: query, replace: true })
-    // const search = document.getElementsByName("search").value;
-    const search = []
-    search.push({})
-    localStorage.setItem('userSearch', JSON.stringify(search))
-  }
   return (
     <>
       <div
@@ -108,23 +109,43 @@ const Navbar = () => {
             items={items}
             setOpen={setOpen}
             setQuery={setQuery}
-            setShowDropdown={setShowDropdown}
             handleSearch={handleSearch}
             onClick={logout}
             isAdmin={isAdmin}
+            dropdownRef={dropdownRef}
           ></HeaderFixedItem>
 
           <div className="hidden lg:flex justify-between">
-            <div id="search_box" className="flex h-10 border-2 bg-white rounded-sm w-400">
+            <div
+              id="search_box"
+              className="flex h-10 border-2 bg-white rounded-sm  w-400 relative"
+              ref={dropdownRef}
+            >
               <input
                 className=" bg-white text-md outline-0 flex w-full pl-2"
                 type="text"
                 placeholder="Tìm kiếm sản phẩm..."
                 name="search"
                 autoComplete="off"
+                onClick={() => setShowDropdown(!showDropdown)}
+                onChange={(e) => setQuery(e.target.value)}
               ></input>
 
+              {showDropdown && (
+                <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-br overflow-y-auto top-10 border border-gray-300">
+                  <ul className="md:text-sm lg:text-base">
+                    <li className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75">
+                      Cà phê cùng tony
+                    </li>
+                    <li className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75">
+                      Thời niên thiếu không thể quay lại ấy
+                    </li>
+                  </ul>
+                </div>
+              )}
+
               <button
+                onClick={handleSearch}
                 type="submit"
                 className="hover:bg-gray-200 relative my-auto justify-end right-0 h-full px-2"
               >

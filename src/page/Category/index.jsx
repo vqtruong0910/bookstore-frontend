@@ -23,6 +23,7 @@ function Category() {
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
+
   const sizePerPage = 5
   let arrSoTrang = []
   for (let i = 1; i <= page.SoLuongTrang; i++) {

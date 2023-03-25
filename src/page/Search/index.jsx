@@ -1,14 +1,12 @@
 import { useEffect, useState, useContext } from 'react'
 import axiosConfig from '../../config/axiosConfig'
 import { useLocation, useNavigate } from 'react-router-dom'
-import SearchLayout from '../../layout/SearchLayout'
 import style from './Search.module.scss'
 import { FiShoppingBag } from 'react-icons/fi'
 import Notify from '../../components/Notify'
 import Context from '../../store/Context'
 import { addToCart } from '../../reducers/cartReducers'
 import LoadingSkeletonSearch from '../../components/Loading/LoadingSkeletonSearch'
-import Menu from '../../components/Menu'
 
 const Search = () => {
   const [notify, setNotify] = useState(false)
@@ -32,7 +30,7 @@ const Search = () => {
       try {
         isLoading(true)
         const response = await axiosConfig(`product/search?name=${state}`)
-        console.log(response.data.data)
+        // console.log(response.data.data)
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)
