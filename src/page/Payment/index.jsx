@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/path'
 import axios from 'axios'
@@ -11,7 +11,7 @@ import LoadingSkeletonPayment from '../../components/Loading/LoadingSkeletonPaym
 
 function Payment() {
   const navigate = useNavigate()
-  const { user, cart } = useContext(Context)
+  const { user, cart, darkTheme } = useContext(Context)
   const [notify, setNotify] = useState(false)
   const [province, setProvince] = useState([])
   const [district, setDistrict] = useState([])
@@ -116,12 +116,14 @@ function Payment() {
     <>
       {loading && <LoadingSkeletonPayment></LoadingSkeletonPayment>}
       {!loading && (
-        <div className="flex flex-wrap w-full px-4" id="payment">
+        <div className="flex flex-wrap w-full px-4 pb-4" id="payment">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-wrap lg:flex-nowrap">
             <div className="flex flex-wrap w-full">
               <div className="flex flex-wrap w-full">
-                <div className="flex w-full lg:px-4">
-                  <span className="w-full text-lg lg:text-xl">Thông tin giao hàng</span>
+                <div
+                  className={`flex w-full lg:px-4 ${darkTheme ? 'text-white' : 'text-slate-700'}`}
+                >
+                  <span className="w-full text-lg font-medium">THÔNG TIN GIAO HÀNG</span>
                 </div>
 
                 <div className="flex flex-wrap justify-center w-full bg-white border border-gray-200 drop-shadow-lg mt-2 lg:mx-4">
@@ -289,7 +291,9 @@ function Payment() {
                 </div>
               </div>
               <div className="flex flex-wrap w-full py-5">
-                <div className="flex w-full lg:px-4">
+                <div
+                  className={`flex w-full lg:px-4 ${darkTheme ? 'text-white' : 'text-slate-700'}`}
+                >
                   <span className="w-full text-lg">Phương thức vận chuyển</span>
                 </div>
 
@@ -312,7 +316,9 @@ function Payment() {
               </div>
 
               <div className="flex flex-wrap w-full py-5">
-                <div className="flex w-full lg:px-4">
+                <div
+                  className={`flex w-full lg:px-4 ${darkTheme ? 'text-white' : 'text-slate-700'}`}
+                >
                   <span className="w-full text-lg">Phương thức thanh toán</span>
                 </div>
 
@@ -338,7 +344,7 @@ function Payment() {
                 </div>
               </div>
             </div>
-            <div className="w-full lg:py-9 py-5 lg:w-6/12 lg:mx-4">
+            <div className="w-full lg:py-9 py-5 lg:w-6/12 lg:mx-4 mb-4">
               <div className="w-full flex flex-col bg-white border border-gray-200 drop-shadow-lg lg:mt-0 items-end p-3">
                 <div className="flex flex-wrap lg:justify-between lg:w-full">
                   <div className="flex flex-col">

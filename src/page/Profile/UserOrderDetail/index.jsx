@@ -1,12 +1,15 @@
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { PATH } from '../../../constants/path'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axiosJWT from '../../../config/axiosJWT'
+import Context from '../../../store/Context'
+import { BiTimeFive } from 'react-icons/bi'
 
 function UserOrderDetail() {
   const navigate = useNavigate()
   const { state } = useLocation()
+  const { darkTheme } = useContext(Context)
 
   const [orderDetail, setOrderDetail] = useState([])
   useEffect(() => {
@@ -46,23 +49,16 @@ function UserOrderDetail() {
   return (
     <div className="flex flex-col w-full" id="user-order-detail">
       <div className="flex w-full px-4 md:px-0">
-        <span className="w-full text-lg font-semibold mb-5 lg:text-xl">
+        <span
+          className={`w-full text-lg font-semibold mb-2 lg:text-xl ${
+            darkTheme ? 'text-white' : 'text-slate-700'
+          }`}
+        >
           Chi tiết đơn hàng #{orderDetailID}
         </span>
       </div>
 
       <div>
-        {/* <div className="w-full justify-between flex mx-4 md:mx-0 mb-2">
-                            <div className="text-sm text-gray-700 font-medium flex items-center w-full">
-                                <IoReload className="w-5 h-5" />
-                                <span className="flex px-0.5 md:text-xs lg:text-base font-normal">Đang xử lý</span>
-                            </div>
-                            <div className="w-full flex flex-col items-end">
-                                <span className="text-xs md:text-sm lg:text-base text-slate-500">Ngày đặt hàng: 12:27 27/12/2022</span>
-                                <span className="text-xs md:text-sm lg:text-base text-slate-500">Ngày giao: 00:00 00:00:00</span>
-                            </div>
-                        </div> */}
-
         <div className="flex flex-wrap w-full md:mx-0 md:rounded-sm md:bg-white md:shadow-md">
           <div className="hidden md:flex md:flex-row md:justify-between md:w-full md:py-2 md:mx-1">
             <div className="w-full flex justify-center">
@@ -176,12 +172,12 @@ function UserOrderDetail() {
 
       <div
         onClick={() => navigate(PATH.profile.user_order_management)}
-        className="flex w-full px-4 items-center pt-5 mb-8"
+        className={`flex w-full px-4 items-center pt-5 mb-6 ${
+          darkTheme ? 'text-white' : 'text-slate-700'
+        }`}
       >
-        <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 text-slate-700 cursor-pointer" />
-        <span className="text-sm text-slate-700 cursor-pointer lg:text-base">
-          Quay lại đơn hàng của tôi
-        </span>
+        <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 cursor-pointer" />
+        <span className="text-sm cursor-pointer lg:text-base">Quay lại đơn hàng của tôi</span>
       </div>
     </div>
   )
