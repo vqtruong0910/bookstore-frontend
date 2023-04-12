@@ -1,19 +1,33 @@
 .none-spin {
-
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-    }
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .hide-scrollbar {
-    -ms-overflow-style: none; // IE and Edge 
-    scrollbar-width: none; // Firefox 
+  -ms-overflow-style: none; // IE and Edge
+  scrollbar-width: none; // Firefox
 
-    &::-webkit-scrollbar {
-        display: none;
-    }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.fade-in {
+}
+
+.fade-out {
+}
+
+@keyframes fadein {
+  0% {
+    @apply scale-90;
+  }
+  99% {
+    @apply scale-100;
+  }
 }

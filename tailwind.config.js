@@ -10,6 +10,7 @@ module.exports = {
         700: '700px',
         800: '800px',
         1000: '1000px',
+        '50%': '50%',
       },
       fontFamily: {
         lobster: ['Lobster', 'cursive'],
