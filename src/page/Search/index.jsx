@@ -14,7 +14,7 @@ const Search = () => {
   const [loading, isLoading] = useState(true)
   const { state } = useLocation()
   const navigate = useNavigate()
-  const { dispatch } = useContext(Context)
+  const { dispatch, darkTheme } = useContext(Context)
 
   const addToCartHandler = (product) => {
     dispatch(addToCart(product))
@@ -54,7 +54,9 @@ const Search = () => {
           <div className="flex flex-row w-full">
             <div className="flex flex-col w-full items-start px-4 pb-8">
               <div className="flex items-center pb-4">
-                <div className="text-xl font-semibold w-full">Từ khóa tìm kiếm : {state}</div>
+                <div className={`text-xl font-semibold w-full ${darkTheme ? 'text-white' : ''}`}>
+                  Từ khóa tìm kiếm : {state}
+                </div>
               </div>
 
               <div className="w-full m-2">

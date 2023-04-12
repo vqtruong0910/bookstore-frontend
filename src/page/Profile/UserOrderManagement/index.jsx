@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { RiFileListLine } from 'react-icons/ri'
 import { IoReload } from 'react-icons/io5'
 import { HiOutlineTruck } from 'react-icons/hi'
 import { FiCheckSquare } from 'react-icons/fi'
 import { BiTaskX } from 'react-icons/bi'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { UserAllOrderData } from './UserAllOrderData'
-import { useNavigate, Link } from 'react-router-dom'
-import { PATH } from '../../../constants/path'
 import axiosJWT from '../../../config/axiosJWT'
 import LoadingSkeletonUserOrderManagement from '../../../components/Loading/LoadingSkeletonUserOrderManagement'
 import AllOrder from '../../../module/UserOrder/AllOrder'
@@ -15,12 +12,13 @@ import BeingProcessedOrder from '../../../module/UserOrder/BeingProcessedOrder'
 import BeingShippedOrder from '../../../module/UserOrder/BeingShippedOrder'
 import DeliveredOrder from '../../../module/UserOrder/DeliveredOrder'
 import CancelledOrder from '../../../module/UserOrder/CancelledOrder'
+import Context from '../../../store/Context'
 
 function UserOrderManagement() {
-  const navigate = useNavigate()
   const [loading, isLoading] = useState(true)
   const [showDiv, setShowDiv] = useState(1)
   const [order, setOrder] = useState([])
+  const { darkTheme } = useContext(Context)
 
   const handleDiv = (e) => {
     setShowDiv(e)
@@ -56,7 +54,13 @@ function UserOrderManagement() {
       {!loading && (
         <div className="flex flex-wrap md:flex-col w-full" id="user-order-management">
           <div className="flex w-full px-4 md:px-0">
-            <span className="w-full text-lg font-semibold mb-5 lg:text-xl">Quản lý đơn hàng</span>
+            <span
+              className={`w-full text-lg font-semibold mb-5 lg:text-xl ${
+                darkTheme ? 'text-white' : 'text-slate-700'
+              }`}
+            >
+              Quản lý đơn hàng
+            </span>
           </div>
 
           <form className="w-full px-4 md:px-0 pb-4">
@@ -176,7 +180,7 @@ function UserOrderManagement() {
           </div>
 
           {showDiv === 1 && (
-            <div className="w-full px-4 md:px-0">
+            <div className="w-full px-4 md:px-0 mb-4">
               <AllOrder data={order}></AllOrder>
             </div>
           )}

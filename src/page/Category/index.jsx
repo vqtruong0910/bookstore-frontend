@@ -11,7 +11,7 @@ import LoadingSkeletonCategory from '../../components/Loading/LoadingSkeletonCat
 
 function Category() {
   const [notify, setNotify] = useState(false)
-  const { dispatch } = useContext(Context)
+  const { dispatch, darkTheme } = useContext(Context)
   const [page, setPage] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [loading, isLoading] = useState(true)
@@ -68,7 +68,13 @@ function Category() {
       {!loading && (
         <>
           <div className="w-full flex items-center justify-end pb-8">
-            <span className="mx-2 text-base md:text-lg font-medium text-gray-500">Sắp xếp</span>
+            <span
+              className={`mx-2 text-base md:text-lg font-medium ${
+                darkTheme ? 'text-white' : 'text-gray-500'
+              } `}
+            >
+              Sắp xếp
+            </span>
             <select className="border text-black/70 rounded-sm px-3 py-1 cursor-pointer bg-white border-black/70 focus:outline-none focus:ring-black/40 focus:ring-1 text-base font-semibold">
               <option value="moinhat">Mới nhất</option>
               <option value="banchay">Bán chạy</option>
@@ -136,7 +142,7 @@ function Category() {
               onClick={() => prevPage(currentPage)}
               className={
                 currentPage === 1
-                  ? 'w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-white cursor-pointer'
+                  ? 'w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-slate-400 cursor-pointer'
                   : 'w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-slate-700 cursor-pointer'
               }
             />
@@ -159,7 +165,7 @@ function Category() {
               onClick={() => nextPage(currentPage)}
               className={
                 currentPage === page.SoLuongTrang
-                  ? 'w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-white cursor-pointer'
+                  ? 'w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-slate-400 cursor-pointer'
                   : 'w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-slate-700 cursor-pointer'
               }
             />

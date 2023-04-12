@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 
 function ListProduct() {
   const [loading, isLoading] = useState(true)
+
   function NextArrow({ onClick }) {
     return (
       <BsFillArrowRightCircleFill
@@ -85,7 +86,7 @@ function ListProduct() {
       )}
 
       {!loading && (
-        <div className="w-4/5 mx-auto mt-10 ">
+        <div className="w-4/5 mx-auto">
           <Slider {...settings}>
             {CarouselData.map((item, index) => {
               return (
