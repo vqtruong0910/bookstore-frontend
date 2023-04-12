@@ -1,17 +1,25 @@
-import { Suspense } from 'react'
-import { Outlet, useParams } from 'react-router-dom'
+import { Suspense, useContext } from 'react'
+import { Outlet } from 'react-router-dom'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
+import Context from '../../store/Context'
 
 function DefaultLayout() {
+  const { darkTheme } = useContext(Context)
+
   return (
     <>
       <Header />
-      <div className="w-full rounded-sm block mt-40 lg:mt-8 mx-auto">
+      <div
+        className={`w-full rounded-sm block pt-40 lg:pt-8 mx-auto ${
+          darkTheme ? 'bg-black/70' : 'bg-white'
+        }`}
+      >
         <Suspense>
           <Outlet />
         </Suspense>
       </div>
+
       <Footer />
     </>
   )

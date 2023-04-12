@@ -7,7 +7,7 @@ import { PATH } from '../../constants/path'
 import Context from '../../store/Context'
 import { useContext } from 'react'
 
-function MenuUser({ children }) {
+function MenuUser() {
   const { user } = useContext(Context)
 
   let location = useLocation()
@@ -17,7 +17,7 @@ function MenuUser({ children }) {
   const navigate = useNavigate()
 
   return (
-    <div className="w-full h-full md:w-64 bg-blue-100 drop-shadow-lg rounded-sm">
+    <div className="w-full h-[470px] md:w-64 bg-blue-100 drop-shadow-lg rounded-sm">
       <div className="flex items-end justify-center">
         <div className="mt-5 items-center justify-center flex relative">
           <div className="flex justify-center items-center">

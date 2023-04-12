@@ -10,7 +10,7 @@ import axiosJWT from '../../../config/axiosJWT'
 import LoadingSkeletonPersonInfo from '../../../components/Loading/LoadingSkeletonPersonInfo'
 
 function PersonInfo() {
-  const { user, setUser } = useContext(Context)
+  const { user, setUser, darkTheme } = useContext(Context)
   const [notify, setNotify] = useState(false)
   const [loading, isLoading] = useState(true)
   const navigate = useNavigate()
@@ -94,12 +94,16 @@ function PersonInfo() {
         <div className="flex flex-row">
           <div className="flex flex-wrap w-full">
             <div className="flex w-full px-4 md:px-0">
-              <span className="w-full text-lg font-semibold mb-5 lg:text-xl">
+              <span
+                className={`w-full text-lg font-semibold mb-5 lg:text-xl ${
+                  darkTheme ? 'text-white' : 'text-slate-700'
+                }`}
+              >
                 Thông tin tài khoản
               </span>
             </div>
 
-            <div className="flex w-full flex-wrap lg:flex-nowrap md:mx-0 bg-white shadow-md">
+            <div className="flex w-full flex-wrap lg:flex-nowrap md:mx-0 bg-white shadow-md mb-8">
               <div className="w-full px-4 lg:w-2/3">
                 <div className="w-full flex flex-wrap">
                   <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>

@@ -2,11 +2,21 @@ import { BsSearch } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/path'
 import { useRef, useState, useEffect } from 'react'
+
 const Search = () => {
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
   const dropdownRef = useRef()
+  const [data, setData] = useState([])
+
+  const handleSearch = () => {
+    navigate(PATH.search, { state: query, replace: true })
+    // const search = document.getElementsByName("search").value;
+    const search = []
+    search.push({})
+    localStorage.setItem('userSearch', JSON.stringify(search))
+  }
 
   useEffect(() => {
     const handleClickOutDropdown = (e) => {
@@ -21,14 +31,6 @@ const Search = () => {
       document.removeEventListener('click', handleClickOutDropdown)
     }
   }, [])
-
-  const handleSearch = () => {
-    navigate(PATH.search, { state: query, replace: true })
-    // const search = document.getElementsByName("search").value;
-    const search = []
-    search.push({})
-    localStorage.setItem('userSearch', JSON.stringify(search))
-  }
 
   return (
     <>

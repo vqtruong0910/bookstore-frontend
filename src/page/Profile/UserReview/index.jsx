@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { IoReload } from 'react-icons/io5'
 import { BiMessageRoundedCheck } from 'react-icons/bi'
 import { AiOutlineSmile } from 'react-icons/ai'
@@ -6,11 +6,13 @@ import { BsStarFill } from 'react-icons/bs'
 import Notify from '../../../components/Notify'
 import { useForm } from 'react-hook-form'
 import LoadingSkeletonUserReview from '../../../components/Loading/LoadingSkeletonUserReview'
+import Context from '../../../store/Context'
 
 function UserReview() {
   const [notify, setNotify] = useState(false)
   const [loading, isLoading] = useState(true)
   const [showDiv, setShowDiv] = useState(1)
+  const { darkTheme } = useContext(Context)
   const {
     register,
     handleSubmit,
@@ -42,7 +44,13 @@ function UserReview() {
       {!loading && (
         <div className="flex flex-wrap md:flex-col w-full" id="user-order-management">
           <div className="flex w-full px-4 md:px-0">
-            <span className="w-full text-lg font-semibold mb-5 lg:text-xl">Đánh giá sản phẩm</span>
+            <span
+              className={`w-full text-lg font-semibold mb-5 lg:text-xl ${
+                darkTheme ? 'text-white' : 'text-slate-700'
+              }`}
+            >
+              Đánh giá sản phẩm
+            </span>
           </div>
 
           <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white ">

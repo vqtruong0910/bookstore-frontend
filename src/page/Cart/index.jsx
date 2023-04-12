@@ -2,7 +2,7 @@ import { IoMdRemove } from 'react-icons/io'
 import { IoAddSharp } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/path'
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Context from '../../store/Context'
 import {
   incrementItemQuantity,
@@ -10,10 +10,11 @@ import {
   removeFromCart,
 } from '../../reducers/cartReducers'
 import LoadingSkeletonCart from '../../components/Loading/LoadingSkeletonCart'
+
 function Cart() {
   const [loading, isLoading] = useState(true)
   const navigate = useNavigate()
-  const { user, cart, dispatch } = useContext(Context)
+  const { user, cart, dispatch, darkTheme } = useContext(Context)
   const removeFromCartHandler = (itemToRemove) => dispatch(removeFromCart(itemToRemove))
   const decrementQuantity = (item) => dispatch(decrementItemQuantity(item))
   const incrementQuantity = (item) => dispatch(incrementItemQuantity(item))
@@ -58,11 +59,21 @@ function Cart() {
         <div className="flex flex-wrap w-full px-4">
           <div className="flex flex-wrap w-full">
             <div className="flex w-full lg:px-4">
-              <span className="w-full text-lg font-medium">GIỎ HÀNG CỦA BẠN</span>
+              <span
+                className={`w-full text-lg font-medium ${
+                  darkTheme ? 'text-white' : 'text-slate-700'
+                }`}
+              >
+                GIỎ HÀNG CỦA BẠN
+              </span>
             </div>
 
             {cart.length === 0 && (
-              <div className="flex flex-col items-center w-full">
+              <div
+                className={`flex flex-col items-center w-full mb-4 ${
+                  darkTheme ? 'text-white' : 'text-slate-700'
+                }`}
+              >
                 <img
                   src="https://salt.tikicdn.com/desktop/img/mascot@2x.png"
                   alt="Go_Shopping"
@@ -92,12 +103,12 @@ function Cart() {
                     <div className="w-full text-base text-center">Thành tiền</div>
                   </div>
 
-                  <div className="w-full bg-white shadow-md flex flex-col mt-4">
+                  <div className="w-full bg-white shadow-md flex flex-col mt-4 lg:mb-8">
                     {cart.map((item, index) => {
                       return (
                         <div
                           key={index}
-                          className="border border-gray-200 mb-8 rounded-sm drop-shadow-lg"
+                          className="border border-gray-200 rounded-sm drop-shadow-lg"
                         >
                           <div className="hidden md:px-4 md:py-1 md:block">
                             Số lượng còn lại : {item.SoLuongConLai}
@@ -232,7 +243,7 @@ function Cart() {
                 </div>
 
                 <div className="w-full lg:w-4/12 lg:pl-4">
-                  <div className="w-full flex flex-col bg-white shadow-md mt-4 items-end lg:justify-between p-3 mb-4">
+                  <div className="w-full flex flex-col bg-white shadow-md mt-4 items-end lg:justify-between p-3 mb-8">
                     <div className="flex flex-wrap lg:w-full lg:justify-between">
                       <div className="flex flex-col">
                         <span className="py-1 font-light md:text-lg">Tạm tính</span>

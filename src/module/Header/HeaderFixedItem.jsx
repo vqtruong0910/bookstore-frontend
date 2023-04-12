@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
 import { GiHamburgerMenu } from 'react-icons/gi'
@@ -10,24 +10,30 @@ const HeaderFixedItem = ({
   user,
   items,
   setOpen = () => {},
-  showDropdown,
-  setShowDropdown = () => {},
   setQuery = () => {},
   onClick = () => {},
   handleSearch,
+  dropdownRef,
   isAdmin,
+  showDropdown,
+  setShowDropdown = () => {},
+  data,
 }) => {
   const [menu, setMenu] = useState(false)
   const navigate = useNavigate()
-  const dropdownRef = useRef()
+
   return (
     <div className="flex flex-1 justify-between items-center gap-x-2 px-2 lg:hidden">
       <div className="cursor-pointer" onClick={() => setOpen(true)}>
         <GiHamburgerMenu className="w-7 h-7 text-white"></GiHamburgerMenu>
       </div>
 
-      <div className="flex justify-between w-full flex-1" ref={dropdownRef}>
-        <div id="search_box" className="flex h-10 border-2 bg-white rounded-sm w-full relative">
+      <div className="flex justify-between w-full flex-1">
+        <div
+          id="search_box"
+          className="flex h-10 border-2 bg-white rounded-sm w-full relative"
+          ref={dropdownRef}
+        >
           <input
             className=" bg-white text-md outline-0 flex w-full pl-2"
             type="text"
@@ -39,14 +45,20 @@ const HeaderFixedItem = ({
           ></input>
 
           {showDropdown && (
-            <div className="z-10 absolute bg-white drop-shadow-lg rounded-br overflow-y-auto top-10 border border-gray-300">
+            <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-br overflow-y-auto top-10 border border-gray-300">
               <ul className="md:text-sm lg:text-base">
-                <li className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75">
-                  Cà phê cùng tony()
-                </li>
-                <li className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75">
-                  Thời niên thiếu không thể quay lại ấy
-                </li>
+                {data.length > 0 &&
+                  data?.slice(0, 10).map((item) => (
+                    <li
+                      onClick={() =>
+                        navigate(PATH.search, { state: item.TenSanPham, replace: true })
+                      }
+                      key={item.IDSanPham}
+                      className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
+                    >
+                      {item.TenSanPham}
+                    </li>
+                  ))}
               </ul>
             </div>
           )}
@@ -60,6 +72,7 @@ const HeaderFixedItem = ({
           </button>
         </div>
       </div>
+
       <div className="flex gap-x-1">
         {user && (
           <div onClick={() => setMenu(!menu)} className="cursor-pointer relative group">

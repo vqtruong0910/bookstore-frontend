@@ -16,11 +16,12 @@ import { useMemo } from 'react'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
-  const dropdownRef = useRef()
   const { cart } = useContext(Context)
   const { user, setUser } = useContext(Context)
   const [query, setQuery] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
+  const [data, setData] = useState([])
+  const dropdownRef = useRef()
   const navigate = useNavigate()
   const [stateMenuChild, setStateMenuChild] = useState({
     1: false, // Danh muc
@@ -28,6 +29,7 @@ const Navbar = () => {
     3: false, // Tac gia
     4: false, // Tai khoan
   })
+
   const showMenuChild = useCallback(
     (location) => {
       setStateMenuChild({ ...stateMenuChild, [location]: !stateMenuChild[location] })
@@ -64,6 +66,14 @@ const Navbar = () => {
     }
   }, [])
 
+  const handleSearch = () => {
+    navigate(PATH.search, { state: query, replace: true })
+    // const search = document.getElementsByName("search").value;
+    const search = []
+    search.push({})
+    localStorage.setItem('userSearch', JSON.stringify(search))
+  }
+
   useEffect(() => {
     const handleClickOutDropdown = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -78,13 +88,16 @@ const Navbar = () => {
     }
   }, [])
 
-  const handleSearch = () => {
-    navigate(PATH.search, { state: query, replace: true })
-    // const search = document.getElementsByName("search").value;
-    const search = []
-    search.push({})
-    localStorage.setItem('userSearch', JSON.stringify(search))
-  }
+  useEffect(() => {
+    const fetchBookData = async () => {
+      const response = await axiosConfig('product/')
+      if (response.data.data) {
+        setData(response.data.data)
+      }
+    }
+    fetchBookData()
+  }, [])
+
   return (
     <>
       <div
@@ -108,23 +121,52 @@ const Navbar = () => {
             items={items}
             setOpen={setOpen}
             setQuery={setQuery}
-            setShowDropdown={setShowDropdown}
             handleSearch={handleSearch}
             onClick={logout}
             isAdmin={isAdmin}
+            dropdownRef={dropdownRef}
+            showDropdown={showDropdown}
+            setShowDropdown={setShowDropdown}
+            data={data}
           ></HeaderFixedItem>
 
           <div className="hidden lg:flex justify-between">
-            <div id="search_box" className="flex h-10 border-2 bg-white rounded-sm w-400">
+            <div
+              id="search_box"
+              className="flex h-10 border-2 bg-white rounded-sm  w-400 relative"
+              ref={dropdownRef}
+            >
               <input
                 className=" bg-white text-md outline-0 flex w-full pl-2"
                 type="text"
                 placeholder="Tìm kiếm sản phẩm..."
                 name="search"
                 autoComplete="off"
+                onClick={() => setShowDropdown(!showDropdown)}
+                onChange={(e) => setQuery(e.target.value)}
               ></input>
 
+              {showDropdown && (
+                <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-br overflow-y-auto top-10 border border-gray-300">
+                  <ul className="md:text-sm lg:text-base">
+                    {data.length > 0 &&
+                      data?.slice(0, 10).map((item) => (
+                        <li
+                          onClick={() =>
+                            navigate(PATH.search, { state: item.TenSanPham, replace: true })
+                          }
+                          key={item.IDSanPham}
+                          className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
+                        >
+                          {item.TenSanPham}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              )}
+
               <button
+                onClick={handleSearch}
                 type="submit"
                 className="hover:bg-gray-200 relative my-auto justify-end right-0 h-full px-2"
               >

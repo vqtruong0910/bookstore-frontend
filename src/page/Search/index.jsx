@@ -1,14 +1,12 @@
 import { useEffect, useState, useContext } from 'react'
 import axiosConfig from '../../config/axiosConfig'
 import { useLocation, useNavigate } from 'react-router-dom'
-import SearchLayout from '../../layout/SearchLayout'
 import style from './Search.module.scss'
 import { FiShoppingBag } from 'react-icons/fi'
 import Notify from '../../components/Notify'
 import Context from '../../store/Context'
 import { addToCart } from '../../reducers/cartReducers'
 import LoadingSkeletonSearch from '../../components/Loading/LoadingSkeletonSearch'
-import Menu from '../../components/Menu'
 
 const Search = () => {
   const [notify, setNotify] = useState(false)
@@ -16,7 +14,7 @@ const Search = () => {
   const [loading, isLoading] = useState(true)
   const { state } = useLocation()
   const navigate = useNavigate()
-  const { dispatch } = useContext(Context)
+  const { dispatch, darkTheme } = useContext(Context)
 
   const addToCartHandler = (product) => {
     dispatch(addToCart(product))
@@ -32,7 +30,7 @@ const Search = () => {
       try {
         isLoading(true)
         const response = await axiosConfig(`product/search?name=${state}`)
-        console.log(response.data.data)
+        // console.log(response.data.data)
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)
@@ -56,7 +54,9 @@ const Search = () => {
           <div className="flex flex-row w-full">
             <div className="flex flex-col w-full items-start px-4 pb-8">
               <div className="flex items-center pb-4">
-                <div className="text-xl font-semibold w-full">Từ khóa tìm kiếm : {state}</div>
+                <div className={`text-xl font-semibold w-full ${darkTheme ? 'text-white' : ''}`}>
+                  Từ khóa tìm kiếm : {state}
+                </div>
               </div>
 
               <div className="w-full m-2">
