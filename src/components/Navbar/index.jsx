@@ -20,6 +20,7 @@ const Navbar = () => {
   const { user, setUser } = useContext(Context)
   const [query, setQuery] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
+  const [data, setData] = useState([])
   const dropdownRef = useRef()
   const navigate = useNavigate()
   const [stateMenuChild, setStateMenuChild] = useState({
@@ -28,6 +29,7 @@ const Navbar = () => {
     3: false, // Tac gia
     4: false, // Tai khoan
   })
+
   const showMenuChild = useCallback(
     (location) => {
       setStateMenuChild({ ...stateMenuChild, [location]: !stateMenuChild[location] })
@@ -86,6 +88,16 @@ const Navbar = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const fetchBookData = async () => {
+      const response = await axiosConfig('product/')
+      if (response.data.data) {
+        setData(response.data.data)
+      }
+    }
+    fetchBookData()
+  }, [])
+
   return (
     <>
       <div
@@ -113,6 +125,9 @@ const Navbar = () => {
             onClick={logout}
             isAdmin={isAdmin}
             dropdownRef={dropdownRef}
+            showDropdown={showDropdown}
+            setShowDropdown={setShowDropdown}
+            data={data}
           ></HeaderFixedItem>
 
           <div className="hidden lg:flex justify-between">
@@ -134,12 +149,18 @@ const Navbar = () => {
               {showDropdown && (
                 <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-br overflow-y-auto top-10 border border-gray-300">
                   <ul className="md:text-sm lg:text-base">
-                    <li className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75">
-                      Cà phê cùng tony
-                    </li>
-                    <li className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75">
-                      Thời niên thiếu không thể quay lại ấy
-                    </li>
+                    {data.length > 0 &&
+                      data?.slice(0, 10).map((item) => (
+                        <li
+                          onClick={() =>
+                            navigate(PATH.search, { state: item.TenSanPham, replace: true })
+                          }
+                          key={item.IDSanPham}
+                          className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
+                        >
+                          {item.TenSanPham}
+                        </li>
+                      ))}
                   </ul>
                 </div>
               )}

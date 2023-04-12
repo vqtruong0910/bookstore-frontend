@@ -15,24 +15,12 @@ const HeaderFixedItem = ({
   handleSearch,
   dropdownRef,
   isAdmin,
+  showDropdown,
+  setShowDropdown = () => {},
+  data,
 }) => {
   const [menu, setMenu] = useState(false)
-  const [showDropdown, setShowDropdown] = useState(false)
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const handleClickOutDropdown = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setShowDropdown(false)
-      } else {
-        setShowDropdown(true)
-      }
-    }
-    document.addEventListener('click', handleClickOutDropdown)
-    return () => {
-      document.removeEventListener('click', handleClickOutDropdown)
-    }
-  }, [])
 
   return (
     <div className="flex flex-1 justify-between items-center gap-x-2 px-2 lg:hidden">
@@ -59,12 +47,18 @@ const HeaderFixedItem = ({
           {showDropdown && (
             <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-br overflow-y-auto top-10 border border-gray-300">
               <ul className="md:text-sm lg:text-base">
-                <li className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75">
-                  Cà phê cùng tony
-                </li>
-                <li className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75">
-                  Thời niên thiếu không thể quay lại ấy
-                </li>
+                {data.length > 0 &&
+                  data?.slice(0, 10).map((item) => (
+                    <li
+                      onClick={() =>
+                        navigate(PATH.search, { state: item.TenSanPham, replace: true })
+                      }
+                      key={item.IDSanPham}
+                      className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
+                    >
+                      {item.TenSanPham}
+                    </li>
+                  ))}
               </ul>
             </div>
           )}

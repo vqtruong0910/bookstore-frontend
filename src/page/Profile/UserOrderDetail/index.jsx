@@ -4,7 +4,6 @@ import { PATH } from '../../../constants/path'
 import { useState, useEffect, useContext } from 'react'
 import axiosJWT from '../../../config/axiosJWT'
 import Context from '../../../store/Context'
-import { BiTimeFive } from 'react-icons/bi'
 
 function UserOrderDetail() {
   const navigate = useNavigate()
