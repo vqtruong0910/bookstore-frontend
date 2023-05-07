@@ -10,7 +10,7 @@ import PopularBook from '../../module/Book/PopularBook'
 
 function Main() {
   const [popularBook, setPopularBook] = useState([])
-  const [newBook, setNewBook] = useState([])
+  // const [newBook, setNewBook] = useState([])
   const [bestSellerBook, setBestSellerBook] = useState([])
   const [loading, isLoading] = useState(true)
 
@@ -75,15 +75,15 @@ function Main() {
   useEffect(() => {
     try {
       isLoading(true)
-      const fetchNewBookData = async () => {
-        const response = await axiosConfig('product/new')
-        if (response.data.data) {
-          setTimeout(() => {
-            isLoading(false)
-            setNewBook(response.data.data)
-          }, 250)
-        }
-      }
+      // const fetchNewBookData = async () => {
+      //   const response = await axiosConfig('product/new')
+      //   if (response.data.data) {
+      //     setTimeout(() => {
+      //       isLoading(false)
+      //       setNewBook(response.data.data)
+      //     }, 250)
+      //   }
+      // }
 
       const fetchBestSellerBookData = async () => {
         const response = await axiosConfig('product/bestseller')
@@ -103,7 +103,7 @@ function Main() {
           }, 250)
         }
       }
-      fetchNewBookData()
+      // fetchNewBookData()
       fetchPopularBookData()
       fetchBestSellerBookData()
     } catch (error) {
@@ -120,7 +120,7 @@ function Main() {
 
       {!loading && (
         <div className="w-full justify-center">
-          <NewBook data={newBook} settings={settings}></NewBook>
+          {/* <NewBook data={newBook} settings={settings}></NewBook> */}
 
           <BestSellerBook data={bestSellerBook} settings={settings}></BestSellerBook>
 
