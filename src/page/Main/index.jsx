@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import axiosConfig from '../../config/axiosConfig'
 import LoadingSkeletonMain from '../../components/Loading/LoadingSkeletonMain'
-import NewBook from '../../module/Book/NewBook'
+// import NewBook from '../../module/Book/NewBook'
 import BestSellerBook from '../../module/Book/BestSellerBook'
 import PopularBook from '../../module/Book/PopularBook'
 
