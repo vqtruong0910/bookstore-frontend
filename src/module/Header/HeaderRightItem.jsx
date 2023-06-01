@@ -7,16 +7,16 @@ import Context from '../../store/Context'
 
 const HeaderRightItem = ({ user, items, onClick = () => {}, isAdmin }) => {
   const navigate = useNavigate()
-  const { darkTheme, toggleDarkTheme } = useContext(Context)
+  // const { darkTheme, toggleDarkTheme } = useContext(Context)
 
   return (
     <div className="hidden lg:flex gap-x-5">
-      <button
+      {/* <button
         onClick={toggleDarkTheme}
         className="bg-orange-400 hover:bg-orange-300 transition-all px-2 rounded-md font-medium text-white w-14"
       >
         {darkTheme ? 'Tối' : 'Sáng'}
-      </button>
+      </button> */}
 
       <div className="lg:flex gap-x-1">
         <div className="flex flex-row items-center">
