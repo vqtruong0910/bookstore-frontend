@@ -96,11 +96,12 @@ function AddProduct() {
     if (fileImageFolder) {
       setValue('HinhAnh', fileImageFolder)
       if (await trigger('HinhAnh')) {
-        const fileReader = new FileReader()
-        fileReader.readAsDataURL(fileImageFolder)
-        fileReader.onloadend = () => {
-          setFileImage(fileReader.result)
-        }
+        setFileImage(URL.createObjectURL(fileImageFolder))
+        // const fileReader = new FileReader()
+        // fileReader.readAsDataURL(fileImageFolder)
+        // fileReader.onloadend = () => {
+        //   setFileImage(fileReader.result)
+        // }
       } else setFileImage(null)
     }
   }, [])
