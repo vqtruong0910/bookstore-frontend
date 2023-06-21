@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom'
 
 function Notify(props) {
   const { notify, setNotify } = props
-  console.log(notify)
   const navigate = useNavigate()
   return ReactDOM.createPortal(
     <>

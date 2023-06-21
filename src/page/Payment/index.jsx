@@ -8,10 +8,12 @@ import { AiOutlineSmile } from 'react-icons/ai'
 import { useForm } from 'react-hook-form'
 import Context from '../../store/Context'
 import LoadingSkeletonPayment from '../../components/Loading/LoadingSkeletonPayment'
+import Input from '../../components/Input'
 
 function Payment() {
   const navigate = useNavigate()
   const { user, cart, darkTheme } = useContext(Context)
+
   const [notify, setNotify] = useState(false)
   const [province, setProvince] = useState([])
   const [district, setDistrict] = useState([])
@@ -22,58 +24,67 @@ function Payment() {
   let totalAllProduct = 0
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
     clearErrors,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
-      fullName: user?.HoTen,
-      email: user?.Email,
-      phone: '',
-      address: '',
-      city: '',
-      district: '',
-      ward: '',
-      shipping_cost: '',
-      pay_on_delivery: '',
+      fullName: '',
+      // email: user?.Email || '',
+      // phone: '',
+      // address: '',
+      // city: '',
+      // district: '',
+      // ward: '',
+      // shipping_cost: '',
+      // pay_on_delivery: '',
     },
   })
 
+  console.log('errors >> ', errors)
+
   const onSubmit = async (data) => {
-    const detail = []
-    cart.forEach((item) => {
-      const { IDSanPham, quantity, GiaBan } = item
-      detail.push({ IDSanPham, SoLuong: quantity, GiaBan })
-    })
-    try {
-      const response = await axiosJWT.post('order/', {
-        DiaChi: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
-        PhiShip: 30000,
-        ChiTietDonHang: detail,
-      })
-      if (response) return setNotify(true)
-    } catch (error) {
-      console.log(error)
-    }
-    return setNotify(true)
+    console.log(data)
+    // const detail = []
+    // cart.forEach((item) => {
+    //   const { IDSanPham, quantity, GiaBan } = item
+    //   detail.push({ IDSanPham, SoLuong: quantity, GiaBan })
+    // })
+    // try {
+    //   const response = await axiosJWT.post('order/', {
+    //     DiaChi: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
+    //     PhiShip: 30000,
+    //     ChiTietDonHang: detail,
+    //   })
+    //   if (response) return setNotify(true)
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    // return setNotify(true)
   }
+
   cart.forEach((item) => {
     totalAllProduct += item.GiaBan * item.quantity
   })
+
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
+
   const handlePay = () => {
     localStorage.removeItem('userCart')
   }
+
   const handleProvince = (event) => {
     const index = event.target.selectedIndex
     const el = event.target.childNodes[index]
     const getProvinceCode = el.getAttribute('id')
     setProvinceCode(getProvinceCode)
   }
+
   const handleDistrict = (event) => {
     const index = event.target.selectedIndex
     const el = event.target.childNodes[index]
@@ -127,7 +138,7 @@ function Payment() {
                 </div>
 
                 <div className="flex flex-wrap justify-center w-full bg-white border border-gray-200 drop-shadow-lg mt-2 lg:mx-4">
-                  <div className="flex w-full p-2">
+                  {/* <div className="flex w-full p-2">
                     <div className="w-1/3 items-center flex">
                       <span className="flex text-sm font-medium lg:text-base ">Họ & Tên</span>
                     </div>
@@ -142,9 +153,28 @@ function Payment() {
                         disabled
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="flex w-full p-2">
+                    <div className="w-1/3 items-center flex">
+                      <span className="flex text-sm font-medium lg:text-base">Họ & tên</span>
+                    </div>
+
+                    <div className="w-2/3 lg:w-8/12 flex flex-col">
+                      <Input
+                        type="text"
+                        name="fullName"
+                        placeholder="Nhập họ và tên"
+                        id="fullName"
+                        control={control}
+                        rules={{
+                          require: true,
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* <div className="flex w-full p-2">
                     <div className="w-1/3 items-center flex">
                       <span className="flex text-sm font-medium lg:text-base">Email</span>
                     </div>
@@ -287,7 +317,7 @@ function Payment() {
                         <div className="text-xs text-red-500 md:text-sm">{errors.ward.message}</div>
                       )}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="flex flex-wrap w-full py-5">
