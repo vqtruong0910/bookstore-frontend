@@ -11,7 +11,7 @@ function DefaultLayout() {
     <>
       <Header />
       <div
-        className={`w-full rounded-sm block pt-40 lg:pt-8 mx-auto ${
+        className={`w-full rounded-sm block pt-36 lg:py-8 mx-auto ${
           darkTheme ? 'bg-black/70' : 'bg-white'
         }`}
       >

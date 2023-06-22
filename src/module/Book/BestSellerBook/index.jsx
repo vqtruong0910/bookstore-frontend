@@ -9,6 +9,7 @@ import style from './BestSellerBook.module.scss'
 import { useContext, useState } from 'react'
 import Context from '../../../store/Context'
 import { addToCart } from '../../../reducers/cartReducers'
+import Card from '../../../components/Card'
 
 const BestSellerBook = ({ data, settings }) => {
   const [notify, setNotify] = useState(false)

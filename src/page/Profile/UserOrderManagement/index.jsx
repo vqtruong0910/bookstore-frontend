@@ -180,7 +180,7 @@ function UserOrderManagement() {
           </div>
 
           {showDiv === 1 && (
-            <div className="w-full px-4 md:px-0 mb-4">
+            <div className="w-full px-4 md:px-0">
               <AllOrder data={order}></AllOrder>
             </div>
           )}

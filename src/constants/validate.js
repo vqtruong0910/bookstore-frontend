@@ -103,7 +103,7 @@ export const VALIDATE = {
       message: 'DD/MM/YYYY',
     },
   },
-  namePayment: {
+  fullname: {
     required: 'Xin nhập vào nhập họ và tên của bạn',
   },
   phone: {

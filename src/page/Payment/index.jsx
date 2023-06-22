@@ -143,7 +143,7 @@ function Payment() {
                       placeholder="Nhập họ và tên"
                       id="fullName"
                       control={control}
-                      rules={VALIDATE.namePayment}
+                      rules={VALIDATE.fullname}
                     />
                   </Field>
 
