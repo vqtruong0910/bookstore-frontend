@@ -15,6 +15,7 @@ import InputImage from '../../../components/Input/inputImage'
 
 function PersonInfo() {
   const { user, setUser, darkTheme } = useContext(Context)
+  console.log('user >> ', user)
   console.log('user >> ', user?.GioiTinh)
   const [notify, setNotify] = useState(false)
   const [loading, isLoading] = useState(true)
@@ -114,9 +115,9 @@ function PersonInfo() {
                       <div className="flex flex-col items-center py-4 w-full">
                         <div className="flex relative justify-end items-end">
                           <div name="user_image" className="flex justify-center items-center">
-                            {user.Anh ? (
+                            {user?.Anh ? (
                               <img
-                                src={user.Anh}
+                                src={user?.Anh}
                                 alt="Avatar"
                                 className="border-2 rounded-full w-24 h-24 border-blue-200"
                               />

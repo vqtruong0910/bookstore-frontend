@@ -11,7 +11,7 @@ function DefaultLayout() {
     <>
       <Header />
       <div
-        className={`w-full rounded-sm block pt-36 lg:py-8 mx-auto ${
+        className={`w-full rounded-sm block mx-auto my-10 ${
           darkTheme ? 'bg-black/70' : 'bg-white'
         }`}
       >
@@ -19,7 +19,6 @@ function DefaultLayout() {
           <Outlet />
         </Suspense>
       </div>
-
       <Footer />
     </>
   )

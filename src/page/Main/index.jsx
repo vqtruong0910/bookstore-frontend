@@ -119,7 +119,7 @@ function Main() {
       {loading && <LoadingSkeletonMain></LoadingSkeletonMain>}
 
       {!loading && (
-        <div className="w-full justify-center">
+        <div className="flex flex-col gap-10 w-full justify-center">
           {/* <NewBook data={newBook} settings={settings}></NewBook> */}
 
           <BestSellerBook data={bestSellerBook} settings={settings}></BestSellerBook>

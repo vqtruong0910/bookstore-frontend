@@ -51,11 +51,15 @@ function Payment() {
         ChiTietDonHang: detail,
       })
       Swal.fire({
-        position: 'top-center',
-        icon: 'success',
         title: 'Chúc mừng bạn đã đặt hàng thành công',
-        showConfirmButton: false,
-        timer: 2500,
+        icon: 'success',
+        showCancelButton: false,
+        confirmButtonColor: 'rgb(29, 192, 113)',
+        confirmButtonText: 'Xem đơn hàng',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          navigate(PATH.profile.user_order_management)
+        }
       })
 
       return navigate('/')

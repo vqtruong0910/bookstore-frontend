@@ -107,7 +107,7 @@ const Navbar = () => {
         )}
         onClick={() => setOpen(false)}
       ></div>
-      <div className="h-32 bg-slate-700 flex flex-col justify-center lg:items-center lg:justify-between lg:relative fixed top-0 w-full transition-all z-20">
+      <div className="h-32 bg-slate-700 flex flex-col justify-center lg:items-center lg:justify-between lg:relative w-full transition-all z-20">
         <div className="gap-y-4 flex flex-col lg:flex-row py-4 lg:px-4 h-full lg:items-center lg:h-auto lg:w-full lg:justify-between ">
           <Link to={PATH.main} className="flex justify-center items-center gap-x-2 ">
             <img className="w-10 h-10 lg:w-16 lg:h-16 rounded-full" src={logo} alt="bookstore" />
