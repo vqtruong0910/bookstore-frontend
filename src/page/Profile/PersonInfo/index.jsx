@@ -1,8 +1,7 @@
 import { BiLock } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../../constants/path'
-import Notify from '../../../components/Notify'
-import { AiOutlineSmile, AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineUser } from 'react-icons/ai'
 import React, { useState, useCallback, useContext, useEffect } from 'react'
 import Context from '../../../store/Context'
 import { useForm } from 'react-hook-form'
@@ -12,15 +11,13 @@ import Input from '../../../components/Input'
 import { VALIDATE } from '../../../constants/validate'
 import Field from '../../../components/Field'
 import InputImage from '../../../components/Input/inputImage'
+import Swal from 'sweetalert2'
 
 function PersonInfo() {
-  const { user, setUser, darkTheme } = useContext(Context)
-  console.log('user >> ', user)
-  console.log('user >> ', user?.GioiTinh)
-  const [notify, setNotify] = useState(false)
-  const [loading, isLoading] = useState(true)
   const navigate = useNavigate()
-
+  const { user, setUser, darkTheme } = useContext(Context)
+  const [loading, isLoading] = useState(true)
+  const [fileImage, setFileImage] = useState()
   const {
     handleSubmit,
     formState: { errors },
@@ -35,8 +32,6 @@ function PersonInfo() {
       email: user?.Email,
     },
   })
-
-  const [fileImage, setFileImage] = useState()
 
   const onChangeImage = useCallback(
     async (e) => {
@@ -64,7 +59,12 @@ function PersonInfo() {
               if (response)
                 localStorage.setItem('user', JSON.stringify({ ...user, Anh: response.data.Anh }))
               setUser({ ...user, Anh: response.data.Anh })
-              return setNotify(true)
+              return Swal.fire({
+                title: 'Chúc mừng bạn đã thay đổi ảnh thành công',
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: 'rgb(29, 192, 113)',
+              })
             } catch (error) {
               console.log(error)
             }
@@ -76,7 +76,12 @@ function PersonInfo() {
   )
 
   const onSubmit = (data) => {
-    return setNotify(true)
+    return Swal.fire({
+      title: 'Chúc mừng bạn đã lưu thay đổi thành công',
+      icon: 'success',
+      showCancelButton: false,
+      confirmButtonColor: 'rgb(29, 192, 113)',
+    })
   }
 
   useEffect(() => {
@@ -222,19 +227,6 @@ function PersonInfo() {
                   </div>
                 </div>
               </div>
-
-              {notify ? (
-                <Notify
-                  close="true"
-                  message="Chúc mừng bạn lưu thay đổi thành công"
-                  icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />}
-                  textMessage="text-slate-700"
-                  notify={notify}
-                  setNotify={(data) => setNotify(data)}
-                />
-              ) : (
-                <></>
-              )}
 
               <div className="w-full lg:w-1/3 flex flex-wrap lg:flex-col px-4 lg:border-l lg:my-5 border-gray-300 py-5 lg:py-0">
                 <div className="w-full flex flex-wrap lg:flex-col border-t lg:border-t-0">

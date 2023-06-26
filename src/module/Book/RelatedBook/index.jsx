@@ -1,17 +1,10 @@
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import Slider from 'react-slick'
-import { PATH } from '../../constants/path'
 import { FiShoppingBag } from 'react-icons/fi'
-import Notify from '../../components/Notify'
-const RelatedBook = ({
-  style,
-  procsInSameCategory,
-  changeCostWithDots,
-  addToCartHandler,
-  notify,
-  setNotify,
-}) => {
+import { PATH } from '../../../constants/path'
+
+const RelatedBook = ({ style, procsInSameCategory, changeCostWithDots, addToCartHandler }) => {
   const navigate = useNavigate()
 
   function NextArrow({ onClick }) {
@@ -113,18 +106,6 @@ const RelatedBook = ({
           )
         })}
       </Slider>
-      {notify ? (
-        <Notify
-          close="true"
-          message="Sản phẩm đã được thêm vào giỏ hàng"
-          textMessage="text-slate-700"
-          notify={notify}
-          setNotify={(data) => setNotify(data)}
-          addToCart="true"
-        />
-      ) : (
-        <></>
-      )}
     </div>
   )
 }

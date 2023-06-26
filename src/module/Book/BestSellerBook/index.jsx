@@ -4,6 +4,7 @@ import sachbanchay from '../../../assets/images/sachbanchay.png'
 import logo from '../../../assets/images/logo.png'
 import { PATH } from '../../../constants/path'
 import Card from '../../../components/Card'
+import { Fragment } from 'react'
 
 const BestSellerBook = ({ data, settings }) => {
   return (
@@ -33,9 +34,9 @@ const BestSellerBook = ({ data, settings }) => {
         <Slider {...settings} className="mx-7">
           {data.map((item) => {
             return (
-              <div key={item.IDSanPham}>
+              <Fragment key={item.IDSanPham}>
                 <Card item={item} />
-              </div>
+              </Fragment>
             )
           })}
         </Slider>

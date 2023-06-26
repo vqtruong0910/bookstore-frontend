@@ -10,6 +10,7 @@ import {
   removeFromCart,
 } from '../../reducers/cartReducers'
 import LoadingSkeletonCart from '../../components/Loading/LoadingSkeletonCart'
+import Image from '../../components/Image'
 
 function Cart() {
   const [loading, isLoading] = useState(true)
@@ -51,6 +52,7 @@ function Cart() {
       isLoading(false)
     }, 250)
   }, [])
+
   return (
     <>
       {loading && <LoadingSkeletonCart></LoadingSkeletonCart>}
@@ -118,7 +120,8 @@ function Cart() {
                               onClick={() => navigate(`/books/${item.IDSanPham}`)}
                               className="cursor-pointer flex w-full flex-col items-center justify-center"
                             >
-                              <img src={item.HinhAnh} className="w-36 h-36" alt="Book_Image" />
+                              <Image item={item} className="w-36 h-36" />
+
                               <div className="mt-2 flex justify-center">
                                 <span className="text-base font-medium text-center">
                                   {item.TenSanPham}
@@ -156,7 +159,7 @@ function Cart() {
 
                                 <button
                                   onClick={() => removeFromCartHandler(item)}
-                                  className="border px-4 rounded-sm bg-gray-300 hover:bg-gray-400 hover:text-white cursor-pointer"
+                                  className="border px-4 rounded-md bg-gray-300 hover:bg-gray-400 hover:text-white cursor-pointer"
                                 >
                                   Xoá
                                 </button>
@@ -176,29 +179,26 @@ function Cart() {
                             </div>
                           </div>
 
-                          <div className="w-full my-7 flex flex-col md:hidden">
-                            <div className="flex w-full flex-row">
-                              <div className="w-32 h-32 relative flex items-center mx-3">
-                                <img src={item.HinhAnh} className="w-full" alt="Book_Image" />
-                              </div>
+                          <div className="w-full my-7 flex flex-col md:hidden px-3">
+                            <div className="flex w-full">
+                              <Image item={item} className="h-32 w-32" />
 
-                              <div className="flex w-full flex-col justify-center">
+                              <div className="flex w-full flex-col gap-2 justify-center px-2">
                                 <span className="w-full text-base font-medium text-gray-600">
                                   {item.TenSanPham}
                                 </span>
-                                <div className="flex justify-between w-full py-1 items-center">
-                                  <span className="my-0.5 text-lg font-medium text-red-600">
-                                    {changeCostWithDots(item.GiaBan)}đ
-                                  </span>
-                                  <span className="px-3 text-sm text-medium">
-                                    Số lượng còn lại : {item.SoLuongConLai}
-                                  </span>
-                                </div>
+
+                                <span className=" text-lg font-medium text-red-600">
+                                  {changeCostWithDots(item.GiaBan)}đ
+                                </span>
+                                <span className="text-sm text-medium text-gray-500">
+                                  Số lượng còn lại : {item.SoLuongConLai}
+                                </span>
                               </div>
                             </div>
 
                             <div className="flex flex-row items-center w-full justify-between mt-4">
-                              <div className="flex mx-3 items-center">
+                              <div className="flex items-center">
                                 <span className="text-gray-500 text-sm font-semibold">
                                   Số lượng
                                 </span>
@@ -230,7 +230,7 @@ function Cart() {
 
                               <div
                                 onClick={() => removeFromCartHandler(item)}
-                                className="mx-3 border-2 px-3 text-sm py-0.5 font-normal rounded-sm bg-gray-300 hover:bg-gray-400 cursor-pointer hover:text-white"
+                                className="border-2 px-6 text-sm py-0.5 font-normal rounded-md bg-gray-300 hover:bg-gray-400 cursor-pointer hover:text-white"
                               >
                                 Xoá
                               </div>

@@ -1,28 +1,17 @@
-import { useNavigate } from 'react-router-dom'
-import style from './Category.module.scss'
-import { FiShoppingBag } from 'react-icons/fi'
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs'
 import { useState, useContext, useEffect } from 'react'
 import Notify from '../../components/Notify'
 import Context from '../../store/Context'
-import { addToCart } from '../../reducers/cartReducers'
 import axiosConfig from '../../config/axiosConfig'
 import LoadingSkeletonCategory from '../../components/Loading/LoadingSkeletonCategory'
+import Card from '../../components/Card'
 
 function Category() {
   const [notify, setNotify] = useState(false)
-  const { dispatch, darkTheme } = useContext(Context)
+  const { darkTheme } = useContext(Context)
   const [page, setPage] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [loading, isLoading] = useState(true)
-  const navigate = useNavigate()
-  const addToCartHandler = (product) => {
-    dispatch(addToCart(product))
-    return setNotify(true)
-  }
-  const changeCostWithDots = (item) => {
-    return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
-  }
 
   const sizePerPage = 5
   let arrSoTrang = []
@@ -85,41 +74,10 @@ function Category() {
           </div>
           <div className="w-full bg-white border border-gray-100 drop-shadow-lg">
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-5">
-              {page.DanhSach?.map((item, index) => {
+              {page.DanhSach?.map((item) => {
                 return (
-                  <div key={index} className="relative w-full hover:cursor-pointer">
-                    <div
-                      onClick={() => navigate(`/books/${item.IDSanPham}`)}
-                      className="flex w-full justify-center drop-shadow-md mt-3 cursor-pointer h-52 md:h-64 lg:h-72"
-                    >
-                      <img className="w-full object-fit" src={item.HinhAnh} alt="New Book" />
-                    </div>
-
-                    <div className="grid w-full py-3 px-4">
-                      <span
-                        className={`${style['product_name']} self-center w-full text-xs md:text-base lg:text-xl font-medium lg:leading-6`}
-                      >
-                        {item.TenSanPham}
-                      </span>
-                    </div>
-
-                    <div className="flex justify-between items-center font-medium w-full px-4">
-                      <div className="text-red-600 text-lg md:text-xl">
-                        {changeCostWithDots(item.GiaBan)}đ
-                      </div>
-                    </div>
-
-                    <div className="flex w-full mt-2 mb-4 px-4">
-                      <div
-                        onClick={() => addToCartHandler(item)}
-                        className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition items-center justify-center py-1"
-                      >
-                        <FiShoppingBag className="w-5 h-5 text-white" />
-                        <div className=" text-sm md:text-base lg:text-lg text-white py-1 mx-0.5">
-                          Thêm giỏ hàng
-                        </div>
-                      </div>
-                    </div>
+                  <div key={item.IDSanPham} className="mb-8">
+                    <Card item={item} />
                   </div>
                 )
               })}

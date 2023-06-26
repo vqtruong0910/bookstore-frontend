@@ -4,6 +4,7 @@ import { PATH } from '../../../constants/path'
 import { useState, useEffect, useContext } from 'react'
 import axiosJWT from '../../../config/axiosJWT'
 import Context from '../../../store/Context'
+import Image from '../../../components/Image'
 
 function UserOrderDetail() {
   const navigate = useNavigate()
@@ -83,23 +84,23 @@ function UserOrderDetail() {
           </div>
           {orderDetail.map((item, index) => (
             <div key={index} className="hidden md:w-full md:flex md:flex-wrap md:justify-between ">
-              <div className="w-full justify-center flex flex-row my-3 lg:my-0 border-t-2">
-                <div className="w-full flex justify-center flex-wrap mx-1">
-                  <div className="w-28 h-28 lg:w-32 lg:h-32 relative flex items-center justify-center my-4">
-                    <img src={item.HinhAnh} className="w-full" alt="Book_Image" />
-                  </div>
+              <div className="w-full justify-center flex flex-row border-t-2">
+                <div className="w-full flex justify-center flex-wrap mx-1 my-3">
+                  <Image item={item} className="w-40 h-40" />
                   <div className="w-full flex justify-center my-1">
-                    <span className="text-sm lg:test-base">{item.TenSanPham}</span>
+                    <span className="text-sm md:text-base lg:text-lg">{item.TenSanPham}</span>
                   </div>
                 </div>
-                <div className="w-full flex justify-center my-3">
-                  <span className="text-sm lg:text-base">{changeCostWithDots(item.GiaBan)}đ</span>
+                <div className="w-full flex justify-center items-center my-3">
+                  <span className="text-sm md:text-base lg:text-lg">
+                    {changeCostWithDots(item.GiaBan)}đ
+                  </span>
                 </div>
-                <div className="w-full flex justify-center my-3">
-                  <span className="text-sm lg:text-base">{item.SoLuong}</span>
+                <div className="w-full flex justify-center items-center my-3">
+                  <span className="text-sm md:text-base lg:text-lg">{item.SoLuong}</span>
                 </div>
-                <div className="w-full flex justify-center my-3">
-                  <span className="text-sm lg:text-base">
+                <div className="w-full flex justify-center items-center my-3">
+                  <span className="text-sm md:text-base lg:text-lg">
                     {changeCostWithDots(item.GiaBan * item.SoLuong)}đ
                   </span>
                 </div>
@@ -109,14 +110,14 @@ function UserOrderDetail() {
 
           <div className="hidden md:w-full md:border-t-2 md:flex md:flex-row md:py-2">
             <div className="flex flex-col w-9/12 items-end">
-              <span className="text-sm lg:text-base py-1 text-slate-500">Tạm tính</span>
-              <span className="text-sm lg:text-base py-1 text-slate-500">Phí vận chuyển</span>
-              <span className="text-sm lg:text-base py-1 text-slate-500">Tổng cộng</span>
+              <span className="text-base py-1 text-slate-500">Tạm tính</span>
+              <span className="text-base py-1 text-slate-500">Phí vận chuyển</span>
+              <span className="text-base py-1 text-slate-500">Tổng cộng</span>
             </div>
             <div className="flex flex-col w-3/12 items-end px-4">
-              <span className="text-sm py-1 lg:text-base">{changeCostWithDots(total)}đ</span>
-              <span className="text-sm py-1 lg:text-base">30.000đ</span>
-              <span className="text-lg lg:text-xl text-red-600 font-semibold">
+              <span className="py-1 text-base">{changeCostWithDots(total)}đ</span>
+              <span className="py-1 text-base">30.000đ</span>
+              <span className="text-xl text-red-600 font-semibold">
                 {changeCostWithDots(total + 30000)}đ
               </span>
             </div>
@@ -127,22 +128,24 @@ function UserOrderDetail() {
             <div className="w-full">
               {orderDetail.map((item, index) => (
                 <div key={index} className="w-full my-1 flex border-b-2">
-                  <div className="w-32 h-32 relative flex items-center m-4">
-                    <img src={item.HinhAnh} className="w-full relative" alt="Book_Image" />
+                  <div className="relative items-center m-4">
+                    <Image item={item} />
                     <div className="absolute border bg-slate-300 rounded-tl-xl px-2 right-0 bottom-0 flex items-center py-1">
                       <span className="text-xs lg:text-base">x{item.SoLuong}</span>
                     </div>
                   </div>
 
                   <div className="flex w-full flex-col justify-center">
-                    <span className="w-full text-sm lg:text-base font-medium text-slate-700">
+                    <span className="w-full text-base font-medium text-slate-700">
                       {item.TenSanPham}
                     </span>
-                    <span className="w-full my-0.5 text-sm lg:text-base font-medium text-red-600">
+                    <span className="w-full my-0.5 text-base font-medium text-red-600">
                       {changeCostWithDots(item.GiaBan)}đ
                     </span>
                     <div className="flex justify-between items-center">
-                      <span className="my-5 text-sm text-slate-500">Thành tiền</span>
+                      <span className="my-5 text-sm text-slate-500 whitespace-nowrap">
+                        Thành tiền
+                      </span>
                       <span className="px-4 font-normal">
                         {changeCostWithDots(item.GiaBan * item.SoLuong)}đ
                       </span>
@@ -151,15 +154,15 @@ function UserOrderDetail() {
                 </div>
               ))}
             </div>
-            <div className="w-full flex flex-row py-2">
-              <div className="flex flex-col w-9/12 items-end mx-5">
-                <span className="text-sm lg:text-base py-1 text-slate-500">Tạm tính</span>
-                <span className="text-sm lg:text-base py-1 text-slate-500">Phí vận chuyển</span>
-                <span className="text-sm lg:text-base py-1 text-slate-500">Tổng cộng</span>
+            <div className="w-full flex py-2 justify-end">
+              <div className="flex flex-col items-end mx-5">
+                <span className="text-sm py-1 text-slate-500">Tạm tính</span>
+                <span className="text-sm py-1 text-slate-500">Phí vận chuyển</span>
+                <span className="text-sm py-1 text-slate-500">Tổng cộng</span>
               </div>
-              <div className="flex flex-col w-3/12 items-end px-4">
-                <span className="text-sm py-1 lg:text-base">{changeCostWithDots(total)}đ</span>
-                <span className="text-sm py-1 lg:text-base">30.000đ</span>
+              <div className="flex flex-col items-end px-4">
+                <span className="text-sm py-1">{changeCostWithDots(total)}đ</span>
+                <span className="text-sm py-1">30.000đ</span>
                 <span className="text-base py-1 text-red-600 font-semibold">
                   {changeCostWithDots(total + 30000)}đ
                 </span>

@@ -1,17 +1,20 @@
 import { IoAddSharp } from 'react-icons/io5'
 import { IoMdRemove } from 'react-icons/io'
 import { BsCart3 } from 'react-icons/bs'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import style from './DetailBook.module.scss'
 import React, { useState, useContext, useEffect, Fragment } from 'react'
-import Notify from '../../components/Notify'
 import Context from '../../store/Context'
 import { addToCart } from '../../reducers/cartReducers'
 import axiosConfig from '../../config/axiosConfig'
-import RelatedBook from '../RelatedBook'
+import RelatedBook from '../../module/Book/RelatedBook'
 import LoadingSkeletonDetailBook from '../../components/Loading/LoadingSkeletonDetailBook'
+import Image from '../../components/Image'
+import Swal from 'sweetalert2'
+import { PATH } from '../../constants/path'
 
 const DetailBook = () => {
+  const navigate = useNavigate()
   const { bookID } = useParams()
   const [book, setBook] = useState([])
   const [authorID, genreID, publisherID, categoryID] = useState('')
@@ -21,14 +24,25 @@ const DetailBook = () => {
   const [categoryName, setCategoryName] = useState('')
   const [quantity, setQuantity] = useState(1)
   const [procsInSameCategory, setProcsInSameCategory] = useState([])
-  const [notify, setNotify] = useState(false)
   const [loading, isLoading] = useState(true)
   const [showContent, setShowContent] = useState(4)
   const { dispatch } = useContext(Context)
-  const addToCartHandler = (product) => {
-    dispatch(addToCart(product, quantity))
-    return setNotify(true)
+
+  const addToCartHandler = async (product) => {
+    await dispatch(addToCart(product, quantity))
+    Swal.fire({
+      title: 'Thêm giỏ hàng thành công',
+      icon: 'success',
+      showCancelButton: false,
+      confirmButtonColor: 'rgb(29, 192, 113)',
+      confirmButtonText: 'Xem giỏ hàng',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        navigate(PATH.cart)
+      }
+    })
   }
+
   const decrementQuantity = (item) => {
     setQuantity((item) => {
       if (item - 1 < 1) return 1
@@ -36,12 +50,15 @@ const DetailBook = () => {
       return item - 1
     })
   }
+
   const incrementQuantity = (item) => {
     setQuantity(item + 1)
   }
+
   const handleContent = (e) => {
     setShowContent(e)
   }
+
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
@@ -114,18 +131,9 @@ const DetailBook = () => {
             return (
               <Fragment key={item.IDSanPham}>
                 <div className="w-4/5 bg-white rounded-sm flex shadow-md border border-gray-200">
-                  <div className="w-full my-3 flex flex-wrap lg:flex-nowrap">
-                    <div className="flex flex-wrap w-full lg:w-4/12">
-                      <div className="w-full flex justify-center">
-                        <img
-                          src={item.HinhAnh}
-                          className="w-64 h-64 lg:w-96 lg:h-96 object-fit"
-                          alt="Book_Image"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="w-full flex-col flex lg:w-8/12">
+                  <div className="w-full my-3 flex items-center flex-wrap lg:flex-nowrap">
+                    <Image item={item} />
+                    <div className="w-full flex-col flex">
                       <div className="w-full flex-wrap justify-center py-2 px-4">
                         <span className="text-base lg:text-2xl lg:font-medium font-normal text-gray-700">
                           {item.TenSanPham}
@@ -155,32 +163,21 @@ const DetailBook = () => {
                         </span>
                       </div>
 
-                      <div className="lg:w-7/12 flex flex-row items-center mt-4 mx-4">
+                      <div className="flex flex-row items-center mt-4 mx-4">
                         <div className="rounded-sm cursor-pointer lg:w-1/2">
                           <div
                             onClick={() => {
                               addToCartHandler(item)
                             }}
-                            className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500 rounded-sm hover:bg-red-400 transition"
+                            className="py-2 px-1 flex flex-row lg:justify-center bg-red-500 rounded-lg hover:bg-red-400 transition"
                           >
                             <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
-                            <span className="mx-1 text-white font-medium text-sm lg:text-lg">
+                            <span className="mx-1 text-white font-medium text-sm md:text-base lg:text-lg whitespace-nowrap">
                               Thêm giỏ hàng
                             </span>
                           </div>
                         </div>
-                        {notify ? (
-                          <Notify
-                            close="true"
-                            message="Sản phẩm đã được thêm vào giỏ hàng"
-                            textMessage="text-slate-700"
-                            notify={notify}
-                            setNotify={(data) => setNotify(data)}
-                            addToCart="true"
-                          />
-                        ) : (
-                          <></>
-                        )}
+
                         <div className="flex flex-wrap items-center justify-end lg:w-1/2 lg:justify-center">
                           <span className="text-gray-500 text-sm md:text-base font-semibold mx-3">
                             Số lượng
@@ -270,8 +267,6 @@ const DetailBook = () => {
               procsInSameCategory={procsInSameCategory}
               changeCostWithDots={changeCostWithDots}
               addToCartHandler={addToCartHandler}
-              notify={notify}
-              setNotify={setNotify}
             ></RelatedBook>
           </div>
 
