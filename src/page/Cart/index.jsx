@@ -243,7 +243,7 @@ function Cart() {
                 </div>
 
                 <div className="w-full lg:w-4/12 lg:pl-4">
-                  <div className="w-full flex flex-col bg-white shadow-md mt-4 items-end lg:justify-between p-3 mb-8">
+                  <div className="w-full flex flex-col border bg-white shadow-md mt-4 items-end lg:justify-between p-3">
                     <div className="flex flex-wrap lg:w-full lg:justify-between">
                       <div className="flex flex-col">
                         <span className="py-1 font-light md:text-lg">Tạm tính</span>

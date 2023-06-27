@@ -1,12 +1,9 @@
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
 import Slider from 'react-slick'
-import { FiShoppingBag } from 'react-icons/fi'
-import { PATH } from '../../../constants/path'
+import Card from '../../../components/Card'
+import { Fragment } from 'react'
 
-const RelatedBook = ({ style, procsInSameCategory, changeCostWithDots, addToCartHandler }) => {
-  const navigate = useNavigate()
-
+const RelatedBook = ({ procsInSameCategory, changeCostWithDots }) => {
   function NextArrow({ onClick }) {
     return (
       <BsFillArrowRightCircleFill
@@ -28,9 +25,9 @@ const RelatedBook = ({ style, procsInSameCategory, changeCostWithDots, addToCart
   const settings = {
     dots: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 1,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    initialSlide: 2,
     infinite: true,
     arrows: true,
     lazyLoad: true,
@@ -38,7 +35,16 @@ const RelatedBook = ({ style, procsInSameCategory, changeCostWithDots, addToCart
     nextArrow: <NextArrow />,
     responsive: [
       {
-        breakpoint: 950,
+        breakpoint: 1536,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          initialSlide: 2,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 1024,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -47,10 +53,18 @@ const RelatedBook = ({ style, procsInSameCategory, changeCostWithDots, addToCart
         },
       },
       {
-        breakpoint: 540,
+        breakpoint: 767,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 539,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
           infinite: true,
         },
       },
@@ -60,49 +74,11 @@ const RelatedBook = ({ style, procsInSameCategory, changeCostWithDots, addToCart
   return (
     <div className="w-full">
       <Slider {...settings}>
-        {procsInSameCategory?.map((item, index) => {
+        {procsInSameCategory?.map((item) => {
           return (
-            <div key={item.IDSanPham} className="grid relative w-full hover:cursor-pointer">
-              <div
-                onClick={() => navigate(PATH.detail_book)}
-                className="flex relative justify-center w-full drop-shadow-2xl mt-3 transition ease-in-out delay-100 hover:scale-105 duration-100 py-2 h-40 lg:h-56"
-              >
-                <img className="w-2/3 justify-center" src={item.HinhAnh} alt="New Book" />
-                <div className="flex w-full z-20 absolute px-4">
-                  <div className="bg-orange-400 w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center">
-                    <span className="text-sm md:text-base text-white font-semibold text-center">
-                      {item.GiamGia}%
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid w-full py-3 mx-4">
-                <span
-                  className={`${style['product_name']} self-center whitespace-normal w-3/4 text-sm md:text-base lg:text-lg font-medium break-words`}
-                >
-                  {item.TenSanPham}
-                </span>
-              </div>
-
-              <div className="flex font-medium text-base mx-4">
-                <span className="text-red-600 w-full text-lg md:text-xl">
-                  {changeCostWithDots(item.GiaBan)}đ
-                </span>
-              </div>
-
-              <div className="flex w-full mt-3">
-                <div
-                  onClick={() => addToCartHandler(item)}
-                  className="flex w-full rounded-sm bg-slate-700 hover:bg-slate-500 transition mx-4 items-center justify-center"
-                >
-                  <FiShoppingBag className="w-5 h-5 text-white" />
-                  <div className="text-sm md:text-base lg:text-lg text-white py-2 px-0.5 whitespace-nowrap">
-                    Thêm giỏ hàng
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Fragment key={item.IDSanPham}>
+              <Card key={item.IDSanPham} item={item} />
+            </Fragment>
           )
         })}
       </Slider>

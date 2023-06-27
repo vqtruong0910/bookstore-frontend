@@ -1,31 +1,10 @@
 import { FiShoppingBag } from 'react-icons/fi'
-import { useNavigate } from 'react-router-dom'
 import style from './Card.module.scss'
-import { useContext } from 'react'
-import Context from '../../store/Context'
-import { addToCart } from '../../reducers/cartReducers'
-import Swal from 'sweetalert2'
-import { PATH } from '../../constants/path'
 import Image from '../Image'
+import useCart from '../../hooks/useCart'
 
 function Card({ item, btnStyle = '' }) {
-  const navigate = useNavigate()
-  const { dispatch } = useContext(Context)
-
-  const addToCartHandler = async (product) => {
-    await dispatch(addToCart(product))
-    Swal.fire({
-      title: 'Thêm giỏ hàng thành công',
-      icon: 'success',
-      showCancelButton: false,
-      confirmButtonColor: 'rgb(29, 192, 113)',
-      confirmButtonText: 'Xem giỏ hàng',
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        navigate(PATH.cart)
-      }
-    })
-  }
+  const { handleAddToCart } = useCart()
 
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
@@ -50,7 +29,7 @@ function Card({ item, btnStyle = '' }) {
       </div>
 
       <div
-        onClick={() => addToCartHandler(item)}
+        onClick={() => handleAddToCart(item)}
         className="flex bg-slate-700 hover:bg-slate-500 transition rounded-lg py-2 items-center justify-center mx-2"
       >
         <FiShoppingBag className="w-5 h-5 text-white" />

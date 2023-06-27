@@ -35,15 +35,24 @@ function Main() {
   const settings = {
     dots: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 1,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    initialSlide: 2,
     infinite: true,
     arrows: true,
     lazyLoad: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     responsive: [
+      {
+        breakpoint: 1536,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          initialSlide: 2,
+          infinite: true,
+        },
+      },
       {
         breakpoint: 1024,
         settings: {
@@ -62,7 +71,7 @@ function Main() {
         },
       },
       {
-        breakpoint: 639,
+        breakpoint: 539,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,

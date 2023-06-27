@@ -1,23 +1,21 @@
 import { IoAddSharp } from 'react-icons/io5'
 import { IoMdRemove } from 'react-icons/io'
 import { BsCart3 } from 'react-icons/bs'
-import { useNavigate, useParams } from 'react-router-dom'
-import style from './DetailBook.module.scss'
-import React, { useState, useContext, useEffect, Fragment } from 'react'
-import Context from '../../store/Context'
-import { addToCart } from '../../reducers/cartReducers'
+import { useParams } from 'react-router-dom'
+import React, { useState, useEffect, Fragment } from 'react'
 import axiosConfig from '../../config/axiosConfig'
 import RelatedBook from '../../module/Book/RelatedBook'
 import LoadingSkeletonDetailBook from '../../components/Loading/LoadingSkeletonDetailBook'
 import Image from '../../components/Image'
-import Swal from 'sweetalert2'
-import { PATH } from '../../constants/path'
+import useCart from '../../hooks/useCart'
 
 const DetailBook = () => {
-  const navigate = useNavigate()
   const { bookID } = useParams()
   const [book, setBook] = useState([])
-  const [authorID, genreID, publisherID, categoryID] = useState('')
+  const [authorID, setAuthorID] = useState('')
+  const [genreID, setGenreID] = useState('')
+  const [publisherID, setPublisherID] = useState('')
+  const [categoryID, setCategoryID] = useState('')
   const [genreName, setGenreName] = useState('')
   const [authorName, setAuthorName] = useState('')
   const [publisherName, setPublisherName] = useState('')
@@ -26,22 +24,7 @@ const DetailBook = () => {
   const [procsInSameCategory, setProcsInSameCategory] = useState([])
   const [loading, isLoading] = useState(true)
   const [showContent, setShowContent] = useState(4)
-  const { dispatch } = useContext(Context)
-
-  const addToCartHandler = async (product) => {
-    await dispatch(addToCart(product, quantity))
-    Swal.fire({
-      title: 'Thêm giỏ hàng thành công',
-      icon: 'success',
-      showCancelButton: false,
-      confirmButtonColor: 'rgb(29, 192, 113)',
-      confirmButtonText: 'Xem giỏ hàng',
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        navigate(PATH.cart)
-      }
-    })
-  }
+  const { handleAddToCart } = useCart()
 
   const decrementQuantity = (item) => {
     setQuantity((item) => {
@@ -64,11 +47,6 @@ const DetailBook = () => {
   }
 
   useEffect(() => {
-    let authorID = ''
-    let genreID = ''
-    let publisherID = ''
-    let categoryID = ''
-
     try {
       const fetchDetailBookData = async () => {
         isLoading(true)
@@ -78,10 +56,11 @@ const DetailBook = () => {
           setTimeout(() => {
             isLoading(false)
             setBook(response.data.data)
+            console.log(response.data.data)
             response.data.data.forEach((item) => {
-              authorID = item.IDNhaXuatBan
-              genreID = item.IDTheLoai
-              publisherID = item.IDNhaXuatBan
+              setAuthorID(item.IDNhaXuatBan)
+              setGenreID(item.IDTheLoai)
+              setPublisherID(item.IDNhaXuatBan)
             })
           }, 250)
         }
@@ -94,7 +73,7 @@ const DetailBook = () => {
         const responseGenreName = await axiosConfig(`kind_product/${genreID}`)
         responseGenreName.data.data.forEach((item) => {
           setGenreName(item.TenTheLoai)
-          categoryID = item.IDDanhMuc
+          setCategoryID(item.IDDanhMuc)
         })
 
         const responsePublisherName = await axiosConfig(`publishing/${publisherID}`)
@@ -110,17 +89,19 @@ const DetailBook = () => {
         const responseProcsInSameCategory = await axiosConfig(`product/id_theloai/${genreID}`)
         setProcsInSameCategory(responseProcsInSameCategory.data.data)
       }
+
       fetchDetailBookData()
     } catch (error) {
       console.log(error)
       isLoading(false)
     }
-  }, [bookID, authorID, genreID, publisherID, categoryID])
+  }, [bookID, authorID, publisherID, categoryID, genreID])
 
   useEffect(() => {
     const topOfElement = document.querySelector('#detail-book') - 200
     window.scroll({ top: topOfElement, behavior: 'smooth' })
   }, [bookID])
+
   return (
     <>
       {loading && <LoadingSkeletonDetailBook></LoadingSkeletonDetailBook>}
@@ -167,7 +148,7 @@ const DetailBook = () => {
                         <div className="rounded-sm cursor-pointer lg:w-1/2">
                           <div
                             onClick={() => {
-                              addToCartHandler(item)
+                              handleAddToCart(item)
                             }}
                             className="py-2 px-1 flex flex-row lg:justify-center bg-red-500 rounded-lg hover:bg-red-400 transition"
                           >
@@ -258,71 +239,15 @@ const DetailBook = () => {
           })}
 
           <div className="flex flex-wrap w-4/5 bg-white rounded-sm py-3 shadow-md mb-7">
-            <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 w-full">
+            <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 mb-8 w-full">
               SẢN PHẨM LIÊN QUAN
             </span>
 
             <RelatedBook
-              style={style}
               procsInSameCategory={procsInSameCategory}
               changeCostWithDots={changeCostWithDots}
-              addToCartHandler={addToCartHandler}
             ></RelatedBook>
           </div>
-
-          {/* <div className="flex flex-wrap w-full bg-white rounded-sm py-3 mt-4 shadow-md">
-          <span className="text-base md:text-lg lg:text-xl font-semibold w-full px-4">ĐÁNH GIÁ SẢN PHẨM</span>
-
-          <div className="w-full flex flex-col">
-              <div className="w-full flex flex-col border-b-2">
-                  <div className="flex w-full my-5 px-4">
-                      <div className="flex flex-row w-full md:w-3/12">
-                          <div className="flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16">
-                              <img src="https://scontent.fsgn13-3.fna.fbcdn.net/v/t1.6435-1/155979415_2946100539003750_7844294579569965404_n.jpg?stp=dst-jpg_p100x100&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=vi4UJAmnQksAX_ov2_r&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn13-3.fna&oh=00_AT87WeMXH9EWvZ1K0v9t-Dhb2QrPGpFf1uu5Ph2ImwdZbw&oe=637B6BAC"
-                                  className="w-full bg-gray-200 rounded-full" alt="Avatar_User" />
-                          </div>
-
-                          <div className="flex flex-col ml-2">
-                              <span className="text-xs lg:text-sm font-bold">Tạ Minh Vũ</span>
-                              <span className="text-xs lg:text-sm font-semibold text-gray-400 my-1">11:20 27/12/2022</span>
-                          </div>
-                      </div>
-
-                      <div className="flex ml-4 w-full md:w-9/12">
-                          <BiMessageRoundedEdit className="w-5 h-5 lg:w-7 lg:h-7 text-gray-700" />
-                          <span className="text-sm w-full mx-0.5 text-gray-700 lg:text-base">Nội dung rất hay, rất đặc sắc, những câu chuyện được miêu tả rất chân thực, xúc động.</span>
-                      </div>
-                  </div>
-              </div>
-
-              <div className="w-full flex flex-col border-b-2">
-                  <div className="flex w-full my-5 px-4">
-                      <div className="flex flex-row w-full md:w-3/12">
-                          <div className="flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16">
-                              <img src="https://scontent.fsgn8-1.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX_ViEJO&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-1.fna&oh=00_AT_LC9lA-uhMzkit_9oI_nZtJahJlVPxNKztQ4tSNuco6w&oe=637C7278"
-                                  className="w-full bg-gray-200 rounded-full" alt="Avatar_User" />
-                          </div>
-
-                          <div className="flex flex-col ml-2">
-                              <span className="text-xs lg:text-sm font-bold">Võ Quang Trường</span>
-                              <span className="text-xs lg:text-sm font-semibold text-gray-400 my-1">12:30 20/12/2022</span>
-                          </div>
-                      </div>
-
-                      <div className="flex ml-4 w-full md:w-9/12">
-                          <BiMessageRoundedEdit className="w-5 h-5 lg:w-7 lg:h-7 text-gray-700" />
-                          <span className="text-sm w-full mx-0.5 text-gray-700 lg:text-base">Đây là quyển sách hay nhất mình từng đọc, lời văn của tác giả lôi cuốn thật sự.</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <div className="flex flex-wrap w-full justify-end items-center px-4 mt-4">
-              <BsArrowLeftCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-400" />
-              <span className="mx-2 font-medium text-sm md:text-base lg:text-lg">1</span>
-              <BsArrowRightCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-700" />
-          </div>
-      </div> */}
         </div>
       )}
     </>

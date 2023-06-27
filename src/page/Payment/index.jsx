@@ -129,7 +129,7 @@ function Payment() {
     <>
       {loading && <LoadingSkeletonPayment></LoadingSkeletonPayment>}
       {!loading && (
-        <div className="flex flex-wrap w-full px-4 pb-4" id="payment">
+        <div className="flex flex-wrap w-full px-4" id="payment">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-wrap lg:flex-nowrap">
             <div className="flex flex-wrap w-full">
               <div className="flex flex-wrap w-full">
@@ -253,7 +253,7 @@ function Payment() {
                 </div>
               </div>
             </div>
-            <div className="w-full lg:py-9 py-5 lg:w-6/12 lg:mx-4 mb-4">
+            <div className="w-full lg:py-9 py-0 lg:w-6/12 lg:mx-4">
               <div className="w-full flex flex-col bg-white border border-gray-200 drop-shadow-lg lg:mt-0 items-end p-3">
                 <div className="flex flex-wrap lg:justify-between lg:w-full">
                   <div className="flex flex-col">

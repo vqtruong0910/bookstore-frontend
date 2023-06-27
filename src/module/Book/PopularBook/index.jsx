@@ -13,7 +13,7 @@ const PopularBook = ({ data, settings }) => {
         <div className="flex items-center">
           <img
             src={sachphobien}
-            className="flex w-10 h-10 lg:w-12 lg:h-12 mx-2 text-slate-700 object-fit"
+            className="flex w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 mx-2 text-slate-700 object-fit"
             alt="best-seller"
           />
           <span className="w-full flex text-2xl font-bolder font-lobster lg:text-4xl md:text-3xl text-orange-500">
@@ -23,7 +23,7 @@ const PopularBook = ({ data, settings }) => {
       </div>
       <div className="flex py-2 px-7 text-xl gap-x-3 items-center">
         <img
-          className="w-12 h-12 rounded-full border border-slate-400"
+          className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full border border-slate-400"
           src={logo}
           alt="bookstore"
         />
@@ -44,7 +44,8 @@ const PopularBook = ({ data, settings }) => {
         <div className="w-full flex justify-center mt-10">
           <Link
             to={PATH.category.dashboard}
-            className="font-semibold text-md hover:border border-gray-200 bg-gradient-to-tl from-yellow-300 to-orange-700 text-white rounded-full lg:py-3 py-1 lg:px-20 px-10"
+            className="font-semibold text-md hover:border border-gray-200 bg-gradient-to-tl from-yellow-300 to-orange-700 text-white 
+            rounded-full px-14 py-2"
           >
             Xem thêm
           </Link>
