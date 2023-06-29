@@ -1,22 +1,25 @@
-import { useEffect, useState, useContext, Fragment } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import axiosConfig from '../../config/axiosConfig'
 import { useLocation } from 'react-router-dom'
 import Context from '../../store/Context'
 import LoadingSkeletonSearch from '../../components/Loading/LoadingSkeletonSearch'
 import Card from '../../components/Card'
+import { API } from '../../constants/api'
 
 const Search = () => {
+  let total = 0
   const [data, setData] = useState([])
   const [loading, isLoading] = useState(true)
   const { state } = useLocation()
   const { darkTheme } = useContext(Context)
+  console.log(state)
 
   useEffect(() => {
     const fetchDataSearch = async () => {
       try {
         isLoading(true)
-        const response = await axiosConfig(`product/search?name=${state}`)
-        // console.log(response.data.data)
+        const response = await axiosConfig(`${API.SEARCH_ITEM}?name=${state}`)
+        console.log(response.data.data)
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)
@@ -31,6 +34,25 @@ const Search = () => {
     fetchDataSearch()
   }, [state])
 
+  // useEffect(() => {
+  //   if (total === 0) {
+  //     const fetchData = async () => {
+  //       const response = await axiosConfig(`${API.ALL_ITEM}`)
+  //       if (response.data.data) {
+  //         setData(response.data.data)
+  //       }
+  //     }
+  //     fetchData()
+  //   }
+  // }, [total])
+
+  const getResult = () => {
+    for (let index = 0; index < data.length; index++) {
+      total += 1
+    }
+    return total
+  }
+
   return (
     <>
       {loading && <LoadingSkeletonSearch></LoadingSkeletonSearch>}
@@ -38,10 +60,13 @@ const Search = () => {
       {!loading && (
         <>
           <div className="flex flex-row w-full">
-            <div className="flex flex-col w-full items-start px-4 pb-8">
-              <div className="flex items-center pb-4">
-                <div className={`text-xl font-semibold w-full ${darkTheme ? 'text-white' : ''}`}>
-                  Từ khóa tìm kiếm : {state}
+            <div className="flex flex-col w-full items-start px-4">
+              <div className="flex flex-col gap-0.5 items-center pb-4">
+                <div className={`text-lg italic w-full ${darkTheme ? 'text-white' : ''}`}>
+                  Từ khóa tìm kiếm : <strong className="text-orange-400">{state}</strong>
+                </div>
+                <div className={`text-lg italic w-full ${darkTheme ? 'text-white' : ''}`}>
+                  Kết quả : <strong className="text-orange-400">{getResult()}</strong>
                 </div>
               </div>
 
@@ -50,9 +75,9 @@ const Search = () => {
                   {data.length > 0 &&
                     data.map((item, index) => {
                       return (
-                        <Fragment key={item.IDSanPham}>
+                        <div key={item.IDSanPham} className="mb-8">
                           <Card item={item} />
-                        </Fragment>
+                        </div>
                       )
                     })}
                 </div>

@@ -8,6 +8,7 @@ import RelatedBook from '../../module/Book/RelatedBook'
 import LoadingSkeletonDetailBook from '../../components/Loading/LoadingSkeletonDetailBook'
 import Image from '../../components/Image'
 import useCart from '../../hooks/useCart'
+import { API } from '../../constants/api'
 
 const DetailBook = () => {
   const { bookID } = useParams()
@@ -50,7 +51,7 @@ const DetailBook = () => {
     try {
       const fetchDetailBookData = async () => {
         isLoading(true)
-        const response = await axiosConfig(`product/${bookID}`)
+        const response = await axiosConfig(`${API.ALL_ITEM}/${bookID}`)
 
         if (response.data.data) {
           setTimeout(() => {
@@ -65,28 +66,30 @@ const DetailBook = () => {
           }, 250)
         }
 
-        const responseAuthorName = await axiosConfig(`author/${authorID}`)
+        const responseAuthorName = await axiosConfig(`${API.AUTHOR}/${authorID}`)
         responseAuthorName.data.data.forEach((item) => {
           setAuthorName(item.TenTacGia)
         })
 
-        const responseGenreName = await axiosConfig(`kind_product/${genreID}`)
+        const responseGenreName = await axiosConfig(`${API.KIND_PRODUCT}/${genreID}`)
         responseGenreName.data.data.forEach((item) => {
           setGenreName(item.TenTheLoai)
           setCategoryID(item.IDDanhMuc)
         })
 
-        const responsePublisherName = await axiosConfig(`publishing/${publisherID}`)
+        const responsePublisherName = await axiosConfig(`${API.PUBLISHING}/${publisherID}`)
         responsePublisherName.data.data.forEach((item) => {
           setPublisherName(item.TenNhaXuatBan)
         })
 
-        const responseCategoryName = await axiosConfig(`category/${categoryID}`)
+        const responseCategoryName = await axiosConfig(`${API.CATEGORY}/${categoryID}`)
         responseCategoryName.data.data.forEach((item) => {
           setCategoryName(item.TenDanhMuc)
         })
 
-        const responseProcsInSameCategory = await axiosConfig(`product/id_theloai/${genreID}`)
+        const responseProcsInSameCategory = await axiosConfig(
+          `${API.GET_DETAIL_GENRE_ITEM}/${genreID}`
+        )
         setProcsInSameCategory(responseProcsInSameCategory.data.data)
       }
 

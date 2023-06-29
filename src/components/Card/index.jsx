@@ -11,7 +11,7 @@ function Card({ item, btnStyle = '' }) {
   }
 
   return (
-    <div className="px-2 w-full hover:cursor-pointer hover:drop-shadow-xl transition">
+    <div className="w-full hover:cursor-pointer hover:drop-shadow-xl transition">
       <Image item={item} />
 
       <div className="flex w-full px-4">

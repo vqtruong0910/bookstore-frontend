@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/path'
 import logo from '../../assets/images/logo.png'
-import { BsSearch } from 'react-icons/bs'
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import Sidebar from '../Sidebar'
 import clsx from 'clsx'
 import Context from '../../store/Context'
@@ -13,29 +12,14 @@ import HeaderList from '../../module/Header/HeaderList'
 import HeaderRightItem from '../../module/Header/HeaderRightItem'
 import jwtDecode from 'jwt-decode'
 import { useMemo } from 'react'
+import Search from '../Search'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
   const { cart } = useContext(Context)
   const { user, setUser } = useContext(Context)
-  const [query, setQuery] = useState('')
-  const [showDropdown, setShowDropdown] = useState(false)
-  const [data, setData] = useState([])
-  const dropdownRef = useRef()
+  const [, setData] = useState([])
   const navigate = useNavigate()
-  const [stateMenuChild, setStateMenuChild] = useState({
-    1: false, // Danh muc
-    2: false, // Nha xuat ban
-    3: false, // Tac gia
-    4: false, // Tai khoan
-  })
-
-  const showMenuChild = useCallback(
-    (location) => {
-      setStateMenuChild({ ...stateMenuChild, [location]: !stateMenuChild[location] })
-    },
-    [stateMenuChild]
-  )
 
   const isAdmin = useMemo(() => {
     try {
@@ -66,31 +50,9 @@ const Navbar = () => {
     }
   }, [])
 
-  const handleSearch = () => {
-    navigate(PATH.search, { state: query, replace: true })
-    // const search = document.getElementsByName("search").value;
-    const search = []
-    search.push({})
-    localStorage.setItem('userSearch', JSON.stringify(search))
-  }
-
-  useEffect(() => {
-    const handleClickOutDropdown = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setShowDropdown(false)
-      } else {
-        setShowDropdown(true)
-      }
-    }
-    document.addEventListener('click', handleClickOutDropdown)
-    return () => {
-      document.removeEventListener('click', handleClickOutDropdown)
-    }
-  }, [])
-
   useEffect(() => {
     const fetchBookData = async () => {
-      const response = await axiosConfig('product/')
+      const response = await axiosConfig(`${API.ALL_ITEM}`)
       if (response.data.data) {
         setData(response.data.data)
       }
@@ -120,59 +82,12 @@ const Navbar = () => {
             user={user}
             items={items}
             setOpen={setOpen}
-            setQuery={setQuery}
-            handleSearch={handleSearch}
             onClick={logout}
             isAdmin={isAdmin}
-            dropdownRef={dropdownRef}
-            showDropdown={showDropdown}
-            setShowDropdown={setShowDropdown}
-            data={data}
           ></HeaderFixedItem>
 
-          <div className="hidden lg:flex justify-between">
-            <div
-              id="search_box"
-              className="flex h-10 border-2 bg-white rounded-sm  w-400 relative"
-              ref={dropdownRef}
-            >
-              <input
-                className=" bg-white text-md outline-0 flex w-full pl-2"
-                type="text"
-                placeholder="Tìm kiếm sản phẩm..."
-                name="search"
-                autoComplete="off"
-                onClick={() => setShowDropdown(!showDropdown)}
-                onChange={(e) => setQuery(e.target.value)}
-              ></input>
-
-              {showDropdown && (
-                <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-br overflow-y-auto top-10 border border-gray-300">
-                  <ul className="md:text-sm lg:text-base">
-                    {data.length > 0 &&
-                      data?.slice(0, 10).map((item) => (
-                        <li
-                          onClick={() =>
-                            navigate(PATH.search, { state: item.TenSanPham, replace: true })
-                          }
-                          key={item.IDSanPham}
-                          className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
-                        >
-                          {item.TenSanPham}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-              )}
-
-              <button
-                onClick={handleSearch}
-                type="submit"
-                className="hover:bg-gray-200 relative my-auto justify-end right-0 h-full px-2"
-              >
-                <BsSearch />
-              </button>
-            </div>
+          <div className="hidden lg:block">
+            <Search />
           </div>
 
           <HeaderRightItem

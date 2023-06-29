@@ -12,6 +12,7 @@ import Select from '../../components/Select'
 import Field from '../../components/Field'
 import Radio from '../../components/Radio'
 import Swal from 'sweetalert2'
+import { API } from '../../constants/api'
 
 function Payment() {
   let totalAllProduct = 0
@@ -45,7 +46,7 @@ function Payment() {
         const { IDSanPham, quantity, GiaBan } = item
         detail.push({ IDSanPham, SoLuong: quantity, GiaBan })
       })
-      await axiosJWT.post('order/', {
+      await axiosJWT.post(`${API.MANAGE_ORDER}/`, {
         DiaChi: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
         PhiShip: 30000,
         ChiTietDonHang: detail,
@@ -98,7 +99,7 @@ function Payment() {
     const fetchProvinceData = async () => {
       const topOfElement = document.querySelector('#payment') - 200
       window.scroll({ top: topOfElement, behavior: 'smooth' })
-      const response = await axios('https://provinces.open-api.vn/api/p')
+      const response = await axios(`${API.GET_LIST_PROVINCE}`)
       if (response.data) {
         setTimeout(() => {
           setProvince(response.data)
@@ -111,7 +112,7 @@ function Payment() {
 
   useEffect(() => {
     const fetchDistrictData = async () => {
-      const response = await axios(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
+      const response = await axios(`${API.GET_LIST_PROVINCE}/${provinceCode}?depth=2`)
       setDistrict(response.data.districts)
     }
     fetchDistrictData()
@@ -119,7 +120,7 @@ function Payment() {
 
   useEffect(() => {
     const fetchWardData = async () => {
-      const response = await axios(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
+      const response = await axios(`${API.GET_LIST_DISTRICT}/${districtCode}?depth=2`)
       setWard(response.data.wards)
     }
     fetchWardData()

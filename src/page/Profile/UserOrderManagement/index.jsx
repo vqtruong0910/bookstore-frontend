@@ -13,6 +13,7 @@ import BeingShippedOrder from '../../../module/UserOrder/BeingShippedOrder'
 import DeliveredOrder from '../../../module/UserOrder/DeliveredOrder'
 import CancelledOrder from '../../../module/UserOrder/CancelledOrder'
 import Context from '../../../store/Context'
+import { API } from '../../../constants/api'
 
 function UserOrderManagement() {
   const [loading, isLoading] = useState(true)
@@ -27,7 +28,7 @@ function UserOrderManagement() {
   useEffect(() => {
     const fetchAllOrderData = async () => {
       try {
-        const response = await axiosJWT.get('order/user_id')
+        const response = await axiosJWT.get(`${API.ORDER}/user_id`)
         isLoading(true)
         if (response.data) {
           setTimeout(() => {

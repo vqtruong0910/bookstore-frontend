@@ -7,6 +7,7 @@ import LoadingSkeletonMain from '../../components/Loading/LoadingSkeletonMain'
 // import NewBook from '../../module/Book/NewBook'
 import BestSellerBook from '../../module/Book/BestSellerBook'
 import PopularBook from '../../module/Book/PopularBook'
+import { API } from '../../constants/api'
 
 function Main() {
   const [popularBook, setPopularBook] = useState([])
@@ -95,7 +96,7 @@ function Main() {
       // }
 
       const fetchBestSellerBookData = async () => {
-        const response = await axiosConfig('product/bestseller')
+        const response = await axiosConfig(`${API.BEST_SELLER_ITEM}`)
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)
@@ -104,7 +105,7 @@ function Main() {
         }
       }
       const fetchPopularBookData = async () => {
-        const response = await axiosConfig('product/')
+        const response = await axiosConfig(`${API.ALL_ITEM}`)
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)

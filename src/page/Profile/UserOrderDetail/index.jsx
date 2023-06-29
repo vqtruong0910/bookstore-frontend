@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from 'react'
 import axiosJWT from '../../../config/axiosJWT'
 import Context from '../../../store/Context'
 import Image from '../../../components/Image'
+import { API } from '../../../constants/api'
 
 function UserOrderDetail() {
   const navigate = useNavigate()
@@ -14,7 +15,7 @@ function UserOrderDetail() {
   const [orderDetail, setOrderDetail] = useState([])
   useEffect(() => {
     const fetchOrderDetailData = async () => {
-      const response = await axiosJWT.get(`order/order_detail/${state}`)
+      const response = await axiosJWT.get(`${API.ORDER_DETAIL}/${state}`)
       setOrderDetail(response.data)
     }
     fetchOrderDetailData()

@@ -5,6 +5,7 @@ import Context from '../../store/Context'
 import axiosConfig from '../../config/axiosConfig'
 import LoadingSkeletonCategory from '../../components/Loading/LoadingSkeletonCategory'
 import Card from '../../components/Card'
+import { API } from '../../constants/api'
 
 function Category() {
   const [notify, setNotify] = useState(false)
@@ -35,7 +36,7 @@ function Category() {
     const fetchBookData = async () => {
       try {
         isLoading(true)
-        const response = await axiosConfig(`product/pages?p=${currentPage}&s=${sizePerPage}`)
+        const response = await axiosConfig(`${API.PAGINATE_ITEM}?p=${currentPage}&s=${sizePerPage}`)
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)
@@ -72,7 +73,7 @@ function Category() {
               <option value="giagiamdan">Giá giảm dần</option>
             </select>
           </div>
-          <div className="w-full bg-white border border-gray-100 drop-shadow-lg">
+          <div className="w-full bg-white">
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-5">
               {page.DanhSach?.map((item) => {
                 return (

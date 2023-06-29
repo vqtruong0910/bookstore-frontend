@@ -27,6 +27,7 @@ export const API = {
   REVANUE_IN_WEEK: 'order/revanue',
   AMOUNT_ORDER_IN_WEEK: 'order/amount',
   ORDER_DETAIL: 'order/order_detail',
+  ORDER: 'order',
 
   STATISTIC_USER_EVERY_DAY_IN_WEEK: 'users/statisticperday',
   STATISTIC_ORDER_EVERY_DAY_IN_WEEK: 'order/amountperday',
@@ -38,4 +39,15 @@ export const API = {
   MANAGE_CATEGORY: 'category',
   MANAGE_ORDER: 'order',
   MANAGE_TYPEOF_BOOK: 'kind_product',
+
+  SEARCH_ITEM: 'product/search',
+  BEST_SELLER_ITEM: 'product/bestseller',
+  ALL_ITEM: 'product',
+  PAGINATE_ITEM: 'product/pages',
+  GET_LIST_PROVINCE: 'https://provinces.open-api.vn/api/p',
+  GET_LIST_DISTRICT: 'https://provinces.open-api.vn/api/d',
+  KIND_PRODUCT: 'kind_product',
+  PUBLISHING: 'publishing',
+  CATEGORY: 'category',
+  GET_DETAIL_GENRE_ITEM: 'product/id_theloai',
 }
