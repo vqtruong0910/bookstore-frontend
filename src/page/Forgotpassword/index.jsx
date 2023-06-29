@@ -8,7 +8,7 @@ import { API } from '../../constants/api'
 import { PATH } from '../../constants/path'
 import { VALIDATE } from '../../constants/validate'
 
-function ForgotPassword() {
+function Forgotpassword() {
   const [loading, setLoading] = useState(false)
   const { control, setError, handleSubmit } = useForm({
     mode: 'onBlur',
@@ -71,4 +71,4 @@ function ForgotPassword() {
   )
 }
 
-export default ForgotPassword
+export default Forgotpassword
