@@ -92,7 +92,7 @@ function ListProduct() {
               return (
                 <Link key={index} to={PATH.category.dashboard}>
                   <img
-                    className="h-[350px] md:h-[450px] lg:h-[550px] rounded-sm object-fit w-full"
+                    className="h-[350px] md:h-[450px] lg:h-[550px] rounded-sm object-fit w-full mb-10"
                     src={item.image}
                     alt="Carousel_image"
                   />

@@ -2,33 +2,31 @@ import { IoAddSharp } from 'react-icons/io5'
 import { IoMdRemove } from 'react-icons/io'
 import { BsCart3 } from 'react-icons/bs'
 import { useParams } from 'react-router-dom'
-import style from './DetailBook.module.scss'
-import React, { useState, useContext, useEffect, Fragment } from 'react'
-import Notify from '../../components/Notify'
-import Context from '../../store/Context'
-import { addToCart } from '../../reducers/cartReducers'
+import React, { useState, useEffect, Fragment } from 'react'
 import axiosConfig from '../../config/axiosConfig'
-import RelatedBook from '../RelatedBook'
+import RelatedBook from '../../module/Book/RelatedBook'
 import LoadingSkeletonDetailBook from '../../components/Loading/LoadingSkeletonDetailBook'
+import Image from '../../components/Image'
+import useCart from '../../hooks/useCart'
+import { API } from '../../constants/api'
 
 const DetailBook = () => {
   const { bookID } = useParams()
   const [book, setBook] = useState([])
-  const [authorID, genreID, publisherID, categoryID] = useState('')
+  const [authorID, setAuthorID] = useState('')
+  const [genreID, setGenreID] = useState('')
+  const [publisherID, setPublisherID] = useState('')
+  const [categoryID, setCategoryID] = useState('')
   const [genreName, setGenreName] = useState('')
   const [authorName, setAuthorName] = useState('')
   const [publisherName, setPublisherName] = useState('')
   const [categoryName, setCategoryName] = useState('')
   const [quantity, setQuantity] = useState(1)
   const [procsInSameCategory, setProcsInSameCategory] = useState([])
-  const [notify, setNotify] = useState(false)
   const [loading, isLoading] = useState(true)
   const [showContent, setShowContent] = useState(4)
-  const { dispatch } = useContext(Context)
-  const addToCartHandler = (product) => {
-    dispatch(addToCart(product, quantity))
-    return setNotify(true)
-  }
+  const { handleAddToCart } = useCart()
+
   const decrementQuantity = (item) => {
     setQuantity((item) => {
       if (item - 1 < 1) return 1
@@ -36,74 +34,77 @@ const DetailBook = () => {
       return item - 1
     })
   }
+
   const incrementQuantity = (item) => {
     setQuantity(item + 1)
   }
+
   const handleContent = (e) => {
     setShowContent(e)
   }
+
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
 
   useEffect(() => {
-    let authorID = ''
-    let genreID = ''
-    let publisherID = ''
-    let categoryID = ''
-
     try {
       const fetchDetailBookData = async () => {
         isLoading(true)
-        const response = await axiosConfig(`product/${bookID}`)
+        const response = await axiosConfig(`${API.ALL_ITEM}/${bookID}`)
 
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)
             setBook(response.data.data)
+            console.log(response.data.data)
             response.data.data.forEach((item) => {
-              authorID = item.IDNhaXuatBan
-              genreID = item.IDTheLoai
-              publisherID = item.IDNhaXuatBan
+              setAuthorID(item.IDNhaXuatBan)
+              setGenreID(item.IDTheLoai)
+              setPublisherID(item.IDNhaXuatBan)
             })
           }, 250)
         }
 
-        const responseAuthorName = await axiosConfig(`author/${authorID}`)
+        const responseAuthorName = await axiosConfig(`${API.AUTHOR}/${authorID}`)
         responseAuthorName.data.data.forEach((item) => {
           setAuthorName(item.TenTacGia)
         })
 
-        const responseGenreName = await axiosConfig(`kind_product/${genreID}`)
+        const responseGenreName = await axiosConfig(`${API.KIND_PRODUCT}/${genreID}`)
         responseGenreName.data.data.forEach((item) => {
           setGenreName(item.TenTheLoai)
-          categoryID = item.IDDanhMuc
+          setCategoryID(item.IDDanhMuc)
         })
 
-        const responsePublisherName = await axiosConfig(`publishing/${publisherID}`)
+        const responsePublisherName = await axiosConfig(`${API.PUBLISHING}/${publisherID}`)
         responsePublisherName.data.data.forEach((item) => {
           setPublisherName(item.TenNhaXuatBan)
         })
 
-        const responseCategoryName = await axiosConfig(`category/${categoryID}`)
+        const responseCategoryName = await axiosConfig(`${API.CATEGORY}/${categoryID}`)
         responseCategoryName.data.data.forEach((item) => {
           setCategoryName(item.TenDanhMuc)
         })
 
-        const responseProcsInSameCategory = await axiosConfig(`product/id_theloai/${genreID}`)
+        const responseProcsInSameCategory = await axiosConfig(
+          `${API.GET_DETAIL_GENRE_ITEM}/${genreID}`
+        )
         setProcsInSameCategory(responseProcsInSameCategory.data.data)
       }
+
       fetchDetailBookData()
     } catch (error) {
       console.log(error)
       isLoading(false)
     }
-  }, [bookID, authorID, genreID, publisherID, categoryID])
+  }, [bookID, authorID, publisherID, categoryID, genreID])
 
   useEffect(() => {
     const topOfElement = document.querySelector('#detail-book') - 200
     window.scroll({ top: topOfElement, behavior: 'smooth' })
   }, [bookID])
+
   return (
     <>
       {loading && <LoadingSkeletonDetailBook></LoadingSkeletonDetailBook>}
@@ -114,18 +115,9 @@ const DetailBook = () => {
             return (
               <Fragment key={item.IDSanPham}>
                 <div className="w-4/5 bg-white rounded-sm flex shadow-md border border-gray-200">
-                  <div className="w-full my-3 flex flex-wrap lg:flex-nowrap">
-                    <div className="flex flex-wrap w-full lg:w-4/12">
-                      <div className="w-full flex justify-center">
-                        <img
-                          src={item.HinhAnh}
-                          className="w-64 h-64 lg:w-96 lg:h-96 object-fit"
-                          alt="Book_Image"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="w-full flex-col flex lg:w-8/12">
+                  <div className="w-full my-3 flex items-center flex-wrap lg:flex-nowrap">
+                    <Image item={item} />
+                    <div className="w-full flex-col flex">
                       <div className="w-full flex-wrap justify-center py-2 px-4">
                         <span className="text-base lg:text-2xl lg:font-medium font-normal text-gray-700">
                           {item.TenSanPham}
@@ -155,32 +147,21 @@ const DetailBook = () => {
                         </span>
                       </div>
 
-                      <div className="lg:w-7/12 flex flex-row items-center mt-4 mx-4">
+                      <div className="flex flex-row items-center mt-4 mx-4">
                         <div className="rounded-sm cursor-pointer lg:w-1/2">
                           <div
                             onClick={() => {
-                              addToCartHandler(item)
+                              handleAddToCart(item)
                             }}
-                            className="py-1 lg:py-3 px-1 flex flex-row lg:justify-center bg-red-500 rounded-sm hover:bg-red-400 transition"
+                            className="py-2 px-1 flex flex-row lg:justify-center bg-red-500 rounded-lg hover:bg-red-400 transition"
                           >
                             <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
-                            <span className="mx-1 text-white font-medium text-sm lg:text-lg">
+                            <span className="mx-1 text-white font-medium text-sm md:text-base lg:text-lg whitespace-nowrap">
                               Thêm giỏ hàng
                             </span>
                           </div>
                         </div>
-                        {notify ? (
-                          <Notify
-                            close="true"
-                            message="Sản phẩm đã được thêm vào giỏ hàng"
-                            textMessage="text-slate-700"
-                            notify={notify}
-                            setNotify={(data) => setNotify(data)}
-                            addToCart="true"
-                          />
-                        ) : (
-                          <></>
-                        )}
+
                         <div className="flex flex-wrap items-center justify-end lg:w-1/2 lg:justify-center">
                           <span className="text-gray-500 text-sm md:text-base font-semibold mx-3">
                             Số lượng
@@ -261,73 +242,15 @@ const DetailBook = () => {
           })}
 
           <div className="flex flex-wrap w-4/5 bg-white rounded-sm py-3 shadow-md mb-7">
-            <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 w-full">
+            <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 mb-8 w-full">
               SẢN PHẨM LIÊN QUAN
             </span>
 
             <RelatedBook
-              style={style}
               procsInSameCategory={procsInSameCategory}
               changeCostWithDots={changeCostWithDots}
-              addToCartHandler={addToCartHandler}
-              notify={notify}
-              setNotify={setNotify}
             ></RelatedBook>
           </div>
-
-          {/* <div className="flex flex-wrap w-full bg-white rounded-sm py-3 mt-4 shadow-md">
-          <span className="text-base md:text-lg lg:text-xl font-semibold w-full px-4">ĐÁNH GIÁ SẢN PHẨM</span>
-
-          <div className="w-full flex flex-col">
-              <div className="w-full flex flex-col border-b-2">
-                  <div className="flex w-full my-5 px-4">
-                      <div className="flex flex-row w-full md:w-3/12">
-                          <div className="flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16">
-                              <img src="https://scontent.fsgn13-3.fna.fbcdn.net/v/t1.6435-1/155979415_2946100539003750_7844294579569965404_n.jpg?stp=dst-jpg_p100x100&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=vi4UJAmnQksAX_ov2_r&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn13-3.fna&oh=00_AT87WeMXH9EWvZ1K0v9t-Dhb2QrPGpFf1uu5Ph2ImwdZbw&oe=637B6BAC"
-                                  className="w-full bg-gray-200 rounded-full" alt="Avatar_User" />
-                          </div>
-
-                          <div className="flex flex-col ml-2">
-                              <span className="text-xs lg:text-sm font-bold">Tạ Minh Vũ</span>
-                              <span className="text-xs lg:text-sm font-semibold text-gray-400 my-1">11:20 27/12/2022</span>
-                          </div>
-                      </div>
-
-                      <div className="flex ml-4 w-full md:w-9/12">
-                          <BiMessageRoundedEdit className="w-5 h-5 lg:w-7 lg:h-7 text-gray-700" />
-                          <span className="text-sm w-full mx-0.5 text-gray-700 lg:text-base">Nội dung rất hay, rất đặc sắc, những câu chuyện được miêu tả rất chân thực, xúc động.</span>
-                      </div>
-                  </div>
-              </div>
-
-              <div className="w-full flex flex-col border-b-2">
-                  <div className="flex w-full my-5 px-4">
-                      <div className="flex flex-row w-full md:w-3/12">
-                          <div className="flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16">
-                              <img src="https://scontent.fsgn8-1.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=dst-png_p100x100&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1Rph2yqJK04AX_ViEJO&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fsgn8-1.fna&oh=00_AT_LC9lA-uhMzkit_9oI_nZtJahJlVPxNKztQ4tSNuco6w&oe=637C7278"
-                                  className="w-full bg-gray-200 rounded-full" alt="Avatar_User" />
-                          </div>
-
-                          <div className="flex flex-col ml-2">
-                              <span className="text-xs lg:text-sm font-bold">Võ Quang Trường</span>
-                              <span className="text-xs lg:text-sm font-semibold text-gray-400 my-1">12:30 20/12/2022</span>
-                          </div>
-                      </div>
-
-                      <div className="flex ml-4 w-full md:w-9/12">
-                          <BiMessageRoundedEdit className="w-5 h-5 lg:w-7 lg:h-7 text-gray-700" />
-                          <span className="text-sm w-full mx-0.5 text-gray-700 lg:text-base">Đây là quyển sách hay nhất mình từng đọc, lời văn của tác giả lôi cuốn thật sự.</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <div className="flex flex-wrap w-full justify-end items-center px-4 mt-4">
-              <BsArrowLeftCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-400" />
-              <span className="mx-2 font-medium text-sm md:text-base lg:text-lg">1</span>
-              <BsArrowRightCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-700" />
-          </div>
-      </div> */}
         </div>
       )}
     </>

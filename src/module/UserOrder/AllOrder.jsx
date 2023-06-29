@@ -20,7 +20,7 @@ const AllOrder = ({ data }) => {
           const deliveryDate = new Date(deliveryTime).toLocaleDateString('vi-VI')
 
           return (
-            <div key={index} className="bg-white w-full my-4 border border-gray-100 drop-shadow-lg">
+            <div key={index} className="bg-white w-full mt-4 border border-gray-100 drop-shadow-lg">
               <div className="flex gap-1 text-slate-700 py-3 items-center mx-4 font-medium">
                 {item.TrangThai === 0 && <BiTimeFive className="w-5 h-5"></BiTimeFive>}
                 {item.TrangThai === 2 && <TbTruck className="w-5 h-5"></TbTruck>}

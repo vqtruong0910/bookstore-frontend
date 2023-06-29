@@ -7,6 +7,7 @@ import LoadingSkeletonMain from '../../components/Loading/LoadingSkeletonMain'
 // import NewBook from '../../module/Book/NewBook'
 import BestSellerBook from '../../module/Book/BestSellerBook'
 import PopularBook from '../../module/Book/PopularBook'
+import { API } from '../../constants/api'
 
 function Main() {
   const [popularBook, setPopularBook] = useState([])
@@ -35,15 +36,24 @@ function Main() {
   const settings = {
     dots: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 1,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    initialSlide: 2,
     infinite: true,
     arrows: true,
     lazyLoad: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     responsive: [
+      {
+        breakpoint: 1536,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          initialSlide: 2,
+          infinite: true,
+        },
+      },
       {
         breakpoint: 1024,
         settings: {
@@ -62,7 +72,7 @@ function Main() {
         },
       },
       {
-        breakpoint: 639,
+        breakpoint: 539,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -76,7 +86,7 @@ function Main() {
     try {
       isLoading(true)
       // const fetchNewBookData = async () => {
-      //   const response = await axiosConfig('product/new')
+      //   const response = await axiosConfig(`${API.NEW_ITEM}`)
       //   if (response.data.data) {
       //     setTimeout(() => {
       //       isLoading(false)
@@ -86,7 +96,7 @@ function Main() {
       // }
 
       const fetchBestSellerBookData = async () => {
-        const response = await axiosConfig('product/bestseller')
+        const response = await axiosConfig(`${API.BEST_SELLER_ITEM}`)
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)
@@ -95,7 +105,7 @@ function Main() {
         }
       }
       const fetchPopularBookData = async () => {
-        const response = await axiosConfig('product/')
+        const response = await axiosConfig(`${API.ALL_ITEM}`)
         if (response.data.data) {
           setTimeout(() => {
             isLoading(false)
@@ -119,7 +129,7 @@ function Main() {
       {loading && <LoadingSkeletonMain></LoadingSkeletonMain>}
 
       {!loading && (
-        <div className="w-full justify-center">
+        <div className="flex flex-col gap-10 w-full justify-center">
           {/* <NewBook data={newBook} settings={settings}></NewBook> */}
 
           <BestSellerBook data={bestSellerBook} settings={settings}></BestSellerBook>

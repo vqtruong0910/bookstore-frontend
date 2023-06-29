@@ -1,24 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
-import { BsSearch } from 'react-icons/bs'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { PATH } from '../../constants/path'
 import avatar from '../../assets/images/avatar.jpg'
 import { useNavigate } from 'react-router-dom'
+import Search from '../../components/Search'
 
-const HeaderFixedItem = ({
-  user,
-  items,
-  setOpen = () => {},
-  setQuery = () => {},
-  onClick = () => {},
-  handleSearch,
-  dropdownRef,
-  isAdmin,
-  showDropdown,
-  setShowDropdown = () => {},
-  data,
-}) => {
+const HeaderFixedItem = ({ user, items, setOpen = () => {}, onClick = () => {}, isAdmin }) => {
   const [menu, setMenu] = useState(false)
   const navigate = useNavigate()
 
@@ -28,49 +16,8 @@ const HeaderFixedItem = ({
         <GiHamburgerMenu className="w-7 h-7 text-white"></GiHamburgerMenu>
       </div>
 
-      <div className="flex justify-between w-full flex-1">
-        <div
-          id="search_box"
-          className="flex h-10 border-2 bg-white rounded-sm w-full relative"
-          ref={dropdownRef}
-        >
-          <input
-            className=" bg-white text-md outline-0 flex w-full pl-2"
-            type="text"
-            placeholder="Tìm kiếm sản phẩm..."
-            name="search"
-            autoComplete="off"
-            onClick={() => setShowDropdown(!showDropdown)}
-            onChange={(e) => setQuery(e.target.value)}
-          ></input>
-
-          {showDropdown && (
-            <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-br overflow-y-auto top-10 border border-gray-300">
-              <ul className="md:text-sm lg:text-base">
-                {data.length > 0 &&
-                  data?.slice(0, 10).map((item) => (
-                    <li
-                      onClick={() =>
-                        navigate(PATH.search, { state: item.TenSanPham, replace: true })
-                      }
-                      key={item.IDSanPham}
-                      className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
-                    >
-                      {item.TenSanPham}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          )}
-
-          <button
-            onClick={handleSearch}
-            type="submit"
-            className="hover:bg-gray-200 relative my-auto justify-end right-0 h-full px-2"
-          >
-            <BsSearch />
-          </button>
-        </div>
+      <div className="flex justify-between w-full flex-1 group">
+        <Search />
       </div>
 
       <div className="flex gap-x-1">

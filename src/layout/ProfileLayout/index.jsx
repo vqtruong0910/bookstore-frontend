@@ -5,8 +5,8 @@ import MenuUser from '../../components/MenuUser'
 
 function ProfileLayout() {
   return (
-    <div className="flex md:px-4 md:space-x-4">
-      <div className="hidden md:block mb-8">
+    <div className="flex md:pb-0 md:px-4 md:space-x-4">
+      <div className="hidden md:block h-full">
         <MenuUser />
       </div>
 
