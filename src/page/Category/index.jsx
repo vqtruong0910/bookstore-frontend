@@ -1,6 +1,5 @@
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs'
 import { useState, useContext, useEffect } from 'react'
-import Notify from '../../components/Notify'
 import Context from '../../store/Context'
 import axiosConfig from '../../config/axiosConfig'
 import LoadingSkeletonCategory from '../../components/Loading/LoadingSkeletonCategory'
@@ -8,7 +7,6 @@ import Card from '../../components/Card'
 import { API } from '../../constants/api'
 
 function Category() {
-  const [notify, setNotify] = useState(false)
   const { darkTheme } = useContext(Context)
   const [page, setPage] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
@@ -82,18 +80,6 @@ function Category() {
                   </div>
                 )
               })}
-              {notify ? (
-                <Notify
-                  close="true"
-                  message="Sản phẩm đã được thêm vào giỏ hàng"
-                  textMessage="text-slate-700"
-                  notify={notify}
-                  setNotify={(data) => setNotify(data)}
-                  addToCart="true"
-                />
-              ) : (
-                <></>
-              )}
             </div>
           </div>
           <div className="flex flex-wrap w-full justify-end items-center py-4">
