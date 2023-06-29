@@ -1,5 +1,7 @@
 import { IoIosArrowDown } from 'react-icons/io'
 import useClickOutside from '../../hooks/useClickOutside'
+import vi from '../../assets/images/vi.png'
+import en from '../../assets/images/en.png'
 import { useState } from 'react'
 
 function Language() {
@@ -13,9 +15,9 @@ function Language() {
     >
       <div className="flex items-center gap-1">
         {defaultLanguage ? (
-          <img src="vi.png" className="w-12 h-10 py-1" alt="language" />
+          <img src={vi} className="w-12 h-10 py-1" alt="language" />
         ) : (
-          <img src="en.png" className="w-12 h-10 py-1" alt="language" />
+          <img src={en} className="w-12 h-10 py-1" alt="language" />
         )}
 
         <IoIosArrowDown className="text-white" />
@@ -29,7 +31,7 @@ function Language() {
               defaultLanguage && 'bg-blue-200'
             } px-2`}
           >
-            <img src="vi.png" className="w-10 py-1 rounded-md" alt="avatar" />
+            <img src={vi} className="w-10 py-1 rounded-md" alt="avatar" />
             <span className="text-sm font-medium">VN</span>
           </div>
           <div
@@ -38,7 +40,7 @@ function Language() {
               !defaultLanguage && 'bg-blue-200'
             } px-2`}
           >
-            <img src="en.png" className="w-10 py-1 rounded-md" alt="avatar" />
+            <img src={en} className="w-10 py-1 rounded-md" alt="avatar" />
             <span className="text-sm font-medium">EN</span>
           </div>
         </div>
