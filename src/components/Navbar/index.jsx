@@ -7,19 +7,24 @@ import clsx from 'clsx'
 import Context from '../../store/Context'
 import { API } from '../../constants/api'
 import axiosConfig from '../../config/axiosConfig'
-import HeaderFixedItem from '../../module/Header/HeaderFixedItem'
 import HeaderList from '../../module/Header/HeaderList'
-import HeaderRightItem from '../../module/Header/HeaderRightItem'
 import jwtDecode from 'jwt-decode'
 import { useMemo } from 'react'
 import Search from '../Search'
+import { GiHamburgerMenu } from 'react-icons/gi'
+import { IoIosArrowDown } from 'react-icons/io'
+import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
+import avatar from '../../assets/images/avatar.jpg'
+import useClickOutside from '../../hooks/useClickOutside'
+import Language from '../Language'
 
 const Navbar = () => {
+  const navigate = useNavigate()
+  const [, setData] = useState([])
   const [open, setOpen] = useState(false)
+  const { show, nodeRef } = useClickOutside()
   const { cart } = useContext(Context)
   const { user, setUser } = useContext(Context)
-  const [, setData] = useState([])
-  const navigate = useNavigate()
 
   const isAdmin = useMemo(() => {
     try {
@@ -69,8 +74,8 @@ const Navbar = () => {
         )}
         onClick={() => setOpen(false)}
       ></div>
-      <div className="h-32 bg-slate-700 flex flex-col justify-center lg:items-center lg:justify-between lg:relative w-full transition-all z-20">
-        <div className="gap-y-4 flex flex-col lg:flex-row py-4 lg:px-4 h-full lg:items-center lg:h-auto lg:w-full lg:justify-between ">
+      <div className=" bg-slate-700 flex flex-col justify-center lg:items-center lg:relative w-full transition-all z-20">
+        <div className="gap-y-4 flex flex-col lg:flex-row py-4 lg:px-4 h-full lg:items-center lg:h-auto lg:w-full">
           <Link to={PATH.main} className="flex justify-center items-center gap-x-2 ">
             <img className="w-10 h-10 lg:w-16 lg:h-16 rounded-full" src={logo} alt="bookstore" />
             <span className="font-bold font-lobster text-white text-2xl lg:text-4xl">
@@ -78,24 +83,84 @@ const Navbar = () => {
             </span>
           </Link>
 
-          <HeaderFixedItem
-            user={user}
-            items={items}
-            setOpen={setOpen}
-            onClick={logout}
-            isAdmin={isAdmin}
-          ></HeaderFixedItem>
+          <div className="flex items-center justify-end lg:flex-1 px-4 lg:px-0 gap-3">
+            <div className="cursor-pointer lg:hidden" onClick={() => setOpen(true)}>
+              <GiHamburgerMenu className="w-6 h-6 text-white"></GiHamburgerMenu>
+            </div>
 
-          <div className="hidden lg:block">
-            <Search />
+            <div className="flex flex-1 lg:max-w-[500px] lg:items-end">
+              <Search />
+            </div>
+
+            <div className="flex gap-x-1">
+              {user && (
+                <div className="cursor-pointer relative group" ref={nodeRef}>
+                  <img
+                    src={user.Anh === null ? avatar : user.Anh}
+                    className="w-8 h-8 rounded-full"
+                    alt="avatar"
+                  />
+
+                  {show && (
+                    <ul className="font-semibold right-1 mt-2 transition-all duration-150 absolute bg-white text-black rounded-sm border border-gray-300 z-50 drop-shadow-lg whitespace-nowrap">
+                      {isAdmin && (
+                        <li
+                          onClick={() => {
+                            navigate(PATH.admin.dashboard)
+                          }}
+                          className="p-2 hover:bg-gray-300"
+                        >
+                          Admin
+                        </li>
+                      )}
+                      <li
+                        onClick={() => navigate(PATH.profile.dashboard)}
+                        className="p-2 hover:bg-slate-300"
+                      >
+                        Thông tin tài khoản
+                      </li>
+                      <li
+                        onClick={() => navigate(PATH.profile.user_order_management)}
+                        className="p-2 hover:bg-slate-300"
+                      >
+                        Quản lý đơn hàng
+                      </li>
+                      <li
+                        onClick={() => navigate(PATH.profile.user_review)}
+                        className="p-2 hover:bg-slate-300"
+                      >
+                        Đánh giá sản phẩm
+                      </li>
+                      <li onClick={logout} className="p-2 hover:bg-slate-300">
+                        Đăng xuất
+                      </li>
+                    </ul>
+                  )}
+                </div>
+              )}
+
+              {!user && (
+                <AiOutlineUser
+                  className="w-8 h-8 text-white rounded-full border border-white"
+                  onClick={() => navigate(PATH.login)}
+                ></AiOutlineUser>
+              )}
+
+              <div className="relative">
+                <AiOutlineShoppingCart
+                  onClick={() => navigate(PATH.cart)}
+                  className="w-8 h-8 text-white"
+                ></AiOutlineShoppingCart>
+                <div className="rounded-full w-4 h-4 bg-orange-500 absolute right-0 top-0">
+                  <span className="text-white text-sm flex items-center justify-center h-full">
+                    {items}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <Language />
           </div>
-
-          <HeaderRightItem
-            user={user}
-            items={items}
-            onClick={logout}
-            isAdmin={isAdmin}
-          ></HeaderRightItem>
         </div>
         <HeaderList></HeaderList>
       </div>

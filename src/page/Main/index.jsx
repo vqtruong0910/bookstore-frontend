@@ -86,7 +86,7 @@ function Main() {
     try {
       isLoading(true)
       // const fetchNewBookData = async () => {
-      //   const response = await axiosConfig('product/new')
+      //   const response = await axiosConfig(`${API.NEW_ITEM}`)
       //   if (response.data.data) {
       //     setTimeout(() => {
       //       isLoading(false)

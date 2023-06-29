@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axiosConfig from '../../config/axiosConfig'
 import { API } from '../../constants/api'
+import useClickOutside from '../../hooks/useClickOutside'
 
 const Search = () => {
   const navigate = useNavigate()
   const [data, setData] = useState([])
   const [query, setQuery] = useState('')
+  const { show, nodeRef } = useClickOutside()
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -28,9 +30,13 @@ const Search = () => {
   }
 
   return (
-    <div id="search_box" className="flex h-10 border-2 bg-white rounded-lg w-full relative">
+    <div
+      id="search_box"
+      className="flex py-1 lg:py-2 border-2 bg-white rounded-md lg:rounded-lg w-full relative"
+      ref={nodeRef}
+    >
       <input
-        className=" bg-white text-md outline-0 flex w-full pl-2"
+        className=" bg-white text-sm md:text-md outline-0 flex w-full pl-2"
         type="text"
         placeholder="Tìm kiếm sản phẩm..."
         name="search"
@@ -38,20 +44,22 @@ const Search = () => {
         onChange={(e) => setQuery(e.target.value)}
       ></input>
 
-      <div className="z-40 hidden group-hover:block absolute w-full bg-white drop-shadow-lg rounded-br overflow-y-auto top-10 border border-gray-300">
-        <ul className="md:text-sm lg:text-base">
-          {data.length > 0 &&
-            data?.map((item) => (
-              <li
-                onClick={() => navigate(PATH.search, { state: item.TenSanPham, replace: true })}
-                key={item.IDSanPham}
-                className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
-              >
-                {item.TenSanPham}
-              </li>
-            ))}
-        </ul>
-      </div>
+      {show && (
+        <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-sm overflow-y-auto top-8 lg:top-10 border border-gray-300">
+          <ul className="md:text-sm lg:text-base">
+            {data.length > 0 &&
+              data?.map((item) => (
+                <li
+                  onClick={() => navigate(PATH.search, { state: item.TenSanPham, replace: true })}
+                  key={item.IDSanPham}
+                  className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
+                >
+                  {item.TenSanPham}
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
 
       <button
         onClick={handleSearch}

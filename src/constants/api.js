@@ -42,6 +42,7 @@ export const API = {
 
   SEARCH_ITEM: 'product/search',
   BEST_SELLER_ITEM: 'product/bestseller',
+  NEW_ITEM: 'product/item',
   ALL_ITEM: 'product',
   PAGINATE_ITEM: 'product/pages',
   GET_LIST_PROVINCE: 'https://provinces.open-api.vn/api/p',
