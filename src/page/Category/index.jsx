@@ -82,7 +82,7 @@ function Category() {
               })}
             </div>
           </div>
-          <div className="flex flex-wrap w-full justify-end items-center py-4">
+          <div className="flex flex-wrap w-full justify-end items-center pt-4">
             <BsArrowLeftCircleFill
               onClick={() => prevPage(currentPage)}
               className={

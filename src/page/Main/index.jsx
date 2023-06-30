@@ -129,7 +129,7 @@ function Main() {
       {loading && <LoadingSkeletonMain></LoadingSkeletonMain>}
 
       {!loading && (
-        <div className="flex flex-col gap-10 w-full justify-center">
+        <div className="flex flex-col gap-10 w-full px-4 lg:px-0 justify-center py-10">
           {/* <NewBook data={newBook} settings={settings}></NewBook> */}
 
           <BestSellerBook data={bestSellerBook} settings={settings}></BestSellerBook>

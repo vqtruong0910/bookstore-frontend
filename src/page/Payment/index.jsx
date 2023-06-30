@@ -25,7 +25,7 @@ function Payment() {
   const [districtCode, setDistrictCode] = useState('')
   const [loading, isLoading] = useState(true)
   const { control, handleSubmit } = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       fullName: user?.HoTen || '',
       email: user?.Email || '',
@@ -130,7 +130,7 @@ function Payment() {
     <>
       {loading && <LoadingSkeletonPayment></LoadingSkeletonPayment>}
       {!loading && (
-        <div className="flex flex-wrap w-full px-4" id="payment">
+        <div className="flex flex-wrap w-full px-4 py-10" id="payment">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-wrap lg:flex-nowrap">
             <div className="flex flex-wrap w-full">
               <div className="flex flex-wrap w-full">
@@ -276,14 +276,14 @@ function Payment() {
                 <div className="flex mt-4 lg:w-full lg:text-center">
                   <div
                     onClick={() => navigate(PATH.main)}
-                    className="lg:hidden px-2 py-1 bg-gray-300 rounded-sm transition mx-4 cursor-pointer text-base md:text-lg hover:bg-gray-400"
+                    className="lg:hidden px-2 py-1 bg-gray-300 rounded-md transition mx-4 cursor-pointer text-sm md:text-base lg:text-lg hover:bg-gray-400"
                   >
                     Giỏ hàng
                   </div>
                   <button
                     type="submit"
                     onClick={() => handlePay()}
-                    className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg"
+                    className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-md cursor-pointer text-sm md:text-base lg:text-lg"
                   >
                     Đặt hàng
                   </button>

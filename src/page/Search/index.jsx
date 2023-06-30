@@ -60,7 +60,7 @@ const Search = () => {
       {!loading && (
         <>
           <div className="flex flex-row w-full">
-            <div className="flex flex-col w-full items-start px-4">
+            <div className="flex flex-col w-full items-start px-4 py-10">
               <div className="flex flex-col gap-0.5 items-center pb-4">
                 <div className={`text-lg italic w-full ${darkTheme ? 'text-white' : ''}`}>
                   Từ khóa tìm kiếm : <strong className="text-orange-400">{state}</strong>

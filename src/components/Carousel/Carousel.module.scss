@@ -1,0 +1,39 @@
+.multicolor-text {
+  text-align: center;
+  background: linear-gradient(
+    to left,
+    rgb(224, 146, 224),
+    rgb(219, 168, 74),
+    rgb(109, 177, 209),
+    rgb(224, 110, 110)
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.marquee-outer {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  overflow: hidden;
+}
+
+.marquee-inner {
+  animation: marquee 10s linear infinite;
+  position: relative;
+
+  @media only screen and (max-width: 767px) {
+    animation: marquee 5s linear infinite;
+    position: relative;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    left: 100%;
+  }
+
+  100% {
+    left: 0%;
+  }
+}

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs'
 import Slider from 'react-slick'
 import { useEffect, useState } from 'react'
+import style from './Carousel.module.scss'
 
 function ListProduct() {
   const [loading, isLoading] = useState(true)
@@ -78,7 +79,7 @@ function ListProduct() {
   return (
     <>
       {loading && (
-        <div className="w-4/5 mx-auto mt-10 h-[350px] md:h-[450px] lg:h-[550px] bg-slate-200">
+        <div className="w-full mx-auto mt-10 h-[350px] md:h-[500px] lg:h-[650px] bg-slate-200">
           <div className="w-full ">
             <div className="w-full h-fit" />
           </div>
@@ -86,21 +87,33 @@ function ListProduct() {
       )}
 
       {!loading && (
-        <div className="w-full lg:w-4/5 mx-auto">
-          <Slider {...settings}>
-            {CarouselData.map((item, index) => {
-              return (
-                <Link key={index} to={PATH.category.dashboard}>
-                  <img
-                    className="h-[350px] md:h-[450px] lg:h-[550px] rounded-sm object-cover w-full mb-10"
-                    src={item.image}
-                    alt="Carousel_image"
-                  />
-                </Link>
-              )
-            })}
-          </Slider>
-        </div>
+        <>
+          <div className={`${style['marquee-outer']} bg-white`}>
+            <div className={` font-mono ${style['marquee-inner']}  italic whitespace-nowrap`}>
+              🎉{' '}
+              <span className={`${style['multicolor-text']} font-semibold`}>
+                WELCOME TO BOOKSTORE
+              </span>{' '}
+              🎉
+            </div>
+          </div>
+
+          <div className="w-full mx-auto">
+            <Slider {...settings}>
+              {CarouselData.map((item, index) => {
+                return (
+                  <Link key={index} to={PATH.category.dashboard}>
+                    <img
+                      className="h-[350px] md:h-[500px] lg:h-[650px] rounded-sm object-fit w-full"
+                      src={item.image}
+                      alt="Carousel_image"
+                    />
+                  </Link>
+                )
+              })}
+            </Slider>
+          </div>
+        </>
       )}
     </>
   )

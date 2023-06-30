@@ -98,11 +98,11 @@ function PersonInfo() {
     <>
       {loading && <LoadingSkeletonPersonInfo></LoadingSkeletonPersonInfo>}
       {!loading && (
-        <div className="flex flex-row">
+        <div className="flex flex-row border">
           <div className="flex flex-wrap w-full">
-            <div className="flex w-full px-4 md:px-0">
+            <div className="flex w-full p-4">
               <span
-                className={`w-full text-lg font-semibold mb-5 lg:text-xl ${
+                className={`w-full text-lg font-semibold lg:text-xl ${
                   darkTheme ? 'text-white' : 'text-slate-700'
                 }`}
               >
@@ -110,8 +110,8 @@ function PersonInfo() {
               </span>
             </div>
 
-            <div className="flex w-full flex-wrap lg:flex-nowrap md:mx-0 bg-white shadow-md">
-              <div className="w-full px-4 lg:w-2/3">
+            <div className="flex w-full flex-wrap xl:flex-nowrap md:mx-0 bg-white">
+              <div className="w-full px-4 xl:w-2/3">
                 <div className="w-full flex flex-wrap">
                   <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>
 
@@ -218,7 +218,7 @@ function PersonInfo() {
                       <div className="w-full flex justify-center py-5 cursor-pointer">
                         <button
                           type="submit"
-                          className="w-40 h-10 flex text-white items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm"
+                          className=" px-4 py-2 flex text-white items-center justify-center bg-green-600 hover:bg-green-500 transition rounded-md"
                         >
                           Lưu thay đổi
                         </button>
@@ -249,7 +249,7 @@ function PersonInfo() {
                         onClick={() => navigate(PATH.profile.user_change_password)}
                         className="w-full flex justify-end cursor-pointer"
                       >
-                        <div className="border-2 w-20 h-8 flex justify-center rounded-md bg-slate-700 hover:bg-slate-500 transition">
+                        <div className="border-2 w-20 h-8 flex justify-center rounded-md bg-yellow-500 hover:bg-yellow-400 transition">
                           <span className="text-white flex items-center">Cập nhật</span>
                         </div>
                       </div>

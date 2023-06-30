@@ -58,7 +58,7 @@ function Cart() {
       {loading && <LoadingSkeletonCart></LoadingSkeletonCart>}
 
       {!loading && (
-        <div className="flex flex-wrap w-full px-4">
+        <div className="flex flex-wrap w-full px-4 py-10">
           <div className="flex flex-wrap w-full">
             <div className="flex w-full lg:px-4">
               <span
@@ -72,7 +72,7 @@ function Cart() {
 
             {cart.length === 0 && (
               <div
-                className={`flex flex-col items-center w-full mb-4 ${
+                className={`flex flex-col items-center w-full ${
                   darkTheme ? 'text-white' : 'text-slate-700'
                 }`}
               >
@@ -105,7 +105,7 @@ function Cart() {
                     <div className="w-full text-base text-center">Thành tiền</div>
                   </div>
 
-                  <div className="w-full bg-white shadow-md flex flex-col mt-4 lg:mb-8">
+                  <div className="w-full bg-white shadow-md flex flex-col mt-4 gap-4">
                     {cart.map((item, index) => {
                       return (
                         <div
@@ -265,13 +265,13 @@ function Cart() {
                     <div className="flex mt-4 lg:w-full lg:text-center">
                       <div
                         onClick={() => navigate(PATH.main)}
-                        className="lg:hidden px-2 py-1 bg-gray-300 rounded-sm transition mx-4 cursor-pointer text-base md:text-lg hover:bg-gray-400"
+                        className="lg:hidden px-2 py-1 bg-gray-300 rounded-md transition mx-4 cursor-pointer text-sm whitespace-nowrap md:text-base lg:text-lg hover:bg-gray-400"
                       >
                         Tiếp tục mua hàng
                       </div>
                       <button
                         onClick={() => handleClickPayment()}
-                        className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg"
+                        className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-md cursor-pointer text-sm whitespace-nowrap md:text-base lg:text-lg"
                         disabled={disable}
                       >
                         Thanh toán

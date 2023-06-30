@@ -10,15 +10,13 @@ function DefaultLayout() {
   return (
     <>
       <Header />
-      <div
-        className={`w-full rounded-sm block mx-auto my-10 ${
-          darkTheme ? 'bg-black/70' : 'bg-white'
-        }`}
-      >
+
+      <div className={`w-full rounded-sm block mx-auto ${darkTheme ? 'bg-black/70' : 'bg-white'}`}>
         <Suspense>
           <Outlet />
         </Suspense>
       </div>
+
       <Footer />
     </>
   )

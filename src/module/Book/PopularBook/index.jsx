@@ -8,7 +8,7 @@ import { Fragment } from 'react'
 
 const PopularBook = ({ data, settings }) => {
   return (
-    <div className="w-4/5 mx-auto rounded-md border border-gray-200 drop-shadow-md bg-white py-10">
+    <div className="w-full lg:w-4/5 lg:mx-auto rounded-md border border-gray-200 drop-shadow-md bg-white py-10">
       <div className="flex w-full justify-center items-center pb-2 border-gray-300">
         <div className="flex items-center">
           <img
