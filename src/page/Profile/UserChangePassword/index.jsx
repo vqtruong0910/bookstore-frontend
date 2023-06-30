@@ -10,6 +10,7 @@ import Notify from '../../../components/Notify'
 import Context from '../../../store/Context'
 import InputPassword from '../../../components/Input/InputPassword'
 import { VALIDATE } from '../../../constants/validate'
+import Swal from 'sweetalert2'
 
 function UserChangePassword() {
   const navigate = useNavigate()
@@ -29,9 +30,10 @@ function UserChangePassword() {
   )
 
   const {
+    watch,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { isValid },
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -42,8 +44,14 @@ function UserChangePassword() {
   })
 
   const onSubmit = (data) => {
-    // console.log(data);
-    return setNotify(true)
+    if (!isValid) return
+    Swal.fire({
+      title: 'Cập nhật mật khẩu thành công',
+      icon: 'success',
+      showCancelButton: false,
+    }).then(async (result) => {
+      navigate(PATH.dashboard)
+    })
   }
 
   return (
@@ -78,7 +86,7 @@ function UserChangePassword() {
                 control={control}
                 name="retype_new_password"
                 placeholder="Nhập lại mật khẩu mới"
-                rules={VALIDATE.confirmPassword}
+                rules={VALIDATE.confirmPassword('new_password', watch)}
               >
                 Nhập lại mật khẩu mới
               </InputPassword>
