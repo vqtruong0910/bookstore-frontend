@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { useState, useCallback } from 'react'
-import { FiEye, FiEyeOff } from 'react-icons/fi'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { AiOutlineSmile } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
@@ -11,23 +10,14 @@ import Context from '../../../store/Context'
 import InputPassword from '../../../components/Input/InputPassword'
 import { VALIDATE } from '../../../constants/validate'
 import Swal from 'sweetalert2'
+import axiosConfig from '../../../config/axiosConfig'
+import { API } from '../../../constants/api'
 
 function UserChangePassword() {
+  const token = localStorage.getItem('accessToken')
   const navigate = useNavigate()
   const { darkTheme } = useContext(Context)
   const [notify, setNotify] = useState(false)
-  const [shown, setShown] = useState({
-    1: false, // Mat khau cu
-    2: false, // Mat khau moi
-    3: false, // Nhap lai mat khau moi
-  })
-
-  const showShown = useCallback(
-    (location) => {
-      setShown({ ...shown, [location]: !shown[location] })
-    },
-    [shown]
-  )
 
   const {
     watch,
@@ -43,15 +33,21 @@ function UserChangePassword() {
     },
   })
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    const { new_password } = data
     if (!isValid) return
-    Swal.fire({
-      title: 'Cập nhật mật khẩu thành công',
-      icon: 'success',
-      showCancelButton: false,
-    }).then(async (result) => {
-      navigate(PATH.dashboard)
-    })
+    try {
+      const response = await axiosConfig.put(API.CHANGEPASSWORD, { new_password, token })
+      console.log('response change pass >>', response)
+
+      Swal.fire({
+        title: 'Cập nhật mật khẩu thành công',
+        icon: 'success',
+        showCancelButton: false,
+      }).then(navigate(PATH.dashboard))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

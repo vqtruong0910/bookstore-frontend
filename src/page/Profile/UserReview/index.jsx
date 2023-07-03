@@ -7,6 +7,8 @@ import Notify from '../../../components/Notify'
 import { useForm } from 'react-hook-form'
 import LoadingSkeletonUserReview from '../../../components/Loading/LoadingSkeletonUserReview'
 import Context from '../../../store/Context'
+import { collection, onSnapshot, query } from 'firebase/firestore'
+import { db } from '../../../firebase/firebase-config'
 
 function UserReview() {
   const [notify, setNotify] = useState(false)
@@ -29,6 +31,19 @@ function UserReview() {
   }
 
   useEffect(() => {
+    const docRef = query(collection(db, 'comments'))
+    onSnapshot(docRef, (snapshot) => {
+      let results = []
+      snapshot.docs.forEach((doc) => {
+        results.push({
+          id: doc.id,
+          ...doc.data(),
+        })
+      })
+
+      console.log('results >> ', results)
+    })
+
     const topOfElement = document.querySelector('#user-review-management') - 200
     window.scroll({ top: topOfElement, behavior: 'smooth' })
 

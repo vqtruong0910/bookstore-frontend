@@ -10,11 +10,11 @@ function InputPassword({ children, control, rules, name, ...props }) {
   } = useController({ name, control, rules })
 
   return (
-    <div className="w-full flex flex-wrap">
+    <div className="w-full flex flex-wrap mb-3 gap-1">
       <div className="text-base">{children}</div>
 
-      <div className="flex w-full items-center justify-end">
-        <div className="flex flex-col relative w-full my-2 items-center">
+      <div className="flex flex-col w-full items-center justify-end">
+        <div className="flex relative w-full items-center">
           <input
             type={show ? 'text' : 'password'}
             className="w-full flex border rounded-sm px-2 py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm relative"
@@ -31,10 +31,10 @@ function InputPassword({ children, control, rules, name, ...props }) {
               <FiEye className="w-5 h-5 text-gray-500" />
             )}
           </div>
+        </div>
 
-          <div className="text-red-500 text-sm italic flex w-full justify-start">
-            {error?.message}
-          </div>
+        <div className="text-red-500 text-sm italic flex w-full justify-start">
+          {error?.message}
         </div>
       </div>
     </div>

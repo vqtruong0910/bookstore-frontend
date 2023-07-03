@@ -7,6 +7,7 @@ export const API = {
   LOGOUT: 'auths/logout',
   SENDEMAILRESETPASSWORD: 'auths/send-email-reset-password',
   RESETPASSWORD: 'auths/reset-password',
+  CHANGEPASSWORD: 'auths/change_password',
   LOGIN_GOOGLE: 'auths/google',
   LOGIN_FACEBOOK: 'auths/facebook',
   AUTH_CALLBACK_GOOGLE: 'auths/google/callback',
