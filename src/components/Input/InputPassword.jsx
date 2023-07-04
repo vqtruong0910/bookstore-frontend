@@ -17,7 +17,7 @@ function InputPassword({ children, control, rules, name, ...props }) {
         <div className="flex relative w-full items-center">
           <input
             type={show ? 'text' : 'password'}
-            className="w-full flex border rounded-sm px-2 py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm relative"
+            className="w-full flex border rounded-sm pl-2 pr-10 py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm relative"
             {...field}
             {...props}
           />

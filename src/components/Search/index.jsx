@@ -46,7 +46,7 @@ const Search = () => {
       ></input>
 
       {show && (
-        <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-sm overflow-y-auto top-8 lg:top-11 border border-gray-300">
+        <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-sm overflow-y-auto top-8 md:top-9 lg:top-11 border border-gray-300">
           <ul className="text-sm md:text-base">
             {data.length > 0 &&
               data?.map((item) => (

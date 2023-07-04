@@ -174,7 +174,7 @@ function PersonInfo() {
                                   </label>
                                 </div>
                                 <div className="w-full">
-                                  <input name="gender" type="radio" value="Female" checked />
+                                  <input name="gender" type="radio" value="Female" defaultChecked />
                                   <label htmlFor="Female" className="mx-2">
                                     Nữ
                                   </label>
@@ -184,7 +184,7 @@ function PersonInfo() {
                             {user?.GioiTinh === 1 && (
                               <>
                                 <div className="w-full">
-                                  <input name="gender" type="radio" value="Male" checked />
+                                  <input name="gender" type="radio" value="Male" defaultChecked />
                                   <label htmlFor="Male" className="mx-2">
                                     Nam
                                   </label>

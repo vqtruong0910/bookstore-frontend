@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { AiOutlineSmile } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
@@ -12,9 +12,12 @@ import { VALIDATE } from '../../../constants/validate'
 import Swal from 'sweetalert2'
 import axiosConfig from '../../../config/axiosConfig'
 import { API } from '../../../constants/api'
+import axiosJWT from '../../../config/axiosJWT'
 
 function UserChangePassword() {
   const token = localStorage.getItem('accessToken')
+  const { user } = useContext(Context)
+  const email = user.Email
   const navigate = useNavigate()
   const { darkTheme } = useContext(Context)
   const [notify, setNotify] = useState(false)
@@ -34,11 +37,14 @@ function UserChangePassword() {
   })
 
   const onSubmit = async (data) => {
-    const { new_password } = data
+    const { new_password, current_password } = data
     if (!isValid) return
     try {
-      const response = await axiosConfig.put(API.CHANGEPASSWORD, { new_password, token })
-      console.log('response change pass >>', response)
+      await axiosJWT.put(API.CHANGEPASSWORD, {
+        Email: email,
+        oldPassword: current_password,
+        newPassword: new_password,
+      })
 
       Swal.fire({
         title: 'Cập nhật mật khẩu thành công',
@@ -46,7 +52,13 @@ function UserChangePassword() {
         showCancelButton: false,
       }).then(navigate(PATH.dashboard))
     } catch (error) {
-      console.log(error)
+      if (error.response.status === 400) {
+        Swal.fire({
+          title: 'Vui lòng nhập đúng mật khẩu hiện tại!',
+          icon: 'warning',
+          showCancelButton: false,
+        })
+      }
     }
   }
 
