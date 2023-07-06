@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { IoReload } from 'react-icons/io5'
 import { BiMessageRoundedCheck } from 'react-icons/bi'
-import { AiOutlineSmile } from 'react-icons/ai'
 import { BsStarFill } from 'react-icons/bs'
-import Notify from '../../../components/Notify'
 import { useForm } from 'react-hook-form'
 import LoadingSkeletonUserReview from '../../../components/Loading/LoadingSkeletonUserReview'
 import Context from '../../../store/Context'
@@ -11,7 +9,6 @@ import { collection, onSnapshot, query } from 'firebase/firestore'
 import { db } from '../../../firebase/firebase-config'
 
 function UserReview() {
-  const [notify, setNotify] = useState(false)
   const [loading, isLoading] = useState(true)
   const [showDiv, setShowDiv] = useState(1)
   const { darkTheme } = useContext(Context)
@@ -27,7 +24,6 @@ function UserReview() {
 
   const onSubmit = (data) => {
     console.log(data)
-    return setNotify(true)
   }
 
   useEffect(() => {
@@ -178,7 +174,7 @@ function UserReview() {
                       </button>
                     </div>
 
-                    {notify ? (
+                    {/* {notify ? (
                       <Notify
                         close="true"
                         message="Cám ơn bạn vì đã đánh giá"
@@ -189,7 +185,7 @@ function UserReview() {
                       />
                     ) : (
                       <></>
-                    )}
+                    )} */}
                   </div>
                 </form>
               </div>

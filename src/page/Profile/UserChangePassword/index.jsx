@@ -1,26 +1,22 @@
 import React, { useContext } from 'react'
-import { useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
-import { AiOutlineSmile } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { PATH } from '../../../constants/path'
-import Notify from '../../../components/Notify'
 import Context from '../../../store/Context'
 import InputPassword from '../../../components/Input/InputPassword'
 import { VALIDATE } from '../../../constants/validate'
 import Swal from 'sweetalert2'
-import axiosConfig from '../../../config/axiosConfig'
 import { API } from '../../../constants/api'
 import axiosJWT from '../../../config/axiosJWT'
+import { useTranslation } from 'react-i18next'
 
 function UserChangePassword() {
-  const token = localStorage.getItem('accessToken')
+  const { t, i18n } = useTranslation()
   const { user } = useContext(Context)
   const email = user.Email
   const navigate = useNavigate()
   const { darkTheme } = useContext(Context)
-  const [notify, setNotify] = useState(false)
 
   const {
     watch,
@@ -45,12 +41,12 @@ function UserChangePassword() {
         oldPassword: current_password,
         newPassword: new_password,
       })
-
       Swal.fire({
         title: 'Cập nhật mật khẩu thành công',
         icon: 'success',
         showCancelButton: false,
-      }).then(navigate(PATH.dashboard))
+      })
+      return navigate('/')
     } catch (error) {
       if (error.response.status === 400) {
         Swal.fire({
@@ -62,8 +58,19 @@ function UserChangePassword() {
     }
   }
 
+  // const handleChangeLang = (lng) => {
+  //   i18n.handleChangeLang(lng)
+  //   localStorage.setItem('language', lng)
+  // }
+
   return (
     <div className="flex w-full border">
+      {/* <div>
+        <button onClick={() => handleChangeLang('en')}>English</button>
+        <button onClick={() => handleChangeLang('vi')}>Việt Nam</button>
+
+        <h1>{t('lớp')}</h1>
+      </div> */}
       <div className="flex flex-wrap w-full p-4">
         <div className={`flex w-full ${darkTheme ? 'text-white' : 'text-slate-700'}`}>
           <span className="w-full text-lg font-medium mb-5 lg:text-xl">Đổi mật khẩu</span>
@@ -109,19 +116,6 @@ function UserChangePassword() {
               </div>
             </div>
           </div>
-
-          {notify ? (
-            <Notify
-              close="true"
-              message="Chúc mừng bạn lưu thay đổi thành công"
-              icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />}
-              textMessage="text-slate-700"
-              notify={notify}
-              setNotify={(data) => setNotify(data)}
-            />
-          ) : (
-            <></>
-          )}
         </form>
 
         <div

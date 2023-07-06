@@ -130,17 +130,19 @@ function Payment() {
     <>
       {loading && <LoadingSkeletonPayment></LoadingSkeletonPayment>}
       {!loading && (
-        <div className="flex flex-wrap w-full px-4 py-10" id="payment">
+        <div className="flex flex-wrap w-full xl:w-4/5 mx-auto py-10" id="payment">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-wrap lg:flex-nowrap">
             <div className="flex flex-wrap w-full">
               <div className="flex flex-wrap w-full">
                 <div
-                  className={`flex w-full lg:px-4 ${darkTheme ? 'text-white' : 'text-slate-700'}`}
+                  className={`flex w-full px-4 xl:px-0 ${
+                    darkTheme ? 'text-white' : 'text-slate-700'
+                  }`}
                 >
                   <span className="w-full text-lg font-medium">THÔNG TIN GIAO HÀNG</span>
                 </div>
 
-                <div className="flex flex-wrap justify-center w-full bg-white border border-gray-200 drop-shadow-lg mt-2 lg:mx-4">
+                <div className="flex flex-wrap justify-center w-full bg-white border border-gray-200 drop-shadow-lg mt-2 mx-4 xl:mx-0">
                   <Field title="Họ & tên">
                     <Input
                       type="text"
@@ -219,13 +221,11 @@ function Payment() {
               </div>
 
               <div className="flex flex-wrap w-full py-5">
-                <div
-                  className={`flex w-full lg:px-4 ${darkTheme ? 'text-white' : 'text-slate-700'}`}
-                >
-                  <span className="w-full text-lg">Phương thức vận chuyển</span>
+                <div className={`flex w-full ${darkTheme ? 'text-white' : 'text-slate-700'}`}>
+                  <span className="w-full text-lg px-4 xl:px-0">Phương thức vận chuyển</span>
                 </div>
 
-                <div className="flex justify-center items-center w-full border rounded-sm border-gray-200 bg-white drop-shadow-lg mt-2 lg:mx-4">
+                <div className="flex justify-center items-center w-full border rounded-sm border-gray-200 bg-white drop-shadow-lg mt-2 mx-4 xl:mx-0">
                   <Radio
                     control={control}
                     name="shipping_cost"
@@ -238,13 +238,11 @@ function Payment() {
               </div>
 
               <div className="flex flex-wrap w-full py-5">
-                <div
-                  className={`flex w-full lg:px-4 ${darkTheme ? 'text-white' : 'text-slate-700'}`}
-                >
-                  <span className="w-full text-lg">Phương thức thanh toán</span>
+                <div className={`flex w-full ${darkTheme ? 'text-white' : 'text-slate-700'}`}>
+                  <span className="w-full text-lg px-4 xl:px-0">Phương thức thanh toán</span>
                 </div>
 
-                <div className="flex justify-center items-center w-full border border-gray-200 drop-shadow-lg bg-white mt-2 lg:mx-4">
+                <div className="flex justify-center items-center w-full border border-gray-200 drop-shadow-lg bg-white mt-2 mx-4 xl:mx-0">
                   <Radio
                     control={control}
                     name="pay_on_delivery"
@@ -254,7 +252,7 @@ function Payment() {
                 </div>
               </div>
             </div>
-            <div className="w-full lg:py-9 py-0 lg:w-6/12 lg:mx-4">
+            <div className="w-full lg:py-9 py-0 lg:w-6/12 mx-4 xl:mx-0 xl:ml-4">
               <div className="w-full flex flex-col bg-white border border-gray-200 drop-shadow-lg lg:mt-0 items-end p-3">
                 <div className="flex flex-wrap lg:justify-between lg:w-full">
                   <div className="flex flex-col">

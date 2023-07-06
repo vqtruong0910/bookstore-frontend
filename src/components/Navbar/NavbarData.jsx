@@ -7,14 +7,14 @@ import { AiOutlineLineChart } from 'react-icons/ai'
 export const NavbarData = [
   {
     id: 1,
-    name: 'Trang chủ',
+    name: 'TRANG CHỦ',
     icon: <HiHome className="absolute w-7 h-7" />,
     link: PATH.main,
   },
 
   {
     id: 2,
-    name: 'Danh mục',
+    name: 'DANH MỤC',
     icon: <BsListStars className="absolute w-7 h-7" />,
     link: PATH.category.dashboard,
     subMenuItem1: [
@@ -302,7 +302,7 @@ export const NavbarData = [
 
   {
     id: 3,
-    name: 'Nhà xuất bản',
+    name: 'NHÀ XUẤT BẢN',
     icon: <BsPersonLinesFill className="absolute w-7 h-7" />,
     link: PATH.category.dashboard,
     submenu: true,
@@ -324,7 +324,7 @@ export const NavbarData = [
 
   {
     id: 4,
-    name: 'Tác giả',
+    name: 'TÁC GIẢ',
     icon: <BsPersonBadgeFill className="absolute w-7 h-7" />,
     link: PATH.category.dashboard,
     submenu: true,
@@ -343,19 +343,19 @@ export const NavbarData = [
 
   {
     id: 5,
-    name: 'Mới nhất',
+    name: 'MỚI NHẤT',
     icon: <BsStars className="absolute w-7 h-7" />,
     link: PATH.category.dashboard,
   },
   {
     id: 6,
-    name: 'Bán chạy',
+    name: 'BÁN CHẠY',
     icon: <GiFireZone className="absolute w-7 h-7" />,
     link: PATH.category.dashboard,
   },
   {
     id: 7,
-    name: 'Phổ biến',
+    name: 'PHỔ BIẾN',
     icon: <AiOutlineLineChart className="absolute w-7 h-7" />,
     link: PATH.category.dashboard,
   },

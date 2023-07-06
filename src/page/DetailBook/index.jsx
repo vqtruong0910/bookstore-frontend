@@ -114,7 +114,7 @@ const DetailBook = () => {
           {book.map((item) => {
             return (
               <Fragment key={item.IDSanPham}>
-                <div className="w-full px-4 lg:w-4/5 bg-white rounded-sm flex shadow-md border border-gray-200">
+                <div className="w-full xl:w-4/5 bg-white rounded-sm flex shadow-md border border-gray-200 mx-4 xl:mx-0">
                   <div className="w-full my-3 flex items-center flex-wrap lg:flex-nowrap">
                     <Image item={item} />
                     <div className="w-full flex-col flex">
@@ -190,7 +190,7 @@ const DetailBook = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap w-full px-4 my-4 lg:w-4/5 bg-white shadow-md">
+                <div className="flex flex-col mx-4 xl:mx-0 my-4 w-full xl:w-4/5 bg-white shadow-md">
                   <div className="flex flex-row cursor-pointer">
                     <div
                       onClick={() => handleContent(4)}
@@ -241,7 +241,7 @@ const DetailBook = () => {
             )
           })}
 
-          <div className="flex flex-wrap w-full lg:w-4/5 bg-white rounded-sm py-3 shadow-md">
+          <div className="flex flex-wrap w-full xl:w-4/5 bg-white rounded-sm py-3 shadow-md">
             <span className="text-base md:text-lg lg:text-xl font-semibold mx-4 mb-8 w-full">
               SẢN PHẨM LIÊN QUAN
             </span>

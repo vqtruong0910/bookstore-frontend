@@ -31,10 +31,8 @@ function UserOrderManagement() {
         const response = await axiosJWT.get(`${API.ORDER}/user_id`)
         isLoading(true)
         if (response.data) {
-          setTimeout(() => {
-            isLoading(false)
-            setOrder(response.data)
-          }, 250)
+          isLoading(false)
+          setOrder(response.data)
         }
       } catch (error) {
         console.log(error)

@@ -73,11 +73,11 @@ const Navbar = () => {
         )}
         onClick={() => setOpen(false)}
       ></div>
-      <div className=" bg-slate-700 flex flex-col justify-center lg:items-center lg:relative w-full transition-all z-20">
+      <div className="flex flex-col text-slate-700 bg-slate-700 lg:bg-white justify-center lg:items-center lg:relative w-full xl:w-4/5 mx-auto transition-all z-20">
         <div className="gap-y-4 flex flex-col lg:flex-row py-4 lg:px-4 h-full lg:items-center lg:h-auto lg:w-full">
           <Link to={PATH.main} className="flex justify-center items-center gap-x-2 ">
             <img className="w-10 h-10 lg:w-16 lg:h-16 rounded-full" src={logo} alt="bookstore" />
-            <span className="font-bold font-lobster text-white text-2xl lg:text-4xl">
+            <span className="font-bold font-lobster text-2xl lg:text-4xl text-white lg:text-slate-700">
               Book Store
             </span>
           </Link>
@@ -87,7 +87,7 @@ const Navbar = () => {
               <GiHamburgerMenu className="w-6 h-6 text-white"></GiHamburgerMenu>
             </div>
 
-            <div className="flex flex-1 lg:max-w-[500px] lg:items-end">
+            <div className="flex flex-1 lg:max-w-[500px] px-2 lg:items-end">
               <Search />
             </div>
 
@@ -96,12 +96,12 @@ const Navbar = () => {
                 <div className="cursor-pointer relative group" ref={nodeRef}>
                   <img
                     src={user.Anh === null ? avatar : user.Anh}
-                    className="w-8 h-8 rounded-full"
+                    className="w-8 h-8 rounded-full text-slate-700"
                     alt="avatar"
                   />
 
                   {show && (
-                    <ul className="font-semibold right-1 mt-2 transition-all duration-150 absolute bg-white text-black rounded-sm border border-gray-300 z-50 drop-shadow-lg whitespace-nowrap">
+                    <ul className="bg-gray-100 font-semibold right-1 mt-2 transition-all duration-150 absolute bg-slate- text-black rounded-sm border border-gray-300 z-50 drop-shadow-lg whitespace-nowrap">
                       {isAdmin && (
                         <li
                           onClick={() => {
@@ -140,7 +140,7 @@ const Navbar = () => {
 
               {!user && (
                 <AiOutlineUser
-                  className="w-8 h-8 text-white rounded-full border border-white"
+                  className="w-8 h-8 text-white lg:text-slate-700 rounded-full border border-white"
                   onClick={() => navigate(PATH.login)}
                 ></AiOutlineUser>
               )}
@@ -148,7 +148,7 @@ const Navbar = () => {
               <div className="relative">
                 <AiOutlineShoppingCart
                   onClick={() => navigate(PATH.cart)}
-                  className="w-8 h-8 text-white"
+                  className="w-8 h-8 text-white lg:text-slate-700"
                 ></AiOutlineShoppingCart>
                 <div className="rounded-full w-4 h-4 bg-orange-500 absolute right-0 top-0">
                   <span className="text-white text-sm flex items-center justify-center h-full">

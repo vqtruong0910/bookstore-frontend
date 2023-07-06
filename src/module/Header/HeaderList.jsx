@@ -4,12 +4,12 @@ import { NavbarData } from '../../components/Navbar/NavbarData'
 const HeaderList = () => {
   const navigate = useNavigate()
   return (
-    <ul className="hidden lg:flex justify-between w-full items-center">
+    <ul className="hidden lg:flex justify-between w-full bg-slate-700 items-center">
       {NavbarData.map((menu, index) => (
         <li
           key={index}
           onClick={() => navigate(menu.link)}
-          className="flex items-center w-full py-1 justify-center group transition-colors relative font-semibold text-white hover:bg-slate-400 cursor-pointer"
+          className="flex items-center w-full py-2.5 justify-center group transition-colors relative font-semibold text-white hover:bg-slate-400 cursor-pointer"
         >
           {menu.name}
 
@@ -27,7 +27,7 @@ const HeaderList = () => {
                           return (
                             <div key={index} className="w-full flex flex-col">
                               <div className="text-sm lg:text-base py-1 font-normal text-black hover:underline">
-                                {item2.name}
+                                {item2.name.toUpperCase()}
                               </div>
                             </div>
                           )

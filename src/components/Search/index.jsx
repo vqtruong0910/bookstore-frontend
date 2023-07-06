@@ -32,7 +32,7 @@ const Search = () => {
   return (
     <div
       id="search_box"
-      className="flex py-1 lg:py-2 border-2 bg-white rounded-md lg:rounded-lg w-full relative"
+      className="flex py-1 lg:py-2 border-2 border-gray-300 bg-white rounded-md lg:rounded-lg w-full relative h-full"
       ref={nodeRef}
     >
       <input
@@ -68,9 +68,9 @@ const Search = () => {
       <button
         onClick={handleSearch}
         type="submit"
-        className="hover:bg-gray-200 relative my-auto justify-end right-0 h-full px-2"
+        className="hover:bg-slate-600 absolute items-center justify-end h-full lg:bg-slate-700 rounded-tr-md rounded-br-md right-0 top-0 flex-1 px-3 flex"
       >
-        <BsSearch />
+        <BsSearch className="lg:text-white" />
       </button>
     </div>
   )

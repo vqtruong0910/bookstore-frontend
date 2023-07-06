@@ -58,11 +58,11 @@ function Cart() {
       {loading && <LoadingSkeletonCart></LoadingSkeletonCart>}
 
       {!loading && (
-        <div className="flex flex-wrap w-full px-4 py-10">
+        <div className="flex flex-wrap w-full xl:w-4/5 mx-auto py-10">
           <div className="flex flex-wrap w-full">
             <div className="flex w-full lg:px-4">
               <span
-                className={`w-full text-lg font-medium ${
+                className={`w-full text-lg font-medium px-4 xl:px-0 ${
                   darkTheme ? 'text-white' : 'text-slate-700'
                 }`}
               >
@@ -96,16 +96,16 @@ function Cart() {
             {cart.length === 0 ? (
               <></>
             ) : (
-              <div className="w-full flex flex-wrap lg:flex-row">
+              <div className="w-full flex flex-wrap lg:flex-nowrap">
                 <div className="w-full lg:w-8/12">
-                  <div className="hidden md:flex md:flex-row md:w-full md:justify-between md:bg-white md:py-2 mt-4 shadow-md">
+                  <div className="hidden md:flex md:flex-row md:justify-between md:bg-white md:py-2 mx-4 xl:mx-0 shadow-md">
                     <div className="w-full text-base text-center">Tất cả ({items} sản phẩm)</div>
                     <div className="w-full text-base text-center">Đơn giá</div>
                     <div className="w-full text-base text-center">Số lượng</div>
                     <div className="w-full text-base text-center">Thành tiền</div>
                   </div>
 
-                  <div className="w-full bg-white shadow-md flex flex-col mt-4 gap-4">
+                  <div className="bg-white shadow-md flex flex-col mt-4 mx-4 xl:mx-0 gap-4">
                     {cart.map((item, index) => {
                       return (
                         <div
@@ -242,8 +242,8 @@ function Cart() {
                   </div>
                 </div>
 
-                <div className="w-full lg:w-4/12 lg:pl-4">
-                  <div className="w-full flex flex-col border bg-white shadow-md mt-4 items-end lg:justify-between p-3">
+                <div className="w-full lg:w-4/12 mt-4 mx-4 lg:mt-0">
+                  <div className="w-full flex flex-col border bg-white shadow-md items-end lg:justify-between p-3">
                     <div className="flex flex-wrap lg:w-full lg:justify-between">
                       <div className="flex flex-col">
                         <span className="py-1 font-light md:text-lg">Tạm tính</span>
