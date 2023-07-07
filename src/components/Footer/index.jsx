@@ -46,14 +46,15 @@ function Footer() {
     { id: 6, icon: <FaPinterestP className="w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 px-1" /> },
   ]
   return (
-    <footer className="text-black shadow inline-block md:items-center md:justify-between bg-[#efefef] w-full">
+    <footer className="text-black shadow inline-block md:items-center md:justify-between bg-[#efefef]">
       <div className="w-full mx-auto lg:w-4/5">
-        <div className="flex w-full px-4 pt-4">
+        <div className="flex px-4 pt-4">
           <div className="items-center text-sm md:text-base text-black mr-3">
             © 2022
             <span className="hover:underline ml-2">Book Store™ </span>
           </div>
         </div>
+
         <p className="w-full text-sm md:text-base mt-2 leading-6 px-4">
           Book Store nhận đặt hàng trực tuyến và giao hàng tận nơi. KHÔNG hỗ trợ đặt mua và nhận
           hàng trực tiếp tại văn phòng.
@@ -74,7 +75,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="w-full md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 mx-4">
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 mx-4">
           <ul className="flex">
             <li className="w-full mt-10 ">
               <div className="flex w-full">

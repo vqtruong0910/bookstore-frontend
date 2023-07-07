@@ -114,7 +114,7 @@ const DetailBook = () => {
           {book.map((item) => {
             return (
               <Fragment key={item.IDSanPham}>
-                <div className="w-full xl:w-4/5 bg-white rounded-sm flex shadow-md border border-gray-200 mx-4 xl:mx-0">
+                <div className="w-full xl:w-4/5 bg-white rounded-sm flex shadow-md border border-gray-200">
                   <div className="w-full my-3 flex items-center flex-wrap lg:flex-nowrap">
                     <Image item={item} />
                     <div className="w-full flex-col flex">
