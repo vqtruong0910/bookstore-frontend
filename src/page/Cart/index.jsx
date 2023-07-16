@@ -34,7 +34,7 @@ function Cart() {
     }),
     { items: 0 }
   )
-  cart.forEach((item) => {
+  cart?.forEach((item) => {
     totalAllProduct += item.GiaBan * item.quantity
     if (item.quantity > item.SoLuongConLai) {
       disable = true

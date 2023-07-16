@@ -87,13 +87,13 @@ function ListProduct() {
       )}
 
       {!loading && (
-        <div className="w-full xl:w-4/5 mx-auto pt-8">
+        <div className="w-full mx-auto pt-8 xl:w-4/5">
           <Slider {...settings}>
-            {CarouselData.map((item, index) => {
+            {CarouselData?.map((item, index) => {
               return (
                 <Link key={index} to={PATH.category.dashboard}>
                   <img
-                    className="h-[350px] md:h-[500px] lg:h-[650px] rounded-sm object-fit w-full"
+                    className="h-[200px] md:h-[300px] lg:h-[500px] xl:h-[600px] rounded-sm object-fill w-full"
                     src={item.image}
                     alt="Carousel_image"
                   />

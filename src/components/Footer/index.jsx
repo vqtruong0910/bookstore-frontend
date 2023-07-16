@@ -46,8 +46,8 @@ function Footer() {
     { id: 6, icon: <FaPinterestP className="w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 px-1" /> },
   ]
   return (
-    <footer className="text-black shadow inline-block md:items-center md:justify-between bg-[#efefef]">
-      <div className="w-full mx-auto lg:w-4/5">
+    <footer className="text-black shadow inline-block md:items-center md:justify-between bg-[#efefef] w-full">
+      <div className="w-full mx-auto flex justify-center flex-col xl:w-4/5">
         <div className="flex px-4 pt-4">
           <div className="items-center text-sm md:text-base text-black mr-3">
             © 2022
