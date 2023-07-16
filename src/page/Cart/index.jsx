@@ -106,10 +106,10 @@ function Cart() {
                   </div>
 
                   <div className="bg-white shadow-md flex flex-col mt-4 mx-4 xl:mx-0 gap-4">
-                    {cart.map((item, index) => {
+                    {cart?.map((item) => {
                       return (
                         <div
-                          key={index}
+                          key={item.IDSanPham}
                           className="border border-gray-200 rounded-sm drop-shadow-lg"
                         >
                           <div className="hidden md:px-4 md:py-1 md:block">

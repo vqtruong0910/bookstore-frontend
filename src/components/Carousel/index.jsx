@@ -79,7 +79,7 @@ function ListProduct() {
   return (
     <>
       {loading && (
-        <div className="w-full mx-auto mt-10 h-[350px] md:h-[500px] lg:h-[650px] bg-slate-200">
+        <div className="w-full mx-auto mt-10 h-[200px] md:h-[300px] lg:h-[500px] xl:h-[600px] bg-slate-200">
           <div className="w-full ">
             <div className="w-full h-fit" />
           </div>

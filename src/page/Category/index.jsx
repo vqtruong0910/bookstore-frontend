@@ -17,12 +17,14 @@ function Category() {
   for (let i = 1; i <= page.SoLuongTrang; i++) {
     arrSoTrang.push(i)
   }
+
   const nextPage = (item) => {
     setCurrentPage((item) => {
       if (item + 1 > page.SoLuongTrang) return page.SoLuongTrang
       return item + 1
     })
   }
+
   const prevPage = (item) => {
     setCurrentPage((item) => {
       if (item - 1 < 1) return 1
@@ -51,7 +53,7 @@ function Category() {
 
   return (
     <>
-      {loading && <LoadingSkeletonCategory></LoadingSkeletonCategory>}
+      {loading && <LoadingSkeletonCategory />}
 
       {!loading && (
         <>

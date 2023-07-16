@@ -48,12 +48,12 @@ const Search = () => {
 
   return (
     <>
-      {loading && <LoadingSkeletonSearch></LoadingSkeletonSearch>}
+      {loading && <LoadingSkeletonSearch />}
 
       {!loading && (
         <>
           <div className="flex flex-row w-full">
-            <div className="flex flex-col w-full items-start px-4 py-10">
+            <div className="flex flex-col w-full items-start py-10">
               <div className="flex flex-col gap-0.5 items-end pb-4 w-full">
                 {state === null && (
                   <>
@@ -88,7 +88,7 @@ const Search = () => {
                 )}
               </div>
 
-              <div className="w-full m-2">
+              <div className="w-full my-2">
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-5">
                   {data.length > 0 &&
                     data.map((item, index) => {

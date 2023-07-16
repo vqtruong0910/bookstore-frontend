@@ -1,6 +1,6 @@
-const LoadingSkeletonPayment = () => {
+function LoadingSkeletonPayment() {
   return (
-    <div className="flex flex-wrap w-full px-4 animate-pulse">
+    <div className="flex flex-wrap w-full px-4 xl:w-4/5 mx-auto animate-pulse">
       <div className="w-full flex flex-wrap lg:flex-nowrap">
         <div className="flex flex-wrap w-full">
           <div className="flex flex-wrap w-full py-5">
