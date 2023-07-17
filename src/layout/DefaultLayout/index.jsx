@@ -9,7 +9,9 @@ function DefaultLayout() {
 
   return (
     <div className="flex flex-col min-h-screen justify-between">
-      <Header />
+      <div className="bg-[#efefef]">
+        <Header />
+      </div>
 
       <div
         className={`w-full rounded-sm flex flex-col mx-auto justify-center ${

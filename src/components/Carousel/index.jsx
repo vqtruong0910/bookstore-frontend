@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs'
 import Slider from 'react-slick'
 import { useEffect, useState } from 'react'
-import style from './Carousel.module.scss'
 
 function ListProduct() {
   const [loading, isLoading] = useState(true)
@@ -79,7 +78,7 @@ function ListProduct() {
   return (
     <>
       {loading && (
-        <div className="w-full mx-auto mt-10 h-[200px] md:h-[300px] lg:h-[500px] xl:h-[600px] bg-slate-200">
+        <div className="w-full mx-auto mt-10 h-[150px] md:h-[200px] lg:h-[250px] xl:h-[300px] bg-slate-200 animate-pulse">
           <div className="w-full ">
             <div className="w-full h-fit" />
           </div>
@@ -87,13 +86,13 @@ function ListProduct() {
       )}
 
       {!loading && (
-        <div className="w-full mx-auto pt-8 xl:w-4/5">
+        <div className="w-full mx-auto pt-8">
           <Slider {...settings}>
             {CarouselData?.map((item, index) => {
               return (
                 <Link key={index} to={PATH.category.dashboard}>
                   <img
-                    className="h-[200px] md:h-[300px] lg:h-[500px] xl:h-[600px] rounded-sm object-fill w-full"
+                    className="h-auto rounded-sm object-fill w-full overflow-clip"
                     src={item.image}
                     alt="Carousel_image"
                   />

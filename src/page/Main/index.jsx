@@ -1,11 +1,5 @@
 import Carousel from '../../components/Carousel'
-import {
-  BsFillArrowLeftCircleFill,
-  BsFillArrowRightCircleFill,
-  BsFillGiftFill,
-  BsShieldFillCheck,
-} from 'react-icons/bs'
-import { FaPhoneVolume } from 'react-icons/fa'
+import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import axiosConfig from '../../config/axiosConfig'
@@ -14,10 +8,9 @@ import NewBook from '../../module/Book/NewBook'
 import BestSellerBook from '../../module/Book/BestSellerBook'
 import PopularBook from '../../module/Book/PopularBook'
 import { API } from '../../constants/api'
-import { RiMoneyDollarCircleLine } from 'react-icons/ri'
-import { BiSolidGift } from 'react-icons/bi'
 import banner from '../../assets/images/banner.png'
 import Slug from '../../components/Slug'
+import styles from './Main.module.scss'
 
 function Main() {
   const [popularBook, setPopularBook] = useState([])
@@ -149,12 +142,9 @@ function Main() {
 
       {!loading && (
         <div className="flex flex-col gap-10 w-full px-4 xl:px-0 justify-center py-10">
-          <div className="relative mx-auto overflow-hidden w-full xl:w-4/5 z-10 after:absolute after:w-full after:h-full after:transition-transform hover:ease-linear">
-            <img
-              src={banner}
-              alt="Banner"
-              className="w-full object-cover hover:scale-110 transition-transform hover:ease-linear hover:opacity-80"
-            />
+          <div className={`${styles['image-wrapper']} w-full xl:w-4/5 mx-auto z-10`}>
+            <img src={banner} alt="Banner" className="block object-cover" />
+            <div className={`${styles['overlay']}`}></div>
           </div>
 
           {/* <NewBook data={newBook} settings={settings}></NewBook> */}

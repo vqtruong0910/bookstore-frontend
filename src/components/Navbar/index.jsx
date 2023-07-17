@@ -73,7 +73,7 @@ const Navbar = () => {
         )}
         onClick={() => setOpen(false)}
       ></div>
-      <div className="flex text-slate-700 bg-slate-700 lg:bg-white justify-center z-20 w-full xl:w-4/5 mx-auto">
+      <div className="flex text-slate-700 bg-slate-700 lg:bg-[#efefef] justify-center z-20 w-full mx-auto">
         <div className="flex flex-col w-full">
           <div className="gap-y-4 flex flex-col lg:flex-row py-4 lg:px-4 h-full lg:items-center lg:h-auto lg:w-full">
             <Link to={PATH.main} className="flex justify-center items-center gap-x-2 ">
@@ -162,7 +162,8 @@ const Navbar = () => {
               <Language />
             </div>
           </div>
-          <HeaderList></HeaderList>
+
+          <HeaderList />
         </div>
       </div>
       <Sidebar open={open} onClick={() => setOpen(!open)}></Sidebar>
