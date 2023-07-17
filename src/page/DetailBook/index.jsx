@@ -1,12 +1,11 @@
-import { IoAddSharp } from 'react-icons/io5'
+import { IoAddSharp, IoTimeOutline } from 'react-icons/io5'
 import { IoMdRemove } from 'react-icons/io'
-import { BsCart3 } from 'react-icons/bs'
+import { BsArrowRepeat, BsCart3, BsPrinter } from 'react-icons/bs'
 import { useParams } from 'react-router-dom'
 import React, { useState, useEffect, Fragment } from 'react'
 import axiosConfig from '../../config/axiosConfig'
 import RelatedBook from '../../module/Book/RelatedBook'
 import LoadingSkeletonDetailBook from '../../components/Loading/LoadingSkeletonDetailBook'
-import Image from '../../components/Image'
 import useCart from '../../hooks/useCart'
 import { API } from '../../constants/api'
 
@@ -114,30 +113,34 @@ const DetailBook = () => {
           {book.map((item) => {
             return (
               <Fragment key={item.IDSanPham}>
-                <div className="w-full xl:w-4/5 bg-white rounded-sm flex shadow-md border border-gray-200">
-                  <div className="w-full my-3 flex items-center flex-wrap lg:flex-nowrap">
-                    <Image item={item} />
+                <div className="w-full xl:w-4/5 gap-5 rounded-sm flex flex-col lg:flex-row">
+                  <div className="w-full py-10 flex items-center border-gray-200 border-2 shadow-md flex-wrap lg:flex-nowrap">
+                    <img
+                      className="w-full object-contain h-full max-h-[300px]"
+                      src={item.HinhAnh}
+                      alt="book"
+                    />
                     <div className="w-full flex-col flex">
-                      <div className="w-full flex-wrap justify-center py-2 px-4">
-                        <span className="text-base lg:text-2xl lg:font-medium font-normal text-gray-700">
-                          {item.TenSanPham}
+                      <div className="w-full justify-center lg:justify-start flex py-5 lg:py-0 px-4 mb-0 lg:mb-4">
+                        <span className="text-2xl lg:text-3xl lg:font-medium font-normal text-gray-700">
+                          {item.TenSanPham.toUpperCase()}
                         </span>
                       </div>
 
                       <div className="hidden lg:flex lg:flex-wrap">
                         <div className="flex flex-col mx-4">
-                          <span className="py-0.5">Tác giả</span>
-                          <span className="py-0.5">Nhà xuất bản</span>
-                          <span className="py-0.5">Số trang</span>
-                          <span className="py-0.5">Danh mục</span>
-                          <span className="py-0.5">Thể loại</span>
+                          <span className="py-0.5 lg:text-lg">Tác giả</span>
+                          <span className="py-0.5 lg:text-lg">Nhà xuất bản</span>
+                          <span className="py-0.5 lg:text-lg">Số trang</span>
+                          <span className="py-0.5 lg:text-lg">Danh mục</span>
+                          <span className="py-0.5 lg:text-lg">Thể loại</span>
                         </div>
                         <div className="flex flex-col mx-4">
-                          <span className="py-0.5 font-semibold">{authorName}</span>
-                          <span className="py-0.5 font-semibold">{publisherName}</span>
-                          <span className="py-0.5 font-semibold">{item.SoTrang}</span>
-                          <span className="py-0.5 font-semibold">{categoryName}</span>
-                          <span className="py-0.5 font-semibold">{genreName}</span>
+                          <span className="py-0.5 font-semibold lg:text-lg">{authorName}</span>
+                          <span className="py-0.5 font-semibold lg:text-lg">{publisherName}</span>
+                          <span className="py-0.5 font-semibold lg:text-lg">{item.SoTrang}</span>
+                          <span className="py-0.5 font-semibold lg:text-lg">{categoryName}</span>
+                          <span className="py-0.5 font-semibold lg:text-lg">{genreName}</span>
                         </div>
                       </div>
 
@@ -186,6 +189,29 @@ const DetailBook = () => {
                           </div>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col w-full bg-gray-100 lg:max-w-[300px]">
+                    <div className="border-b-2 gap-3 border-gray-300 flex flex-col py-5 px-5 text-base items-center w-full">
+                      <IoTimeOutline className="w-10 h-10 text-slate-700" />
+                      <span>
+                        Giao hàng đi ngay sau khi đặt hàng 24h - Sẽ liên hệ trước khi giao. Thời
+                        gian nhận hàng: *Đối với TPHCM 1-2 ngày. *Đối với ngoại tỉnh: Miền Nam 2-3
+                        ngày. Miền Bắc 3-5 ngày.
+                      </span>
+                    </div>
+                    <hr />
+                    <div className="border-b-2 gap-3 border-gray-300 flex flex-col py-5 px-5 text-base items-center w-full">
+                      <BsArrowRepeat className="w-10 h-10 text-slate-700" />
+                      <span>
+                        Đổi trả trong 7 ngày (Nếu sản phẩm bị lỗi kĩ thuật), thủ tục đơn giản nhanh
+                        chóng.
+                      </span>
+                    </div>
+                    <hr />
+                    <div className="flex flex-col gap-3 py-5 px-5 text-base items-center w-full">
+                      <BsPrinter className="w-10 h-10 text-slate-700" />
+                      <span>Nhà cung cấp có xuất hóa đơn cho sản phẩm.</span>
                     </div>
                   </div>
                 </div>

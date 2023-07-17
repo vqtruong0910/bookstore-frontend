@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import styles from './Image.module.scss'
 import { IoArrowRedoOutline } from 'react-icons/io5'
 
-function Image({ item, className = '' }) {
+function Image({ item, className = '', overlay = true }) {
   const navigate = useNavigate()
 
   return (
@@ -15,12 +15,15 @@ function Image({ item, className = '' }) {
         src={item.HinhAnh}
         alt="book"
       />
-      <div className={`${styles['overlay']} font-semibold text-slate-700`}>
-        <div className="flex items-center justify-center py-0.5 px-2 bg-white rounded-md">
-          <IoArrowRedoOutline />
-          <span>Chi tiết</span>
+
+      {overlay && (
+        <div className={`${styles['overlay']} font-semibold text-slate-700`}>
+          <div className="flex items-center justify-center py-0.5 px-2 bg-white rounded-md">
+            <IoArrowRedoOutline />
+            <span>Chi tiết</span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
