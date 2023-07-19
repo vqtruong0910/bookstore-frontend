@@ -54,8 +54,8 @@ function Menu() {
     <>
       {loading && <LoadingSkeletonMenu></LoadingSkeletonMenu>}
       {!loading && (
-        <div className="flex flex-col md:pb-4">
-          <div className="flex flex-col w-full">
+        <div className="hidden md:flex flex-col py-10">
+          <div className="flex flex-col w-auto gap-10">
             <div className="hidden md:flex md:flex-col md:items-center md:w-64 lg:w-80 md:shadow-md rounded-sm bg-white">
               <div className="w-full px-4 py-1 border-black/20 border text-lg lg:text-xl text-white font-semibold bg-slate-700">
                 Danh mục sản phẩm
@@ -124,7 +124,7 @@ function Menu() {
               </div>
             </div>
 
-            <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:mt-16 md:w-64 lg:w-80 md:shadow-md">
+            <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:w-64 lg:w-80 md:shadow-md">
               <div className="w-full px-4 py-1 border-black/20 border text-lg lg:text-xl text-white font-semibold bg-slate-700">
                 Giá
               </div>
@@ -187,7 +187,7 @@ function Menu() {
               </div>
             </div>
 
-            <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:mt-16 md:w-64 lg:w-80 md:shadow-md">
+            <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:w-64 lg:w-80 md:shadow-md">
               <div className="w-full px-4 py-1 border-black/20 border text-lg lg:text-xl text-white font-semibold bg-slate-700">
                 Nhà xuất bản
               </div>
@@ -249,7 +249,7 @@ function Menu() {
               </div>
             </div>
 
-            <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:mt-16 mb-6 md:w-64 lg:w-80 md:shadow-md">
+            <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:w-64 lg:w-80 md:shadow-md">
               <div className="w-full px-4 py-1 border-black/20 border text-lg lg:text-xl text-white font-semibold bg-slate-700">
                 Tác giả
               </div>

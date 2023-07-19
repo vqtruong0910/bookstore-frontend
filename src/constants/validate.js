@@ -15,6 +15,13 @@ export const VALIDATE = {
       message: 'Tối thiểu tám ký tự, ít nhất một chữ hoa, một chữ thường và một số',
     },
   },
+  newPassword: {
+    required: 'Xin nhập vào mật khẩu mới',
+    pattern: {
+      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      message: 'Tối thiểu tám ký tự, ít nhất một chữ hoa, một chữ thường và một số',
+    },
+  },
   // name -> thuộc tính cần confirm
   // watch -> hàm xem thuộc tính của reac hook form truyền vào
   confirmPassword: (name, watch) => {

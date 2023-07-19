@@ -34,7 +34,7 @@ function Cart() {
     }),
     { items: 0 }
   )
-  cart.forEach((item) => {
+  cart?.forEach((item) => {
     totalAllProduct += item.GiaBan * item.quantity
     if (item.quantity > item.SoLuongConLai) {
       disable = true
@@ -58,11 +58,11 @@ function Cart() {
       {loading && <LoadingSkeletonCart></LoadingSkeletonCart>}
 
       {!loading && (
-        <div className="flex flex-wrap w-full px-4">
+        <div className="flex flex-wrap w-full xl:w-4/5 mx-auto py-10">
           <div className="flex flex-wrap w-full">
             <div className="flex w-full lg:px-4">
               <span
-                className={`w-full text-lg font-medium ${
+                className={`w-full text-lg font-medium px-4 xl:px-0 ${
                   darkTheme ? 'text-white' : 'text-slate-700'
                 }`}
               >
@@ -72,7 +72,7 @@ function Cart() {
 
             {cart.length === 0 && (
               <div
-                className={`flex flex-col items-center w-full mb-4 ${
+                className={`flex flex-col items-center w-full ${
                   darkTheme ? 'text-white' : 'text-slate-700'
                 }`}
               >
@@ -96,20 +96,20 @@ function Cart() {
             {cart.length === 0 ? (
               <></>
             ) : (
-              <div className="w-full flex flex-wrap lg:flex-row">
+              <div className="w-full flex flex-wrap lg:flex-nowrap">
                 <div className="w-full lg:w-8/12">
-                  <div className="hidden md:flex md:flex-row md:w-full md:justify-between md:bg-white md:py-2 mt-4 shadow-md">
+                  <div className="hidden md:flex md:flex-row md:justify-between md:bg-white md:py-2 mx-4 xl:mx-0 shadow-md">
                     <div className="w-full text-base text-center">Tất cả ({items} sản phẩm)</div>
                     <div className="w-full text-base text-center">Đơn giá</div>
                     <div className="w-full text-base text-center">Số lượng</div>
                     <div className="w-full text-base text-center">Thành tiền</div>
                   </div>
 
-                  <div className="w-full bg-white shadow-md flex flex-col mt-4 lg:mb-8">
-                    {cart.map((item, index) => {
+                  <div className="bg-white shadow-md flex flex-col mt-4 mx-4 xl:mx-0 gap-4">
+                    {cart?.map((item) => {
                       return (
                         <div
-                          key={index}
+                          key={item.IDSanPham}
                           className="border border-gray-200 rounded-sm drop-shadow-lg"
                         >
                           <div className="hidden md:px-4 md:py-1 md:block">
@@ -242,8 +242,8 @@ function Cart() {
                   </div>
                 </div>
 
-                <div className="w-full lg:w-4/12 lg:pl-4">
-                  <div className="w-full flex flex-col border bg-white shadow-md mt-4 items-end lg:justify-between p-3">
+                <div className="w-full lg:w-4/12 mt-4 mx-4 lg:mt-0">
+                  <div className="w-full flex flex-col border bg-white shadow-md items-end lg:justify-between p-3">
                     <div className="flex flex-wrap lg:w-full lg:justify-between">
                       <div className="flex flex-col">
                         <span className="py-1 font-light md:text-lg">Tạm tính</span>
@@ -265,13 +265,13 @@ function Cart() {
                     <div className="flex mt-4 lg:w-full lg:text-center">
                       <div
                         onClick={() => navigate(PATH.main)}
-                        className="lg:hidden px-2 py-1 bg-gray-300 rounded-sm transition mx-4 cursor-pointer text-base md:text-lg hover:bg-gray-400"
+                        className="lg:hidden px-2 py-1 bg-gray-300 rounded-md transition mx-4 cursor-pointer text-sm whitespace-nowrap md:text-base lg:text-lg hover:bg-gray-400"
                       >
                         Tiếp tục mua hàng
                       </div>
                       <button
                         onClick={() => handleClickPayment()}
-                        className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-sm cursor-pointer text-base md:text-lg"
+                        className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-md cursor-pointer text-sm whitespace-nowrap md:text-base lg:text-lg"
                         disabled={disable}
                       >
                         Thanh toán

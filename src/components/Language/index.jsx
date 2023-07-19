@@ -10,7 +10,7 @@ function Language() {
 
   return (
     <div
-      className="hidden cursor-pointer border px-2 lg:block items-center rounded-md relative"
+      className="hidden cursor-pointer border border-gray-300 px-2 lg:block items-center rounded-md relative"
       ref={nodeRef}
     >
       <div className="flex items-center gap-1">
@@ -20,7 +20,7 @@ function Language() {
           <img src={en} className="w-12 h-10 py-1" alt="language" />
         )}
 
-        <IoIosArrowDown className="text-white" />
+        <IoIosArrowDown className="text-slate-700" />
       </div>
 
       {show && (

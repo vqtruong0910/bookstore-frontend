@@ -1,4 +1,4 @@
-const LoadingSkeletonPersonInfo = () => {
+function LoadingSkeletonPersonInfo() {
   return (
     <div className="flex flex-row">
       <div className="flex flex-wrap w-full">

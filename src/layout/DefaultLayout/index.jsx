@@ -8,10 +8,13 @@ function DefaultLayout() {
   const { darkTheme } = useContext(Context)
 
   return (
-    <>
-      <Header />
+    <div className="flex flex-col min-h-screen justify-between">
+      <div className="bg-[#efefef]">
+        <Header />
+      </div>
+
       <div
-        className={`w-full rounded-sm block mx-auto my-10 ${
+        className={`w-full rounded-sm flex flex-col mx-auto justify-center ${
           darkTheme ? 'bg-black/70' : 'bg-white'
         }`}
       >
@@ -19,8 +22,11 @@ function DefaultLayout() {
           <Outlet />
         </Suspense>
       </div>
-      <Footer />
-    </>
+
+      <div className="flex flex-1">
+        <Footer />
+      </div>
+    </div>
   )
 }
 

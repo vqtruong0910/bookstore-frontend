@@ -1,11 +1,26 @@
 import { BsFillCartCheckFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import { PATH } from '../../constants/path'
+import { useEffect } from 'react'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
+import { db } from '../../firebase/firebase-config'
+import { v4 as uuidv4 } from 'uuid'
 
 const DeliveredOrder = ({ data }) => {
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
+
+  useEffect(() => {
+    const dataRes = data ? data.filter((item) => item.TrangThai === 3) : undefined
+
+    console.log('check', ...dataRes)
+    ;(() => {
+      dataRes.map(async (item) => {
+        await setDoc(doc(db, 'orders', item.IDDonHang.toString()), { ...item })
+      })
+    })()
+  }, [])
 
   return (
     <>

@@ -32,25 +32,29 @@ const Search = () => {
   return (
     <div
       id="search_box"
-      className="flex py-1 lg:py-2 border-2 bg-white rounded-md lg:rounded-lg w-full relative"
+      className="flex py-1 lg:py-2 border-2 border-gray-300 bg-white rounded-md lg:rounded-lg w-full relative h-full"
       ref={nodeRef}
     >
       <input
-        className=" bg-white text-sm md:text-md outline-0 flex w-full pl-2"
+        className=" bg-white text-sm md:text-base outline-0 flex w-full pl-2"
         type="text"
         placeholder="Tìm kiếm sản phẩm..."
         name="search"
         autoComplete="off"
+        value={query ? query : undefined}
         onChange={(e) => setQuery(e.target.value)}
       ></input>
 
       {show && (
-        <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-sm overflow-y-auto top-8 lg:top-10 border border-gray-300">
-          <ul className="md:text-sm lg:text-base">
+        <div className="z-40 absolute w-full bg-white drop-shadow-lg rounded-sm overflow-y-auto top-8 md:top-9 lg:top-11 border border-gray-300">
+          <ul className="text-sm md:text-base">
             {data.length > 0 &&
               data?.map((item) => (
                 <li
-                  onClick={() => navigate(PATH.search, { state: item.TenSanPham, replace: true })}
+                  onClick={() => {
+                    navigate(PATH.search, { state: item.TenSanPham, replace: true })
+                    setQuery(item.TenSanPham)
+                  }}
                   key={item.IDSanPham}
                   className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
                 >
@@ -64,9 +68,9 @@ const Search = () => {
       <button
         onClick={handleSearch}
         type="submit"
-        className="hover:bg-gray-200 relative my-auto justify-end right-0 h-full px-2"
+        className="hover:bg-slate-600 absolute items-center justify-end h-full lg:bg-slate-700 rounded-tr-md rounded-br-md right-0 top-0 flex-1 px-3 flex"
       >
-        <BsSearch />
+        <BsSearch className="lg:text-white" />
       </button>
     </div>
   )

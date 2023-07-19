@@ -1,10 +1,10 @@
-const LoadingSkeletonUserOrderManagement = () => {
+function LoadingSkeletonUserOrderManagement() {
   return (
     <div className="flex flex-wrap md:flex-col w-full">
-      <div className="flex w-full px-4 md:px-0">
-        <span className="w-full text-lg font-semibold mb-5 lg:text-xl"></span>
-      </div>
       <form className="w-full px-4 md:px-0 pb-4">
+        <div className="flex w-full px-4 lg:px-0 bg-slate-200 py-2 mb-4">
+          <div className="w-full text-lg font-semibold mb-5 lg:text-xl"></div>
+        </div>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -15,7 +15,7 @@ const LoadingSkeletonUserOrderManagement = () => {
               <div className="w-5 h-5 bg-slate-200"></div>
             </button>
           </div>
-          <input type="search" className=" block py-2 pl-12 w-full bg-slate-200 " />
+          <input type="search" className="block py-2 pl-12 w-full bg-slate-200 " />
         </div>
       </form>
       <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white shadow-md">
@@ -61,7 +61,7 @@ const LoadingSkeletonUserOrderManagement = () => {
       </div>
 
       <div className="w-full px-4 md:px-0">
-        <div className="bg-slate-200 w-full my-4">
+        <div className="bg-slate-200 w-full mt-4">
           <div className="flex py-3 items-center mx-4"></div>
 
           <div className="w-full border-t-2 flex-row flex">
@@ -90,7 +90,7 @@ const LoadingSkeletonUserOrderManagement = () => {
       </div>
 
       <div className="w-full px-4 md:px-0">
-        <div className="bg-slate-200 w-full my-4">
+        <div className="bg-slate-200 w-full mt-4">
           <div className="flex py-3 items-center mx-4"></div>
 
           <div className="w-full border-t-2 flex-row flex">

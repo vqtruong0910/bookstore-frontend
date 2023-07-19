@@ -3,7 +3,7 @@ import style from './Card.module.scss'
 import Image from '../Image'
 import useCart from '../../hooks/useCart'
 
-function Card({ item, btnStyle = '' }) {
+function Card({ item }) {
   const { handleAddToCart } = useCart()
 
   const changeCostWithDots = (item) => {
