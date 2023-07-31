@@ -13,11 +13,12 @@ import Field from '../../components/Field'
 import Radio from '../../components/Radio'
 import Swal from 'sweetalert2'
 import { API } from '../../constants/api'
+import { clearCart } from '../../reducers/cartReducers'
 
 function Payment() {
   let totalAllProduct = 0
   const navigate = useNavigate()
-  const { user, cart, darkTheme } = useContext(Context)
+  const { user, cart, darkTheme, dispatch } = useContext(Context)
   const [province, setProvince] = useState([])
   const [district, setDistrict] = useState([])
   const [ward, setWard] = useState([])
@@ -77,7 +78,7 @@ function Payment() {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
 
-  const handlePay = () => {
+  const handlePay = async () => {
     localStorage.removeItem('userCart')
   }
 
@@ -97,7 +98,7 @@ function Payment() {
 
   useEffect(() => {
     const fetchProvinceData = async () => {
-      const topOfElement = document.querySelector('#payment') - 200
+      const topOfElement = document.querySelector('#scroll') - 500
       window.scroll({ top: topOfElement, behavior: 'smooth' })
       const response = await axios(`${API.GET_LIST_PROVINCE}`)
       if (response.data) {
@@ -130,9 +131,9 @@ function Payment() {
     <>
       {loading && <LoadingSkeletonPayment></LoadingSkeletonPayment>}
       {!loading && (
-        <div className="flex flex-wrap w-full xl:w-4/5 mx-auto py-10" id="payment">
+        <div className="flex flex-wrap w-full xl:w-4/5 mx-auto py-10" id="page">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-wrap lg:flex-nowrap">
-            <div className="flex flex-wrap w-full">
+            <div className="flex flex-wrap w-full gap-5">
               <div className="flex flex-wrap w-full">
                 <div
                   className={`flex w-full px-4 xl:px-0 ${
@@ -220,7 +221,7 @@ function Payment() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap w-full py-5">
+              <div className="flex flex-wrap w-full">
                 <div className={`flex w-full ${darkTheme ? 'text-white' : 'text-slate-700'}`}>
                   <span className="w-full text-lg px-4 xl:px-0">Phương thức vận chuyển</span>
                 </div>
@@ -237,7 +238,7 @@ function Payment() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap w-full py-5">
+              <div className="flex flex-wrap w-full">
                 <div className={`flex w-full ${darkTheme ? 'text-white' : 'text-slate-700'}`}>
                   <span className="w-full text-lg px-4 xl:px-0">Phương thức thanh toán</span>
                 </div>

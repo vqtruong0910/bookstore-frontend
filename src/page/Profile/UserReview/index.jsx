@@ -40,7 +40,7 @@ function UserReview() {
       console.log('results >> ', results)
     })
 
-    const topOfElement = document.querySelector('#user-review-management') - 200
+    const topOfElement = document.querySelector('#scroll') - 500
     window.scroll({ top: topOfElement, behavior: 'smooth' })
 
     isLoading(true)
@@ -53,7 +53,7 @@ function UserReview() {
     <>
       {loading && <LoadingSkeletonUserReview></LoadingSkeletonUserReview>}
       {!loading && (
-        <div className="flex flex-wrap md:flex-col w-full border p-4" id="user-review-management">
+        <div className="flex flex-wrap md:flex-col w-full border p-4" id="page">
           <div className="flex w-full">
             <span
               className={`w-full text-lg font-semibold mb-5 lg:text-xl ${
@@ -118,8 +118,8 @@ function UserReview() {
           </div>
 
           {showDiv === 1 && (
-            <div className="w-full">
-              <div className="bg-white w-full my-4">
+            <div className="w-full lg:min-h-[400px]">
+              <div className="bg-white w-full py-4">
                 <div className="w-full border-t-2">
                   <div className="w-full mx-4">
                     <div className="w-full my-4 flex">
@@ -193,8 +193,8 @@ function UserReview() {
           )}
 
           {showDiv === 2 && (
-            <div className="w-full">
-              <div className="bg-white w-full my-4">
+            <div className="w-full lg:min-h-[400px]">
+              <div className="bg-white w-full py-4">
                 <div className="w-full border-t-2">
                   <div className="w-full mx-4">
                     <div className="w-full my-4 flex">

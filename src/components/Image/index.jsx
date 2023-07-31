@@ -17,7 +17,7 @@ function Image({ item, className = '', overlay = true }) {
       />
 
       {overlay && (
-        <div className={`${styles['overlay']} font-semibold text-slate-700`}>
+        <div className={`${styles['overlay']} font-semibold text-slate-700 hover:scale-110`}>
           <div className="flex items-center justify-center py-0.5 px-2 bg-white rounded-md">
             <IoArrowRedoOutline />
             <span>Chi tiết</span>

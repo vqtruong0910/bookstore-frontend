@@ -28,24 +28,27 @@ function Cart() {
       navigate(PATH.payment)
     }
   }
+
   const { items } = cart.reduce(
-    ({ items }, { cost, quantity }) => ({
-      items: items + quantity,
+    ({ items }, { quantity }) => ({
+      items: localStorage.getItem('userCart') ? items + quantity : 0,
     }),
     { items: 0 }
   )
+
   cart?.forEach((item) => {
     totalAllProduct += item.GiaBan * item.quantity
     if (item.quantity > item.SoLuongConLai) {
       disable = true
     }
   })
+
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
 
   useEffect(() => {
-    const topOfElement = document.querySelector('#detail-book') - 200
+    const topOfElement = document.querySelector('#scroll') - 500
     window.scroll({ top: topOfElement, behavior: 'smooth' })
     isLoading(true)
     setTimeout(() => {
@@ -70,7 +73,7 @@ function Cart() {
               </span>
             </div>
 
-            {cart.length === 0 && (
+            {(cart.length === 0 || !localStorage.getItem('userCart')) && (
               <div
                 className={`flex flex-col items-center w-full ${
                   darkTheme ? 'text-white' : 'text-slate-700'
@@ -93,12 +96,12 @@ function Cart() {
               </div>
             )}
 
-            {cart.length === 0 ? (
+            {cart.length === 0 || !localStorage.getItem('userCart') ? (
               <></>
             ) : (
               <div className="w-full flex flex-wrap lg:flex-nowrap">
                 <div className="w-full lg:w-8/12">
-                  <div className="hidden md:flex md:flex-row md:justify-between md:bg-white md:py-2 mx-4 xl:mx-0 shadow-md">
+                  <div className="hidden md:flex md:flex-row md:justify-between md:bg-white md:py-2 mx-4 xl:mx-0 drop-shadow-md mt-4">
                     <div className="w-full text-base text-center">Tất cả ({items} sản phẩm)</div>
                     <div className="w-full text-base text-center">Đơn giá</div>
                     <div className="w-full text-base text-center">Số lượng</div>
@@ -120,7 +123,7 @@ function Cart() {
                               onClick={() => navigate(`/books/${item.IDSanPham}`)}
                               className="cursor-pointer flex w-full flex-col items-center justify-center"
                             >
-                              <Image item={item} className="w-36 h-36" />
+                              <Image item={item} className="w-36 h-36" overlay={false} />
 
                               <div className="mt-2 flex justify-center">
                                 <span className="text-base font-medium text-center">
@@ -202,7 +205,7 @@ function Cart() {
                                 <span className="text-gray-500 text-sm font-semibold">
                                   Số lượng
                                 </span>
-                                <div className="flex flex-row mx-2 items-center w-24 rounded-sm border border-slate-300 justify-between">
+                                <div className="flex flex-row mx-2 items-center w-24 rounded-sm justify-between">
                                   <div
                                     onClick={() => decrementQuantity(item)}
                                     className="w-full border-r-2 flex justify-center cursor-pointer"
@@ -242,7 +245,7 @@ function Cart() {
                   </div>
                 </div>
 
-                <div className="w-full lg:w-4/12 mt-4 mx-4 lg:mt-0">
+                <div className="w-full lg:w-4/12 mt-4 mx-4">
                   <div className="w-full flex flex-col border bg-white shadow-md items-end lg:justify-between p-3">
                     <div className="flex flex-wrap lg:w-full lg:justify-between">
                       <div className="flex flex-col">

@@ -26,9 +26,9 @@ function InputPassword({ children, control, rules, name, ...props }) {
             onClick={() => setShow(!show)}
           >
             {show ? (
-              <FiEyeOff className="w-5 h-5 text-gray-500" />
-            ) : (
               <FiEye className="w-5 h-5 text-gray-500" />
+            ) : (
+              <FiEyeOff className="w-5 h-5 text-gray-500" />
             )}
           </div>
         </div>

@@ -14,8 +14,8 @@ function MenuUser() {
   const activeLink = 'bg-slate-700 w-full'
 
   return (
-    <div className="w-full h-full min-h-[1000px] md:w-64 bg-blue-100 drop-shadow-lg rounded-sm">
-      <div className="flex items-end justify-center">
+    <div className="w-full h-full min-h-auto md:w-64 bg-blue-100 drop-shadow-lg rounded-sm">
+      <div className="flex items-center justify-center">
         <div className="mt-5 items-center justify-center flex relative">
           <div className="flex justify-center items-center">
             {user.Anh ? (

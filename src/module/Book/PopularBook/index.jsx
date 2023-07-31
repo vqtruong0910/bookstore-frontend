@@ -44,8 +44,7 @@ const PopularBook = ({ data, settings }) => {
         <div className="w-full flex justify-center mt-10">
           <Link
             to={PATH.category.dashboard}
-            className="font-semibold text-md hover:border border-gray-200 bg-gradient-to-tl from-yellow-300 to-orange-700 text-white 
-            rounded-full px-14 py-2"
+            className="font-semibold text-md border-gray-200 bg-gradient-to-tl from-yellow-300 to-orange-700 text-white hover:opacity-90 rounded-full px-14 py-2"
           >
             Xem thêm
           </Link>

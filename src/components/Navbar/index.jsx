@@ -36,9 +36,11 @@ const Navbar = () => {
 
   const { items } = cart.reduce(
     ({ items }, { quantity }) => ({
-      items: items + quantity,
+      items: localStorage.getItem('userCart') ? items + quantity : 0,
     }),
-    { items: 0 }
+    {
+      items: 0,
+    }
   )
 
   const logout = useCallback(async () => {
@@ -73,7 +75,7 @@ const Navbar = () => {
         )}
         onClick={() => setOpen(false)}
       ></div>
-      <div className="flex text-slate-700 bg-slate-700 lg:bg-[#efefef] justify-center z-20 w-full mx-auto">
+      <div className="flex fixed text-slate-700 bg-slate-700 lg:bg-[#efefef] justify-center z-20 w-full mx-auto">
         <div className="flex flex-col w-full">
           <div className="gap-y-4 flex flex-col lg:flex-row py-4 lg:px-4 h-full lg:items-center lg:h-auto lg:w-full">
             <Link to={PATH.main} className="flex justify-center items-center gap-x-2 ">
@@ -153,7 +155,7 @@ const Navbar = () => {
                   ></AiOutlineShoppingCart>
                   <div className="rounded-full w-4 h-4 bg-orange-500 absolute right-0 top-0">
                     <span className="text-white text-sm flex items-center justify-center h-full">
-                      {items}
+                      {!localStorage.getItem('userCart') ? '0' : items}
                     </span>
                   </div>
                 </div>

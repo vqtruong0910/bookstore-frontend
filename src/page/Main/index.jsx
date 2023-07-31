@@ -49,7 +49,7 @@ function Main() {
     nextArrow: <NextArrow />,
     responsive: [
       {
-        breakpoint: 1536,
+        breakpoint: 1849,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 4,
@@ -58,7 +58,7 @@ function Main() {
         },
       },
       {
-        breakpoint: 1024,
+        breakpoint: 1549,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -67,7 +67,7 @@ function Main() {
         },
       },
       {
-        breakpoint: 767,
+        breakpoint: 949,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -75,7 +75,7 @@ function Main() {
         },
       },
       {
-        breakpoint: 539,
+        breakpoint: 649,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,

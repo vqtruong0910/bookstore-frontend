@@ -1,21 +1,22 @@
 import i18n from 'i18next'
-import Backend from 'i18next-http-backend'
 import enLanguage from '../locales/en/translation.json'
 import viLanguage from '../locales/vi/translation'
-import i18next from 'i18next'
+import { initReactI18next } from 'react-i18next'
 
-// the translations
-i18next.init({
-  interpolation: { escapeValue: false }, // React already does escaping
-  fallbackLng: 'vi',
-  lng: 'vi',
+i18n.use(initReactI18next).init({
+  // init data
   resources: {
     en: {
-      common: enLanguage, // 'common' is our custom namespace
+      translation: enLanguage,
     },
     vi: {
-      common: viLanguage,
+      translation: viLanguage,
     },
+  },
+  lng: 'vi', // if you're using a language detector, do not define the lng option
+  fallbackLng: 'vi',
+  interpolation: {
+    escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
   },
 })
 

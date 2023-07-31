@@ -43,12 +43,12 @@ function UserOrderDetail() {
   })
 
   useEffect(() => {
-    const topOfElement = document.querySelector('#user-order-detail').offsetTop - 200
+    const topOfElement = document.querySelector('#scroll').offsetTop - 500
     window.scroll({ top: topOfElement, behavior: 'smooth' })
   }, [state])
 
   return (
-    <div className="flex flex-col w-full" id="user-order-detail">
+    <div className="flex flex-col w-full" id="scroll">
       <div className="flex w-full px-4 md:px-0">
         <span
           className={`w-full text-lg font-semibold mb-2 lg:text-xl ${

@@ -58,19 +58,8 @@ function UserChangePassword() {
     }
   }
 
-  // const handleChangeLang = (lng) => {
-  //   i18n.handleChangeLang(lng)
-  //   localStorage.setItem('language', lng)
-  // }
-
   return (
     <div className="flex w-full border">
-      {/* <div>
-        <button onClick={() => handleChangeLang('en')}>English</button>
-        <button onClick={() => handleChangeLang('vi')}>Việt Nam</button>
-
-        <h1>{t('lớp')}</h1>
-      </div> */}
       <div className="flex flex-wrap w-full p-4">
         <div className={`flex w-full ${darkTheme ? 'text-white' : 'text-slate-700'}`}>
           <span className="w-full text-lg font-medium mb-5 lg:text-xl">Đổi mật khẩu</span>

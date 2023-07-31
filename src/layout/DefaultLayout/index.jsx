@@ -14,7 +14,7 @@ function DefaultLayout() {
       </div>
 
       <div
-        className={`w-full rounded-sm flex flex-col mx-auto justify-center ${
+        className={`w-full mt-[120px] lg:mt-[138px] rounded-sm flex flex-col mx-auto justify-center min-h-[500px] ${
           darkTheme ? 'bg-black/70' : 'bg-white'
         }`}
       >

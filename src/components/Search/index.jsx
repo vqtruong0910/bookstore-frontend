@@ -56,7 +56,7 @@ const Search = () => {
                     setQuery(item.TenSanPham)
                   }}
                   key={item.IDSanPham}
-                  className="hover:bg-slate-300 cursor-pointer p-1  hover:text-black/75"
+                  className="hover:bg-slate-300 cursor-pointer py-1 px-2 hover:text-black/75"
                 >
                   {item.TenSanPham}
                 </li>

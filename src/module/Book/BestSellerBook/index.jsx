@@ -8,7 +8,7 @@ import { Fragment } from 'react'
 
 const BestSellerBook = ({ data, settings }) => {
   return (
-    <div className="w-full px-4 xl:w-4/5 mx-auto rounded-md border border-gray-200 drop-shadow-md bg-white py-10">
+    <div className="w-full xl:w-4/5 lg:mx-auto rounded-md border border-gray-200 drop-shadow-md bg-white py-10">
       <div className="flex w-full justify-center items-center pb-2 border-gray-300">
         <div className="flex items-center">
           <img
@@ -44,8 +44,7 @@ const BestSellerBook = ({ data, settings }) => {
         <div className="w-full flex justify-center mt-10">
           <Link
             to={PATH.category.dashboard}
-            className="font-semibold text-md hover:border border-gray-200 bg-gradient-to-tl from-yellow-300 to-orange-700 text-white 
-            rounded-full px-14 py-2"
+            className="font-semibold text-md border-gray-200 bg-gradient-to-tl from-yellow-300 to-orange-700 text-white hover:opacity-90 rounded-full px-14 py-2"
           >
             Xem thêm
           </Link>

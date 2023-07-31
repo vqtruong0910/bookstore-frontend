@@ -1,5 +1,12 @@
 {
-  "functional": "Hàm",
-  "class": "Lớp",
-  "text": "Đây là văn bản"
+  "Tác giả": "Tác giả",
+  "Nhà xuất bản": "Nhà xuất bản",
+  "Số trang": "Số trang",
+  "Danh mục": "Danh mục",
+  "Thể loại": "Thể loại",
+  "Thêm giỏ hàng": "Thêm giỏ hàng",
+  "Số lượng": "Số lượng",
+  "Mô tả sản phẩm": "Mô tả sản phẩm",
+  "Thông tin chi tiết": "Thông tin chi tiết",
+  "SẢN PHẨM LIÊN QUAN": "SẢN PHẨM LIÊN QUAN"
 }

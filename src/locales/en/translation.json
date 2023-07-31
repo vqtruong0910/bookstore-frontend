@@ -1,5 +1,13 @@
 {
-  "functional": "Functional",
-  "class": "Class",
-  "text": "This is text"
+  "Tác giả": "Author",
+  "Nhà xuất bản": "Publisher",
+  "Số trang": "Pages",
+  "Danh mục": "Category",
+  "Thể loại": "Genre",
+  "Thêm giỏ hàng": "Add to cart",
+  "Số lượng": "Quantity",
+  "Mô tả sản phẩm": "Description",
+  "Thông tin chi tiết": "Detail information",
+  "SẢN PHẨM LIÊN QUAN": "RELATED BOOK",
+  "Giao hàng đi ngay sau khi đặt hàng 24h - Sẽ liên hệ trước khi giao. Thời gian nhận hàng: *Đối với TPHCM 1-2 ngày. *Đối với ngoại tỉnh: Miền Nam 2-3 ngày. Miền Bắc 3-5 ngày.": "We deliver immediately within 24 hours after placing the order - We will contact you before delivery. Delivery time: *For Ho Chi Minh City: 1-2 days. *For other provinces: Southern region 2-3 days. Northern region 3-5 days."
 }

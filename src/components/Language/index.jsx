@@ -3,10 +3,21 @@ import useClickOutside from '../../hooks/useClickOutside'
 import vi from '../../assets/images/vi.png'
 import en from '../../assets/images/en.png'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function Language() {
+  const { t, i18n } = useTranslation()
   const { show, nodeRef } = useClickOutside()
   const [defaultLanguage, setDefaultLanguage] = useState(true)
+  const handleChangeVI = () => {
+    setDefaultLanguage(true)
+    i18n.changeLanguage('vi')
+  }
+
+  const handleChangeEN = () => {
+    setDefaultLanguage(false)
+    i18n.changeLanguage('en')
+  }
 
   return (
     <div
@@ -26,7 +37,7 @@ function Language() {
       {show && (
         <div className="absolute mt-2 rounded-sm bg-white w-full right-0 border border-gray-300 z-50 drop-shadow-lg">
           <div
-            onClick={() => setDefaultLanguage(true)}
+            onClick={handleChangeVI}
             className={`flex gap-2 items-center transition-all ${
               defaultLanguage && 'bg-blue-200'
             } px-2`}
@@ -35,7 +46,7 @@ function Language() {
             <span className="text-sm font-medium">VN</span>
           </div>
           <div
-            onClick={() => setDefaultLanguage(false)}
+            onClick={handleChangeEN}
             className={`flex gap-2 items-center transition-all ${
               !defaultLanguage && 'bg-blue-200'
             } px-2`}

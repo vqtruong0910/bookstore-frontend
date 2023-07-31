@@ -3,7 +3,7 @@ import Slider from 'react-slick'
 import Card from '../../../components/Card'
 import { Fragment } from 'react'
 
-const RelatedBook = ({ procsInSameCategory, changeCostWithDots }) => {
+const RelatedBook = ({ procsInSameCategory }) => {
   function NextArrow({ onClick }) {
     return (
       <BsFillArrowRightCircleFill

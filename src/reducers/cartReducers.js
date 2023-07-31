@@ -1,81 +1,76 @@
-const initialState = [];
+const initialState = []
 
 export const initializer = (initialValue = initialState) =>
-  JSON.parse(localStorage.getItem("userCart")) || initialValue;
+  JSON.parse(localStorage.getItem('userCart')) || initialValue
 
-export const cartReducer = (state, action) => {
+export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TO_CART":
+    case 'ADD_TO_CART':
       return state.find((item) => item.IDSanPham === action.item.IDSanPham)
         ? state.map((item) =>
-          item.IDSanPham === action.item.IDSanPham
-            ? {
-              ...item,
-              quantity: item.quantity + (action.quantity || 1 )
-            }
-            : item
-        )
-        : [...state, { ...action.item, quantity: (action.quantity || 1) }];
-    case "REMOVE_FROM_CART":
-      return state.filter((item) => item.IDSanPham !== action.item.IDSanPham);
+            item.IDSanPham === action.item.IDSanPham
+              ? {
+                  ...item,
+                  quantity: item.quantity + (action.quantity || 1),
+                }
+              : item
+          )
+        : [...state, { ...action.item, quantity: action.quantity || 1 }]
+    case 'REMOVE_FROM_CART':
+      return state.filter((item) => item.IDSanPham !== action.item.IDSanPham)
 
-    case "DECREMENT_QUANTITY":
+    case 'DECREMENT_QUANTITY':
       // if quantity is 1 remove from cart, otherwise decrement quantity
-      return state.find((item) => item.IDSanPham === action.item.IDSanPham)?.quantity ===
-        1
+      return state.find((item) => item.IDSanPham === action.item.IDSanPham)?.quantity === 1
         ? state.filter((item) => item.IDSanPham !== action.item.IDSanPham)
         : state.map((item) =>
-          item.IDSanPham === action.item.IDSanPham
-            ? {
-              ...item,
-              quantity: item.quantity - 1
-            }
-            : item
-        );
+            item.IDSanPham === action.item.IDSanPham
+              ? {
+                  ...item,
+                  quantity: item.quantity - 1,
+                }
+              : item
+          )
 
-
-    case "INCREMENT_QUANTITY":
+    case 'INCREMENT_QUANTITY':
       return state.map((item) =>
         item.IDSanPham === action.item.IDSanPham
           ? {
-            ...item,
-            quantity: item.quantity + 1
-          }
+              ...item,
+              quantity: item.quantity + 1,
+            }
           : item
-      );
+      )
 
-    
-
-    case "CLEAR_CART":
-      return initialState;
-
+    case 'CLEAR_CART':
+      return initialState
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const addToCart = (item, quantity) => ({
-  type: "ADD_TO_CART",
+  type: 'ADD_TO_CART',
   item,
-  quantity
-});
+  quantity,
+})
 
 export const decrementItemQuantity = (item) => ({
-  type: "DECREMENT_QUANTITY",
-  item
-});
+  type: 'DECREMENT_QUANTITY',
+  item,
+})
 
 export const incrementItemQuantity = (item) => ({
-  type: "INCREMENT_QUANTITY",
-  item
-});
+  type: 'INCREMENT_QUANTITY',
+  item,
+})
 
 export const removeFromCart = (item) => ({
-  type: "REMOVE_FROM_CART",
-  item
-});
+  type: 'REMOVE_FROM_CART',
+  item,
+})
 
 export const clearCart = () => ({
-  type: "CLEAR_CART"
-});
+  type: 'CLEAR_CART',
+})
