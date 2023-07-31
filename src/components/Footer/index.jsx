@@ -88,7 +88,7 @@ function Footer() {
                     <li
                       onClick={() => navigate(item.link)}
                       key={index}
-                      className="my-2 cursor-pointer text-sm hover:text-white text-black transition"
+                      className="my-2 cursor-pointer text-sm hover:text-orange-500 text-black transition"
                     >
                       {item.name}
                     </li>
@@ -110,7 +110,7 @@ function Footer() {
                     <li
                       onClick={() => navigate(item.link)}
                       key={index}
-                      className="my-2 cursor-pointer text-sm hover:text-white text-black transition"
+                      className="my-2 cursor-pointer text-sm hover:text-orange-500 text-black transition"
                     >
                       {item.name}
                     </li>
@@ -133,7 +133,7 @@ function Footer() {
                     <li
                       onClick={() => navigate(item.link)}
                       key={index}
-                      className="my-2 cursor-pointer text-sm hover:text-white text-black transition"
+                      className="my-2 cursor-pointer text-sm hover:text-orange-500 text-black transition"
                     >
                       {item.name}
                     </li>
