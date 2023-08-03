@@ -9,8 +9,8 @@ function useCart() {
   const navigate = useNavigate()
   const { dispatch } = useContext(Context)
 
-  const handleAddToCart = async (product) => {
-    await dispatch(addToCart(product))
+  const handleAddToCart = async (product, quantity) => {
+    await dispatch(addToCart(product, quantity))
     Swal.fire({
       title: 'Thêm giỏ hàng thành công',
       icon: 'success',

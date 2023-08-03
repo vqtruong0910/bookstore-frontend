@@ -13,12 +13,11 @@ import Field from '../../components/Field'
 import Radio from '../../components/Radio'
 import Swal from 'sweetalert2'
 import { API } from '../../constants/api'
-import { clearCart } from '../../reducers/cartReducers'
 
 function Payment() {
   let totalAllProduct = 0
   const navigate = useNavigate()
-  const { user, cart, darkTheme, dispatch } = useContext(Context)
+  const { user, cart, darkTheme } = useContext(Context)
   const [province, setProvince] = useState([])
   const [district, setDistrict] = useState([])
   const [ward, setWard] = useState([])
@@ -47,27 +46,55 @@ function Payment() {
         const { IDSanPham, quantity, GiaBan } = item
         detail.push({ IDSanPham, SoLuong: quantity, GiaBan })
       })
+
       await axiosJWT.post(`${API.MANAGE_ORDER}/`, {
         DiaChi: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
         PhiShip: 30000,
         ChiTietDonHang: detail,
       })
-      Swal.fire({
+
+      await Swal.fire({
         title: 'Chúc mừng bạn đã đặt hàng thành công',
         icon: 'success',
         showCancelButton: false,
+        showDenyButton: true,
+        showConfirmButton: true,
         confirmButtonColor: 'rgb(29, 192, 113)',
         confirmButtonText: 'Xem đơn hàng',
-      }).then(async (result) => {
+        denyButtonText: 'Tiếp tục mua sắm',
+        denyButtonColor: 'rgb(148, 163, 184)',
+      }).then((result) => {
         if (result.isConfirmed) {
           navigate(PATH.profile.user_order_management)
+        } else if (result.isDenied) {
+          navigate('/')
         }
       })
 
-      return navigate('/')
+      localStorage.setItem('userCart', '[]')
+      navigate(0)
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handlePay = () => {
+    if (localStorage.getItem('userCart') == '[]') {
+      Swal.fire({
+        title: 'Giỏ hàng không có sản phẩm',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Về trang chủ',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/')
+        }
+      })
+    }
+
+    return
   }
 
   cart.forEach((item) => {
@@ -76,10 +103,6 @@ function Payment() {
 
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
-  }
-
-  const handlePay = async () => {
-    localStorage.removeItem('userCart')
   }
 
   const handleProvince = (event) => {
@@ -150,6 +173,7 @@ function Payment() {
                       name="fullName"
                       placeholder="Nhập họ và tên"
                       id="fullName"
+                      isDisabled={cart.length === 0 ? true : false}
                       control={control}
                       rules={VALIDATE.fullname}
                     />
@@ -161,6 +185,7 @@ function Payment() {
                       name="email"
                       placeholder="Nhập email"
                       id="email"
+                      isDisabled={cart.length === 0 ? true : false}
                       control={control}
                       rules={VALIDATE.email}
                     />
@@ -172,6 +197,7 @@ function Payment() {
                       name="phone"
                       placeholder="Nhập số điện thoại"
                       id="phone"
+                      isDisabled={cart.length === 0 ? true : false}
                       control={control}
                       rules={VALIDATE.phone}
                     />
@@ -183,6 +209,7 @@ function Payment() {
                       name="address"
                       placeholder="Nhập địa chỉ"
                       id="address"
+                      isDisabled={cart.length === 0 ? true : false}
                       control={control}
                       rules={VALIDATE.address}
                     />
@@ -197,6 +224,7 @@ function Payment() {
                       rules={VALIDATE.province}
                       title="Tỉnh/Thành phố"
                       onClick={handleProvince}
+                      isDisabled={cart.length === 0 ? true : false}
                     />
 
                     <Select
@@ -207,6 +235,7 @@ function Payment() {
                       id="district"
                       rules={VALIDATE.district}
                       title="Quận/huyện"
+                      isDisabled={cart.length === 0 ? true : false}
                     />
 
                     <Select
@@ -216,6 +245,7 @@ function Payment() {
                       id="ward"
                       rules={VALIDATE.ward}
                       title="Phường/xã"
+                      isDisabled={cart.length === 0 ? true : false}
                     />
                   </div>
                 </div>
@@ -233,6 +263,7 @@ function Payment() {
                     id="shipping_cost"
                     title="Phí vận chuyển tất cả các tỉnh thành"
                     value="30.000đ"
+                    isDisabled={cart.length === 0 ? true : false}
                   ></Radio>
                   <div className="p-2 font-medium text-gray-400">30.000đ</div>
                 </div>
@@ -249,6 +280,7 @@ function Payment() {
                     name="pay_on_delivery"
                     image={true}
                     title="Thanh toán khi giao hàng"
+                    isDisabled={cart.length === 0 ? true : false}
                   ></Radio>
                 </div>
               </div>
@@ -266,10 +298,19 @@ function Payment() {
                     <span className="py-1 font-medium md:text-lg">
                       {changeCostWithDots(totalAllProduct)}đ
                     </span>
-                    <span className="py-1 font-medium md:text-lg">30.000đ</span>
-                    <span className="py-1 font-semibold text-red-600 text-xl md:text-2xl">
-                      {changeCostWithDots(totalAllProduct + 30000)}đ
+                    <span className="py-1 font-medium md:text-lg">
+                      {cart.length === 0 ? '0đ' : '30.000đ'}{' '}
                     </span>
+
+                    {cart.length === 0 ? (
+                      <span className="py-1 font-semibold text-red-600 text-xl md:text-2xl">
+                        {changeCostWithDots(totalAllProduct + 0)}đ
+                      </span>
+                    ) : (
+                      <span className="py-1 font-semibold text-red-600 text-xl md:text-2xl">
+                        {changeCostWithDots(totalAllProduct + 30000)}đ
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="flex mt-4 lg:w-full lg:text-center">
@@ -281,8 +322,8 @@ function Payment() {
                   </div>
                   <button
                     type="submit"
-                    onClick={() => handlePay()}
-                    className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-md cursor-pointer text-sm md:text-base lg:text-lg"
+                    className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-mediumtransition text-white rounded-md cursor-pointer text-sm md:text-base lg:text-lg"
+                    onClick={handlePay}
                   >
                     Đặt hàng
                   </button>

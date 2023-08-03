@@ -48,7 +48,7 @@ function Cart() {
   }
 
   useEffect(() => {
-    const topOfElement = document.querySelector('#scroll') - 500
+    const topOfElement = document.querySelector('#scroll') - 10000
     window.scroll({ top: topOfElement, behavior: 'smooth' })
     isLoading(true)
     setTimeout(() => {
@@ -63,7 +63,7 @@ function Cart() {
       {!loading && (
         <div className="flex flex-wrap w-full xl:w-4/5 mx-auto py-10">
           <div className="flex flex-wrap w-full">
-            <div className="flex w-full lg:px-4">
+            <div className="flex w-full">
               <span
                 className={`w-full text-lg font-medium px-4 xl:px-0 ${
                   darkTheme ? 'text-white' : 'text-slate-700'

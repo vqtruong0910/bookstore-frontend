@@ -1,6 +1,6 @@
 import { useController } from 'react-hook-form'
 
-function Select({ control, rules, name, state, title, onClick = () => {}, ...props }) {
+function Select({ control, rules, name, state, title, isDisabled, onClick = () => {}, ...props }) {
   const {
     field,
     fieldState: { error },
@@ -15,14 +15,16 @@ function Select({ control, rules, name, state, title, onClick = () => {}, ...pro
       <select
         onClick={onClick}
         className={`border rounded-sm w-full px-2 py-1 lg:py-2   ${
-          error ? 'border-red-300' : 'border-black/20'
+          error && !isDisabled ? 'border-red-300' : 'border-black/20'
         } focus:outline-none focus:ring-sky-200 focus:ring-1 text-base`}
+        disabled={isDisabled}
         {...field}
         {...props}
       >
         <option value="" disabled>
           {title}
         </option>
+
         {state && state !== undefined ? (
           state.map((item) => (
             <option key={item.code} value={item.name} id={item.code}>

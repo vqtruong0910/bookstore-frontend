@@ -4,6 +4,7 @@ import { cartReducer, initializer } from '../reducers/cartReducers'
 
 function Provider({ children }) {
   const [darkTheme, setDarkTheme] = useState(false)
+
   const defaultUser = useMemo(() => {
     try {
       return JSON.parse(localStorage.getItem('user'))
@@ -11,6 +12,7 @@ function Provider({ children }) {
       return false
     }
   }, [])
+
   const [user, setUser] = useState(defaultUser)
   const [cart, dispatch] = useReducer(cartReducer, [], initializer)
 

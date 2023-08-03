@@ -2,19 +2,18 @@ import { IoAddSharp, IoTimeOutline } from 'react-icons/io5'
 import { IoMdRemove } from 'react-icons/io'
 import { BsArrowRepeat, BsCart3, BsPrinter } from 'react-icons/bs'
 import { useParams } from 'react-router-dom'
-import React, { useState, useEffect, Fragment, useContext } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import axiosConfig from '../../config/axiosConfig'
 import RelatedBook from '../../module/Book/RelatedBook'
 import LoadingSkeletonDetailBook from '../../components/Loading/LoadingSkeletonDetailBook'
 import useCart from '../../hooks/useCart'
 import { API } from '../../constants/api'
 import { useTranslation } from 'react-i18next'
-import { decrementItemQuantity, incrementItemQuantity } from '../../reducers/cartReducers'
-import Context from '../../store/Context'
 
 const DetailBook = () => {
   const { t } = useTranslation()
   const { bookID } = useParams()
+  const { handleAddToCart } = useCart()
   const [book, setBook] = useState([])
   const [authorID, setAuthorID] = useState('')
   const [genreID, setGenreID] = useState('')
@@ -28,10 +27,6 @@ const DetailBook = () => {
   const [procsInSameCategory, setProcsInSameCategory] = useState([])
   const [loading, isLoading] = useState(true)
   const [showContent, setShowContent] = useState(4)
-  const { handleAddToCart } = useCart()
-  const { dispatch } = useContext(Context)
-  const decrementQuantity = (item) => dispatch(decrementItemQuantity(item))
-  const incrementQuantity = (item) => dispatch(incrementItemQuantity(item))
 
   const decrement = (item) => {
     setQuantity((item) => {
@@ -118,7 +113,7 @@ const DetailBook = () => {
           {book.map((item) => {
             return (
               <Fragment key={item.IDSanPham}>
-                <div className="w-full xl:w-4/5 gap-5 rounded-sm flex flex-col lg:flex-row">
+                <div className="w-full xl:w-4/5 gap-5 rounded-sm flex flex-col">
                   <div className="w-full py-10 flex items-center border-gray-200 border-2 shadow-md flex-wrap lg:flex-nowrap">
                     <img
                       className="w-full object-contain h-full max-h-[300px]"
@@ -156,47 +151,59 @@ const DetailBook = () => {
                       </div>
 
                       <div className="flex flex-row items-center mt-4 mx-4">
-                        <div className="rounded-sm cursor-pointer lg:w-1/2">
-                          <div
-                            onClick={() => {
-                              handleAddToCart(item)
-                            }}
-                            className="py-2 px-1 flex flex-row lg:justify-center bg-red-500 rounded-lg hover:bg-red-400 transition"
-                          >
-                            <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
-                            <span className="mx-1 text-white font-medium text-sm md:text-base lg:text-lg whitespace-nowrap">
-                              {t('Thêm giỏ hàng')}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-wrap items-center justify-end lg:w-1/2 lg:justify-center">
-                          <span className="text-gray-500 text-sm md:text-base font-semibold mx-3">
-                            {t('Số lượng')}
-                          </span>
-                          <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
-                            <button
-                              onClick={() => decrement(quantity)}
-                              className="w-full border-r-2 flex justify-center cursor-pointer"
-                            >
-                              <IoMdRemove className="w-5 h-7 text-gray-600" />
-                            </button>
-                            <div className="w-full flex justify-center">
-                              <span className="text-gray-800 font-semibold">{quantity}</span>
+                        <div className="rounded-sm cursor-pointer w-full">
+                          {item.SoLuongConLai < 1 && (
+                            <div className="py-2 px-1 flex justify-center bg-red-300 rounded-md">
+                              <span className="mx-1 text-red-500 font-medium text-sm md:text-base lg:text-lg whitespace-nowrap">
+                                Sản phẩm tạm hết hàng
+                              </span>
                             </div>
+                          )}
 
-                            <button
-                              onClick={() => increment(quantity)}
-                              className="w-full border-l-2 flex justify-center cursor-pointer"
+                          {item.SoLuongConLai >= 1 && (
+                            <div
+                              onClick={() => {
+                                handleAddToCart(item, quantity)
+                              }}
+                              className="py-2 px-1 flex flex-row lg:justify-center bg-red-500 rounded-lg hover:bg-red-400 transition"
                             >
-                              <IoAddSharp className="w-5 h-7 text-gray-600" />
-                            </button>
-                          </div>
+                              <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
+                              <span className="mx-1 text-white font-medium text-sm md:text-base lg:text-lg whitespace-nowrap">
+                                {t('Thêm giỏ hàng')}
+                              </span>
+                            </div>
+                          )}
                         </div>
+
+                        {item.SoLuongConLai >= 1 && (
+                          <div className="flex items-center justify-end lg:w-1/2 lg:justify-center w-full">
+                            <span className="text-gray-500 text-sm md:text-base font-semibold mx-3 whitespace-nowrap">
+                              {t('Số lượng')}
+                            </span>
+                            <div className="flex flex-row items-center w-24 rounded-sm border border-slate-300 justify-between">
+                              <button
+                                onClick={() => decrement(quantity)}
+                                className="w-full border-r-2 flex justify-center cursor-pointer"
+                              >
+                                <IoMdRemove className="w-5 h-7 text-gray-600" />
+                              </button>
+                              <div className="w-full flex justify-center">
+                                <span className="text-gray-800 font-semibold">{quantity}</span>
+                              </div>
+
+                              <button
+                                onClick={() => increment(quantity)}
+                                className="w-full border-l-2 flex justify-center cursor-pointer"
+                              >
+                                <IoAddSharp className="w-5 h-7 text-gray-600" />
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col w-full bg-gray-100 lg:max-w-[300px]">
+                  <div className="flex flex-col w-full bg-gray-100">
                     <div className="border-b-2 gap-3 border-gray-300 flex flex-col py-5 px-5 text-base items-center w-full">
                       <IoTimeOutline className="w-10 h-10 text-slate-700" />
                       <span>

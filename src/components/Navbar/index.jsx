@@ -35,8 +35,8 @@ const Navbar = () => {
   }, [])
 
   const { items } = cart.reduce(
-    ({ items }, { quantity }) => ({
-      items: localStorage.getItem('userCart') ? items + quantity : 0,
+    ({ items }) => ({
+      items: items + 1,
     }),
     {
       items: 0,

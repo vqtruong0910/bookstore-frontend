@@ -1,7 +1,7 @@
 const initialState = []
 
 export const initializer = (initialValue = initialState) =>
-  JSON.parse(localStorage.getItem('userCart')) || initialValue
+  localStorage.getItem('userCart') ? JSON.parse(localStorage.getItem('userCart')) : initialValue
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
