@@ -48,8 +48,6 @@ function Cart() {
   }
 
   useEffect(() => {
-    const topOfElement = document.querySelector('#scroll') - 10000
-    window.scroll({ top: topOfElement, behavior: 'smooth' })
     isLoading(true)
     setTimeout(() => {
       isLoading(false)

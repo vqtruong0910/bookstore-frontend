@@ -1,11 +1,24 @@
-import { Suspense, useContext } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Suspense, useContext, useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 import Context from '../../store/Context'
 
 function DefaultLayout() {
   const { darkTheme } = useContext(Context)
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    try {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      })
+    } catch (error) {
+      window.scrollTo(0, 0)
+    }
+  }, [pathname])
 
   return (
     <div className="flex flex-col min-h-screen justify-between">

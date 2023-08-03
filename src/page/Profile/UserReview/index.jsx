@@ -40,9 +40,6 @@ function UserReview() {
       console.log('results >> ', results)
     })
 
-    const topOfElement = document.querySelector('#scroll') - 500
-    window.scroll({ top: topOfElement, behavior: 'smooth' })
-
     isLoading(true)
     setTimeout(() => {
       isLoading(false)
@@ -53,7 +50,7 @@ function UserReview() {
     <>
       {loading && <LoadingSkeletonUserReview></LoadingSkeletonUserReview>}
       {!loading && (
-        <div className="flex flex-wrap md:flex-col w-full border p-4" id="page">
+        <div className="flex flex-wrap md:flex-col w-full border p-4">
           <div className="flex w-full">
             <span
               className={`w-full text-lg font-semibold mb-5 lg:text-xl ${

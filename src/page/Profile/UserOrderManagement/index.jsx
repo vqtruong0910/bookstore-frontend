@@ -42,16 +42,11 @@ function UserOrderManagement() {
     fetchAllOrderData()
   }, [])
 
-  useEffect(() => {
-    const topOfElement = document.querySelector('#scroll') - 500
-    window.scroll({ top: topOfElement, behavior: 'smooth' })
-  }, [])
-
   return (
     <>
       {loading && <LoadingSkeletonUserOrderManagement></LoadingSkeletonUserOrderManagement>}
       {!loading && (
-        <div className="flex flex-wrap md:flex-col w-full min-h-[500px]" id="scroll">
+        <div className="flex flex-wrap md:flex-col w-full min-h-[500px]">
           <div className="flex w-full px-4 md:px-0">
             <span
               className={`w-full text-lg font-semibold mb-5 lg:text-xl ${

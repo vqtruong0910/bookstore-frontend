@@ -85,9 +85,6 @@ function PersonInfo() {
   }
 
   useEffect(() => {
-    const topOfElement = document.querySelector('#scroll') - 500
-    window.scroll({ top: topOfElement, behavior: 'smooth' })
-
     isLoading(true)
     setTimeout(() => {
       isLoading(false)

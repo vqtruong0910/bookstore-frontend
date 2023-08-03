@@ -51,17 +51,12 @@ function Category() {
     fetchBookData()
   }, [currentPage])
 
-  useEffect(() => {
-    const topOfElement = document.querySelector('#scroll') - 500
-    window.scroll({ top: topOfElement, behavior: 'smooth' })
-  }, [])
-
   return (
     <>
       {loading && <LoadingSkeletonCategory />}
 
       {!loading && (
-        <Fragment id="scroll">
+        <Fragment>
           <div className="w-full flex items-center justify-end pb-8">
             <span
               className={`mx-2 text-base md:text-lg font-medium ${

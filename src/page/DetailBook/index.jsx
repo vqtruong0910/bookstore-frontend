@@ -99,17 +99,12 @@ const DetailBook = () => {
     }
   }, [bookID, authorID, publisherID, categoryID, genreID])
 
-  useEffect(() => {
-    const topOfElement = document.querySelector('#scroll') - 500
-    window.scroll({ top: topOfElement, behavior: 'smooth' })
-  }, [bookID])
-
   return (
     <>
       {loading && <LoadingSkeletonDetailBook></LoadingSkeletonDetailBook>}
 
       {!loading && (
-        <div className="w-full flex flex-col items-center drop-shadow-lg" id="scroll">
+        <div className="w-full flex flex-col items-center drop-shadow-lg">
           {book.map((item) => {
             return (
               <Fragment key={item.IDSanPham}>

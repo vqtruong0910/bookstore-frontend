@@ -11,7 +11,7 @@ function useCart() {
 
   const handleAddToCart = async (product, quantity) => {
     await dispatch(addToCart(product, quantity))
-    Swal.fire({
+    await Swal.fire({
       title: 'Thêm giỏ hàng thành công',
       icon: 'success',
       showCancelButton: false,

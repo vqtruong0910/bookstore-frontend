@@ -135,7 +135,6 @@ function Main() {
   return (
     <>
       <Carousel />
-
       <Slug />
 
       {loading && <LoadingSkeletonMain></LoadingSkeletonMain>}
