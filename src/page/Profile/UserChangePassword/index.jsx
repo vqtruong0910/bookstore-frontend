@@ -12,7 +12,7 @@ import axiosJWT from '../../../config/axiosJWT'
 import { useTranslation } from 'react-i18next'
 
 function UserChangePassword() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { user } = useContext(Context)
   const email = user.Email
   const navigate = useNavigate()
@@ -42,7 +42,7 @@ function UserChangePassword() {
         newPassword: new_password,
       })
       Swal.fire({
-        title: 'Cập nhật mật khẩu thành công',
+        title: t('Cập nhật mật khẩu thành công'),
         icon: 'success',
         showCancelButton: false,
       })
@@ -50,7 +50,7 @@ function UserChangePassword() {
     } catch (error) {
       if (error.response.status === 400) {
         Swal.fire({
-          title: 'Vui lòng nhập đúng mật khẩu hiện tại!',
+          title: t('Vui lòng nhập đúng mật khẩu hiện tại!'),
           icon: 'warning',
           showCancelButton: false,
         })
@@ -62,7 +62,7 @@ function UserChangePassword() {
     <div className="flex w-full border">
       <div className="flex flex-wrap w-full p-4">
         <div className={`flex w-full ${darkTheme ? 'text-white' : 'text-slate-700'}`}>
-          <span className="w-full text-lg font-medium mb-5 lg:text-xl">Đổi mật khẩu</span>
+          <span className="w-full text-lg font-medium mb-5 lg:text-xl">{t(`Đổi mật khẩu`)}</span>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center w-full bg-white">
@@ -71,28 +71,28 @@ function UserChangePassword() {
               <InputPassword
                 control={control}
                 name="current_password"
-                placeholder="Nhập mật khẩu hiện tại"
+                placeholder={t('Nhập mật khẩu hiện tại')}
                 rules={VALIDATE.password}
               >
-                Mật khẩu hiện tại
+                {t(`Mật khẩu hiện tại`)}
               </InputPassword>
 
               <InputPassword
                 control={control}
                 name="new_password"
-                placeholder="Nhập mật khẩu mới"
+                placeholder={t('Nhập mật khẩu mới')}
                 rules={VALIDATE.newPassword}
               >
-                Mật khẩu mới
+                {t(`Mật khẩu mới`)}
               </InputPassword>
 
               <InputPassword
                 control={control}
                 name="retype_new_password"
-                placeholder="Nhập lại mật khẩu mới"
+                placeholder={t('Nhập lại mật khẩu mới')}
                 rules={VALIDATE.confirmPassword('new_password', watch)}
               >
-                Nhập lại mật khẩu mới
+                {t(`Nhập lại mật khẩu mới`)}
               </InputPassword>
 
               <div className="w-full flex justify-center py-3 cursor-pointer">
@@ -100,7 +100,7 @@ function UserChangePassword() {
                   type="submit"
                   className=" px-4 py-2 flex text-white items-center justify-center bg-green-600 hover:bg-green-500 transition rounded-md"
                 >
-                  Lưu thay đổi
+                  {t(`Lưu thay đổi`)}
                 </button>
               </div>
             </div>
@@ -115,7 +115,7 @@ function UserChangePassword() {
         >
           <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 cursor-pointer" />
           <span className="text-sm cursor-pointer lg:text-base">
-            Quay lại thông tin tài khoản của tôi
+            {t(`Quay lại thông tin tài khoản của tôi`)}
           </span>
         </div>
       </div>

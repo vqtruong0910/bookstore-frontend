@@ -12,9 +12,11 @@ import { VALIDATE } from '../../../constants/validate'
 import Field from '../../../components/Field'
 import InputImage from '../../../components/Input/inputImage'
 import Swal from 'sweetalert2'
+import { useTranslation } from 'react-i18next'
 
 function PersonInfo() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { user, setUser, darkTheme } = useContext(Context)
   const [loading, isLoading] = useState(true)
   const [fileImage, setFileImage] = useState()
@@ -36,7 +38,7 @@ function PersonInfo() {
   const onChangeImage = useCallback(
     async (e) => {
       if (!['image/jpeg', 'image/png', 'image/gif'].includes(e.target.files[0]?.type)) {
-        return window.alert('Định dạng ảnh là jpg, jpeg, png, gif')
+        return window.alert(t('Định dạng ảnh là jpg, jpeg, png, gif'))
       }
 
       const fileImage = e.target.files[0]
@@ -49,7 +51,7 @@ function PersonInfo() {
           fileReader.onloadend = () => {
             setFileImage(fileReader.result)
           }
-          if (window.confirm('Bạn có chắc là muốn thay đổi avatar của mình?')) {
+          if (window.confirm(t('Bạn có chắc là muốn thay đổi avatar của mình?'))) {
             try {
               const response = await axiosJWT.post(
                 'users/avatar',
@@ -60,7 +62,7 @@ function PersonInfo() {
                 localStorage.setItem('user', JSON.stringify({ ...user, Anh: response.data.Anh }))
               setUser({ ...user, Anh: response.data.Anh })
               return Swal.fire({
-                title: 'Chúc mừng bạn đã thay đổi ảnh thành công',
+                title: t('Chúc mừng bạn đã thay đổi ảnh thành công'),
                 icon: 'success',
                 showCancelButton: false,
                 confirmButtonColor: 'rgb(29, 192, 113)',
@@ -77,7 +79,7 @@ function PersonInfo() {
 
   const onSubmit = (data) => {
     return Swal.fire({
-      title: 'Chúc mừng bạn đã lưu thay đổi thành công',
+      title: t('Chúc mừng bạn đã lưu thay đổi thành công'),
       icon: 'success',
       showCancelButton: false,
       confirmButtonColor: 'rgb(29, 192, 113)',
@@ -103,14 +105,16 @@ function PersonInfo() {
                   darkTheme ? 'text-white' : 'text-slate-700'
                 }`}
               >
-                Thông tin tài khoản
+                {t(`Thông tin tài khoản`)}
               </span>
             </div>
 
             <div className="flex w-full flex-wrap xl:flex-nowrap md:mx-0 bg-white">
               <div className="w-full px-4 xl:w-2/3">
                 <div className="w-full flex flex-wrap">
-                  <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>
+                  <span className="w-full flex text-slate-600 lg:text-lg">
+                    {t(`Thông tin cá nhân`)}
+                  </span>
 
                   <div className="flex flex-col w-full justify-center">
                     <form>
@@ -139,27 +143,27 @@ function PersonInfo() {
                     </form>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
-                      <Field title="Họ & tên">
+                      <Field title={t('Họ & tên')}>
                         <Input
                           type="text"
                           name="fullName"
                           control={control}
                           rules={VALIDATE.fullname}
-                          placeholder="Nhập họ và tên"
+                          placeholder={t(`Nhập họ và tên`)}
                         />
                       </Field>
 
-                      <Field title="Email">
+                      <Field title={t('Email')}>
                         <Input
                           type="text"
                           name="email"
                           control={control}
                           rules={VALIDATE.email}
-                          placeholder="Nhập email"
+                          placeholder={t('Nhập email')}
                         />
                       </Field>
 
-                      <Field title="Giới tính">
+                      <Field title={t('Giới tính')}>
                         <div className="flex flex-col w-2/3 lg:w-8/12 py-2 md:py-3">
                           <div className="flex w-full">
                             {user?.GioiTinh === 0 && (
@@ -167,13 +171,13 @@ function PersonInfo() {
                                 <div className="w-full">
                                   <input name="gender" type="radio" value="Male" />
                                   <label htmlFor="Male" className="mx-2">
-                                    Nam
+                                    {t(`Nam`)}
                                   </label>
                                 </div>
                                 <div className="w-full">
                                   <input name="gender" type="radio" value="Female" defaultChecked />
                                   <label htmlFor="Female" className="mx-2">
-                                    Nữ
+                                    {t(`Nữ`)}
                                   </label>
                                 </div>
                               </>
@@ -183,13 +187,13 @@ function PersonInfo() {
                                 <div className="w-full">
                                   <input name="gender" type="radio" value="Male" defaultChecked />
                                   <label htmlFor="Male" className="mx-2">
-                                    Nam
+                                    {t(`Nam`)}
                                   </label>
                                 </div>
                                 <div className="w-full">
                                   <input name="gender" type="radio" value="Female" />
                                   <label htmlFor="Female" className="mx-2">
-                                    Nữ
+                                    {t(`Nữ`)}
                                   </label>
                                 </div>
                               </>
@@ -198,17 +202,17 @@ function PersonInfo() {
                         </div>
                       </Field>
 
-                      <Field title="Số điện thoại">
+                      <Field title={t('Số điện thoại')}>
                         <Input
                           type="phone"
                           name="phone"
                           control={control}
                           rules={VALIDATE.phone}
-                          placeholder="Nhập số điện thoại"
+                          placeholder={t('Nhập số điện thoại')}
                         />
                       </Field>
 
-                      <Field title="Ngày sinh">
+                      <Field title={t('Ngày sinh')}>
                         <Input type="date" name="dob" control={control} />
                       </Field>
 
@@ -217,7 +221,7 @@ function PersonInfo() {
                           type="submit"
                           className=" px-4 py-2 flex text-white items-center justify-center bg-green-600 hover:bg-green-500 transition rounded-md"
                         >
-                          Lưu thay đổi
+                          {t(`Lưu thay đổi`)}
                         </button>
                       </div>
                     </form>
@@ -228,7 +232,7 @@ function PersonInfo() {
               <div className="w-full lg:w-1/3 flex flex-wrap lg:flex-col px-4 lg:border-l lg:my-5 border-gray-300 py-5 lg:py-0">
                 <div className="w-full flex flex-wrap lg:flex-col border-t lg:border-t-0">
                   <span className="w-full flex text-slate-600  border-gray-300 pt-5 lg:pt-0 lg:text-lg">
-                    Bảo mật
+                    {t(`Bảo mật`)}
                   </span>
                   <div className="w-full flex lg:flex-col">
                     <div className="w-full flex py-2">
@@ -238,7 +242,7 @@ function PersonInfo() {
                         </div>
 
                         <div className="w-full text-sm whitespace-nowrap mx-1 flex items-center mt-1 lg:text-base">
-                          Đổi mật khẩu
+                          {t(`Đổi mật khẩu`)}
                         </div>
                       </div>
 
@@ -247,7 +251,7 @@ function PersonInfo() {
                         className="w-full flex justify-end cursor-pointer"
                       >
                         <div className="border-2 w-20 h-8 flex justify-center rounded-md bg-yellow-500 hover:bg-yellow-400 transition">
-                          <span className="text-white flex items-center">Cập nhật</span>
+                          <span className="text-white flex items-center">{t(`Cập nhật`)}</span>
                         </div>
                       </div>
                     </div>

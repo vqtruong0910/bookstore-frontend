@@ -1,6 +1,8 @@
 import { useController } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 function Input({ control, rules, name, isDisabled, ...props }) {
+  const { t } = useTranslation()
   const {
     field,
     fieldState: { error },
@@ -19,7 +21,7 @@ function Input({ control, rules, name, isDisabled, ...props }) {
         {...props}
       />
 
-      {!isDisabled && <div className="text-red-500 text-sm italic">{error?.message}</div>}
+      {!isDisabled && <div className="text-red-500 text-sm italic">{t(error?.message)}</div>}
     </div>
   )
 }

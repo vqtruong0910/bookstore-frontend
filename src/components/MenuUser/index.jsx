@@ -1,17 +1,31 @@
 import { AiOutlineUser } from 'react-icons/ai'
 import { TbTruck } from 'react-icons/tb'
 import { BiMessageEdit } from 'react-icons/bi'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { PATH } from '../../constants/path'
 import Context from '../../store/Context'
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
+import jwtDecode from 'jwt-decode'
 
 function MenuUser() {
+  const { t } = useTranslation()
   const { user } = useContext(Context)
-  let location = useLocation()
+
+  console.log('>>>>>>>>>>>>>', user)
+  const location = useLocation()
   const navigate = useNavigate()
   const activeLink = 'bg-slate-700 w-full'
+
+  const isAdmin = useMemo(() => {
+    try {
+      const { Quyen } = jwtDecode(localStorage.getItem('token'))
+      return Quyen === 0 ? true : false
+    } catch (error) {
+      return false
+    }
+  }, [])
 
   return (
     <div className="w-full h-full min-h-auto md:w-64 bg-blue-100 drop-shadow-lg rounded-sm">
@@ -28,7 +42,9 @@ function MenuUser() {
       </div>
 
       <h1 className="text-gray-800 font-semibold text-xl mt-3 text-center w-full">{user.HoTen}</h1>
-      <h1 className="text-gray-500 text-sm w-full text-center mt-2">Khách hàng</h1>
+      <h1 className="text-gray-500 text-sm w-full text-center mt-2">
+        {isAdmin ? t('Quản trị viên') : t(`Khách hàng`)}
+      </h1>
 
       <div className="mt-5 w-full flex flex-wrap">
         <div
@@ -46,7 +62,7 @@ function MenuUser() {
                 location.pathname === PATH.profile.dashboard && 'text-white'
               } `}
             >
-              Thông tin tài khoản
+              {t(`Thông tin tài khoản`)}
             </div>
           </div>
         </div>
@@ -67,7 +83,7 @@ function MenuUser() {
                 location.pathname === PATH.profile.user_order_management && 'text-white'
               } `}
             >
-              Quản lý đơn hàng
+              {t(`Quản lý đơn hàng`)}
             </div>
           </div>
         </div>
@@ -88,7 +104,7 @@ function MenuUser() {
                 location.pathname === PATH.profile.user_review && 'text-white'
               } `}
             >
-              Đánh giá sản phẩm
+              {t(`Đánh giá sản phẩm`)}
             </div>
           </div>
         </div>

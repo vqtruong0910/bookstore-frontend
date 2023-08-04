@@ -7,11 +7,14 @@ import LoadingSkeletonUserReview from '../../../components/Loading/LoadingSkelet
 import Context from '../../../store/Context'
 import { collection, onSnapshot, query } from 'firebase/firestore'
 import { db } from '../../../firebase/firebase-config'
+import { useTranslation } from 'react-i18next'
 
 function UserReview() {
+  const { t } = useTranslation()
+  const { darkTheme } = useContext(Context)
   const [loading, isLoading] = useState(true)
   const [showDiv, setShowDiv] = useState(1)
-  const { darkTheme } = useContext(Context)
+
   const {
     register,
     handleSubmit,
@@ -57,7 +60,7 @@ function UserReview() {
                 darkTheme ? 'text-white' : 'text-slate-700'
               }`}
             >
-              Đánh giá sản phẩm
+              {t(`Đánh giá sản phẩm`)}
             </span>
           </div>
 
@@ -80,11 +83,11 @@ function UserReview() {
                         : 'flex px-0.5 md:text-xs lg:text-base font-semibold md:text-slate-600 lg:font-normal'
                     }
                   >
-                    Chờ đánh giá
+                    {t(`Chờ đánh giá`)}
                   </span>
                 </div>
                 <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
-                  <span className="text-xs font-normal text-white px-2">Xem chi tiết</span>
+                  <span className="text-xs font-normal text-white px-2">{t(`Xem chi tiết`)}</span>
                 </div>
               </div>
               <div
@@ -104,11 +107,11 @@ function UserReview() {
                         : 'flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal'
                     }
                   >
-                    Đã đánh giá
+                    {t(`Đã đánh giá`)}
                   </span>
                 </div>
                 <div className="w-28 flex justify-center border bg-blue-500 rounded-sm py-2 cursor-pointer md:hidden">
-                  <span className="text-xs font-normal text-white px-2">Xem chi tiết</span>
+                  <span className="text-xs font-normal text-white px-2">{t(`Xem chi tiết`)}</span>
                 </div>
               </div>
             </div>
@@ -144,7 +147,7 @@ function UserReview() {
                   <div className="w-full py-2">
                     <div className="w-full">
                       <span className="font-semibold text-orange-400">
-                        Điều gì làm bạn hài lòng?
+                        {t(`Điều gì làm bạn hài lòng?`)}
                       </span>
                     </div>
                     <div className="w-full flex my-2">
@@ -153,12 +156,14 @@ function UserReview() {
                         {...register('review', { required: true })}
                         className="w-full border rounded-sm px-2 py-7 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                         type="text"
-                        placeholder="Hãy chia sẻ cảm nhận, đánh giá của bạn về sản phẩm này nhé."
+                        placeholder={t(
+                          'Hãy chia sẻ cảm nhận, đánh giá của bạn về sản phẩm này nhé.'
+                        )}
                       />
                     </div>
                     {errors.review?.type === 'required' && (
                       <div className="text-xs text-red-500 md:text-sm">
-                        Vui lòng nhập đánh giá cho sản phẩm
+                        {t(`Vui lòng nhập đánh giá cho sản phẩm`)}
                       </div>
                     )}
 
@@ -167,7 +172,7 @@ function UserReview() {
                         type="submit"
                         className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm"
                       >
-                        <span className="font-normal text-white">Gửi đánh giá</span>
+                        <span className="font-normal text-white">{t(`Gửi đánh giá`)}</span>
                       </button>
                     </div>
 
@@ -222,7 +227,7 @@ function UserReview() {
                         <div className="flex items-center">
                           <BsStarFill className="w-4 h-4 md:w-5 md:h-5 text-orange-400" />
                           <span className="font-medium mx-1 text-orange-400 md:text-lg">
-                            Đánh giá của bạn
+                            {t(`Đánh giá của bạn`)}
                           </span>
                         </div>
                         <div>

@@ -150,7 +150,7 @@ const DetailBook = () => {
                           {item.SoLuongConLai < 1 && (
                             <div className="py-2 px-1 flex justify-center bg-red-300 rounded-md">
                               <span className="mx-1 text-red-500 font-medium text-sm md:text-base lg:text-lg whitespace-nowrap">
-                                Sản phẩm tạm hết hàng
+                                {t(`Sản phẩm tạm hết hàng`)}
                               </span>
                             </div>
                           )}
@@ -202,23 +202,23 @@ const DetailBook = () => {
                     <div className="border-b-2 gap-3 border-gray-300 flex flex-col py-5 px-5 text-base items-center w-full">
                       <IoTimeOutline className="w-10 h-10 text-slate-700" />
                       <span>
-                        {t(`Giao hàng đi ngay sau khi đặt hàng 24h - Sẽ liên hệ trước khi giao. Thời
-                        gian nhận hàng: *Đối với TPHCM 1-2 ngày. *Đối với ngoại tỉnh: Miền Nam 2-3
-                        ngày. Miền Bắc 3-5 ngày.`)}
+                        {t(`Giao hàng đi ngay sau khi đặt hàng 24h - Sẽ liên hệ trước khi giao.`)}
+                        {t(` Thời gian nhận hàng: *Đối với TPHCM 1-2 ngày.`)}
+                        {t(` *Đối với ngoại tỉnh: Miền Nam 2-3 ngày. Miền Bắc 3-5 ngày.`)}
                       </span>
                     </div>
                     <hr />
                     <div className="border-b-2 gap-3 border-gray-300 flex flex-col py-5 px-5 text-base items-center w-full">
                       <BsArrowRepeat className="w-10 h-10 text-slate-700" />
                       <span>
-                        Đổi trả trong 7 ngày (Nếu sản phẩm bị lỗi kĩ thuật), thủ tục đơn giản nhanh
-                        chóng.
+                        {t(`Đổi trả trong 7 ngày `)}({t(`Nếu sản phẩm bị lỗi kĩ thuật`)}),
+                        {t(` thủ tục đơn giản, nhanh chóng.`)}
                       </span>
                     </div>
                     <hr />
                     <div className="flex flex-col gap-3 py-5 px-5 text-base items-center w-full">
                       <BsPrinter className="w-10 h-10 text-slate-700" />
-                      <span>Nhà cung cấp có xuất hóa đơn cho sản phẩm.</span>
+                      <span>{t(`Nhà cung cấp có xuất hóa đơn cho sản phẩm.`)}</span>
                     </div>
                   </div>
                 </div>

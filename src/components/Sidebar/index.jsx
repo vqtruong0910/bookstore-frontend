@@ -1,11 +1,13 @@
 import { useCallback, useState } from 'react'
 import { BsChevronDown, BsFillArrowLeftCircleFill } from 'react-icons/bs'
-import { NavbarData } from '../Navbar/NavbarData'
 import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
 import clsx from 'clsx'
+import useNavbarData from '../../hooks/useNavbarData'
+import Language from '../Language'
 
 const Sidebar = ({ open, onClick = () => {} }) => {
+  const { NavbarData } = useNavbarData()
   const navigate = useNavigate()
   const [stateMenuChild, setStateMenuChild] = useState({
     1: false, // Danh muc
@@ -39,6 +41,11 @@ const Sidebar = ({ open, onClick = () => {} }) => {
           <BsFillArrowLeftCircleFill className="h-8 w-8 text-white"></BsFillArrowLeftCircleFill>
         </div>
       </div>
+
+      <div className="px-2">
+        <Language showName={true} />
+      </div>
+
       <ul className="flex flex-col">
         {NavbarData.map((menu, index) => {
           return (

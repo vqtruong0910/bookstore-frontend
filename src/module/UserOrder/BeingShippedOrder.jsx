@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import { PATH } from '../../constants/path'
 import { TbTruck } from 'react-icons/tb'
+import { useTranslation } from 'react-i18next'
 
 const BeingShippedOrder = ({ data }) => {
+  const { t } = useTranslation()
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
@@ -22,14 +24,16 @@ const BeingShippedOrder = ({ data }) => {
               >
                 <div className="flex text-slate-700 gap-1 py-3 items-center mx-4 font-medium">
                   <TbTruck className="w-5 h-5"></TbTruck>
-                  <span>ID đơn đặt hàng : {item.IDDonHang}</span>
+                  <span>
+                    {t(`ID đơn đặt hàng :`)} {item.IDDonHang}
+                  </span>
                 </div>
 
                 <div className="w-full border-t-2 flex-row flex">
                   <div className="my-4 mx-4 flex flex-col">
-                    <div>Số lượng đặt mua</div>
-                    <div>Ngày đặt hàng</div>
-                    <div>Ngày giao</div>
+                    <div>{t(`Số lượng đặt mua`)}</div>
+                    <div>{t(`Ngày đặt hàng`)}</div>
+                    <div>{t(`Ngày giao`)}</div>
                   </div>
 
                   <div className="my-4 flex flex-col mx-4">
@@ -37,7 +41,7 @@ const BeingShippedOrder = ({ data }) => {
                     <div>{bookingDate}</div>
                     <div>
                       {item.NgayGiao === null ? (
-                        <span className="italic text-gray-500">Chưa giao</span>
+                        <span className="italic text-gray-500">{t(`Chưa giao`)}</span>
                       ) : (
                         item.NgayGiao
                       )}
@@ -48,7 +52,7 @@ const BeingShippedOrder = ({ data }) => {
                 <div className="w-full border-t-2">
                   <div className="w-full pt-2 flex justify-end px-4">
                     <span className="text-sm md:text-base lg:text-lg">
-                      Tổng tiền: {changeCostWithDots(item.Tong + 30000)}đ
+                      {t(`Tổng tiền:`)} {changeCostWithDots(item.Tong + 30000)}đ
                     </span>
                   </div>
                   <Link
@@ -57,7 +61,7 @@ const BeingShippedOrder = ({ data }) => {
                     className="w-full pb-4 pt-1 flex justify-end px-4"
                   >
                     <span className="border-blue-500 text-blue-500 cursor-pointer border px-2 py-1 text-xs md:text-sm lg:text-base font-normal rounded-sm">
-                      Xem chi tiết
+                      {t(`Xem chi tiết`)}
                     </span>
                   </Link>
                 </div>

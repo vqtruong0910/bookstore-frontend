@@ -1,8 +1,10 @@
 import { useState, useCallback, useEffect } from 'react'
 import { MenuData } from './MenuData'
 import LoadingSkeletonMenu from '../Loading/LoadingSkeletonMenu'
+import { useTranslation } from 'react-i18next'
 
 function Menu() {
+  const { t } = useTranslation()
   const [stateMenuChild, setStateMenuChild] = useState({
     1: false, // Danh muc
     2: false, // Nha xuat ban
@@ -58,7 +60,7 @@ function Menu() {
           <div className="flex flex-col w-auto gap-10">
             <div className="hidden md:flex md:flex-col md:items-center md:w-64 lg:w-80 md:shadow-md rounded-sm bg-white">
               <div className="w-full px-4 py-1 border-black/20 border text-lg lg:text-xl text-white font-semibold bg-slate-700">
-                Danh mục sản phẩm
+                {t(`Danh mục sản phẩm`)}
               </div>
               <div className="flex flex-col w-full px-4 py-5">
                 {stateMenuChild[1] ? (
@@ -117,7 +119,7 @@ function Menu() {
                     className="px-6 py-1 bg-slate-700 hover:bg-slate-500 transition flex items-center rounded-sm cursor-pointer"
                   >
                     <span className="text-white font-medium text-sm lg:text-base flex">
-                      {stateMenuChild[1] ? 'Rút gọn' : 'Xem thêm'}
+                      {stateMenuChild[1] ? t('Rút gọn') : t('Xem thêm')}
                     </span>
                   </div>
                 </div>
@@ -126,7 +128,7 @@ function Menu() {
 
             <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:w-64 lg:w-80 md:shadow-md">
               <div className="w-full px-4 py-1 border-black/20 border text-lg lg:text-xl text-white font-semibold bg-slate-700">
-                Giá
+                {t(`Giá`)}
               </div>
               <div className="flex flex-col w-full px-4 py-5">
                 <div className="flex items-center mb-4">
@@ -189,7 +191,7 @@ function Menu() {
 
             <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:w-64 lg:w-80 md:shadow-md">
               <div className="w-full px-4 py-1 border-black/20 border text-lg lg:text-xl text-white font-semibold bg-slate-700">
-                Nhà xuất bản
+                {t(`Nhà xuất bản`)}
               </div>
               <div className="flex flex-col w-full px-4 py-5">
                 {stateMenuChild[2] ? (
@@ -251,7 +253,7 @@ function Menu() {
 
             <div className="hidden md:bg-white md:flex md:flex-col md:items-center md:w-64 lg:w-80 md:shadow-md">
               <div className="w-full px-4 py-1 border-black/20 border text-lg lg:text-xl text-white font-semibold bg-slate-700">
-                Tác giả
+                {t(`Tác giả`)}
               </div>
               <div className="flex flex-col w-full px-4 py-5">
                 {stateMenuChild[3] ? (
@@ -303,7 +305,7 @@ function Menu() {
                     className="px-6 py-1 bg-slate-700 hover:bg-slate-500 transition flex items-center rounded-sm cursor-pointer"
                   >
                     <span className="text-white font-medium text-sm lg:text-base flex">
-                      {stateMenuChild[3] ? 'Rút gọn' : 'Xem thêm'}
+                      {stateMenuChild[3] ? t('Rút gọn') : t('Xem thêm')}
                     </span>
                   </div>
                 </div>

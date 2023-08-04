@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { useController } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 
 function InputPassword({ children, control, rules, name, ...props }) {
+  const { t } = useTranslation()
   const [show, setShow] = useState(false)
   const {
     field,
@@ -34,7 +36,7 @@ function InputPassword({ children, control, rules, name, ...props }) {
         </div>
 
         <div className="text-red-500 text-sm italic flex w-full justify-start">
-          {error?.message}
+          {t(error?.message)}
         </div>
       </div>
     </div>

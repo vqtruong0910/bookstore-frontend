@@ -6,9 +6,14 @@ import axiosJWT from '../../../config/axiosJWT'
 import Context from '../../../store/Context'
 import Image from '../../../components/Image'
 import { API } from '../../../constants/api'
+import { useTranslation } from 'react-i18next'
 
 function UserOrderDetail() {
+  let orderDetailID = ''
+  let costArr = []
+  let total = 0
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { state } = useLocation()
   const { darkTheme } = useContext(Context)
 
@@ -25,11 +30,7 @@ function UserOrderDetail() {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
 
-  let orderDetailID = ''
-  let costArr = []
-  let total = 0
-
-  orderDetail.forEach((item) => {
+  orderDetail?.forEach((item) => {
     costArr.push({
       giaBan: item.GiaBan,
       soLuong: item.SoLuong,
@@ -37,7 +38,7 @@ function UserOrderDetail() {
     orderDetailID = item.IDDonHang
   })
 
-  costArr.forEach((item) => {
+  costArr?.forEach((item) => {
     total = total + item.giaBan * item.soLuong
     return total
   })
@@ -50,7 +51,7 @@ function UserOrderDetail() {
             darkTheme ? 'text-white' : 'text-slate-700'
           }`}
         >
-          Chi tiết đơn hàng #{orderDetailID}
+          {t(`Chi tiết đơn hàng`)} #{orderDetailID}
         </span>
       </div>
 
@@ -59,22 +60,22 @@ function UserOrderDetail() {
           <div className="hidden md:flex md:flex-row md:justify-between md:w-full md:py-2 md:mx-1">
             <div className="w-full flex justify-center">
               <span className="md:text-xs lg:text-base md:font-semibold lg:font-normal text-gray-500">
-                Sản phẩm
+                {t(`Sản phẩm`)}
               </span>
             </div>
             <div className="w-full flex justify-center">
               <span className="md:text-xs lg:text-base md:font-semibold lg:font-normal text-gray-500">
-                Giá
+                {t(`Giá`)}
               </span>
             </div>
             <div className="w-full flex justify-center">
               <span className="md:text-xs lg:text-base md:font-semibold lg:font-normal text-gray-500">
-                Số lượng
+                {t(`Số lượng`)}
               </span>
             </div>
             <div className="w-full flex justify-center">
               <span className="md:text-xs lg:text-base md:font-semibold lg:font-normal text-gray-500">
-                Thành tiền
+                {t(`Thành tiền`)}
               </span>
             </div>
           </div>
@@ -106,9 +107,9 @@ function UserOrderDetail() {
 
           <div className="hidden md:w-full md:border-t-2 md:flex md:flex-row md:py-2">
             <div className="flex flex-col w-9/12 items-end">
-              <span className="text-base py-1 text-slate-500">Tạm tính</span>
-              <span className="text-base py-1 text-slate-500">Phí vận chuyển</span>
-              <span className="text-base py-1 text-slate-500">Tổng cộng</span>
+              <span className="text-base py-1 text-slate-500">{t(`Tạm tính`)}</span>
+              <span className="text-base py-1 text-slate-500">{t(`Phí vận chuyển`)}</span>
+              <span className="text-base py-1 text-slate-500">{t(`Tổng cộng`)}</span>
             </div>
             <div className="flex flex-col w-3/12 items-end px-4">
               <span className="py-1 text-base">{changeCostWithDots(total)}đ</span>
@@ -140,7 +141,7 @@ function UserOrderDetail() {
                     </span>
                     <div className="flex justify-between items-center">
                       <span className="my-5 text-sm text-slate-500 whitespace-nowrap">
-                        Thành tiền
+                        {t(`Thành tiền`)}
                       </span>
                       <span className="px-4 font-normal">
                         {changeCostWithDots(item.GiaBan * item.SoLuong)}đ
@@ -152,9 +153,9 @@ function UserOrderDetail() {
             </div>
             <div className="w-full flex py-2 justify-end">
               <div className="flex flex-col items-end mx-5">
-                <span className="text-sm py-1 text-slate-500">Tạm tính</span>
-                <span className="text-sm py-1 text-slate-500">Phí vận chuyển</span>
-                <span className="text-sm py-1 text-slate-500">Tổng cộng</span>
+                <span className="text-sm py-1 text-slate-500">{t(`Tạm tính`)}</span>
+                <span className="text-sm py-1 text-slate-500">{t(`Phí vận chuyển`)}</span>
+                <span className="text-sm py-1 text-slate-500">{t(`Tổng cộng`)}</span>
               </div>
               <div className="flex flex-col items-end px-4">
                 <span className="text-sm py-1">{changeCostWithDots(total)}đ</span>
@@ -175,7 +176,9 @@ function UserOrderDetail() {
         }`}
       >
         <BsArrowLeftShort className="w-5 h-5 lg:w-8 lg:h-8 cursor-pointer" />
-        <span className="text-sm cursor-pointer lg:text-base">Quay lại đơn hàng của tôi</span>
+        <span className="text-sm cursor-pointer lg:text-base">
+          {t(`Quay lại đơn hàng của tôi`)}
+        </span>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/path'
 import logo from '../../assets/images/logo.png'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { Fragment, useCallback, useContext, useEffect, useState } from 'react'
 import Sidebar from '../Sidebar'
 import clsx from 'clsx'
 import Context from '../../store/Context'
@@ -16,8 +16,10 @@ import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
 import avatar from '../../assets/images/avatar.jpg'
 import useClickOutside from '../../hooks/useClickOutside'
 import Language from '../Language'
+import { useTranslation } from 'react-i18next'
 
 const Navbar = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [, setData] = useState([])
   const [open, setOpen] = useState(false)
@@ -81,7 +83,7 @@ const Navbar = () => {
             <Link to={PATH.main} className="flex justify-center items-center gap-x-2 ">
               <img className="w-10 h-10 lg:w-16 lg:h-16 rounded-full" src={logo} alt="bookstore" />
               <span className="font-bold font-lobster text-2xl lg:text-4xl text-white lg:text-slate-700">
-                Book Store
+                {t(`Book Store`)}
               </span>
             </Link>
 
@@ -112,29 +114,29 @@ const Navbar = () => {
                             }}
                             className="p-2 hover:bg-gray-300"
                           >
-                            Admin
+                            {t(`Quản trị viên`)}
                           </li>
                         )}
                         <li
                           onClick={() => navigate(PATH.profile.dashboard)}
                           className="p-2 hover:bg-slate-300"
                         >
-                          Thông tin tài khoản
+                          {t(`Thông tin tài khoản`)}
                         </li>
                         <li
                           onClick={() => navigate(PATH.profile.user_order_management)}
                           className="p-2 hover:bg-slate-300"
                         >
-                          Quản lý đơn hàng
+                          {t(`Quản lý đơn hàng`)}
                         </li>
                         <li
                           onClick={() => navigate(PATH.profile.user_review)}
                           className="p-2 hover:bg-slate-300"
                         >
-                          Đánh giá sản phẩm
+                          {t(`Đánh giá sản phẩm`)}
                         </li>
                         <li onClick={logout} className="p-2 hover:bg-slate-300">
-                          Đăng xuất
+                          {t(`Đăng xuất`)}
                         </li>
                       </ul>
                     )}
@@ -161,7 +163,9 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <Language />
+              <div className="hidden lg:block">
+                <Language />
+              </div>
             </div>
           </div>
 

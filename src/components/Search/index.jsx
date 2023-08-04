@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import axiosConfig from '../../config/axiosConfig'
 import { API } from '../../constants/api'
 import useClickOutside from '../../hooks/useClickOutside'
+import { useTranslation } from 'react-i18next'
 
 const Search = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [data, setData] = useState([])
   const [query, setQuery] = useState('')
@@ -38,7 +40,7 @@ const Search = () => {
       <input
         className=" bg-white text-sm md:text-base outline-0 flex w-full pl-2"
         type="text"
-        placeholder="Tìm kiếm sản phẩm..."
+        placeholder={t(`Tìm kiếm sản phẩm...`)}
         name="search"
         autoComplete="off"
         value={query ? query : undefined}

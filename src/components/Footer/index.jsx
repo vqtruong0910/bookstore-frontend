@@ -11,26 +11,28 @@ import { IoMdContacts } from 'react-icons/io'
 import { ImNewspaper } from 'react-icons/im'
 import { PATH } from '../../constants/path'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 function Footer() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const serviceData = [
-    { id: 1, name: 'Điều khoản sử dụng', link: PATH.terms.using },
-    { id: 2, name: 'Chính sách bảo mật thông tin cá nhân', link: PATH.terms.user_infor_privacy },
-    { id: 3, name: 'Chính sách bảo mật thanh toán', link: PATH.terms.payment_privacy },
+    { id: 1, name: t('Điều khoản sử dụng'), link: PATH.terms.using },
+    { id: 2, name: t('Chính sách bảo mật thông tin cá nhân'), link: PATH.terms.user_infor_privacy },
+    { id: 3, name: t('Chính sách bảo mật thanh toán'), link: PATH.terms.payment_privacy },
   ]
 
   const helpData = [
-    { id: 1, name: 'Chính sách vận chuyển', link: PATH.terms.transport },
-    { id: 2, name: 'Chính sách khách sỉ', link: PATH.terms.wholesale_customer_policy },
+    { id: 1, name: t('Chính sách vận chuyển'), link: PATH.terms.transport },
+    { id: 2, name: t('Chính sách khách sỉ'), link: PATH.terms.wholesale_customer_policy },
   ]
 
-  const accountData = [{ id: 1, name: 'Đăng nhập/Tạo mới tài khoản', link: PATH.login }]
+  const accountData = [{ id: 1, name: t('Đăng nhập/Tạo mới tài khoản'), link: PATH.login }]
 
   const contactData = [
     {
       id: 1,
-      name: '273 An Dương Vương, Quận 5, TP.HCM',
+      name: t('273 An Dương Vương, Quận 5, TP.HCM'),
       icon: <GoLocation className="w-5 h-5 mt-1 mr-1" />,
     },
     { id: 2, name: 'BookStoreCSKH@gmail.com', icon: <HiMail className="w-5 h-5 mt-1 mr-1" /> },
@@ -56,8 +58,8 @@ function Footer() {
         </div>
 
         <p className="w-full text-sm md:text-base mt-2 leading-6 px-4">
-          Book Store nhận đặt hàng trực tuyến và giao hàng tận nơi. KHÔNG hỗ trợ đặt mua và nhận
-          hàng trực tiếp tại văn phòng.
+          {t(`Book Store nhận đặt hàng trực tuyến và giao hàng tận nơi. `)}
+          {t(`KHÔNG hỗ trợ đặt mua và nhận hàng trực tiếp tại văn phòng.`)}
         </p>
 
         <div className="mt-3 w-full flex items-center px-4">
@@ -80,7 +82,9 @@ function Footer() {
             <li className="w-full mt-10 ">
               <div className="flex w-full">
                 <ImNewspaper className="w-6 h-6 my-0.5 mr-1" />
-                <span className="mr-4 md:mr-6 md:text-base lg:text-lg font-semibold">DỊCH VỤ</span>
+                <span className="mr-4 md:mr-6 md:text-base lg:text-lg font-semibold">
+                  {t(`DỊCH VỤ`)}
+                </span>
               </div>
               <ul className="flex flex-col my-2">
                 {serviceData.map((item, index) => {
@@ -101,7 +105,9 @@ function Footer() {
             <li className="w-full mt-10">
               <div className="flex w-full">
                 <FiHelpCircle className="w-6 h-6 my-0.5 mr-1" />
-                <span className="mr-4 md:mr-6 md:text-base lg:text-lg font-semibold">HỖ TRỢ</span>
+                <span className="mr-4 md:mr-6 md:text-base lg:text-lg font-semibold">
+                  {t(`HỖ TRỢ`)}
+                </span>
               </div>
 
               <ul className="flex flex-col my-2">
@@ -124,7 +130,7 @@ function Footer() {
               <div className="flex w-full">
                 <BsPersonCircle className="w-6 h-6 my-0.5 mr-1" />
                 <span className="mr-4 md:mr-6 md:text-base lg:text-lg font-semibold">
-                  TÀI KHOẢN CỦA TÔI
+                  {t(`TÀI KHOẢN CỦA TÔI`)}
                 </span>
               </div>
               <ul className="flex flex-col my-2">
@@ -146,7 +152,9 @@ function Footer() {
             <li className="w-full mt-10">
               <div className="flex w-full cursor-pointer">
                 <IoMdContacts className="w-6 h-6 my-0.5 mr-1" />
-                <span className="mr-4 md:mr-6 md:text-base lg:text-lg font-semibold">LIÊN HỆ</span>
+                <span className="mr-4 md:mr-6 md:text-base lg:text-lg font-semibold">
+                  {t(`LIÊN HỆ`)}
+                </span>
               </div>
               <ul className="flex flex-col my-2">
                 {contactData.map((item, index) => {

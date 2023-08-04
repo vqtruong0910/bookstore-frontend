@@ -5,8 +5,11 @@ import logo from '../../../assets/images/logo.png'
 import { PATH } from '../../../constants/path'
 import Card from '../../../components/Card'
 import { Fragment } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const PopularBook = ({ data, settings }) => {
+  const { t } = useTranslation()
+
   return (
     <div className="w-full xl:w-4/5 lg:mx-auto rounded-md border border-gray-200 drop-shadow-md bg-white py-10">
       <div className="flex w-full justify-center items-center pb-2 border-gray-300">
@@ -17,7 +20,7 @@ const PopularBook = ({ data, settings }) => {
             alt="best-seller"
           />
           <span className="w-full flex text-2xl font-bolder font-lobster lg:text-4xl md:text-3xl text-orange-500">
-            Sách phổ biến
+            {t(`Sách phổ biến`)}
           </span>
         </div>
       </div>
@@ -27,7 +30,7 @@ const PopularBook = ({ data, settings }) => {
           src={logo}
           alt="bookstore"
         />
-        <div className="font-lobster">by Bookstore</div>
+        <div className="font-lobster">{t(`Bookstore`)}</div>
       </div>
 
       <div className="w-full">
@@ -46,7 +49,7 @@ const PopularBook = ({ data, settings }) => {
             to={PATH.category.dashboard}
             className="font-semibold text-md border-gray-200 bg-gradient-to-tl from-yellow-300 to-orange-700 text-white hover:opacity-90 rounded-full px-14 py-2"
           >
-            Xem thêm
+            {t(`Xem thêm`)}
           </Link>
         </div>
       </div>

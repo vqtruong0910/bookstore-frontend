@@ -1,9 +1,10 @@
 import i18n from 'i18next'
-import enLanguage from '../locales/en/translation.json'
+import enLanguage from '../locales/en/translation'
 import viLanguage from '../locales/vi/translation'
-import { initReactI18next } from 'react-i18next'
+import ciLanguage from '../locales/ci/translation'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
-i18n.use(initReactI18next).init({
+i18n.use(LanguageDetector).init({
   // init data
   resources: {
     en: {
@@ -12,11 +13,22 @@ i18n.use(initReactI18next).init({
     vi: {
       translation: viLanguage,
     },
+    ci: {
+      translation: ciLanguage,
+    },
   },
-  lng: 'vi', // if you're using a language detector, do not define the lng option
+  // if you're using a language detector, do not define the lng option
+  lng: localStorage.getItem('NEXT_LOCALE') ?? 'vi',
   fallbackLng: 'vi',
   interpolation: {
-    escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+    // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+    escapeValue: false,
+  },
+  detection: {
+    order: ['localStorage', 'navigator'],
+    lookupQuerystring: 'lng',
+    lookupLocalStorage: 'NEXT_LOCALE',
+    caches: ['localStorage'],
   },
 })
 
