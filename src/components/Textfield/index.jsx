@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { useController } from 'react-hook-form'
 import custom from './style.module.scss'
+import { useTranslation } from 'react-i18next'
 
 function Textfield({
   marginX,
@@ -16,7 +17,9 @@ function Textfield({
   name,
   rules,
 }) {
+  const { t } = useTranslation()
   const { field, fieldState } = useController({ control, name, rules })
+
   return (
     <div className={clsx('flex flex-col', marginY, marginX, marginT, marginB)}>
       <input
@@ -33,7 +36,7 @@ function Textfield({
         disabled={disabled && true}
       />
       {fieldState.error && (
-        <span className="px-2 italic text-sm text-red-500">{fieldState.error.message}*</span>
+        <span className="px-2 italic text-sm text-red-500">{t(fieldState.error.message)}*</span>
       )}
     </div>
   )

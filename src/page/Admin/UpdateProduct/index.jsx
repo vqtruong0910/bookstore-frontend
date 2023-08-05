@@ -15,8 +15,10 @@ import Loading from '../../../components/Loading'
 import { useLocation } from 'react-router-dom'
 import LoadingSmaller from '../../../assets/svg/LoadingSmaller'
 import imageAvailable from '../../../assets/images/no-image-found.b1edc35f0fa6.png'
+import { useTranslation } from 'react-i18next'
 
 function UpdateProduct() {
+  const { t } = useTranslation()
   const { state } = useLocation()
   const [fileImage, setFileImage] = useState()
   const [loadingState, setLoadingState] = useState(false)
@@ -111,10 +113,10 @@ function UpdateProduct() {
       await axiosJWT.put(`${API.CREATE_PRODUCT}/${state?.IDSanPham}`, rest, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
-      window.alert('Cập nhật sản phẩm thành công')
+      window.alert(t('Cập nhật sản phẩm thành công'))
     } catch (error) {
       console.log(error)
-      window.alert('Cập nhật sản phẩm thất bại')
+      window.alert(t('Cập nhật sản phẩm thất bại'))
     } finally {
       setLoadingState(false)
     }
@@ -134,7 +136,7 @@ function UpdateProduct() {
       return <Loading />
     }
     if (value.isError) {
-      return <div>Đã có lỗi khi lấy dữ liệu 😥</div>
+      return <div>{t(`Đã có lỗi khi lấy dữ liệu `)}😥</div>
     }
   }
 
@@ -142,39 +144,39 @@ function UpdateProduct() {
     return <Loading />
   }
   if (isError) {
-    return <div>Đã có lỗi khi lấy dữ liệu 😥</div>
+    return <div>{t(`Đã có lỗi khi lấy dữ liệu `)}😥</div>
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex">
-        <h2 className="text-xl font-semibold">Cập Nhật Sản phẩm</h2>
+        <h2 className="text-xl font-semibold">{t('Cập Nhật Sản Phẩm')}</h2>
         {loadingState ? (
           <button
             className="w-28 px-3 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors ml-auto"
             disabled
           >
-            <LoadingSmaller /> Loading...
+            <LoadingSmaller /> {t(`Đang tải`)}...
           </button>
         ) : (
           <button className="w-28 px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors ml-auto">
-            Xác nhận
+            {t(`Xác nhận`)}
           </button>
         )}
       </div>
       <div className="grid sm:grid-cols-5 grid-cols-1 grid-flow-dense py-2 gap-4">
         <div className="col-span-1 sm:col-span-3">
-          <span className="font-medium text-slate-700">Tên sản phẩm</span>
+          <span className="font-medium text-slate-700">{t(`Tên sản phẩm`)}</span>
           <Textfield
             rounded="rounded-sm"
             name="TenSanPham"
             control={control}
             rules={VALIDATE.name}
-            placeholder="Truyện cười Việt Nam..."
+            placeholder={t('Tên sản phẩm...')}
           />
         </div>
         <div className="col-span-1 sm:col-span-3 row-span-2">
-          <span className="font-medium text-slate-700">Nội dung</span>
+          <span className="font-medium text-slate-700">{t(`Nội dung`)}</span>
           <textarea
             {...register('TomTatND', VALIDATE.content)}
             className={clsx(
@@ -183,14 +185,14 @@ function UpdateProduct() {
               'outline-none p-4 w-full border resize-none overflow-scroll'
             )}
             rows="6"
-            placeholder="Mô tả sản phẩm..."
+            placeholder={t('Mô tả sản phẩm...')}
           ></textarea>
           {errors.TomTatND && (
-            <span className="px-2 italic text-sm text-red-500">{errors.TomTatND.message}*</span>
+            <span className="px-2 italic text-sm text-red-500">{t(errors.TomTatND.message)}*</span>
           )}
         </div>
         <div className="col-span-1 sm:col-span-3">
-          <span className="font-medium text-slate-700">Tác giả</span>
+          <span className="font-medium text-slate-700">{t(`Tác giả`)}</span>
           <MenuSelect
             name="IDTacGia"
             control={control}
@@ -199,7 +201,7 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span className="font-medium text-slate-700">Danh mục</span>
+          <span className="font-medium text-slate-700">{t(`Danh mục`)}</span>
           <MenuSelect
             name="IDDanhMuc"
             control={control}
@@ -208,7 +210,7 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span className="font-medium text-slate-700">Thể loại</span>
+          <span className="font-medium text-slate-700">{t(`Thể loại`)}</span>
           <MenuSelect
             name="IDTheLoai"
             control={control}
@@ -217,7 +219,7 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span className="font-medium text-slate-700">Nhà xuất bản</span>
+          <span className="font-medium text-slate-700">{t(`Nhà xuất bản`)}</span>
           <MenuSelect
             name="IDNhaXuatBan"
             control={control}
@@ -226,65 +228,65 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span className="font-medium text-slate-700">Đơn vị tính</span>
+          <span className="font-medium text-slate-700">{t(`Đơn vị tính`)}</span>
           <Textfield
             rounded="rounded-sm"
             name="DonViTinh"
             control={control}
             rules={VALIDATE.unit}
-            placeholder="VD: Cuốn"
+            placeholder={`${t('Ví dụ')}: Cuốn`}
           />
         </div>
         <div className="col-span-1 sm:col-span-3 grid grid-cols-2 gap-4">
           <div className="col-span-2 sm:col-span-1">
-            <span className="font-medium text-slate-700">Giá bán</span>
+            <span className="font-medium text-slate-700">{t(`Giá bán`)}</span>
             <Textfield
               type="number"
               rounded="rounded-sm"
               name="GiaBan"
               control={control}
               rules={VALIDATE.price}
-              placeholder="120000"
+              placeholder={`${t('Ví dụ')}: 120000`}
             />
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <span className="font-medium text-slate-700">Phần trăm giảm giá</span>
+            <span className="font-medium text-slate-700">{t(`Phần trăm giảm giá`)}</span>
             <Textfield
               type="number"
               rounded="rounded-sm"
               name="GiamGia"
               control={control}
               rules={VALIDATE.discount}
-              placeholder="10"
+              placeholder={`${t('Ví dụ')}: 10`}
             />
           </div>
         </div>
         <div className="col-span-1 sm:col-span-2 grid grid-cols-2 gap-4">
           <div className="col-span-2 sm:col-span-1">
-            <span className="font-medium text-slate-700">Số lượng</span>
+            <span className="font-medium text-slate-700">{t(`Số lượng`)}</span>
             <Textfield
               type="number"
               rounded="rounded-sm"
               name="SoLuongConLai"
               control={control}
               rules={VALIDATE.count}
-              placeholder="120"
+              placeholder={`${t('Ví dụ')}: 100`}
             />
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <span className="font-medium text-slate-700">Số Trang</span>
+            <span className="font-medium text-slate-700">{t(`Số trang`)}</span>
             <Textfield
               type="number"
               rounded="rounded-sm"
               name="SoTrang"
               control={control}
               rules={VALIDATE.numberPage}
-              placeholder="10"
+              placeholder={`${t('Ví dụ')}: 100`}
             />
           </div>
         </div>
         <div className="col-span-1 sm:col-span-3 ">
-          <span className="font-medium text-slate-700">Hình ảnh</span>
+          <span className="font-medium text-slate-700">{t(`Hình ảnh`)}</span>
           <DropFile
             name="HinhAnh"
             control={control}
@@ -293,7 +295,7 @@ function UpdateProduct() {
           />
         </div>
         <div className="col-span-1 sm:col-span-2">
-          <span className="font-medium text-slate-700">Xem Trước</span>
+          <span className="font-medium text-slate-700">{t(`Xem Trước`)}</span>
           <PreviewImage fileImage={fileImage} handleImageError={handleImageError} />
         </div>
       </div>

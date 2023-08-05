@@ -69,7 +69,17 @@ function Language({ showName = false }) {
             className="w-12 h-10 py-1"
             alt="lng"
           />
-          {showName && <span className="text-sm font-medium">{t(`Tiếng Việt`)}</span>}
+          {showName && (
+            <span className="text-sm font-medium">
+              {defaultLanguage === 1
+                ? t(`Tiếng Việt`)
+                : defaultLanguage === 2
+                ? t(`Tiếng Anh`)
+                : defaultLanguage === 3
+                ? t('Tiếng Trung')
+                : t(`Tiếng Việt`)}
+            </span>
+          )}
         </div>
 
         <IoIosArrowDown className="text-slate-700" />

@@ -12,8 +12,10 @@ import style from './style.module.scss'
 import { useForm } from 'react-hook-form'
 import { VALIDATE } from '../../../constants/validate'
 import imageAvailable from '../../../assets/images/no-image-found.b1edc35f0fa6.png'
+import { useTranslation } from 'react-i18next'
 function ProductManage() {
   const id = useId()
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [page, setPage] = useState(1)
@@ -126,14 +128,14 @@ function ProductManage() {
   )
 
   const deleteProduct = useCallback((idProduct) => {
-    if (window.confirm('Bạn chắn chắn là muốn xóa sản phẩm này chứ'))
+    if (window.confirm(t('Bạn chắn chắn là muốn xóa sản phẩm này chứ!')))
       mutateAsync(idProduct)
         .then(() => {
-          window.alert('Xóa sản phẩm thành công')
+          window.alert(t('Xóa sản phẩm thành công'))
         })
         .catch((err) => {
           console.log(err)
-          window.alert('Xóa sản phẩm thất bại')
+          window.alert(t('Xóa sản phẩm thất bại'))
         })
   }, [])
 
@@ -160,18 +162,18 @@ function ProductManage() {
     return <Loading />
   }
   if (isError || isErrorCategory || isErrorTypeOfBook) {
-    return <h1>Không thể tải được dữ liệu 😥</h1>
+    return <h1>{t(`Không thể tải được dữ liệu `)}😥</h1>
   }
 
   return (
     <>
       <div className="flex space-x-2">
-        <h2 className="text-xl font-semibold">Sản phẩm</h2>
+        <h2 className="text-xl font-semibold">{t(`Sản phẩm`)}</h2>
         <Link
           to={PATH.admin.add_product}
           className="px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors"
         >
-          Thêm sản phẩm
+          {t(`Thêm sản phẩm`)}
         </Link>
       </div>
 
@@ -183,7 +185,7 @@ function ProductManage() {
                     </div> */}
           <form onSubmit={handleSubmit(submitFilter)} className="flex ml-auto space-x-3">
             <select {...register('DanhMuc')} className="rounded-sm border cursor-pointer">
-              <option value="">--Select--</option>
+              <option value="">--{t(`Lựa chọn`)}--</option>
               {category?.map((item) => (
                 <option key={item.IDDanhMuc} value={item.IDDanhMuc}>
                   {item.TenDanhMuc}
@@ -191,7 +193,7 @@ function ProductManage() {
               ))}
             </select>
             <select {...register('TheLoai')} className="rounded-sm border cursor-pointer">
-              <option value="">--Select--</option>
+              <option value="">--{t(`Lựa chọn`)}--</option>
               {typeOfBook?.map((item) => (
                 <option key={item.IDTheLoai} value={item.IDTheLoai}>
                   {item.TenTheLoai}
@@ -206,7 +208,7 @@ function ProductManage() {
             <input
               type="submit"
               className="rounded-sm border px-2 py-1 text-sm cursor-pointer bg-white"
-              value="Lọc"
+              value={t(`Tìm kiếm`)}
             />
             {search && (
               <input
@@ -220,7 +222,9 @@ function ProductManage() {
         </div>
 
         <div className="flex justify-end space-x-2 py-1">
-          <div className="px-2 border rounded-sm cursor-pointer">{products.TongSanPham} mục</div>
+          <div className="px-2 border rounded-sm cursor-pointer">
+            {products.TongSanPham} {t(` mục`)}
+          </div>
           <div className="px-2 border rounded-sm cursor-pointer" onClick={firstPage}>
             &#171;
           </div>
@@ -236,7 +240,7 @@ function ProductManage() {
               )}
               value={page}
               onChange={(e) => changePage(e)}
-            />{' '}
+            />
             &#47; {products?.SoLuongTrang}
           </div>
           <div className="px-2 border rounded-sm cursor-pointer" onClick={nextPage}>
@@ -254,14 +258,14 @@ function ProductManage() {
               <th className="p-2 min-w-[6rem] w-24">
                 <BsCardImage className="mx-auto w-full" />
               </th>
-              <th className="p-2 w-40 text-left min-w-[6rem]">Tên</th>
-              <th className="p-2 w-40 text-left min-w-[6rem]">Danh mục</th>
-              <th className="p-2 text-left min-w-[6rem]">Thể loại</th>
-              <th className="p-2 text-left min-w-[6rem]">Giá (VNĐ)</th>
-              <th className="p-2 text-center min-w-[6rem]">Giảm giá</th>
-              <th className="p-2 text-left min-w-[6rem]">Đơn vị</th>
-              <th className="p-2 text-left min-w-[7rem]">Ngày thêm</th>
-              <th className="p-2 text-center min-w-[6rem]">Số lượng</th>
+              <th className="p-2 w-40 text-left min-w-[6rem] whitespace-nowrap">{t(`Tên`)}</th>
+              <th className="p-2 w-40 text-left min-w-[6rem] whitespace-nowrap">{t(`Danh mục`)}</th>
+              <th className="p-2 text-left min-w-[6rem] whitespace-nowrap">{t(`Thể loại`)}</th>
+              <th className="p-2 text-left min-w-[6rem] whitespace-nowrap">{t(`Giá `)} (VNĐ)</th>
+              <th className="p-2 text-center min-w-[6rem] whitespace-nowrap">{t(`Giảm giá`)}</th>
+              <th className="p-2 text-left min-w-[6rem] whitespace-nowrap">{t(`Đơn vị`)}</th>
+              <th className="p-2 text-left min-w-[7rem] whitespace-nowrap">{t(`Ngày thêm`)}</th>
+              <th className="p-2 text-center min-w-[6rem] whitespace-nowrap">{t(`Số lượng`)}</th>
               <th className="p-2 text-center w-16"></th>
               <th className="p-2 text-center w-16"></th>
             </tr>

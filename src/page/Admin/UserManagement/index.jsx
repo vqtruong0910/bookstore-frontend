@@ -13,8 +13,10 @@ import { gender, permission, status, verifyEmail } from '../../../constants/stat
 import style from './style.module.scss'
 import Avartar from '../../../assets/images/—Pngtree—camera icon photography_4015139.png'
 import imageAvailable from '../../../assets/images/no-image-found.b1edc35f0fa6.png'
+import { useTranslation } from 'react-i18next'
 
 function UserManagement() {
+  const { t } = useTranslation()
   const id = useId()
   const queryClient = useQueryClient()
   const [page, setPage] = useState(1)
@@ -100,16 +102,16 @@ function UserManagement() {
 
   const onSubmit = useCallback((data) => {
     if (data.Quyen === user.Quyen && data.TrangThai === user.TrangThai) {
-      return window.alert('Không có sự thay đổi nào xảy ra !')
+      return window.alert(t('Không có sự thay đổi nào xảy ra!'))
     }
     console.log(data.Quyen, data.TrangThai)
     mutateAsync({ Quyen: data.Quyen, TrangThai: data.TrangThai })
       .then((res) => {
         console.log(res)
-        window.alert('Cập nhật thành công')
+        window.alert(t('Cập nhật tài khoản thành công'))
       })
       .catch(() => {
-        window.alert('Cập nhật thất bại')
+        window.alert(t('Cập nhật tài khoản thất bại'))
       })
   }, [])
   const handleImageError = useCallback((e) => {
@@ -120,13 +122,13 @@ function UserManagement() {
     return <Loading />
   }
   if (isError) {
-    return <h1>Không thể tải được dữ liệu 😥</h1>
+    return <h1>{t(`Không thể tải được dữ liệu `)}😥</h1>
   }
 
   return (
     <>
       <div className="flex space-x-2">
-        <h2 className="text-xl font-semibold">Tài khoản người dùng ✨</h2>
+        <h2 className="text-xl font-semibold">{t(`Tài khoản người dùng`)} ✨</h2>
       </div>
 
       <div className="py-2 space-y-1">
@@ -138,7 +140,9 @@ function UserManagement() {
                 </div> */}
 
         <div className="flex justify-end space-x-2 py-1 select-none">
-          <div className="px-2 border rounded-sm cursor-pointer">{users?.TongNguoiDung} mục</div>
+          <div className="px-2 border rounded-sm cursor-pointer">
+            {users?.TongNguoiDung} {t(` mục`)}
+          </div>
           <div className="px-2 border rounded-sm cursor-pointer" onClick={firstPage}>
             &#171;
           </div>
@@ -154,7 +158,7 @@ function UserManagement() {
               )}
               value={page}
               onChange={(e) => changePage(e)}
-            />{' '}
+            />
             &#47; {users?.SoLuongTrang}
           </div>
           <div className="px-2 border rounded-sm cursor-pointer" onClick={nextPage}>
@@ -173,13 +177,13 @@ function UserManagement() {
               <th className="p-2 min-w-[6rem]">
                 <BsCardImage className="mx-auto w-full" />
               </th>
-              <th className="p-2 text-left">Tên</th>
-              <th className="p-2 text-left">Email</th>
-              <th className="p-2 text-left">Giới tính</th>
-              <th className="p-2 text-left">Ngày Sinh</th>
-              <th className="p-2 text-left">Quyền</th>
-              <th className="p-2">Trạng thái</th>
-              <th className="p-2">Xác thực</th>
+              <th className="p-2 text-left whitespace-nowrap">{t(`Tên`)}</th>
+              <th className="p-2 text-left whitespace-nowrap">{t(`Email`)}</th>
+              <th className="p-2 text-left whitespace-nowrap">{t(`Giới tính`)}</th>
+              <th className="p-2 text-left whitespace-nowrap">{t(`Ngày sinh`)}</th>
+              <th className="p-2 text-left whitespace-nowrap">{t(`Quyền`)}</th>
+              <th className="p-2 whitespace-nowrap">{t(`Trạng thái`)}</th>
+              <th className="p-2 whitespace-nowrap">{t(`Xác thực`)}</th>
               <th className="p-2 md:table-cell"></th>
             </tr>
           </thead>
@@ -251,7 +255,7 @@ function UserManagement() {
           )}
         >
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col py-4 px-4 sm:p-6">
-            <span className="w-full flex text-slate-600 lg:text-lg">Thông tin cá nhân</span>
+            <span className="w-full flex text-slate-600 lg:text-lg">{t(`Thông tin cá nhân`)}</span>
             <div className="flex flex-col w-full justify-center h-full sm:px-10">
               <div className="flex relative py-4 justify-center">
                 <div className="flex justify-center items-center">
@@ -266,7 +270,7 @@ function UserManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Họ & Tên
+                    {t(`Họ & tên`)}
                   </span>
                 </div>
 
@@ -276,7 +280,7 @@ function UserManagement() {
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     type="text"
                     disabled
-                    placeholder="Họ tên"
+                    placeholder={t('Họ & tên')}
                   />
                 </div>
               </div>
@@ -284,7 +288,7 @@ function UserManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Email
+                    {t(`Email`)}
                   </span>
                 </div>
 
@@ -297,7 +301,7 @@ function UserManagement() {
                     )}
                     type="email"
                     disabled
-                    placeholder="Email"
+                    placeholder={t('Email')}
                   />
                 </div>
               </div>
@@ -305,7 +309,7 @@ function UserManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Ngày sinh
+                    {t(`Ngày sinh`)}
                   </span>
                 </div>
 
@@ -314,7 +318,7 @@ function UserManagement() {
                     {...register('NgaySinh')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     disabled
-                    placeholder="Ngày sinh"
+                    placeholder={t('Ngày sinh')}
                   />
                 </div>
               </div>
@@ -322,7 +326,7 @@ function UserManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Giới tính
+                    {t(`Giới tính`)}
                   </span>
                 </div>
                 <div className="w-2/3 lg:w-8/12 flex">
@@ -330,14 +334,14 @@ function UserManagement() {
                     {...register('GioiTinh')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     disabled
-                    placeholder="Giới tính"
+                    placeholder={t('Giới tính')}
                   />
                 </div>
               </div>
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Số điện thoại
+                    {t(`Số điện thoại`)}
                   </span>
                 </div>
 
@@ -346,7 +350,7 @@ function UserManagement() {
                     {...register('SoDienThoai')}
                     type="tel"
                     disabled
-                    placeholder="Số điện thoại"
+                    placeholder={t('Số điện thoại')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                   />
                 </div>
@@ -355,7 +359,7 @@ function UserManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Quyền
+                    {t(`Quyền`)}
                   </span>
                 </div>
 
@@ -364,15 +368,15 @@ function UserManagement() {
                     {...register('Quyen')}
                     className="border border-sky-200 w-full px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 text-sm lg:text-base"
                   >
-                    <option value="0">Admin</option>
-                    <option value="1">Khách hàng</option>
+                    <option value="0">{t(`Quản trị viên`)}</option>
+                    <option value="1">{t(`Khách hàng`)}</option>
                   </select>
                 </div>
               </div>
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Trạng thái
+                    {t(`Trạng thái`)}
                   </span>
                 </div>
 
@@ -381,8 +385,8 @@ function UserManagement() {
                     {...register('TrangThai')}
                     className="border border-sky-200 w-full px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 text-sm lg:text-base"
                   >
-                    <option value="0">Khóa tài khoản</option>
-                    <option value="1">Hoạt động</option>
+                    <option value="0">{t(`Khóa tài khoản`)}</option>
+                    <option value="1">{t(`Hoạt động`)}</option>
                   </select>
                 </div>
               </div>
@@ -394,13 +398,13 @@ function UserManagement() {
                   onClick={() => setFormUpdate(false)}
                   className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm"
                 >
-                  Trở lại
+                  {t(`Trở lại`)}
                 </button>
                 <button
                   type="submit"
                   className="py-2 px-3 bg-slate-700 hover:bg-slate-500 shadow-sm border transition rounded-sm text-white"
                 >
-                  Cập nhật
+                  {t(`Cập nhật`)}
                 </button>
               </div>
             </div>

@@ -12,8 +12,10 @@ import { API } from '../../constants/api'
 import { PATH } from '../../constants/path'
 import Context from '../../store/Context'
 import style from './style.module.scss'
+import { useTranslation } from 'react-i18next'
 
 function AdminLayout() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [stateMenu, setStateMenu] = useState(false)
   const { user, setUser } = useContext(Context)
@@ -87,12 +89,12 @@ function AdminLayout() {
                   <span className="block">{user.HoTen}</span>
                 </li>
                 <li>
-                  <span className="block">Administrator</span>
+                  <span className="block">{t(`Quản trị viên`)}</span>
                 </li>
                 <hr />
                 <li>
                   <button className="block w-full text-left" onClick={logOut}>
-                    Sign Out
+                    {t(`Đăng xuất`)}
                   </button>
                 </li>
               </ul>

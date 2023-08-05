@@ -11,9 +11,12 @@ import IconStatistical from '../../assets/svg/IconStatistical'
 import IconTypeBook from '../../assets/svg/IconTypeBook'
 import IconUser from '../../assets/svg/IconUser'
 import { PATH } from '../../constants/path'
+import Language from '../Language'
 import style from './style.module.scss'
+import { useTranslation } from 'react-i18next'
 
 function MenuAdmin({ stateMenu }) {
+  const { t } = useTranslation()
   const { pathname } = useLocation()
   const [stateMenuChild, setStateMenuChild] = useState({
     1: false, // San pham
@@ -49,7 +52,11 @@ function MenuAdmin({ stateMenu }) {
       >
         Book Store
       </Link>
+
       <ul className="mt-4 px-4">
+        <li>
+          <Language showName={true} />
+        </li>
         <li className="p-2">
           <Link className="flex items-center space-x-2 text-slate-200" to={PATH.admin.dashboard}>
             <span className="m-1">
@@ -61,10 +68,11 @@ function MenuAdmin({ stateMenu }) {
                 locationPage(PATH.admin.dashboard)
               )}
             >
-              Bảng điều khiển
+              {t(`Bảng điều khiển`)}
             </span>
           </Link>
         </li>
+
         <li
           className={clsx(stateMenuChild[1] && 'bg-slate-900 rounded-sm', 'p-2 transition-colors')}
         >
@@ -76,7 +84,7 @@ function MenuAdmin({ stateMenu }) {
               <IconProduct />
             </span>
             <span className="font-medium text-base text-slate-200 hover:text-slate-50 transition-colors">
-              Sản phẩm
+              {t(`Sản phẩm`)}
             </span>
             <span
               className={clsx(
@@ -100,7 +108,7 @@ function MenuAdmin({ stateMenu }) {
               )}
               to={PATH.admin.product_management}
             >
-              Xem sản phẩm
+              {t(`Xem sản phẩm`)}
             </Link>
             <Link
               className={clsx(
@@ -109,7 +117,7 @@ function MenuAdmin({ stateMenu }) {
               )}
               to={PATH.admin.add_product}
             >
-              Thêm sản phẩm
+              {t(`Thêm sản phẩm`)}
             </Link>
             <Link
               className={clsx(
@@ -118,7 +126,7 @@ function MenuAdmin({ stateMenu }) {
               )}
               to={PATH.admin.product_statistics}
             >
-              Thống kê sản phẩm
+              {t(`Thống kê sản phẩm`)}
             </Link>
           </div>
         </li>
@@ -133,7 +141,7 @@ function MenuAdmin({ stateMenu }) {
               <IconUser />
             </span>
             <span className="font-medium text-base text-slate-200 hover:text-slate-50 transition-colors">
-              Tài khoản
+              {t(`Tài khoản`)}
             </span>
             <span
               className={clsx(
@@ -157,7 +165,7 @@ function MenuAdmin({ stateMenu }) {
               )}
               to={PATH.admin.user_management}
             >
-              Quản lý tài khoản
+              {t(`Quản lý tài khoản`)}
             </Link>
           </div>
         </li>
@@ -172,7 +180,7 @@ function MenuAdmin({ stateMenu }) {
               <IconOrder />
             </span>
             <span className="font-medium text-base text-slate-200 hover:text-slate-50 transition-colors">
-              Đơn hàng
+              {t(`Đơn hàng`)}
             </span>
             <span
               className={clsx(
@@ -196,7 +204,7 @@ function MenuAdmin({ stateMenu }) {
               )}
               to={PATH.admin.order_management}
             >
-              Quản lý Đơn hàng
+              {t(`Quản lý Đơn hàng`)}
             </Link>
             <Link
               className={clsx(
@@ -205,7 +213,7 @@ function MenuAdmin({ stateMenu }) {
               )}
               to={PATH.admin.order_statistics}
             >
-              Thống kê đơn hàng
+              {t(`Thống kê đơn hàng`)}
             </Link>
           </div>
         </li>
@@ -223,7 +231,7 @@ function MenuAdmin({ stateMenu }) {
                 locationPage(PATH.admin.category)
               )}
             >
-              Danh mục & Thể loại
+              {t(`Danh mục & Thể loại`)}
             </span>
           </Link>
         </li>
@@ -241,7 +249,7 @@ function MenuAdmin({ stateMenu }) {
                 locationPage(PATH.admin.author_management)
               )}
             >
-              Tác giả
+              {t(`Tác giả`)}
             </span>
           </Link>
         </li>
@@ -259,7 +267,7 @@ function MenuAdmin({ stateMenu }) {
                 locationPage(PATH.admin.revenue_statistics)
               )}
             >
-              Thống kê doanh thu
+              {t(`Thống kê doanh thu`)}
             </span>
           </Link>
         </li>

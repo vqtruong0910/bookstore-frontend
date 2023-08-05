@@ -11,8 +11,10 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../../constants/path'
 import { statusOrder } from '../../../constants/statusOrder'
+import { useTranslation } from 'react-i18next'
 
 function OrderManagement() {
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
   const [page, setPage] = useState(1)
   const [formUpdate, setFormUpdate] = useState(false)
@@ -122,16 +124,16 @@ function OrderManagement() {
 
   const onSubmit = useCallback((data) => {
     if (data.TrangThai === order.TrangThai) {
-      return window.alert('Không có sự thay đổi nào xảy ra !')
+      return window.alert(t('Không có sự thay đổi nào xảy ra!'))
     }
     mutateAsync({ TrangThai: data.TrangThai })
       .then((res) => {
         console.log(res)
-        window.alert('Cập nhật thành công')
+        window.alert(t('Cập nhật đơn hàng thành công'))
         setFormUpdate(false)
       })
       .catch(() => {
-        window.alert('Cập nhật thất bại')
+        window.alert(t('Cập nhật đơn hàng thất bại'))
       })
   }, [])
 
@@ -139,11 +141,11 @@ function OrderManagement() {
     return <Loading />
   }
   if (isErrorOrders) {
-    return <h1>Không thể tải được dữ liệu 😥</h1>
+    return <h1>{t(`Không thể tải được dữ liệu `)}😥</h1>
   }
   return (
     <>
-      <h2 className="text-xl font-semibold">Đơn hàng ✨</h2>
+      <h2 className="text-xl font-semibold">{t(`Đơn hàng`)} ✨</h2>
       <div className="py-2 space-y-1">
         {/* <div className="hidden md:flex">
                     <div className="flex space-x-3">
@@ -175,7 +177,9 @@ function OrderManagement() {
                 </div> */}
 
         <div className="flex justify-end space-x-2 py-1 select-none">
-          <div className="px-2 border rounded-sm cursor-pointer">{orders?.TongDon} mục</div>
+          <div className="px-2 border rounded-sm cursor-pointer">
+            {orders?.TongDon} {t(` mục`)}
+          </div>
           <div className="px-2 border rounded-sm cursor-pointer" onClick={firstPage}>
             &#171;
           </div>
@@ -206,13 +210,13 @@ function OrderManagement() {
         <table className="border-collapse border rounded-sm w-full bg-white">
           <thead>
             <tr className="border bg-slate-800 text-slate-200">
-              <th className="p-2 text-left min-w-[8rem]">Tên người đặt</th>
-              <th className="p-2 text-left">Địa chỉ</th>
-              <th className="p-2 text-left min-w-[6rem]">Ngày đặt</th>
-              <th className="p-2 text-left min-w-[6rem]">Ngày giao</th>
-              <th className="p-2 text-center min-w-[6rem]">Số lượng</th>
-              <th className="p-2 text-left">Tổng</th>
-              <th className="p-2 text-center min-w-[8rem]">Trạng thái</th>
+              <th className="p-2 text-left min-w-[8rem] whitespace-nowrap">{t(`Tên người đặt`)}</th>
+              <th className="p-2 text-left whitespace-nowrap">{t(`Địa chỉ`)}</th>
+              <th className="p-2 text-left min-w-[6rem] whitespace-nowrap">{t(`Ngày đặt`)}</th>
+              <th className="p-2 text-left min-w-[6rem] whitespace-nowrap">{t(`Ngày giao`)}</th>
+              <th className="p-2 text-center min-w-[6rem] whitespace-nowrap">{t(`Số lượng`)}</th>
+              <th className="p-2 text-left whitespace-nowrap">{t(`Tổng`)}</th>
+              <th className="p-2 text-center min-w-[8rem] whitespace-nowrap">{t(`Trạng thái`)}</th>
               <th className="p-2 w-16"></th>
               <th className="p-2 w-16"></th>
             </tr>
@@ -275,12 +279,12 @@ function OrderManagement() {
           )}
         >
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col py-4 px-4 sm:p-6">
-            <span className="w-full flex text-slate-600 lg:text-lg">Thông tin đơn hàng</span>
+            <span className="w-full flex text-slate-600 lg:text-lg">{t(`Thông tin đơn hàng`)}</span>
             <div className="flex flex-col w-full justify-center h-full sm:px-10">
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Tên Người Đặt
+                    {t(`Tên người đặt`)}
                   </span>
                 </div>
 
@@ -290,7 +294,7 @@ function OrderManagement() {
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     type="text"
                     disabled
-                    placeholder="Họ tên"
+                    placeholder={t('Họ & tên')}
                   />
                 </div>
               </div>
@@ -298,7 +302,7 @@ function OrderManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Địa chỉ
+                    {t(`Địa chỉ`)}
                   </span>
                 </div>
 
@@ -308,7 +312,7 @@ function OrderManagement() {
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     type="text"
                     disabled
-                    placeholder="Địa chỉ"
+                    placeholder={t('Địa chỉ')}
                   />
                 </div>
               </div>
@@ -316,7 +320,7 @@ function OrderManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Ngày đặt
+                    {t(`Ngày đặt`)}
                   </span>
                 </div>
 
@@ -325,7 +329,7 @@ function OrderManagement() {
                     {...register('NgayDat')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     disabled
-                    placeholder="Ngày đặt"
+                    placeholder={t('Ngày đặt')}
                   />
                 </div>
               </div>
@@ -333,7 +337,7 @@ function OrderManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Ngày Giao
+                    {t(`Ngày giao`)}
                   </span>
                 </div>
 
@@ -342,7 +346,7 @@ function OrderManagement() {
                     {...register('NgayGiao')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     disabled
-                    placeholder="Ngày giao"
+                    placeholder={t('Ngày giao')}
                   />
                 </div>
               </div>
@@ -350,7 +354,7 @@ function OrderManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Số Lượng
+                    {t(`Số lượng`)}
                   </span>
                 </div>
                 <div className="w-2/3 lg:w-8/12 flex">
@@ -358,14 +362,14 @@ function OrderManagement() {
                     {...register('SoLuong')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     disabled
-                    placeholder="Số Lượng"
+                    placeholder={t('Số lượng')}
                   />
                 </div>
               </div>
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Số điện thoại
+                    {t(`Số điện thoại`)}
                   </span>
                 </div>
 
@@ -374,7 +378,7 @@ function OrderManagement() {
                     {...register('SoDienThoai')}
                     type="tel"
                     disabled
-                    placeholder="Số điện thoại"
+                    placeholder={t('Số điện thoại')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                   />
                 </div>
@@ -383,7 +387,7 @@ function OrderManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Tổng tiền
+                    {t(`Tổng tiền`)}
                   </span>
                 </div>
 
@@ -392,7 +396,7 @@ function OrderManagement() {
                     {...register('TongTien')}
                     type="number"
                     disabled
-                    placeholder="TongTien"
+                    placeholder={t('Tổng tiền')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                   />
                 </div>
@@ -401,7 +405,7 @@ function OrderManagement() {
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Trạng thái
+                    {t(`Trạng thái`)}
                   </span>
                 </div>
 
@@ -410,10 +414,10 @@ function OrderManagement() {
                     {...register('TrangThai')}
                     className="border border-sky-200 w-full px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 text-sm lg:text-base"
                   >
-                    <option value="0">Chưa xử lý</option>
-                    <option value="1">Hủy đơn hàng</option>
-                    <option value="2">Đang Giao</option>
-                    <option value="3">Giao thành công</option>
+                    <option value="0">{t(`Chưa xử lý`)}</option>
+                    <option value="1">{t(`Hủy đơn hàng`)}</option>
+                    <option value="2">{t(`Đang giao`)}</option>
+                    <option value="3">{t(`Giao thành công`)}</option>
                   </select>
                 </div>
               </div>
@@ -425,13 +429,13 @@ function OrderManagement() {
                   onClick={() => setFormUpdate(false)}
                   className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm"
                 >
-                  Trở lại
+                  {t(`Trở lại`)}
                 </button>
                 <button
                   type="submit"
                   className="py-2 px-3 bg-slate-700 hover:bg-slate-500 shadow-sm border transition rounded-sm text-white"
                 >
-                  Cập nhật
+                  {t(`Cập nhật`)}
                 </button>
               </div>
             </div>
