@@ -1,9 +1,16 @@
 import { useMemo, useState, useEffect, useReducer } from 'react'
 import Context from './Context'
 import { cartReducer, initializer } from '../reducers/cartReducers'
+import { useTranslation } from 'react-i18next'
 
 function Provider({ children }) {
+  const { i18n } = useTranslation()
   const [darkTheme, setDarkTheme] = useState(false)
+  const [defaultLanguage, setDefaultLanguage] = useState({
+    1: localStorage.getItem('NEXT_LOCALE') === 'vi' ? true : false,
+    2: localStorage.getItem('NEXT_LOCALE') === 'en' ? true : false,
+    3: localStorage.getItem('NEXT_LOCALE') === 'ci' ? true : false,
+  })
 
   const defaultUser = useMemo(() => {
     try {
@@ -21,9 +28,39 @@ function Provider({ children }) {
     localStorage.setItem('userTheme', !darkTheme ? 'dark' : 'light')
   }
 
+  const handleChangeVI = () => {
+    setDefaultLanguage(1)
+    i18n.changeLanguage('vi')
+  }
+
+  const handleChangeEN = () => {
+    setDefaultLanguage(2)
+    i18n.changeLanguage('en')
+  }
+
+  const handleChangeCI = () => {
+    setDefaultLanguage(3)
+    i18n.changeLanguage('ci')
+  }
+
   useEffect(() => {
-    localStorage.setItem('userCart', JSON.stringify(cart))
-  }, [cart])
+    if (localStorage.getItem('NEXT_LOCALE')) {
+      switch (localStorage.getItem('NEXT_LOCALE')) {
+        case 'vi':
+          setDefaultLanguage(1)
+          break
+        case 'en':
+          setDefaultLanguage(2)
+          break
+        case 'ci':
+          setDefaultLanguage(3)
+          break
+        default:
+          setDefaultLanguage(1)
+          break
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (localStorage.getItem('userTheme') === 'dark') {
@@ -32,6 +69,10 @@ function Provider({ children }) {
       setDarkTheme(false)
     }
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('userCart', JSON.stringify(cart))
+  }, [cart])
 
   return (
     <Context.Provider
@@ -43,6 +84,10 @@ function Provider({ children }) {
         darkTheme,
         setDarkTheme,
         toggleDarkTheme,
+        defaultLanguage,
+        handleChangeVI,
+        handleChangeEN,
+        handleChangeCI,
       }}
     >
       {children}

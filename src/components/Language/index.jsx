@@ -3,51 +3,14 @@ import useClickOutside from '../../hooks/useClickOutside'
 import vi from '../../assets/images/vi.png'
 import en from '../../assets/images/en.png'
 import ci from '../../assets/images/ci.png'
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import Context from '../../store/Context'
 
 function Language({ showName = false }) {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { show, nodeRef } = useClickOutside()
-  const [defaultLanguage, setDefaultLanguage] = useState({
-    1: localStorage.getItem('NEXT_LOCALE') === 'vi' ? true : false,
-    2: localStorage.getItem('NEXT_LOCALE') === 'en' ? true : false,
-    3: localStorage.getItem('NEXT_LOCALE') === 'ci' ? true : false,
-  })
-
-  const handleChangeVI = () => {
-    setDefaultLanguage(1)
-    i18n.changeLanguage('vi')
-  }
-
-  const handleChangeEN = () => {
-    setDefaultLanguage(2)
-    i18n.changeLanguage('en')
-  }
-
-  const handleChangeCI = () => {
-    setDefaultLanguage(3)
-    i18n.changeLanguage('ci')
-  }
-
-  useEffect(() => {
-    if (localStorage.getItem('NEXT_LOCALE')) {
-      switch (localStorage.getItem('NEXT_LOCALE')) {
-        case 'vi':
-          setDefaultLanguage(1)
-          break
-        case 'en':
-          setDefaultLanguage(2)
-          break
-        case 'ci':
-          setDefaultLanguage(3)
-          break
-        default:
-          setDefaultLanguage(1)
-          break
-      }
-    }
-  }, [])
+  const { defaultLanguage, handleChangeCI, handleChangeEN, handleChangeVI } = useContext(Context)
 
   return (
     <div
