@@ -17,8 +17,7 @@ import LoadingSkeletonDetailBook from '../../components/Loading/LoadingSkeletonD
 import useCart from '../../hooks/useCart'
 import { API } from '../../constants/api'
 import { useTranslation } from 'react-i18next'
-import avatar from '../../assets/images/avatar.jpg'
-import shopping from '../../assets/images/shopping.png'
+import star from '../../assets/images/star.png'
 
 const DetailBook = () => {
   const { t } = useTranslation()
@@ -385,8 +384,10 @@ const DetailBook = () => {
             </div> */}
 
             <div className="flex flex-col gap-2 my-10 items-center w-full">
-              <img src={shopping} alt="" className="w-36 h-28 md:w-48 md:h-40" />
-              <span className="text-gray-400">Chưa có đánh giá nào cho sản phẩm này</span>
+              <img src={star} alt="img" className="w-40 h-40 mx-auto" />
+              <span className="text-lg text-gray-400">
+                {t(`Chưa có đánh giá nào cho sản phẩm này`)}
+              </span>
             </div>
 
             {/* <div className="flex flex-wrap w-full justify-end items-center px-4 mt-4">

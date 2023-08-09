@@ -1,34 +1,32 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import Context from '../../store/Context'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../firebase/firebase-config'
-import Textarea from '../../components/Textarea'
-import { VALIDATE } from '../../constants/validate'
 import { BiPencil } from 'react-icons/bi'
 import Comment from '../../components/Comment'
+import star from '../../assets/images/star.png'
 
 function NotEvaluated() {
   const { t } = useTranslation()
   const { user } = useContext(Context)
   const [data, setData] = useState([])
   const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState(null)
 
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const handleClick = (item) => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
+    setOpen(true)
+    setSelected(item)
   }
-
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { isValid },
-  } = useForm({ mode: 'onBlur' })
 
   useEffect(() => {
     const getDataFirebase = async () => {
@@ -46,10 +44,15 @@ function NotEvaluated() {
     getDataFirebase()
   }, [])
 
-  console.log(data)
-
   return (
     <>
+      {!data && (
+        <div className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg">
+          <img src={star} alt="img" className="w-40 h-40 mx-auto" />
+          <span className="text-lg text-gray-400">{t(`Chưa có sản phẩm nào chờ đánh giá`)}</span>
+        </div>
+      )}
+
       {data.length > 0 &&
         data?.map((item) => (
           <Fragment key={item.IDChiTietDonHang}>
@@ -66,7 +69,7 @@ function NotEvaluated() {
                     </span>
 
                     <span className="w-full text-gray-500 text-sm lg:text-base">
-                      Danh mục: {item.TenDanhMuc}
+                      {t(`Danh mục`)}: {item.TenDanhMuc}
                     </span>
 
                     <span className="w-full my-0.5 font-normal text-red-500 lg:text-lg">
@@ -78,7 +81,7 @@ function NotEvaluated() {
 
               <div className="w-full flex justify-center py-2 cursor-pointer">
                 <button
-                  onClick={() => setOpen(!open)}
+                  onClick={() => handleClick(item)}
                   type="button"
                   className="px-3 py-2 gap-1 rounded-md flex items-center justify-center border-blue-500 border-2 transition"
                 >
@@ -86,41 +89,11 @@ function NotEvaluated() {
                   <span className="font-normal text-blue-500">{t(`Thêm nhận xét/đánh giá`)}</span>
                 </button>
               </div>
-
-              <Comment id={item.IDSanPham} open={open} />
-
-              {/* <form onSubmit={handleSubmit(onSubmit)} className="w-full border-t-2 px-4">
-                <div className="w-full py-2">
-                  <div className="w-full">
-                    <span className="font-semibold text-blue-500">
-                      {t(`Điều gì làm bạn hài lòng?`)}
-                    </span>
-                  </div>
-
-                  <Textarea
-                    control={control}
-                    name={`review-book-${item.IDSanPham}`}
-                    id={`review-book-${item.IDSanPham}`}
-                    placeholder={t('Hãy chia sẻ cảm nhận, đánh giá của bạn về sản phẩm này nhé.')}
-                    rules={VALIDATE.review}
-                  />
-
-                  <div className="w-full flex justify-center py-2 cursor-pointer">
-                    <button
-                      type="submit"
-                      className="px-3 py-2 gap-1 rounded-md flex items-center justify-center border-blue-500 border-2 transition"
-                    >
-                      <BiPencil className="text-blue-500" />
-                      <span className="font-normal text-blue-500">
-                        {t(`Thêm nhận xét/đánh giá`)}
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </form> */}
             </div>
           </Fragment>
         ))}
+
+      <Comment open={open} item={selected} setOpen={setOpen} />
     </>
   )
 }

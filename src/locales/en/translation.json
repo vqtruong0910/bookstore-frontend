@@ -390,5 +390,10 @@
   "Tên tác giả": "Author name",
   "Thông tin tác giả": "Author information",
   "Biểu đồ thể hiện doanh thu trong tuần": "Chart showing weekly revenue",
-  "ĐÁNH GIÁ - NHẬN XÉT TỪ KHÁCH HÀNG": "FEEDBACK - CUSTOMER REVIEWS"
+  "ĐÁNH GIÁ - NHẬN XÉT TỪ KHÁCH HÀNG": "FEEDBACK - CUSTOMER REVIEWS",
+  "Chưa có đánh giá nào cho sản phẩm này": "No reviews available for this product",
+  "Chưa có sản phẩm nào chờ đánh giá": "No products awaiting review",
+  "Thêm nhận xét/đánh giá": "Add comment/review",
+  "Chưa có đánh giá": "No reviews yet.",
+  "Chưa có đơn hàng": "No orders yet."
 }

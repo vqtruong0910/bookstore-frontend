@@ -2,6 +2,7 @@ import { BsFillCartCheckFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import { PATH } from '../../constants/path'
 import { useTranslation } from 'react-i18next'
+import emptyOrder from '../../assets/images/empty-order.png'
 
 const DeliveredOrder = ({ data }) => {
   const { t } = useTranslation()
@@ -65,7 +66,15 @@ const DeliveredOrder = ({ data }) => {
             )
           }
 
-          return null
+          return (
+            <div
+              key={index}
+              className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg"
+            >
+              <img src={emptyOrder} alt="img" className="w-40 h-40 mx-auto" />
+              <span className="text-lg text-gray-400">{t(`Chưa có đơn hàng`)}</span>
+            </div>
+          )
         })}
     </>
   )

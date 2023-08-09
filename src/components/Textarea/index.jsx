@@ -17,7 +17,7 @@ function Textarea({ control, rules, name, ...props }) {
       <div className="w-full flex my-2">
         <textarea
           name="review"
-          className="w-full border rounded-sm px-2 py-1 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
+          className="w-full border h-24 rounded-sm px-2 py-1 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
           {...field}
           {...props}
         />

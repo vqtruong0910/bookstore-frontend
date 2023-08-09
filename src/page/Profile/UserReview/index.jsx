@@ -67,7 +67,7 @@ function UserReview() {
         <div className="flex flex-wrap md:flex-col w-full min-h-[500px]">
           <div className="flex w-full">
             <span
-              className={`w-full text-lg font-semibold md:mb-5 lg:text-xl ${
+              className={`w-full text-lg font-semibold mb-5 lg:text-xl ${
                 darkTheme ? 'text-white' : 'text-slate-700'
               }`}
             >
@@ -75,14 +75,14 @@ function UserReview() {
             </span>
           </div>
 
-          <div className="flex justify-center w-full rounded-sm bg-white ">
+          <div className="flex justify-center w-full rounded-sm bg-white drop-shadow-lg border">
             <div className="w-full flex flex-wrap md:flex-nowrap md:cursor-pointer md:px-0 md:py-0">
               <div
                 onClick={() => handleDiv(1)}
                 className={
                   showDiv === 1
-                    ? 'px-4 w-full flex justify-between items-center py-4 md:py-2 bg-slate-300'
-                    : 'px-4 w-full flex justify-between items-center py-4 md:py-2'
+                    ? 'px-4 w-full flex justify-between items-center py-4 bg-slate-300'
+                    : 'px-4 w-full flex justify-between items-center py-4'
                 }
               >
                 <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">

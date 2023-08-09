@@ -62,7 +62,7 @@ function UserOrderManagement() {
             </div>
           </form>
 
-          <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white shadow-md">
+          <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white drop-shadow-lg border">
             <div className="w-full flex flex-wrap md:flex-nowrap md:cursor-pointer md:px-0 md:py-0">
               <div
                 onClick={() => handleDiv(1)}
