@@ -1,10 +1,6 @@
 import { BsFillCartCheckFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import { PATH } from '../../constants/path'
-import { useEffect } from 'react'
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
-import { db } from '../../firebase/firebase-config'
-import { v4 as uuidv4 } from 'uuid'
 import { useTranslation } from 'react-i18next'
 
 const DeliveredOrder = ({ data }) => {
@@ -12,17 +8,6 @@ const DeliveredOrder = ({ data }) => {
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
-
-  useEffect(() => {
-    const dataRes = data ? data.filter((item) => item.TrangThai === 3) : undefined
-
-    console.log('check', ...dataRes)
-    ;(() => {
-      dataRes.map(async (item) => {
-        await setDoc(doc(db, 'orders', item.IDDonHang.toString()), { ...item })
-      })
-    })()
-  }, [])
 
   return (
     <>
@@ -42,8 +27,7 @@ const DeliveredOrder = ({ data }) => {
                 <div className="flex gap-1 text-slate-700 py-3 items-center mx-4 font-medium">
                   <BsFillCartCheckFill className="w-5 h-5"></BsFillCartCheckFill>
                   <span>
-                    {t(`ID đơn đặt hàng :`)}
-                    {item.IDDonHang}
+                    {t(`ID đơn đặt hàng :`)} {item.IDDonHang}
                   </span>
                 </div>
 

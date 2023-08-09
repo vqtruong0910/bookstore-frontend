@@ -12,8 +12,6 @@ import jwtDecode from 'jwt-decode'
 function MenuUser() {
   const { t } = useTranslation()
   const { user } = useContext(Context)
-
-  console.log('>>>>>>>>>>>>>', user)
   const location = useLocation()
   const navigate = useNavigate()
   const activeLink = 'bg-slate-700 w-full'
@@ -28,7 +26,7 @@ function MenuUser() {
   }, [])
 
   return (
-    <div className="w-full h-full min-h-auto md:w-64 bg-blue-100 drop-shadow-lg rounded-sm">
+    <div className="w-full h-full min-h-auto md:w-64 bg-gray-100 drop-shadow-lg rounded-sm">
       <div className="flex items-center justify-center">
         <div className="mt-5 items-center justify-center flex relative">
           <div className="flex justify-center items-center">

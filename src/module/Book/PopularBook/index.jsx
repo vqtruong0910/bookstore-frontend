@@ -6,8 +6,9 @@ import { PATH } from '../../../constants/path'
 import Card from '../../../components/Card'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
+import LoadingSkeletonCard from '../../../components/Loading/LoadingSkeletonCard'
 
-const PopularBook = ({ data, settings }) => {
+const PopularBook = ({ data, settings, loading }) => {
   const { t } = useTranslation()
 
   return (
@@ -34,15 +35,26 @@ const PopularBook = ({ data, settings }) => {
       </div>
 
       <div className="w-full">
-        <Slider {...settings} className="mx-7">
-          {data.map((item) => {
-            return (
-              <Fragment key={item.IDSanPham}>
-                <Card item={item} />
-              </Fragment>
-            )
-          })}
-        </Slider>
+        {loading ? (
+          <Slider {...settings} className="mx-7">
+            <LoadingSkeletonCard />
+            <LoadingSkeletonCard />
+            <LoadingSkeletonCard />
+            <LoadingSkeletonCard />
+            <LoadingSkeletonCard />
+            <LoadingSkeletonCard />
+          </Slider>
+        ) : (
+          <Slider {...settings} className="mx-7">
+            {data.map((item) => {
+              return (
+                <Fragment key={item.IDSanPham}>
+                  <Card item={item} loading={loading} />
+                </Fragment>
+              )
+            })}
+          </Slider>
+        )}
 
         <div className="w-full flex justify-center mt-10">
           <Link

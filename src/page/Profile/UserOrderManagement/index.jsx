@@ -13,36 +13,18 @@ import BeingShippedOrder from '../../../module/UserOrder/BeingShippedOrder'
 import DeliveredOrder from '../../../module/UserOrder/DeliveredOrder'
 import CancelledOrder from '../../../module/UserOrder/CancelledOrder'
 import Context from '../../../store/Context'
-import { API } from '../../../constants/api'
 import { useTranslation } from 'react-i18next'
+import useOrder from '../../../hooks/useOrder'
 
 function UserOrderManagement() {
   const { t } = useTranslation()
   const { darkTheme } = useContext(Context)
-  const [loading, isLoading] = useState(true)
   const [showDiv, setShowDiv] = useState(1)
-  const [order, setOrder] = useState([])
+  const { order, loading } = useOrder()
 
   const handleDiv = (e) => {
     setShowDiv(e)
   }
-
-  useEffect(() => {
-    const fetchAllOrderData = async () => {
-      try {
-        const response = await axiosJWT.get(`${API.ORDER}/user_id`)
-        isLoading(true)
-        if (response.data) {
-          isLoading(false)
-          setOrder(response.data)
-        }
-      } catch (error) {
-        console.log(error)
-        isLoading(true)
-      }
-    }
-    fetchAllOrderData()
-  }, [])
 
   return (
     <>

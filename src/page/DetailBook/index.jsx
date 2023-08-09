@@ -1,6 +1,14 @@
 import { IoAddSharp, IoTimeOutline } from 'react-icons/io5'
 import { IoMdRemove } from 'react-icons/io'
-import { BsArrowRepeat, BsCart3, BsPrinter } from 'react-icons/bs'
+import {
+  BsArrowLeftCircleFill,
+  BsArrowRepeat,
+  BsArrowRightCircleFill,
+  BsCart3,
+  BsPrinter,
+} from 'react-icons/bs'
+import { AiFillStar } from 'react-icons/ai'
+import { BiMessageRoundedEdit } from 'react-icons/bi'
 import { useParams } from 'react-router-dom'
 import React, { useState, useEffect, Fragment } from 'react'
 import axiosConfig from '../../config/axiosConfig'
@@ -9,6 +17,8 @@ import LoadingSkeletonDetailBook from '../../components/Loading/LoadingSkeletonD
 import useCart from '../../hooks/useCart'
 import { API } from '../../constants/api'
 import { useTranslation } from 'react-i18next'
+import avatar from '../../assets/images/avatar.jpg'
+import shopping from '../../assets/images/shopping.png'
 
 const DetailBook = () => {
   const { t } = useTranslation()
@@ -283,6 +293,107 @@ const DetailBook = () => {
               procsInSameCategory={procsInSameCategory}
               changeCostWithDots={changeCostWithDots}
             ></RelatedBook>
+          </div>
+
+          <div className="flex flex-wrap w-full bg-white rounded-sm py-3 drop-shadow-lg border-2 mt-10 xl:w-4/5">
+            <span className="text-base md:text-lg lg:text-xl font-semibold w-full px-4">
+              {t(`ĐÁNH GIÁ - NHẬN XÉT TỪ KHÁCH HÀNG`)}
+            </span>
+
+            {/* <div className="w-full flex flex-col">
+              <div className="w-full flex flex-col border-b-2">
+                <div className="flex flex-col w-full gap-3 my-5 px-4">
+                  <div className="flex flex-row items-center w-full md:w-3/12">
+                    <div className="flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16">
+                      <img
+                        src={avatar}
+                        className="w-full bg-gray-200 rounded-full"
+                        alt="Avatar_User"
+                      />
+                    </div>
+
+                    <div className="flex flex-col ml-2 gap-2">
+                      <span className="text-sm lg:text-md font-bold whitespace-nowrap">
+                        Võ Ngọc Minh Trang
+                      </span>
+
+                      <div className="flex gap-1">
+                        <AiFillStar className="text-yellow-500" />
+                        <AiFillStar className="text-yellow-500" />
+                        <AiFillStar className="text-yellow-500" />
+                        <AiFillStar className="text-yellow-500" />
+                        <AiFillStar className="text-yellow-500" />
+                      </div>
+
+                      <span className="text-sm lg:text-md font-semibold text-gray-400 whitespace-nowrap">
+                        11:20 27/12/2022
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex w-full md:w-9/12">
+                    <BiMessageRoundedEdit className="w-5 h-5 lg:w-7 lg:h-7 text-gray-700" />
+                    <span className="text-sm w-full mx-0.5 text-gray-700 lg:text-base">
+                      Nội dung rất hay, rất đặc sắc, những câu chuyện được miêu tả rất chân thực,
+                      xúc động.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex flex-col">
+              <div className="w-full flex flex-col border-b-2">
+                <div className="flex flex-col w-full gap-3 my-5 px-4">
+                  <div className="flex flex-row items-center w-full md:w-3/12">
+                    <div className="flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16">
+                      <img
+                        src={avatar}
+                        className="w-full bg-gray-200 rounded-full"
+                        alt="Avatar_User"
+                      />
+                    </div>
+
+                    <div className="flex flex-col ml-2 gap-2">
+                      <span className="text-sm lg:text-md font-bold whitespace-nowrap">
+                        Võ Ngọc Minh Trang
+                      </span>
+
+                      <div className="flex gap-1">
+                        <AiFillStar className="text-yellow-500" />
+                        <AiFillStar className="text-yellow-500" />
+                        <AiFillStar className="text-yellow-500" />
+                        <AiFillStar className="text-yellow-500" />
+                        <AiFillStar className="text-yellow-500" />
+                      </div>
+
+                      <span className="text-sm lg:text-md font-semibold text-gray-400 whitespace-nowrap">
+                        11:20 27/12/2022
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex w-full md:w-9/12">
+                    <BiMessageRoundedEdit className="w-5 h-5 lg:w-7 lg:h-7 text-gray-700" />
+                    <span className="text-sm w-full mx-0.5 text-gray-700 lg:text-base">
+                      Nội dung rất hay, rất đặc sắc, những câu chuyện được miêu tả rất chân thực,
+                      xúc động.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div> */}
+
+            <div className="flex flex-col gap-2 my-10 items-center w-full">
+              <img src={shopping} alt="" className="w-36 h-28 md:w-48 md:h-40" />
+              <span className="text-gray-400">Chưa có đánh giá nào cho sản phẩm này</span>
+            </div>
+
+            {/* <div className="flex flex-wrap w-full justify-end items-center px-4 mt-4">
+              <BsArrowLeftCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-400" />
+              <span className="mx-2 font-medium text-sm md:text-base lg:text-lg">1</span>
+              <BsArrowRightCircleFill className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-slate-700" />
+            </div> */}
           </div>
         </div>
       )}

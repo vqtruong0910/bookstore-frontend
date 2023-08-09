@@ -115,6 +115,7 @@ const Navbar = () => {
           <HeaderList />
         </div>
       </div>
+
       <Sidebar open={open} onClick={() => setOpen(!open)}></Sidebar>
     </>
   )

@@ -18,6 +18,7 @@ function UserOrderDetail() {
   const { darkTheme } = useContext(Context)
 
   const [orderDetail, setOrderDetail] = useState([])
+
   useEffect(() => {
     const fetchOrderDetailData = async () => {
       const response = await axiosJWT.get(`${API.ORDER_DETAIL}/${state}`)
@@ -85,7 +86,9 @@ function UserOrderDetail() {
                 <div className="w-full flex justify-center flex-wrap mx-1 my-3">
                   <Image item={item} className="w-40 h-40" />
                   <div className="w-full flex justify-center my-1">
-                    <span className="text-sm md:text-base lg:text-lg">{item.TenSanPham}</span>
+                    <span className="text-sm md:text-base lg:text-lg whitespace-nowrap">
+                      {item.TenSanPham}
+                    </span>
                   </div>
                 </div>
                 <div className="w-full flex justify-center items-center my-3">

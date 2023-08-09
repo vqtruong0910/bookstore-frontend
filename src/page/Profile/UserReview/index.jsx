@@ -1,62 +1,73 @@
 import { useContext, useEffect, useState } from 'react'
 import { IoReload } from 'react-icons/io5'
 import { BiMessageRoundedCheck } from 'react-icons/bi'
-import { BsStarFill } from 'react-icons/bs'
-import { useForm } from 'react-hook-form'
 import LoadingSkeletonUserReview from '../../../components/Loading/LoadingSkeletonUserReview'
 import Context from '../../../store/Context'
-import { collection, onSnapshot, query } from 'firebase/firestore'
-import { db } from '../../../firebase/firebase-config'
 import { useTranslation } from 'react-i18next'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { db } from '../../../firebase/firebase-config'
+import Evaluated from '../../../module/UserReview/Evaluated'
+import NotEvaluated from '../../../module/UserReview/NotEvaluated'
 
 function UserReview() {
   const { t } = useTranslation()
-  const { darkTheme } = useContext(Context)
+  const { darkTheme, user } = useContext(Context)
   const [loading, isLoading] = useState(true)
   const [showDiv, setShowDiv] = useState(1)
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ mode: 'onBlur' })
+  const [orderDetail, setOrderDetail] = useState([])
 
   const handleDiv = (e) => {
     setShowDiv(e)
   }
 
-  const onSubmit = (data) => {
-    console.log(data)
-  }
-
   useEffect(() => {
-    const docRef = query(collection(db, 'comments'))
-    onSnapshot(docRef, (snapshot) => {
-      let results = []
-      snapshot.docs.forEach((doc) => {
-        results.push({
-          id: doc.id,
-          ...doc.data(),
-        })
-      })
-
-      console.log('results >> ', results)
-    })
-
     isLoading(true)
     setTimeout(() => {
       isLoading(false)
     }, 250)
   }, [])
 
+  useEffect(() => {
+    let result = []
+    const getDataFirebase = async () => {
+      const docRef = await getDoc(doc(db, 'DonHang-ChiTiet', user.Email))
+      Object.keys(docRef.data()).forEach((key) => {
+        result.push(docRef.data()[key])
+      })
+      setOrderDetail(result)
+    }
+
+    getDataFirebase()
+  }, [])
+
+  useEffect(() => {
+    orderDetail?.map((item) => {
+      item.map(async (item1) => {
+        await setDoc(doc(db, 'SanPham-BinhLuan', item1.IDChiTietDonHang.toString()), {
+          IDChiTietDonHang: item1.IDChiTietDonHang,
+          IDSanPham: item1.IDSanPham,
+          TenSanPham: item1.TenSanPham,
+          TenDanhMuc: item1.TenDanhMuc,
+          TenTheLoai: item1.TenTheLoai,
+          GiaBan: item1.GiaBan,
+          HinhAnh: item1.HinhAnh,
+          User: user.HoTen,
+          BinhLuan: '',
+          ThoiGianBinhLuan: '',
+          SoLuongSao: '',
+        })
+      })
+    })
+  }, [orderDetail])
+
   return (
     <>
       {loading && <LoadingSkeletonUserReview></LoadingSkeletonUserReview>}
       {!loading && (
-        <div className="flex flex-wrap md:flex-col w-full border p-4">
+        <div className="flex flex-wrap md:flex-col w-full min-h-[500px]">
           <div className="flex w-full">
             <span
-              className={`w-full text-lg font-semibold mb-5 lg:text-xl ${
+              className={`w-full text-lg font-semibold md:mb-5 lg:text-xl ${
                 darkTheme ? 'text-white' : 'text-slate-700'
               }`}
             >
@@ -117,132 +128,9 @@ function UserReview() {
             </div>
           </div>
 
-          {showDiv === 1 && (
-            <div className="w-full lg:min-h-[400px]">
-              <div className="bg-white w-full py-4">
-                <div className="w-full border-t-2">
-                  <div className="w-full mx-4">
-                    <div className="w-full my-4 flex">
-                      <div className="w-24 h-24 lg:w-28 lg:h-28 relative border flex items-center">
-                        <img
-                          src="https://cdn0.fahasa.com/media/catalog/product/8/9/8935246933497.jpg"
-                          className="relative"
-                          alt="Book_Image"
-                        />
-                      </div>
+          {showDiv === 1 && <NotEvaluated />}
 
-                      <div className="flex w-full flex-col mx-3">
-                        <span className="w-full text-sm lg:text-base font-normal text-gray-600">
-                          Xé vài trang thanh xuân, đổi lấy một bản thân nỗ lực
-                        </span>
-                        <span className="w-full my-0.5 text-sm lg:text-base font-normal text-gray-600">
-                          83.000đ
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <form onSubmit={handleSubmit(onSubmit)} className="w-full border-t-2 px-4">
-                  <div className="w-full py-2">
-                    <div className="w-full">
-                      <span className="font-semibold text-orange-400">
-                        {t(`Điều gì làm bạn hài lòng?`)}
-                      </span>
-                    </div>
-                    <div className="w-full flex my-2">
-                      <input
-                        name="review"
-                        {...register('review', { required: true })}
-                        className="w-full border rounded-sm px-2 py-7 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
-                        type="text"
-                        placeholder={t(
-                          'Hãy chia sẻ cảm nhận, đánh giá của bạn về sản phẩm này nhé.'
-                        )}
-                      />
-                    </div>
-                    {errors.review?.type === 'required' && (
-                      <div className="text-xs text-red-500 md:text-sm">
-                        {t(`Vui lòng nhập đánh giá cho sản phẩm`)}
-                      </div>
-                    )}
-
-                    <div className="w-full flex justify-center py-5 cursor-pointer">
-                      <button
-                        type="submit"
-                        className="w-40 h-10 flex items-center justify-center bg-slate-700 hover:bg-slate-500 transition rounded-sm"
-                      >
-                        <span className="font-normal text-white">{t(`Gửi đánh giá`)}</span>
-                      </button>
-                    </div>
-
-                    {/* {notify ? (
-                      <Notify
-                        close="true"
-                        message="Cám ơn bạn vì đã đánh giá"
-                        icon={<AiOutlineSmile className="w-5 h-5 md:w-7 md:h-7 text-slate-700" />}
-                        textMessage="text-slate-700"
-                        notify={notify}
-                        setNotify={(data) => setNotify(data)}
-                      />
-                    ) : (
-                      <></>
-                    )} */}
-                  </div>
-                </form>
-              </div>
-            </div>
-          )}
-
-          {showDiv === 2 && (
-            <div className="w-full lg:min-h-[400px]">
-              <div className="bg-white w-full py-4">
-                <div className="w-full border-t-2">
-                  <div className="w-full mx-4">
-                    <div className="w-full my-4 flex">
-                      <div className="w-24 h-24 lg:w-28 lg:h-28 relative border flex items-center">
-                        <img
-                          src="https://cdn0.fahasa.com/media/catalog/product/i/m/image_244718_1_5098.jpg"
-                          className="relative"
-                          alt="Book_Image"
-                        />
-                      </div>
-
-                      <div className="flex w-full flex-col mx-3">
-                        <span className="w-full text-sm lg:text-base font-normal text-gray-600">
-                          Hoàng tử bé
-                        </span>
-                        <span className="w-full my-0.5 text-sm lg:text-base font-normal text-gray-600">
-                          109.000đ
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="w-full border-t-2 px-4">
-                  <div className="w-full py-2">
-                    <div className="w-full flex-wrap flex">
-                      <div className="w-full flex items-center justify-between">
-                        <div className="flex items-center">
-                          <BsStarFill className="w-4 h-4 md:w-5 md:h-5 text-orange-400" />
-                          <span className="font-medium mx-1 text-orange-400 md:text-lg">
-                            {t(`Đánh giá của bạn`)}
-                          </span>
-                        </div>
-                        <div>
-                          <span className="text-xs md:text-sm font-semibold">11:30 27/12/2022</span>
-                        </div>
-                      </div>
-                      <span className="font-normal w-full md:text-lg">
-                        Nội dung rất hay, sâu sắc, chạm đến trái tim người đọc.
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          {showDiv === 2 && <Evaluated />}
         </div>
       )}
     </>

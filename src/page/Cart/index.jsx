@@ -12,6 +12,7 @@ import {
 import LoadingSkeletonCart from '../../components/Loading/LoadingSkeletonCart'
 import Image from '../../components/Image'
 import { useTranslation } from 'react-i18next'
+import shopping from '../../assets/images/shopping.png'
 
 function Cart() {
   let totalAllProduct = 0
@@ -80,11 +81,7 @@ function Cart() {
                   darkTheme ? 'text-white' : 'text-slate-700'
                 }`}
               >
-                <img
-                  src="https://salt.tikicdn.com/desktop/img/mascot@2x.png"
-                  alt="Go_Shopping"
-                  className="w-40 h-32 md:w-48 md:h-40 my-5"
-                />
+                <img src={shopping} alt="Go_Shopping" className="w-40 h-32 md:w-48 md:h-40 my-5" />
                 <span className="text-center text-base">
                   {t(`Không có sản phẩm nào trong giỏ hàng của bạn`)}
                 </span>
@@ -114,10 +111,7 @@ function Cart() {
                   <div className="bg-white shadow-md flex flex-col mt-4 mx-4 xl:mx-0 gap-4">
                     {cart?.map((item) => {
                       return (
-                        <div
-                          key={item.IDSanPham}
-                          className="border border-gray-200 rounded-sm drop-shadow-lg"
-                        >
+                        <div key={item.IDSanPham} className="border border-gray-200 rounded-sm">
                           <div className="hidden md:px-4 md:py-1 md:block">
                             {t(`Số lượng còn lại :`)} {item.SoLuongConLai}
                           </div>

@@ -21,7 +21,7 @@ function DefaultLayout() {
   }, [pathname])
 
   return (
-    <div className="flex flex-col min-h-screen justify-between">
+    <div className="layout flex flex-col min-h-screen justify-between">
       <div className="bg-[#efefef]">
         <Header />
       </div>

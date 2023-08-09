@@ -3,14 +3,12 @@ import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-ico
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import axiosConfig from '../../config/axiosConfig'
-import LoadingSkeletonMain from '../../components/Loading/LoadingSkeletonMain'
 import NewBook from '../../module/Book/NewBook'
 import BestSellerBook from '../../module/Book/BestSellerBook'
 import PopularBook from '../../module/Book/PopularBook'
 import { API } from '../../constants/api'
-import banner from '../../assets/images/banner.png'
 import Slug from '../../components/Slug'
-import styles from './Main.module.scss'
+import Banner from '../../components/Banner'
 
 function Main() {
   const [popularBook, setPopularBook] = useState([])
@@ -137,22 +135,19 @@ function Main() {
       <Carousel />
       <Slug />
 
-      {loading && <LoadingSkeletonMain></LoadingSkeletonMain>}
+      <div className="flex flex-col gap-10 w-full px-4 xl:px-0 justify-center py-10">
+        <Banner />
 
-      {!loading && (
-        <div className="flex flex-col gap-10 w-full px-4 xl:px-0 justify-center py-10">
-          <div className={`${styles['image-wrapper']} w-full xl:w-4/5 mx-auto z-10`}>
-            <img src={banner} alt="Banner" className="block object-cover" />
-            <div className={`${styles['overlay']}`}></div>
-          </div>
+        {/* <NewBook data={newBook} settings={settings}></NewBook> */}
 
-          {/* <NewBook data={newBook} settings={settings}></NewBook> */}
+        <BestSellerBook
+          data={bestSellerBook}
+          settings={settings}
+          loading={loading}
+        ></BestSellerBook>
 
-          <BestSellerBook data={bestSellerBook} settings={settings}></BestSellerBook>
-
-          <PopularBook data={popularBook} settings={settings}></PopularBook>
-        </div>
-      )}
+        <PopularBook data={popularBook} settings={settings} loading={loading}></PopularBook>
+      </div>
     </>
   )
 }
