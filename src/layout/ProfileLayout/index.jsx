@@ -24,7 +24,7 @@ function ProfileLayout() {
         result.push(item.data().IDDonHang)
       })
 
-      if (result !== '[]') {
+      if (result.length > 0) {
         let resultChiTiet = []
         result.forEach(async (item) => {
           const response = await axiosJWT.get(`${API.ORDER_DETAIL}/${item}`)

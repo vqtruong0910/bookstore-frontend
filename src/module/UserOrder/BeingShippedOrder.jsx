@@ -3,12 +3,24 @@ import { PATH } from '../../constants/path'
 import { TbTruck } from 'react-icons/tb'
 import { useTranslation } from 'react-i18next'
 import emptyOrder from '../../assets/images/empty-order.png'
+import { useEffect, useState } from 'react'
 
 const BeingShippedOrder = ({ data }) => {
   const { t } = useTranslation()
+  const [beingShipped, setBeingShipped] = useState(false)
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
+
+  useEffect(() => {
+    if (data.length > 0) {
+      data?.map((item) => {
+        if (item.TrangThai === 2) {
+          setBeingShipped(true)
+        }
+      })
+    }
+  }, [])
 
   return (
     <>
@@ -69,17 +81,14 @@ const BeingShippedOrder = ({ data }) => {
               </div>
             )
           }
-
-          return (
-            <div
-              key={index}
-              className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg"
-            >
-              <img src={emptyOrder} alt="img" className="w-40 h-40 mx-auto" />
-              <span className="text-lg text-gray-400">{t(`Chưa có đơn hàng`)}</span>
-            </div>
-          )
         })}
+
+      {!beingShipped && (
+        <div className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg">
+          <img src={emptyOrder} alt="img" className="w-40 h-40 mx-auto" />
+          <span className="text-lg text-gray-400">{t(`Chưa có đơn hàng`)}</span>
+        </div>
+      )}
     </>
   )
 }

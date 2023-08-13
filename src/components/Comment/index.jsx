@@ -6,18 +6,69 @@ import { useForm } from 'react-hook-form'
 import IconClose from '../../assets/svg/IconClose'
 import { BiPencil } from 'react-icons/bi'
 import { AiFillStar } from 'react-icons/ai'
+import { doc, serverTimestamp, updateDoc } from 'firebase/firestore'
+import { db } from '../../firebase/firebase-config'
+import Swal from 'sweetalert2'
+import { useState } from 'react'
 
 function Comment({ open, item, setOpen }) {
+  const stars = Array(5).fill(0)
   const { t } = useTranslation()
-
   const {
     handleSubmit,
     control,
+    reset,
     formState: { isValid },
-  } = useForm({ mode: 'onBlur' })
+  } = useForm({
+    mode: 'onBlur',
+    defaultValues: {
+      review: '',
+    },
+  })
+  const [currentRating, setCurrentRating] = useState(0)
+  const [hoverRating, setHoverRating] = useState(undefined)
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    if (!isValid) return
+
+    try {
+      const docRef = doc(db, 'SanPham-BinhLuan', item.IDChiTietDonHang.toString())
+
+      await updateDoc(docRef, {
+        ...item,
+        BinhLuan: data.review,
+        SoLuongSao: currentRating,
+        ThoiGianBinhLuan: serverTimestamp(),
+      })
+
+      await Swal.fire({
+        title: t('Cám ơn bạn đã đánh giá cho sản phẩm'),
+        icon: 'success',
+        showCancelButton: false,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          setOpen(false)
+        }
+      })
+      setOpen(false)
+      reset({
+        review: '',
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleClick = (value) => {
+    setCurrentRating(value)
+  }
+
+  const handleMouseOver = (value) => {
+    setHoverRating(value)
+  }
+
+  const handleMouseLeave = () => {
+    setHoverRating(undefined)
   }
 
   return createPortal(
@@ -36,11 +87,19 @@ function Comment({ open, item, setOpen }) {
                       <span className="text-lg whitespace-normal ml-2">{item?.TenSanPham}</span>
 
                       <div className="flex gap-0.5 cursor-pointer">
-                        <AiFillStar className="text-yellow-500 w-10 h-10" />
-                        <AiFillStar className="text-yellow-500 w-10 h-10" />
-                        <AiFillStar className="text-yellow-500 w-10 h-10" />
-                        <AiFillStar className="text-yellow-500 w-10 h-10" />
-                        <AiFillStar className="text-yellow-500 w-10 h-10" />
+                        {stars.map((_, index) => (
+                          <AiFillStar
+                            key={index}
+                            className={`w-10 h-10 ${
+                              (hoverRating || currentRating) > index
+                                ? 'text-yellow-400'
+                                : 'text-gray-300'
+                            }`}
+                            onClick={() => handleClick(index + 1)}
+                            onMouseOver={() => handleMouseOver(index + 1)}
+                            onMouseLeave={handleMouseLeave}
+                          />
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -67,8 +126,8 @@ function Comment({ open, item, setOpen }) {
 
                         <Textarea
                           control={control}
-                          name={`review-book-${item.IDSanPham}`}
-                          id={`review-book-${item.IDSanPham}`}
+                          name="review"
+                          id="review"
                           placeholder={t(
                             'Hãy chia sẻ cảm nhận, đánh giá của bạn về sản phẩm này nhé.'
                           )}

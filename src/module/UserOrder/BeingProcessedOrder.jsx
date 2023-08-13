@@ -3,22 +3,27 @@ import { PATH } from '../../constants/path'
 import { BiTimeFive } from 'react-icons/bi'
 import { useTranslation } from 'react-i18next'
 import emptyOrder from '../../assets/images/empty-order.png'
+import { useEffect, useState } from 'react'
 
 const BeingProcessedOrder = ({ data }) => {
   const { t } = useTranslation()
+  const [beingProcessed, setBeingProcessed] = useState(false)
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
 
+  useEffect(() => {
+    if (data.length > 0) {
+      data?.map((item) => {
+        if (item.TrangThai === 0) {
+          setBeingProcessed(true)
+        }
+      })
+    }
+  }, [])
+
   return (
     <>
-      {!data && (
-        <div className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg">
-          <img src={emptyOrder} alt="img" className="w-40 h-40 mx-auto" />
-          <span className="text-lg text-gray-400">{t(`Chưa có đơn hàng`)}</span>
-        </div>
-      )}
-
       {data.length > 0 &&
         data?.map((item, index) => {
           const time = item?.NgayDat ? new Date(item?.NgayDat) : new Date()
@@ -77,17 +82,14 @@ const BeingProcessedOrder = ({ data }) => {
               </div>
             )
           }
-
-          return (
-            <div
-              key={index}
-              className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg"
-            >
-              <img src={emptyOrder} alt="img" className="w-40 h-40 mx-auto" />
-              <span className="text-lg text-gray-400">{t(`Chưa có đơn hàng`)}</span>
-            </div>
-          )
         })}
+
+      {!beingProcessed && (
+        <div className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg">
+          <img src={emptyOrder} alt="img" className="w-40 h-40 mx-auto" />
+          <span className="text-lg text-gray-400">{t(`Chưa có đơn hàng`)}</span>
+        </div>
+      )}
     </>
   )
 }

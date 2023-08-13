@@ -18,6 +18,8 @@ import useCart from '../../hooks/useCart'
 import { API } from '../../constants/api'
 import { useTranslation } from 'react-i18next'
 import star from '../../assets/images/star.png'
+import { collection, getDoc, getDocs, query, where } from 'firebase/firestore'
+import { db } from '../../firebase/firebase-config'
 
 const DetailBook = () => {
   const { t } = useTranslation()
@@ -108,6 +110,25 @@ const DetailBook = () => {
     }
   }, [bookID, authorID, publisherID, categoryID, genreID])
 
+  useEffect(() => {
+    const getDataFirebase = async () => {
+      const docRef = collection(db, 'SanPham-BinhLuan')
+      const q = query(docRef, where('IDSanPham', '===', bookID))
+
+      console.log(q)
+
+      // let result = []
+      // docRef.forEach((item) => {
+      //   if (item.data().User === user.HoTen && item.data().BinhLuan !== '') {
+      //     result.push(item.data())
+      //   }
+      //   setData(result)
+      // })
+    }
+
+    getDataFirebase()
+  }, [bookID])
+
   return (
     <>
       {loading && <LoadingSkeletonDetailBook></LoadingSkeletonDetailBook>}
@@ -157,7 +178,7 @@ const DetailBook = () => {
                       <div className="flex flex-row items-center mt-4 mx-4">
                         <div className="rounded-sm cursor-pointer w-full">
                           {item.SoLuongConLai < 1 && (
-                            <div className="py-2 px-1 flex justify-center bg-red-300 rounded-md">
+                            <div className="py-2 px-1 flex justify-center bg-red-300 rounded-md cursor-not-allowed">
                               <span className="mx-1 text-red-500 font-medium text-sm md:text-base lg:text-lg whitespace-nowrap">
                                 {t(`Sản phẩm tạm hết hàng`)}
                               </span>
@@ -169,7 +190,7 @@ const DetailBook = () => {
                               onClick={() => {
                                 handleAddToCart(item, quantity)
                               }}
-                              className="py-2 px-1 flex flex-row lg:justify-center bg-red-500 rounded-lg hover:bg-red-400 transition"
+                              className="py-2 px-1 w-fit lg:w-full flex flex-row lg:justify-center bg-red-500 rounded-lg hover:bg-red-400 transition"
                             >
                               <BsCart3 className="w-5 h-5 lg:w-7 lg:h-7 text-white font-semibold" />
                               <span className="mx-1 text-white font-medium text-sm md:text-base lg:text-lg whitespace-nowrap">

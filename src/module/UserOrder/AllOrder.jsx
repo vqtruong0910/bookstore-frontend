@@ -76,18 +76,15 @@ const AllOrder = ({ data }) => {
                 </div>
               </div>
             )
-
-            return (
-              <div
-                key={index}
-                className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg"
-              >
-                <img src={emptyOrder} alt="img" className="w-40 h-40 mx-auto" />
-                <span className="text-lg text-gray-400">{t(`Chưa có đơn hàng`)}</span>
-              </div>
-            )
           }
         })}
+
+      {data.length === 0 && (
+        <div className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg">
+          <img src={emptyOrder} alt="img" className="w-40 h-40 mx-auto" />
+          <span className="text-lg text-gray-400">{t(`Chưa có đơn hàng`)}</span>
+        </div>
+      )}
     </>
   )
 }

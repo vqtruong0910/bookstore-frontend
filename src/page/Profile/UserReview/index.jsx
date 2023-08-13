@@ -41,23 +41,31 @@ function UserReview() {
   }, [])
 
   useEffect(() => {
-    orderDetail?.map((item) => {
-      item.map(async (item1) => {
-        await setDoc(doc(db, 'SanPham-BinhLuan', item1.IDChiTietDonHang.toString()), {
-          IDChiTietDonHang: item1.IDChiTietDonHang,
-          IDSanPham: item1.IDSanPham,
-          TenSanPham: item1.TenSanPham,
-          TenDanhMuc: item1.TenDanhMuc,
-          TenTheLoai: item1.TenTheLoai,
-          GiaBan: item1.GiaBan,
-          HinhAnh: item1.HinhAnh,
-          User: user.HoTen,
-          BinhLuan: '',
-          ThoiGianBinhLuan: '',
-          SoLuongSao: '',
-        })
-      })
-    })
+    const updateSanPhamBinhLuan = async () => {
+      if (orderDetail) {
+        const promises = orderDetail.flatMap((item) =>
+          item.map((item1) =>
+            setDoc(doc(db, 'SanPham-BinhLuan', item1.IDChiTietDonHang.toString()), {
+              IDChiTietDonHang: item1.IDChiTietDonHang,
+              IDSanPham: item1.IDSanPham,
+              TenSanPham: item1.TenSanPham,
+              TenDanhMuc: item1.TenDanhMuc,
+              TenTheLoai: item1.TenTheLoai,
+              GiaBan: item1.GiaBan,
+              HinhAnh: item1.HinhAnh,
+              User: user.HoTen,
+              BinhLuan: '',
+              ThoiGianBinhLuan: '',
+              SoLuongSao: '',
+            })
+          )
+        )
+
+        await Promise.all(promises)
+      }
+    }
+
+    updateSanPhamBinhLuan()
   }, [orderDetail])
 
   return (

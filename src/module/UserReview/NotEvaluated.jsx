@@ -42,11 +42,11 @@ function NotEvaluated() {
     }
 
     getDataFirebase()
-  }, [])
+  }, [data])
 
   return (
     <>
-      {!data && (
+      {data.length === 0 && (
         <div className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg">
           <img src={star} alt="img" className="w-40 h-40 mx-auto" />
           <span className="text-lg text-gray-400">{t(`Chưa có sản phẩm nào chờ đánh giá`)}</span>
@@ -54,8 +54,8 @@ function NotEvaluated() {
       )}
 
       {data.length > 0 &&
-        data?.map((item) => (
-          <Fragment key={item.IDChiTietDonHang}>
+        data?.map((item, index) => (
+          <Fragment key={index}>
             <div className="bg-white w-full mt-4 py-4 border border-gray-100 drop-shadow-lg">
               <div className="w-full mx-4">
                 <div className="w-full flex">
