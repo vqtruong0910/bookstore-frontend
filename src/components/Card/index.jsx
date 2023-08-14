@@ -31,7 +31,7 @@ function Card({ item }) {
       </div>
 
       <div
-        onClick={item.SoLuongConLai > 1 && (() => handleAddToCart(item))}
+        onClick={item.SoLuongConLai > 1 ? () => handleAddToCart(item) : undefined}
         className={`flex transition rounded-lg py-2 items-center justify-center mx-2 ${
           item.SoLuongConLai < 1
             ? 'bg-red-300 cursor-not-allowed'

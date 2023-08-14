@@ -44,7 +44,7 @@ function UserReview() {
     const updateSanPhamBinhLuan = async () => {
       if (orderDetail) {
         const promises = orderDetail.flatMap((item) =>
-          item.map((item1) =>
+          item.map((item1) => {
             setDoc(doc(db, 'SanPham-BinhLuan', item1.IDChiTietDonHang.toString()), {
               IDChiTietDonHang: item1.IDChiTietDonHang,
               IDSanPham: item1.IDSanPham,
@@ -58,7 +58,7 @@ function UserReview() {
               ThoiGianBinhLuan: '',
               SoLuongSao: '',
             })
-          )
+          })
         )
 
         await Promise.all(promises)
@@ -66,7 +66,7 @@ function UserReview() {
     }
 
     updateSanPhamBinhLuan()
-  }, [orderDetail])
+  }, [])
 
   return (
     <>
