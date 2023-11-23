@@ -1,8 +1,11 @@
+import { useTranslation } from 'react-i18next'
 import { BsFillGiftFill, BsShieldFillCheck } from 'react-icons/bs'
 import { FaPhoneVolume } from 'react-icons/fa'
 import { RiMoneyDollarCircleLine } from 'react-icons/ri'
 
 function Slug() {
+  const { t } = useTranslation()
+
   return (
     <div className="px-4 hidden xl:px-0 xl:w-4/5 mx-auto mt-10 lg:flex w-full">
       <table className="border-2 border-gray-200 flex w-full">
@@ -11,10 +14,10 @@ function Slug() {
             <RiMoneyDollarCircleLine className="w-8 h-8 text-orange-400" />
             <div className="flex flex-col">
               <div className="text-left font-bold cursor-pointer hover:text-orange-400 transition-all text-[13px]">
-                THANH TOÁN
+                {t(`THANH TOÁN`)}
               </div>
               <div className="font-normal text-sm text-left text-gray-400 text-[13px]">
-                Khi Nhận Hàng
+                {t(`Khi Nhận Hàng`)}
               </div>
             </div>
           </th>
@@ -24,10 +27,10 @@ function Slug() {
             <BsFillGiftFill className="w-8 h-8 text-orange-400" />
             <div className="flex flex-col">
               <div className="text-left font-bold cursor-pointer hover:text-orange-400 transition-all text-[13px]">
-                QUÀ TẶNG
+                {t(`QUÀ TẶNG`)}
               </div>
               <div className="font-normal text-sm text-left text-gray-400 text-[13px]">
-                Miễn Phí
+                {t(`Miễn Phí`)}
               </div>
             </div>
           </th>
@@ -37,9 +40,11 @@ function Slug() {
             <BsShieldFillCheck className="w-8 h-8 text-orange-400" />
             <div className="flex flex-col">
               <div className="text-left font-bold cursor-pointer hover:text-orange-400 transition-all text-[13px]">
-                THANH TOÁN
+                {t(`THANH TOÁN`)}
               </div>
-              <div className="font-normal text-sm text-left text-gray-400 text-[13px]">Bảo Mật</div>
+              <div className="font-normal text-sm text-left text-gray-400 text-[13px]">
+                {t(`Bảo Mật`)}
+              </div>
             </div>
           </th>
         </tr>
@@ -48,9 +53,11 @@ function Slug() {
             <FaPhoneVolume className="w-8 h-8 text-orange-400" />
             <div className="flex flex-col">
               <div className="text-left font-bold cursor-pointer hover:text-orange-400 transition-all text-[13px]">
-                HỖ TRỢ
+                {t(`HỖ TRỢ`)}
               </div>
-              <div className="font-normal text-sm text-left text-gray-400 text-[13px]">24/7</div>
+              <div className="font-normal text-sm text-left text-gray-400 text-[13px]">
+                {t(`24/7`)}
+              </div>
             </div>
           </th>
         </tr>

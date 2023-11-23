@@ -4,8 +4,10 @@ import BarChart from '../../../components/BarChart'
 import Loading from '../../../components/Loading'
 import axiosJWT from '../../../config/axiosJWT'
 import { API } from '../../../constants/api'
+import { useTranslation } from 'react-i18next'
 
 function ProductStatistics() {
+  const { t } = useTranslation()
   const {
     data: products,
     isLoading,
@@ -28,7 +30,7 @@ function ProductStatistics() {
       labels: labelsList,
       datasets: [
         {
-          label: 'Số lượng sản phẩm bán ra',
+          label: t('Số lượng sản phẩm bán ra'),
           data: products?.map((data) => data.soluong),
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -58,29 +60,29 @@ function ProductStatistics() {
     return <Loading />
   }
   if (isError) {
-    return <div>Đã có lỗi khi lấy dữ liệu 😥</div>
+    return <div>{t(`Đã có lỗi khi lấy dữ liệu `)}😥</div>
   }
   return (
     <>
-      <h2 className="text-xl font-semibold">Thống kê sản phẩm ✨</h2>
+      <h2 className="text-xl font-semibold">{t(`Thống kê sản phẩm`)} ✨</h2>
 
       <div className="flex my-4">
         <div className="flex ml-auto space-x-3">
           <select className="rounded-sm border cursor-pointer">
-            <option value="">Chọn danh mục</option>
-            <option value="">Sách giáo khoa</option>
-            <option value="">Sách kinh tế</option>
-            <option value="">Khoa học viễn tưởng</option>
-            <option value="">Truyện tranh</option>
+            <option value="">{t(`Chọn danh mục`)}</option>
+            <option value="">{t(`Sách giáo khoa`)}</option>
+            <option value="">{t(`Sách kinh tế`)}</option>
+            <option value="">{t(`Khoa học viễn tưởng`)}</option>
+            <option value="">{t(`Truyện tranh`)}</option>
           </select>
           <select className="rounded-sm border cursor-pointer">
-            <option value="">Thể loại</option>
-            <option value="">Comic</option>
-            <option value="">Hành động</option>
-            <option value="">Trinh thám</option>
+            <option value="">{t(`Thể loại`)}</option>
+            <option value="">{t(`Comic`)}</option>
+            <option value="">{t(`Hành động`)}</option>
+            <option value="">{t(`Trinh thám`)}</option>
           </select>
           <select className="rounded-sm border cursor-pointer">
-            <option value="">Tất cả các ngày</option>
+            <option value="">{t(`Tất cả các ngày`)}</option>
             <option value=""></option>
             <option value=""></option>
             <option value=""></option>

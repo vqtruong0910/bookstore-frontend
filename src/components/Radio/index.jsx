@@ -1,6 +1,6 @@
 import { useController } from 'react-hook-form'
 
-function Radio({ name, control, rules, title, image = false, ...props }) {
+function Radio({ name, control, rules, title, image = false, isDisabled, ...props }) {
   const { field } = useController({
     name,
     control,
@@ -8,7 +8,7 @@ function Radio({ name, control, rules, title, image = false, ...props }) {
 
   return (
     <div className="w-full p-2 flex items-center">
-      <input type="radio" {...field} {...props} checked />
+      <input type="radio" disabled={isDisabled} {...field} {...props} checked />
       {image && (
         <img
           src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=1"

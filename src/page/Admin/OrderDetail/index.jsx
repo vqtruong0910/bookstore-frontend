@@ -7,8 +7,10 @@ import Loading from '../../../components/Loading'
 import axiosJWT from '../../../config/axiosJWT'
 import { API } from '../../../constants/api'
 import imageAvailable from '../../../assets/images/no-image-found.b1edc35f0fa6.png'
+import { useTranslation } from 'react-i18next'
 
 function OrderDetail() {
+  const { t } = useTranslation()
   const { id } = useParams()
   const {
     data: orderDetail,
@@ -39,11 +41,11 @@ function OrderDetail() {
     return <Loading />
   }
   if (isError) {
-    return <h1>Không thể tải được dữ liệu 😥</h1>
+    return <h1>{t(`Không thể tải được dữ liệu `)}😥</h1>
   }
   return (
     <>
-      <h2 className="text-xl font-semibold">Đơn hàng ✨</h2>
+      <h2 className="text-xl font-semibold">{t(`Đơn hàng`)} ✨</h2>
       <div className="overflow-x-auto">
         <table className="table-auto border-collapse border rounded-sm w-full bg-white">
           <thead>
@@ -51,12 +53,12 @@ function OrderDetail() {
               <th className="p-2 w-24 min-w-[6rem]">
                 <BsCardImage className="mx-auto w-full" />
               </th>
-              <th className="p-2 text-left min-w-[8rem]">Tên sản phẩm</th>
-              <th className="p-2 text-left min-w-[6rem]">Danh mục</th>
-              <th className="p-2 text-center min-w-[6rem]">Thể loại</th>
-              <th className="p-2 text-left min-w-[6rem]">Số lượng</th>
-              <th className="p-2 text-left min-w-[6rem]">Giá Bán</th>
-              <th className="p-2 text-left min-w-[6rem]">Tổng tiền</th>
+              <th className="p-2 text-left min-w-[8rem]">{t(`Tên sản phẩm`)}</th>
+              <th className="p-2 text-left min-w-[6rem]">{t(`Danh mục`)}</th>
+              <th className="p-2 text-center min-w-[6rem]">{t(`Thể loại`)}</th>
+              <th className="p-2 text-left min-w-[6rem]">{t(`Số lượng`)}</th>
+              <th className="p-2 text-left min-w-[6rem]">{t(`Giá bán`)}</th>
+              <th className="p-2 text-left min-w-[6rem]">{t(`Tổng tiền`)}</th>
             </tr>
           </thead>
           <tbody className="font-medium text-slate-700">

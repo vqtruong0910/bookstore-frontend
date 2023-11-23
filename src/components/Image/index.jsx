@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import styles from './Image.module.scss'
 import { IoArrowRedoOutline } from 'react-icons/io5'
+import { useTranslation } from 'react-i18next'
 
 function Image({ item, className = '', overlay = true }) {
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   return (
@@ -17,10 +19,10 @@ function Image({ item, className = '', overlay = true }) {
       />
 
       {overlay && (
-        <div className={`${styles['overlay']} font-semibold text-slate-700`}>
+        <div className={`${styles['overlay']} font-semibold text-slate-700 hover:scale-110`}>
           <div className="flex items-center justify-center py-0.5 px-2 bg-white rounded-md">
             <IoArrowRedoOutline />
-            <span>Chi tiết</span>
+            <span>{t(`Chi tiết`)}</span>
           </div>
         </div>
       )}

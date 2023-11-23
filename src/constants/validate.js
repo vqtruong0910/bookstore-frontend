@@ -132,4 +132,7 @@ export const VALIDATE = {
   ward: {
     required: true,
   },
+  review: {
+    required: 'Vui lòng nhập đánh giá cho sản phẩm',
+  },
 }

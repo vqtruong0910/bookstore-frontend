@@ -11,8 +11,10 @@ import Loading from '../../../components/Loading'
 import axiosJWT from '../../../config/axiosJWT'
 import { API } from '../../../constants/api'
 import style from './style.module.scss'
+import { useTranslation } from 'react-i18next'
 
 function TypeOf() {
+  const { t } = useTranslation()
   const uid = useId()
   const { id } = useParams()
   const queryClient = useQueryClient()
@@ -110,39 +112,39 @@ function TypeOf() {
   }, [])
 
   const handleAddTypeOfBook = useCallback((data) => {
-    if (window.confirm('Bạn chắc chắn là muốn thêm danh mục này chứ'))
+    if (window.confirm(t('Bạn chắc chắn là muốn thêm thể loại này chứ ?')))
       addTypeOfBook(data)
         .then(() => {
-          window.alert('Thêm danh mục thành công')
+          window.alert(t('Thêm thể loại thành công'))
           reset({ TenDanhMuc: '' })
         })
         .catch((err) => {
           console.log(err)
-          window.alert('Thêm danh mục thất bại')
+          window.alert(t('Thêm thể loại thất bại'))
         })
   }, [])
 
   const handleUpdateTypeOfBook = useCallback((data) => {
-    if (window.confirm('Bạn chắc chắn là muốn thay đổi danh mục này chứ'))
+    if (window.confirm(t('Bạn chắc chắn là muốn cập nhật thể loại này chứ ?')))
       updateTypeOfBook(data)
         .then(() => {
-          window.alert('Thay đổi danh mục thành công')
+          window.alert(t('Cập nhật thể loại thành công'))
           setFormUpdate(false)
         })
         .catch((err) => {
           console.log(err)
-          window.alert('Thay đổi danh mục thất bại')
+          window.alert(t('Cập nhật thể loại thất bại'))
         })
   }, [])
   const handleDeleteTypeOfBook = useCallback((idTypeOfBook) => {
-    if (window.confirm('Bạn chắc chắn là muốn xóa danh mục này chứ'))
+    if (window.confirm(t('Bạn chắc chắn là muốn xóa thể loại này chứ ?')))
       deleteTypeOfBook(idTypeOfBook)
         .then(() => {
-          window.alert('Xóa danh mục thành công')
+          window.alert(t('Xóa thể loại thành công'))
         })
         .catch((err) => {
           console.log(err)
-          window.alert('Xóa danh mục thất bại')
+          window.alert(t('Xóa thể loại thất bại'))
         })
   }, [])
 
@@ -156,13 +158,13 @@ function TypeOf() {
     return <Loading />
   }
   if (isError) {
-    return <h1>Không thể tải được dữ liệu 😥</h1>
+    return <h1>{t(`Không thể tải được dữ liệu `)}😥</h1>
   }
 
   return (
     <>
       <div className="flex space-x-2">
-        <h2 className="text-xl font-semibold">Loại sách ✨</h2>
+        <h2 className="text-xl font-semibold">{t(`Thể loại`)} ✨</h2>
       </div>
 
       <div className="py-2 space-y-1">
@@ -170,7 +172,7 @@ function TypeOf() {
           <form onSubmit={handleSubmit(handleAddTypeOfBook)} className="flex space-x-3">
             <input
               {...register('TenTheLoai', { required: true })}
-              placeholder="Tên thể loại..."
+              placeholder={t('Tên thể loại...')}
               type="text"
               className={clsx(
                 errors['TenTheLoai'] && 'border-red-600',
@@ -178,7 +180,7 @@ function TypeOf() {
               )}
             />
             <button className="px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors ml-auto">
-              Thêm
+              {t(`Thêm`)}
             </button>
           </form>
         </div>
@@ -187,7 +189,7 @@ function TypeOf() {
       <table className="border-collapse border rounded-sm w-full bg-white">
         <thead>
           <tr className="border bg-slate-800 text-slate-200">
-            <th className="p-2 text-left">Tên thể loại</th>
+            <th className="p-2 text-left">{t(`Tên thể loại`)}</th>
             <th className="p-2 text-center w-16"></th>
             <th className="p-2 text-center w-16"></th>
           </tr>
@@ -236,12 +238,12 @@ function TypeOf() {
             onSubmit={handleSubmitUpdate(handleUpdateTypeOfBook)}
             className="w-full flex flex-col py-4 px-4 sm:p-6"
           >
-            <span className="w-full flex text-slate-600 lg:text-lg">Thông tin thể loại</span>
+            <span className="w-full flex text-slate-600 lg:text-lg">{t(`Thông tin thể loại`)}</span>
             <div className="flex flex-col w-full justify-center h-full sm:px-10">
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Tên Thể loại
+                    {t(`Tên thể loại`)}
                   </span>
                 </div>
 
@@ -250,7 +252,7 @@ function TypeOf() {
                     {...registerUpdate('TheLoai')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     type="text"
-                    placeholder="Tên thể loại"
+                    placeholder={t('Tên thể loại...')}
                   />
                 </div>
               </div>
@@ -262,13 +264,13 @@ function TypeOf() {
                   onClick={() => setFormUpdate(false)}
                   className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm"
                 >
-                  Trở lại
+                  {t(`Trở lại`)}
                 </button>
                 <button
                   type="submit"
                   className="py-2 px-3 bg-slate-700 hover:bg-slate-500 shadow-sm border transition rounded-sm text-white"
                 >
-                  Cập nhật
+                  {t(`Cập nhật`)}
                 </button>
               </div>
             </div>

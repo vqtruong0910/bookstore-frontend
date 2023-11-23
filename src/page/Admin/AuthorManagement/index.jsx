@@ -10,8 +10,10 @@ import Loading from '../../../components/Loading'
 import axiosJWT from '../../../config/axiosJWT'
 import { API } from '../../../constants/api'
 import style from './style.module.scss'
+import { useTranslation } from 'react-i18next'
 
 function AuthorManagement() {
+  const { t } = useTranslation()
   const id = useId()
   const queryClient = useQueryClient()
   const [Author, setAuthor] = useState({})
@@ -127,39 +129,39 @@ function AuthorManagement() {
   }, [])
 
   const handleAddAuthor = useCallback((data) => {
-    if (window.confirm('Bạn chắc chắn là muốn thêm tác giả này chứ'))
+    if (window.confirm(t('Bạn chắc chắn là muốn thêm tác giả này chứ ?')))
       addAuthor(data)
         .then(() => {
-          window.alert('Thêm tác giả thành công')
+          window.alert(t('Thêm tác giả thành công'))
           reset({ TenTacGia: '', DiaChi: '' })
         })
         .catch((err) => {
           console.log(err)
-          window.alert('Thêm tác giả thất bại')
+          window.alert(t('Thêm tác giả thất bại'))
         })
   }, [])
 
   const handleUpdateAuthor = useCallback((data) => {
-    if (window.confirm('Bạn chắc chắn là muốn thay đổi tác giả này chứ'))
+    if (window.confirm(t('Bạn chắc chắn là muốn cập nhật tác giả này chứ ?')))
       updateAuthor(data)
         .then(() => {
-          window.alert('Thay đổi tác giả thành công')
+          window.alert(t('Cập nhật tác giả thành công'))
           setFormUpdate(false)
         })
         .catch((err) => {
           console.log(err)
-          window.alert('Thay đổi tác giả thất bại')
+          window.alert(t('Cập nhật tác giả thất bại'))
         })
   }, [])
   const handleDeleteAuthor = useCallback((idAuthor) => {
-    if (window.confirm('Bạn chắc chắn là muốn xóa tác giả này chứ'))
+    if (window.confirm(t('Bạn chắc chắn là muốn xóa tác giả này chứ ?')))
       deleteAuthor(idAuthor)
         .then(() => {
-          window.alert('Xóa tác giả thành công')
+          window.alert(t('Xóa tác giả thành công'))
         })
         .catch((err) => {
           console.log(err)
-          window.alert('Xóa tác giả thất bại')
+          window.alert(t('Xóa tác giả thất bại'))
         })
   }, [])
 
@@ -167,12 +169,12 @@ function AuthorManagement() {
     return <Loading />
   }
   if (isError) {
-    return <h1>Không thể tải được dữ liệu 😥</h1>
+    return <h1>{t(`Không thể tải được dữ liệu `)}😥</h1>
   }
   return (
     <>
       <div className="flex space-x-2">
-        <h2 className="text-xl font-semibold">Tác giả ✨</h2>
+        <h2 className="text-xl font-semibold">{t(`Tác giả`)} ✨</h2>
       </div>
 
       <div className="py-2 space-y-1">
@@ -180,7 +182,7 @@ function AuthorManagement() {
           <form onSubmit={handleSubmit(handleAddAuthor)} className="flex space-x-3">
             <input
               {...register('TenTacGia', { required: true })}
-              placeholder="Tên tác giả..."
+              placeholder={t('Tên tác giả...')}
               type="text"
               className={clsx(
                 errors['TenTacGia'] && 'border-red-600',
@@ -189,7 +191,7 @@ function AuthorManagement() {
             />
             <input
               {...register('DiaChi', { required: true })}
-              placeholder="Địa chỉ..."
+              placeholder={t('Địa chỉ...')}
               type="text"
               className={clsx(
                 errors['DiaChi'] && 'border-red-600',
@@ -197,13 +199,15 @@ function AuthorManagement() {
               )}
             />
             <button className="px-3 py-1 bg-orange-600 rounded-sm text-white text-sm hover:bg-orange-500 transition-colors ml-auto">
-              Thêm
+              {t(`Thêm`)}
             </button>
           </form>
         </div>
 
         <div className="flex justify-end space-x-2 py-1">
-          <div className="px-2 border rounded-sm cursor-pointer">{authors.TongTacGia} mục</div>
+          <div className="px-2 border rounded-sm cursor-pointer">
+            {authors.TongTacGia} {t(` mục`)}
+          </div>
           <div className="px-2 border rounded-sm cursor-pointer" onClick={firstPage}>
             &#171;
           </div>
@@ -234,8 +238,8 @@ function AuthorManagement() {
         <table className="border-collapse border rounded-sm w-full bg-white">
           <thead>
             <tr className="border bg-slate-800 text-slate-200">
-              <th className="p-2 text-left min-w-[15rem]">Tên tác giả</th>
-              <th className="p-2 text-left">Địa chỉ</th>
+              <th className="p-2 text-left min-w-[15rem] whitespace-nowrap">{t(`Tên tác giả`)}</th>
+              <th className="p-2 text-left whitespace-nowrap">{t(`Địa chỉ`)}</th>
               <th className="p-2 text-center w-16"></th>
               <th className="p-2 text-center w-16"></th>
             </tr>
@@ -287,12 +291,12 @@ function AuthorManagement() {
             onSubmit={handleSubmitUpdate(handleUpdateAuthor)}
             className="w-full flex flex-col py-4 px-4 sm:p-6"
           >
-            <span className="w-full flex text-slate-600 lg:text-lg">Thông tin tác giả</span>
+            <span className="w-full flex text-slate-600 lg:text-lg">{t(`Thông tin tác giả`)}</span>
             <div className="flex flex-col w-full justify-center h-full sm:px-10">
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Tên Tác Giả
+                    {t(`Tên tác giả`)}
                   </span>
                 </div>
 
@@ -301,14 +305,14 @@ function AuthorManagement() {
                     {...registerUpdate('TacGia')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     type="text"
-                    placeholder="Tên danh mục"
+                    placeholder={t('Tên tác giả...')}
                   />
                 </div>
               </div>
               <div className="flex w-full py-2">
                 <div className="w-1/3 lg:w-4/12 items-center flex">
                   <span className="flex text-sm lg:text-base font-semibold text-slate-800">
-                    Địa Chỉ
+                    {t(`Địa chỉ`)}
                   </span>
                 </div>
 
@@ -317,7 +321,7 @@ function AuthorManagement() {
                     {...registerUpdate('DiaChiUpdate')}
                     className="w-full border rounded-sm px-2 py-1 lg:py-2 focus:outline-none focus:ring-sky-200 focus:ring-1 placeholder:text-slate-400 placeholder:text-sm lg:placeholder:text-base"
                     type="text"
-                    placeholder="Địa chỉ"
+                    placeholder={t('Địa chỉ...')}
                   />
                 </div>
               </div>
@@ -329,13 +333,13 @@ function AuthorManagement() {
                   onClick={() => setFormUpdate(false)}
                   className="py-2 px-3 text-slate-700 hover:bg-slate-100 shadow-sm border transition rounded-sm"
                 >
-                  Trở lại
+                  {t(`Trở lại`)}
                 </button>
                 <button
                   type="submit"
                   className="py-2 px-3 bg-slate-700 hover:bg-slate-500 shadow-sm border transition rounded-sm text-white"
                 >
-                  Cập nhật
+                  {t(`Cập nhật`)}
                 </button>
               </div>
             </div>

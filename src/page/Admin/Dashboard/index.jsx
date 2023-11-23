@@ -8,8 +8,10 @@ import axiosJWT from '../../../config/axiosJWT'
 import { DAY_CONFIG } from '../../../constants/day'
 import { useMemo } from 'react'
 import clsx from 'clsx'
+import { useTranslation } from 'react-i18next'
 
 function Dashboard() {
+  const { t } = useTranslation()
   const result = useQueries([
     {
       queryKey: ['users'],
@@ -68,7 +70,7 @@ function Dashboard() {
       labels: DAY_CONFIG,
       datasets: [
         {
-          label: 'Số lượng',
+          label: t('Số lượng'),
           data: dataCount,
           // backgroundColor: [
           //     "#3730a3",
@@ -95,7 +97,7 @@ function Dashboard() {
       labels: DAY_CONFIG,
       datasets: [
         {
-          label: 'Tổng đơn',
+          label: t('Tổng đơn'),
           data: dataCount,
           borderColor: '#6366f1',
           fill: {
@@ -112,7 +114,7 @@ function Dashboard() {
       return <Loading />
     }
     if (value.isError) {
-      return <div>Đã có lỗi khi lấy dữ liệu 😥</div>
+      return <div>{t(`Đã có lỗi khi lấy dữ liệu `)}😥</div>
     }
   }
 
@@ -121,7 +123,7 @@ function Dashboard() {
       <div className="col-span-4 min-h-24 p-5 bg-indigo-200 rounded-sm">
         <h2 className="text-3xl py-1 font-semibold">Xin chào. 👋</h2>
         <p className="font-medium text-slate-700">
-          Đây là những gì đang xảy ra với các dự án của bạn ngày hôm nay:
+          {t(`Đây là những gì đang xảy ra với các dự án của bạn ngày hôm nay:`)}
         </p>
       </div>
 
@@ -129,7 +131,7 @@ function Dashboard() {
         <div className="sm:col-span-1 col-span-3 min-h-24 p-5 border shadow-md bg-white rounded-sm space-y-5">
           <div className="flex">
             <div>
-              <h2 className="text-sm font-bold text-zinc-400 uppercase">Tài khoản</h2>
+              <h2 className="text-sm font-bold text-zinc-400 uppercase">{t(`Tài khoản`)}</h2>
               <span className="text-xl font-semibold">{result[0].data.TaiKhoan}</span>
             </div>
             <div className="flex justify-center items-center bg-violet-500 w-12 ml-auto rounded-full">
@@ -139,14 +141,14 @@ function Dashboard() {
           <p className="text-gray-500">
             <span className={clsx(result[0].data.PhanTram > 0 ? 'text-lime-500' : 'text-red-500')}>
               {result[0].data.PhanTram} %
-            </span>{' '}
-            Kể từ tuần này
+            </span>
+            {t(` Kể từ tuần này`)}
           </p>
         </div>
         <div className="sm:col-span-1 col-span-3 min-h-24 p-5 border shadow-md bg-white rounded-sm space-y-5">
           <div className="flex">
             <div>
-              <h2 className="text-sm font-bold text-zinc-400 uppercase">Doanh thu</h2>
+              <h2 className="text-sm font-bold text-zinc-400 uppercase">{t(`Doanh thu`)}</h2>
               <span className="text-xl font-semibold">{result[1].data.DoanhThu} VNĐ</span>
             </div>
             <div className="flex justify-center items-center bg-orange-500 w-12 ml-auto rounded-full">
@@ -156,14 +158,14 @@ function Dashboard() {
           <p className="text-gray-500">
             <span className={clsx(result[1].data.PhanTram > 0 ? 'text-lime-500' : 'text-red-500')}>
               {result[1].data.PhanTram} %
-            </span>{' '}
-            Kể từ tuần này
+            </span>
+            {t(` Kể từ tuần này`)}
           </p>
         </div>
         <div className="sm:col-span-1 col-span-3 min-h-24 p-5 border shadow-md bg-white rounded-sm space-y-5">
           <div className="flex">
             <div>
-              <h2 className="text-sm font-bold text-zinc-400 uppercase">Đơn hàng</h2>
+              <h2 className="text-sm font-bold text-zinc-400 uppercase">{t(`Đơn hàng`)}</h2>
               <span className="text-xl font-semibold">{result[2].data.TongDon}</span>
             </div>
             <div className="flex justify-center items-center bg-lime-500 w-12 ml-auto rounded-full">
@@ -173,8 +175,8 @@ function Dashboard() {
           <p className="text-gray-500">
             <span className={clsx(result[2].data.PhanTram > 0 ? 'text-lime-500' : 'text-red-500')}>
               {result[2].data.PhanTram} %
-            </span>{' '}
-            Kể từ tuần này
+            </span>
+            {t(` Kể từ tuần này`)}
           </p>
         </div>
       </div>
@@ -182,7 +184,7 @@ function Dashboard() {
       <div className="col-span-4 sm:col-span-2 p-5 border shadow-md bg-white rounded-sm space-y-5">
         <div className="flex space-x-2">
           <img src={icon1} alt="arrow" />
-          <h2 className="font-semibold text-xl">Tài khoản đăng ký</h2>
+          <h2 className="font-semibold text-xl">{t(`Tài khoản đăng ký`)}</h2>
         </div>
         <div className="bg-opacity-10 bg-emerald-100 h-60">
           <LineChart chartData={userData} />
@@ -191,7 +193,7 @@ function Dashboard() {
       <div className="col-span-4 sm:col-span-2 p-5 border shadow-md bg-white rounded-sm space-y-5">
         <div className="flex space-x-2">
           <img src={icon1} alt="arrow" />
-          <h2 className="font-semibold text-xl">Đơn hàng bán ra</h2>
+          <h2 className="font-semibold text-xl">{t(`Đơn hàng bán ra`)}</h2>
         </div>
         <div className="bg-opacity-10 bg-emerald-100 h-60">
           <LineChart chartData={orderData} />

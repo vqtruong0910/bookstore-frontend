@@ -1,51 +1,59 @@
-import { useMemo } from "react";
-import { Line } from "react-chartjs-2";
-import { useQuery } from "react-query";
-import { Chart as ChartJS } from 'chart.js/auto';
-import axiosJWT from "../../../config/axiosJWT";
-import { API } from "../../../constants/api";
-import Loading from "../../../components/Loading";
-import { DAY_CONFIG } from "../../../constants/day";
+import { useMemo } from 'react'
+import { Line } from 'react-chartjs-2'
+import { useQuery } from 'react-query'
+import { Chart as ChartJS } from 'chart.js/auto'
+import axiosJWT from '../../../config/axiosJWT'
+import { API } from '../../../constants/api'
+import Loading from '../../../components/Loading'
+import { DAY_CONFIG } from '../../../constants/day'
+import { useTranslation } from 'react-i18next'
 
 function RevenueStatistics() {
-    const { data: Revenue, isLoading, isError } = useQuery({
-        queryKey: ["revenue statistics"],
-        queryFn: async () => {
-            const result = await axiosJWT.get(API.STATISTIC_REVANUE_EVERY_DAY_IN_WEEK);
-            console.log(result.data);
-            return result.data;
-        },
-        keepPreviousData: true
+  const { t } = useTranslation()
+  const {
+    data: Revenue,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['revenue statistics'],
+    queryFn: async () => {
+      const result = await axiosJWT.get(API.STATISTIC_REVANUE_EVERY_DAY_IN_WEEK)
+      console.log(result.data)
+      return result.data
+    },
+    keepPreviousData: true,
+  })
+
+  const revenueChart = useMemo(() => {
+    const data = new Array(7).fill(0)
+    Revenue?.forEach((value) => {
+      const date = new Date(value.NgayDat)
+      const getDayToDate = date.getDay()
+      data[getDayToDate] = value.DoanhThu
     })
-
-    const revenueChart = useMemo(() => {
-        const data = new Array(7).fill(0);
-        Revenue?.forEach((value) => {
-            const date = new Date(value.NgayDat)
-            const getDayToDate = date.getDay();
-            data[getDayToDate] = value.DoanhThu;
-        })
-        return {
-            labels: DAY_CONFIG,
-            datasets: [{
-                label: "Số lượng sản phẩm bán ra",
-                data: data,
-                borderColor: "#3730a3",
-            }],
-        }
-    }, [Revenue])
-
-    if (isLoading) {
-        return <Loading />
+    return {
+      labels: DAY_CONFIG,
+      datasets: [
+        {
+          label: t('Số lượng sản phẩm bán ra'),
+          data: data,
+          borderColor: '#3730a3',
+        },
+      ],
     }
-    if (isError) {
-        return <div>Đã có lỗi khi lấy dữ liệu 😥</div>
-    }
-    return (
-        <>
-            <h2 className="text-xl font-semibold">Thống kê sản phẩm ✨</h2>
+  }, [Revenue])
 
-            {/* <div className="hidden md:flex my-4">
+  if (isLoading) {
+    return <Loading />
+  }
+  if (isError) {
+    return <div>{t(`Đã có lỗi khi lấy dữ liệu `)}😥</div>
+  }
+  return (
+    <>
+      <h2 className="text-xl font-semibold">{t(`Thống kê sản phẩm`)} ✨</h2>
+
+      {/* <div className="hidden md:flex my-4">
                 <div className="flex ml-auto space-x-3">
                     <select className="rounded-sm border cursor-pointer">
                         <option value="">Chọn danh mục</option>
@@ -69,27 +77,30 @@ function RevenueStatistics() {
                 </div>
             </div> */}
 
-            <div className="h-500 bg-white p-6 rounded-sm shadow-sm">
-                <Line data={revenueChart} options={{
-                    scales: {
-                        yAxes: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Biểu đường thể hiện doanh thu trong tuần'
-                        }
-                    },
-                    maintainAspectRatio: false
-                }} />
-            </div>
-        </>
-    );
+      <div className="h-500 bg-white p-6 rounded-sm shadow-sm">
+        <Line
+          data={revenueChart}
+          options={{
+            scales: {
+              yAxes: {
+                beginAtZero: true,
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+              title: {
+                display: true,
+                text: t('Biểu đường thể hiện doanh thu trong tuần'),
+              },
+            },
+            maintainAspectRatio: false,
+          }}
+        />
+      </div>
+    </>
+  )
 }
 
-export default RevenueStatistics;
+export default RevenueStatistics

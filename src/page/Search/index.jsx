@@ -5,9 +5,11 @@ import Context from '../../store/Context'
 import LoadingSkeletonSearch from '../../components/Loading/LoadingSkeletonSearch'
 import Card from '../../components/Card'
 import { API } from '../../constants/api'
+import { useTranslation } from 'react-i18next'
 
 const Search = () => {
   let total = 0
+  const { t } = useTranslation()
   const [data, setData] = useState([])
   const [loading, isLoading] = useState(true)
   const { state } = useLocation()
@@ -63,14 +65,14 @@ const Search = () => {
                           darkTheme ? 'text-white' : 'text-gray-500'
                         } `}
                       >
-                        Sắp xếp
+                        {t(`Sắp xếp`)}
                       </span>
                       <select className="border text-black/70 rounded-sm px-3 py-1 cursor-pointer bg-white border-black/70 focus:outline-none focus:ring-black/40 focus:ring-1 text-base font-semibold">
-                        <option value="moinhat">Mới nhất</option>
-                        <option value="banchay">Bán chạy</option>
-                        <option value="phobien">Phổ biến</option>
-                        <option value="giatangdan">Giá tăng dần</option>
-                        <option value="giagiamdan">Giá giảm dần</option>
+                        <option value="moinhat">{t(`Mới nhất`)}</option>
+                        <option value="banchay">{t(`Bán chạy`)}</option>
+                        <option value="phobien">{t(`Phổ biến`)}</option>
+                        <option value="giatangdan">{t(`Giá tăng dần`)}</option>
+                        <option value="giagiamdan">{t(`Giá giảm dần`)}</option>
                       </select>
                     </div>
                   </>
@@ -79,10 +81,11 @@ const Search = () => {
                 {state !== null && (
                   <>
                     <div className={`text-lg italic w-full ${darkTheme ? 'text-white' : ''}`}>
-                      Từ khóa tìm kiếm : <strong className="text-orange-400">{state}</strong>
+                      {t(`Từ khóa tìm kiếm :`)} <strong className="text-orange-400">{state}</strong>
                     </div>
                     <div className={`text-lg italic w-full ${darkTheme ? 'text-white' : ''}`}>
-                      Kết quả : <strong className="text-orange-400">{getResult()}</strong>
+                      {t(`Kết quả : `)}
+                      <strong className="text-orange-400">{getResult()}</strong>
                     </div>
                   </>
                 )}

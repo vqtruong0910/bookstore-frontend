@@ -13,52 +13,31 @@ import BeingShippedOrder from '../../../module/UserOrder/BeingShippedOrder'
 import DeliveredOrder from '../../../module/UserOrder/DeliveredOrder'
 import CancelledOrder from '../../../module/UserOrder/CancelledOrder'
 import Context from '../../../store/Context'
-import { API } from '../../../constants/api'
+import { useTranslation } from 'react-i18next'
+import useOrder from '../../../hooks/useOrder'
 
 function UserOrderManagement() {
-  const [loading, isLoading] = useState(true)
-  const [showDiv, setShowDiv] = useState(1)
-  const [order, setOrder] = useState([])
+  const { t } = useTranslation()
   const { darkTheme } = useContext(Context)
+  const [showDiv, setShowDiv] = useState(1)
+  const { order, loading } = useOrder()
 
   const handleDiv = (e) => {
     setShowDiv(e)
   }
 
-  useEffect(() => {
-    const fetchAllOrderData = async () => {
-      try {
-        const response = await axiosJWT.get(`${API.ORDER}/user_id`)
-        isLoading(true)
-        if (response.data) {
-          isLoading(false)
-          setOrder(response.data)
-        }
-      } catch (error) {
-        console.log(error)
-        isLoading(true)
-      }
-    }
-    fetchAllOrderData()
-  }, [])
-
-  useEffect(() => {
-    const topOfElement = document.querySelector('#user-order-management') - 200
-    window.scroll({ top: topOfElement, behavior: 'smooth' })
-  }, [])
-
   return (
     <>
       {loading && <LoadingSkeletonUserOrderManagement></LoadingSkeletonUserOrderManagement>}
       {!loading && (
-        <div className="flex flex-wrap md:flex-col w-full" id="user-order-management">
+        <div className="flex flex-wrap md:flex-col w-full min-h-[500px]">
           <div className="flex w-full px-4 md:px-0">
             <span
               className={`w-full text-lg font-semibold mb-5 lg:text-xl ${
                 darkTheme ? 'text-white' : 'text-slate-700'
               }`}
             >
-              Quản lý đơn hàng
+              {t(`Quản lý đơn hàng`)}
             </span>
           </div>
 
@@ -67,7 +46,7 @@ function UserOrderManagement() {
               htmlFor="default-search"
               className="mb-2 text-sm font-medium text-gray-900 sr-only"
             >
-              Search
+              {t(`Tìm kiếm`)}
             </label>
             <div className="relative w-full">
               <div className="flex absolute inset-y-0 left-0 items-center px-3 h-full hover:bg-blue-100 cursor-pointer rounded-sm">
@@ -78,12 +57,12 @@ function UserOrderManagement() {
               <input
                 type="search"
                 className="focus:outline-none focus:ring-1 focus:ring-blue-200 block py-2 pl-12 w-full text-sm lg:text-base lg:placeholder:text-lg text-gray-900 bg-gray-50 border border-gray-300"
-                placeholder="Tìm kiếm theo ID đơn đặt hàng hoặc Tên sản phẩm"
+                placeholder={t('Tìm kiếm theo ID đơn đặt hàng hoặc Tên sản phẩm')}
               />
             </div>
           </form>
 
-          <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white shadow-md">
+          <div className="flex justify-center w-full mx-4 md:mx-0 rounded-sm bg-white drop-shadow-lg border">
             <div className="w-full flex flex-wrap md:flex-nowrap md:cursor-pointer md:px-0 md:py-0">
               <div
                 onClick={() => handleDiv(1)}
@@ -96,11 +75,11 @@ function UserOrderManagement() {
                 <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                   <RiFileListLine className="w-5 h-5 md:hidden" />
                   <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">
-                    Tất cả đơn
+                    {t(`Tất cả đơn`)}
                   </span>
                 </div>
                 <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
-                  <span className="text-xs font-normal text-white px-2">Xem chi tiết</span>
+                  <span className="text-xs font-normal text-white px-2">{t(`Xem chi tiết`)}</span>
                 </div>
               </div>
               <div
@@ -114,11 +93,11 @@ function UserOrderManagement() {
                 <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                   <IoReload className="w-5 h-5 md:hidden" />
                   <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">
-                    Đang xử lý
+                    {t(`Đang xử lý`)}
                   </span>
                 </div>
                 <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
-                  <span className="text-xs font-normal text-white">Xem chi tiết</span>
+                  <span className="text-xs font-normal text-white">{t(`Xem chi tiết`)}</span>
                 </div>
               </div>
               <div
@@ -132,11 +111,11 @@ function UserOrderManagement() {
                 <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                   <HiOutlineTruck className="w-5 h-5 md:hidden" />
                   <span className="flex px-0.5 md:text-xs lg:text-base whitespace-nowrap font-semibold lg:font-normal">
-                    Đang vận chuyển
+                    {t(`Đang vận chuyển`)}
                   </span>
                 </div>
                 <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
-                  <span className="text-xs font-normal text-white">Xem chi tiết</span>
+                  <span className="text-xs font-normal text-white">{t(`Xem chi tiết`)}</span>
                 </div>
               </div>
               <div
@@ -150,11 +129,11 @@ function UserOrderManagement() {
                 <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                   <FiCheckSquare className="w-5 h-5 md:hidden" />
                   <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">
-                    Đã giao
+                    {t(`Đã giao`)}
                   </span>
                 </div>
                 <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
-                  <span className="text-xs font-normal text-white">Xem chi tiết</span>
+                  <span className="text-xs font-normal text-white">{t(`Xem chi tiết`)}</span>
                 </div>
               </div>
               <div
@@ -168,11 +147,11 @@ function UserOrderManagement() {
                 <div className="text-sm text-gray-700 font-medium flex items-center w-full md:justify-center">
                   <BiTaskX className="w-5 h-5 md:hidden" />
                   <span className="flex px-0.5 md:text-xs lg:text-base font-semibold lg:font-normal">
-                    Đã hủy
+                    {t(`Đã hủy`)}
                   </span>
                 </div>
                 <div className="w-28 flex justify-center border bg-slate-700 rounded-sm py-2 cursor-pointer md:hidden">
-                  <span className="text-xs font-normal text-white">Xem chi tiết</span>
+                  <span className="text-xs font-normal text-white">{t(`Xem chi tiết`)}</span>
                 </div>
               </div>
             </div>

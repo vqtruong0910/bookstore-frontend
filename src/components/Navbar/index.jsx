@@ -1,58 +1,39 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/path'
 import logo from '../../assets/images/logo.png'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Sidebar from '../Sidebar'
 import clsx from 'clsx'
 import Context from '../../store/Context'
 import { API } from '../../constants/api'
 import axiosConfig from '../../config/axiosConfig'
 import HeaderList from '../../module/Header/HeaderList'
-import jwtDecode from 'jwt-decode'
-import { useMemo } from 'react'
 import Search from '../Search'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
 import avatar from '../../assets/images/avatar.jpg'
 import useClickOutside from '../../hooks/useClickOutside'
 import Language from '../Language'
+import { useTranslation } from 'react-i18next'
+import MenuAvatar from '../MenuAvatar'
 
 const Navbar = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [, setData] = useState([])
   const [open, setOpen] = useState(false)
   const { show, nodeRef } = useClickOutside()
   const { cart } = useContext(Context)
-  const { user, setUser } = useContext(Context)
-
-  const isAdmin = useMemo(() => {
-    try {
-      const { Quyen } = jwtDecode(localStorage.getItem('token'))
-      return Quyen === 0 ? true : false
-    } catch (error) {
-      return false
-    }
-  }, [])
+  const { user } = useContext(Context)
 
   const { items } = cart.reduce(
-    ({ items }, { quantity }) => ({
-      items: items + quantity,
+    ({ items }) => ({
+      items: items + 1,
     }),
-    { items: 0 }
-  )
-
-  const logout = useCallback(async () => {
-    try {
-      await axiosConfig.delete(API.LOGOUT)
-    } catch (error) {
-      console.log('Logout failed: ', error)
-    } finally {
-      localStorage.removeItem('user')
-      localStorage.removeItem('token')
-      setUser(false)
-      navigate(PATH.login, { replace: true })
+    {
+      items: 0,
     }
-  }, [])
+  )
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -73,13 +54,13 @@ const Navbar = () => {
         )}
         onClick={() => setOpen(false)}
       ></div>
-      <div className="flex text-slate-700 bg-slate-700 lg:bg-[#efefef] justify-center z-20 w-full mx-auto">
+      <div className="flex fixed text-slate-700 bg-slate-700 lg:bg-[#efefef] justify-center z-20 w-full mx-auto">
         <div className="flex flex-col w-full">
           <div className="gap-y-4 flex flex-col lg:flex-row py-4 lg:px-4 h-full lg:items-center lg:h-auto lg:w-full">
             <Link to={PATH.main} className="flex justify-center items-center gap-x-2 ">
               <img className="w-10 h-10 lg:w-16 lg:h-16 rounded-full" src={logo} alt="bookstore" />
               <span className="font-bold font-lobster text-2xl lg:text-4xl text-white lg:text-slate-700">
-                Book Store
+                {t(`Book Store`)}
               </span>
             </Link>
 
@@ -101,41 +82,7 @@ const Navbar = () => {
                       alt="avatar"
                     />
 
-                    {show && (
-                      <ul className="bg-gray-100 font-semibold right-1 mt-2 transition-all duration-150 absolute bg-slate- text-black rounded-sm border border-gray-300 z-50 drop-shadow-lg whitespace-nowrap">
-                        {isAdmin && (
-                          <li
-                            onClick={() => {
-                              navigate(PATH.admin.dashboard)
-                            }}
-                            className="p-2 hover:bg-gray-300"
-                          >
-                            Admin
-                          </li>
-                        )}
-                        <li
-                          onClick={() => navigate(PATH.profile.dashboard)}
-                          className="p-2 hover:bg-slate-300"
-                        >
-                          Thông tin tài khoản
-                        </li>
-                        <li
-                          onClick={() => navigate(PATH.profile.user_order_management)}
-                          className="p-2 hover:bg-slate-300"
-                        >
-                          Quản lý đơn hàng
-                        </li>
-                        <li
-                          onClick={() => navigate(PATH.profile.user_review)}
-                          className="p-2 hover:bg-slate-300"
-                        >
-                          Đánh giá sản phẩm
-                        </li>
-                        <li onClick={logout} className="p-2 hover:bg-slate-300">
-                          Đăng xuất
-                        </li>
-                      </ul>
-                    )}
+                    {show && <MenuAvatar />}
                   </div>
                 )}
 
@@ -153,19 +100,22 @@ const Navbar = () => {
                   ></AiOutlineShoppingCart>
                   <div className="rounded-full w-4 h-4 bg-orange-500 absolute right-0 top-0">
                     <span className="text-white text-sm flex items-center justify-center h-full">
-                      {items}
+                      {!localStorage.getItem('userCart') ? '0' : items}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <Language />
+              <div className="hidden lg:block">
+                <Language />
+              </div>
             </div>
           </div>
 
           <HeaderList />
         </div>
       </div>
+
       <Sidebar open={open} onClick={() => setOpen(!open)}></Sidebar>
     </>
   )

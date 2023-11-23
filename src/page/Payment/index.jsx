@@ -13,9 +13,11 @@ import Field from '../../components/Field'
 import Radio from '../../components/Radio'
 import Swal from 'sweetalert2'
 import { API } from '../../constants/api'
+import { useTranslation } from 'react-i18next'
 
 function Payment() {
   let totalAllProduct = 0
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { user, cart, darkTheme } = useContext(Context)
   const [province, setProvince] = useState([])
@@ -46,27 +48,55 @@ function Payment() {
         const { IDSanPham, quantity, GiaBan } = item
         detail.push({ IDSanPham, SoLuong: quantity, GiaBan })
       })
+
       await axiosJWT.post(`${API.MANAGE_ORDER}/`, {
         DiaChi: `${data.address} ${data.ward}, ${data.district}, ${data.city}`,
         PhiShip: 30000,
         ChiTietDonHang: detail,
       })
-      Swal.fire({
-        title: 'Chúc mừng bạn đã đặt hàng thành công',
+
+      await Swal.fire({
+        title: t('Chúc mừng bạn đã đặt hàng thành công'),
         icon: 'success',
         showCancelButton: false,
+        showDenyButton: true,
+        showConfirmButton: true,
         confirmButtonColor: 'rgb(29, 192, 113)',
-        confirmButtonText: 'Xem đơn hàng',
-      }).then(async (result) => {
+        confirmButtonText: t('Xem đơn hàng'),
+        denyButtonText: t('Tiếp tục mua sắm'),
+        denyButtonColor: 'rgb(148, 163, 184)',
+      }).then((result) => {
         if (result.isConfirmed) {
           navigate(PATH.profile.user_order_management)
+        } else if (result.isDenied) {
+          navigate('/')
         }
       })
 
-      return navigate('/')
+      localStorage.setItem('userCart', '[]')
+      navigate(0)
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handlePay = () => {
+    if (localStorage.getItem('userCart') == '[]') {
+      Swal.fire({
+        title: t('Giỏ hàng không có sản phẩm'),
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: t('Về trang chủ'),
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/')
+        }
+      })
+    }
+
+    return
   }
 
   cart.forEach((item) => {
@@ -75,10 +105,6 @@ function Payment() {
 
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
-  }
-
-  const handlePay = () => {
-    localStorage.removeItem('userCart')
   }
 
   const handleProvince = (event) => {
@@ -97,8 +123,6 @@ function Payment() {
 
   useEffect(() => {
     const fetchProvinceData = async () => {
-      const topOfElement = document.querySelector('#payment') - 200
-      window.scroll({ top: topOfElement, behavior: 'smooth' })
       const response = await axios(`${API.GET_LIST_PROVINCE}`)
       if (response.data) {
         setTimeout(() => {
@@ -130,58 +154,62 @@ function Payment() {
     <>
       {loading && <LoadingSkeletonPayment></LoadingSkeletonPayment>}
       {!loading && (
-        <div className="flex flex-wrap w-full xl:w-4/5 mx-auto py-10" id="payment">
+        <div className="flex flex-wrap w-full xl:w-4/5 mx-auto py-10">
           <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-wrap lg:flex-nowrap">
-            <div className="flex flex-wrap w-full">
+            <div className="flex flex-wrap w-full gap-5">
               <div className="flex flex-wrap w-full">
                 <div
                   className={`flex w-full px-4 xl:px-0 ${
                     darkTheme ? 'text-white' : 'text-slate-700'
                   }`}
                 >
-                  <span className="w-full text-lg font-medium">THÔNG TIN GIAO HÀNG</span>
+                  <span className="w-full text-lg font-medium">{t(`THÔNG TIN GIAO HÀNG`)}</span>
                 </div>
 
                 <div className="flex flex-wrap justify-center w-full bg-white border border-gray-200 drop-shadow-lg mt-2 mx-4 xl:mx-0">
-                  <Field title="Họ & tên">
+                  <Field title={t('Họ & tên')}>
                     <Input
                       type="text"
                       name="fullName"
-                      placeholder="Nhập họ và tên"
+                      placeholder={t('Nhập họ và tên')}
                       id="fullName"
+                      isDisabled={cart.length === 0 ? true : false}
                       control={control}
                       rules={VALIDATE.fullname}
                     />
                   </Field>
 
-                  <Field title="Email">
+                  <Field title={t('Email')}>
                     <Input
                       type="email"
                       name="email"
-                      placeholder="Nhập email"
+                      placeholder={t('Nhập email')}
                       id="email"
+                      isDisabled={cart.length === 0 ? true : false}
                       control={control}
                       rules={VALIDATE.email}
                     />
                   </Field>
 
-                  <Field title="Số điện thoại">
+                  <Field title={t('Số điện thoại')}>
                     <Input
                       type="phone"
                       name="phone"
-                      placeholder="Nhập số điện thoại"
+                      placeholder={t('Nhập số điện thoại')}
                       id="phone"
+                      isDisabled={cart.length === 0 ? true : false}
                       control={control}
                       rules={VALIDATE.phone}
                     />
                   </Field>
 
-                  <Field title="Địa chỉ">
+                  <Field title={t('Địa chỉ')}>
                     <Input
                       type="text"
                       name="address"
-                      placeholder="Nhập địa chỉ"
+                      placeholder={t('Nhập địa chỉ')}
                       id="address"
+                      isDisabled={cart.length === 0 ? true : false}
                       control={control}
                       rules={VALIDATE.address}
                     />
@@ -194,8 +222,9 @@ function Payment() {
                       state={province}
                       id="city"
                       rules={VALIDATE.province}
-                      title="Tỉnh/Thành phố"
+                      title={t('Tỉnh/Thành phố')}
                       onClick={handleProvince}
+                      isDisabled={cart.length === 0 ? true : false}
                     />
 
                     <Select
@@ -205,7 +234,8 @@ function Payment() {
                       state={district}
                       id="district"
                       rules={VALIDATE.district}
-                      title="Quận/huyện"
+                      title={t('Quận/huyện')}
+                      isDisabled={cart.length === 0 ? true : false}
                     />
 
                     <Select
@@ -214,15 +244,16 @@ function Payment() {
                       state={ward}
                       id="ward"
                       rules={VALIDATE.ward}
-                      title="Phường/xã"
+                      title={t('Phường/xã')}
+                      isDisabled={cart.length === 0 ? true : false}
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-wrap w-full py-5">
+              <div className="flex flex-wrap w-full">
                 <div className={`flex w-full ${darkTheme ? 'text-white' : 'text-slate-700'}`}>
-                  <span className="w-full text-lg px-4 xl:px-0">Phương thức vận chuyển</span>
+                  <span className="w-full text-lg px-4 xl:px-0">{t(`Phương thức vận chuyển`)}</span>
                 </div>
 
                 <div className="flex justify-center items-center w-full border rounded-sm border-gray-200 bg-white drop-shadow-lg mt-2 mx-4 xl:mx-0">
@@ -230,16 +261,17 @@ function Payment() {
                     control={control}
                     name="shipping_cost"
                     id="shipping_cost"
-                    title="Phí vận chuyển tất cả các tỉnh thành"
+                    title={t('Phí vận chuyển tất cả các tỉnh thành')}
                     value="30.000đ"
+                    isDisabled={cart.length === 0 ? true : false}
                   ></Radio>
                   <div className="p-2 font-medium text-gray-400">30.000đ</div>
                 </div>
               </div>
 
-              <div className="flex flex-wrap w-full py-5">
+              <div className="flex flex-wrap w-full">
                 <div className={`flex w-full ${darkTheme ? 'text-white' : 'text-slate-700'}`}>
-                  <span className="w-full text-lg px-4 xl:px-0">Phương thức thanh toán</span>
+                  <span className="w-full text-lg px-4 xl:px-0">{t(`Phương thức thanh toán`)}</span>
                 </div>
 
                 <div className="flex justify-center items-center w-full border border-gray-200 drop-shadow-lg bg-white mt-2 mx-4 xl:mx-0">
@@ -247,7 +279,8 @@ function Payment() {
                     control={control}
                     name="pay_on_delivery"
                     image={true}
-                    title="Thanh toán khi giao hàng"
+                    title={t('Thanh toán khi giao hàng')}
+                    isDisabled={cart.length === 0 ? true : false}
                   ></Radio>
                 </div>
               </div>
@@ -256,19 +289,28 @@ function Payment() {
               <div className="w-full flex flex-col bg-white border border-gray-200 drop-shadow-lg lg:mt-0 items-end p-3">
                 <div className="flex flex-wrap lg:justify-between lg:w-full">
                   <div className="flex flex-col">
-                    <span className="py-1 font-light md:text-lg">Tạm tính</span>
-                    <span className="py-1 font-light md:text-lg">Phí vận chuyển</span>
-                    <span className="py-1 font-light md:text-lg">Tổng cộng</span>
+                    <span className="py-1 font-light md:text-lg">{t(`Tạm tính`)}</span>
+                    <span className="py-1 font-light md:text-lg">{t(`Phí vận chuyển`)}</span>
+                    <span className="py-1 font-light md:text-lg">{t(`Tổng cộng`)}</span>
                   </div>
 
                   <div className="flex flex-col ml-10 items-end">
                     <span className="py-1 font-medium md:text-lg">
                       {changeCostWithDots(totalAllProduct)}đ
                     </span>
-                    <span className="py-1 font-medium md:text-lg">30.000đ</span>
-                    <span className="py-1 font-semibold text-red-600 text-xl md:text-2xl">
-                      {changeCostWithDots(totalAllProduct + 30000)}đ
+                    <span className="py-1 font-medium md:text-lg">
+                      {cart.length === 0 ? '0đ' : '30.000đ'}{' '}
                     </span>
+
+                    {cart.length === 0 ? (
+                      <span className="py-1 font-semibold text-red-600 text-xl md:text-2xl">
+                        {changeCostWithDots(totalAllProduct + 0)}đ
+                      </span>
+                    ) : (
+                      <span className="py-1 font-semibold text-red-600 text-xl md:text-2xl">
+                        {changeCostWithDots(totalAllProduct + 30000)}đ
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="flex mt-4 lg:w-full lg:text-center">
@@ -276,14 +318,14 @@ function Payment() {
                     onClick={() => navigate(PATH.main)}
                     className="lg:hidden px-2 py-1 bg-gray-300 rounded-md transition mx-4 cursor-pointer text-sm md:text-base lg:text-lg hover:bg-gray-400"
                   >
-                    Giỏ hàng
+                    {t(`Tiếp tục mua sắm`)}
                   </div>
                   <button
                     type="submit"
-                    onClick={() => handlePay()}
-                    className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-md cursor-pointer text-sm md:text-base lg:text-lg"
+                    className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-mediumtransition text-white rounded-md cursor-pointer text-sm md:text-base lg:text-lg"
+                    onClick={handlePay}
                   >
-                    Đặt hàng
+                    {t(`Đặt hàng`)}
                   </button>
                 </div>
               </div>

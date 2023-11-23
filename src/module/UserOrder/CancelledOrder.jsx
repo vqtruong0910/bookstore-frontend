@@ -1,11 +1,26 @@
 import { Link } from 'react-router-dom'
 import { PATH } from '../../constants/path'
 import { MdCancel } from 'react-icons/md'
+import { useTranslation } from 'react-i18next'
+import emptyOrder from '../../assets/images/empty-order.png'
+import { useEffect, useState } from 'react'
 
 const CancelledOrder = ({ data }) => {
+  const { t } = useTranslation()
+  const [cancel, setCancel] = useState(false)
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
+
+  useEffect(() => {
+    if (data.length > 0) {
+      data?.map((item) => {
+        if (item.TrangThai === 1) {
+          setCancel(true)
+        }
+      })
+    }
+  }, [])
 
   return (
     <>
@@ -23,14 +38,16 @@ const CancelledOrder = ({ data }) => {
               >
                 <div className="flex gap-1 text-slate-700 py-3 items-center mx-4 font-medium">
                   <MdCancel className="w-5 h-5"></MdCancel>
-                  <span>ID đơn đặt hàng : {item.IDDonHang}</span>
+                  <span>
+                    {t(`ID đơn đặt hàng :`)} {item.IDDonHang}
+                  </span>
                 </div>
 
                 <div className="w-full border-t-2 flex-row flex">
                   <div className="my-4 mx-4 flex flex-col">
-                    <div>Số lượng đặt mua</div>
-                    <div>Ngày đặt hàng</div>
-                    <div>Ngày giao</div>
+                    <div>{t(`Số lượng đặt mua`)}</div>
+                    <div>{t(`Ngày đặt hàng`)}</div>
+                    <div>{t(`Ngày giao`)}</div>
                   </div>
 
                   <div className="my-4 flex flex-col mx-4">
@@ -43,7 +60,7 @@ const CancelledOrder = ({ data }) => {
                 <div className="w-full border-t-2">
                   <div className="w-full pt-2 flex justify-end px-4">
                     <span className="text-sm md:text-base lg:text-lg">
-                      Tổng tiền: {changeCostWithDots(item.Tong + 30000)}đ
+                      {t(`Tổng tiền: `)} {changeCostWithDots(item.Tong + 30000)}đ
                     </span>
                   </div>
                   <Link
@@ -52,16 +69,21 @@ const CancelledOrder = ({ data }) => {
                     className="w-full pb-4 pt-1 flex justify-end px-4"
                   >
                     <span className="border-blue-500 text-blue-500 cursor-pointer border px-2 py-1 text-xs md:text-sm lg:text-base font-normal rounded-sm">
-                      Xem chi tiết
+                      {t(`Xem chi tiết`)}
                     </span>
                   </Link>
                 </div>
               </div>
             )
           }
-
-          return null
         })}
+
+      {!cancel && (
+        <div className="bg-white w-full mt-4 h-[400px] flex flex-col justify-center border text-center border-gray-100 drop-shadow-lg">
+          <img src={emptyOrder} alt="img" className="w-40 h-40 mx-auto" />
+          <span className="text-lg text-gray-400">{t(`Chưa có đơn hàng`)}</span>
+        </div>
+      )}
     </>
   )
 }

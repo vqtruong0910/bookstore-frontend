@@ -1,21 +1,34 @@
 import i18n from 'i18next'
-import Backend from 'i18next-http-backend'
-import enLanguage from '../locales/en/translation.json'
+import enLanguage from '../locales/en/translation'
 import viLanguage from '../locales/vi/translation'
-import i18next from 'i18next'
+import ciLanguage from '../locales/ci/translation'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
-// the translations
-i18next.init({
-  interpolation: { escapeValue: false }, // React already does escaping
-  fallbackLng: 'vi',
-  lng: 'vi',
+i18n.use(LanguageDetector).init({
+  // init data
   resources: {
     en: {
-      common: enLanguage, // 'common' is our custom namespace
+      translation: enLanguage,
     },
     vi: {
-      common: viLanguage,
+      translation: viLanguage,
     },
+    ci: {
+      translation: ciLanguage,
+    },
+  },
+  // if you're using a language detector, do not define the lng option
+  lng: localStorage.getItem('NEXT_LOCALE') ?? 'vi',
+  fallbackLng: 'vi',
+  interpolation: {
+    // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+    escapeValue: false,
+  },
+  detection: {
+    order: ['localStorage', 'navigator'],
+    lookupQuerystring: 'lng',
+    lookupLocalStorage: 'NEXT_LOCALE',
+    caches: ['localStorage'],
   },
 })
 

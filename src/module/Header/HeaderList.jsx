@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom'
-import { NavbarData } from '../../components/Navbar/NavbarData'
+import useNavbarData from '../../hooks/useNavbarData'
 
 const HeaderList = () => {
   const navigate = useNavigate()
+  const { NavbarData } = useNavbarData()
+
   return (
     <ul className="hidden lg:flex justify-between w-full bg-slate-700 items-center">
       {NavbarData.map((menu, index) => (

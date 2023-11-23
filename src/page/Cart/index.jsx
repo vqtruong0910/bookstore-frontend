@@ -11,16 +11,20 @@ import {
 } from '../../reducers/cartReducers'
 import LoadingSkeletonCart from '../../components/Loading/LoadingSkeletonCart'
 import Image from '../../components/Image'
+import { useTranslation } from 'react-i18next'
+import shopping from '../../assets/images/shopping.png'
 
 function Cart() {
-  const [loading, isLoading] = useState(true)
+  let totalAllProduct = 0
+  let disable = false
   const navigate = useNavigate()
   const { user, cart, dispatch, darkTheme } = useContext(Context)
+  const { t } = useTranslation()
+  const [loading, isLoading] = useState(true)
   const removeFromCartHandler = (itemToRemove) => dispatch(removeFromCart(itemToRemove))
   const decrementQuantity = (item) => dispatch(decrementItemQuantity(item))
   const incrementQuantity = (item) => dispatch(incrementItemQuantity(item))
-  let totalAllProduct = 0
-  let disable = false
+
   const handleClickPayment = () => {
     if (!user) {
       navigate(PATH.login)
@@ -28,25 +32,26 @@ function Cart() {
       navigate(PATH.payment)
     }
   }
+
   const { items } = cart.reduce(
-    ({ items }, { cost, quantity }) => ({
-      items: items + quantity,
+    ({ items }, { quantity }) => ({
+      items: localStorage.getItem('userCart') ? items + quantity : 0,
     }),
     { items: 0 }
   )
+
   cart?.forEach((item) => {
     totalAllProduct += item.GiaBan * item.quantity
     if (item.quantity > item.SoLuongConLai) {
       disable = true
     }
   })
+
   const changeCostWithDots = (item) => {
     return item.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.')
   }
 
   useEffect(() => {
-    const topOfElement = document.querySelector('#detail-book') - 200
-    window.scroll({ top: topOfElement, behavior: 'smooth' })
     isLoading(true)
     setTimeout(() => {
       isLoading(false)
@@ -60,67 +65,62 @@ function Cart() {
       {!loading && (
         <div className="flex flex-wrap w-full xl:w-4/5 mx-auto py-10">
           <div className="flex flex-wrap w-full">
-            <div className="flex w-full lg:px-4">
+            <div className="flex w-full">
               <span
                 className={`w-full text-lg font-medium px-4 xl:px-0 ${
                   darkTheme ? 'text-white' : 'text-slate-700'
                 }`}
               >
-                GIỎ HÀNG CỦA BẠN
+                {t(`GIỎ HÀNG CỦA BẠN`)}
               </span>
             </div>
 
-            {cart.length === 0 && (
+            {(cart.length === 0 || !localStorage.getItem('userCart')) && (
               <div
                 className={`flex flex-col items-center w-full ${
                   darkTheme ? 'text-white' : 'text-slate-700'
                 }`}
               >
-                <img
-                  src="https://salt.tikicdn.com/desktop/img/mascot@2x.png"
-                  alt="Go_Shopping"
-                  className="w-40 h-32 md:w-48 md:h-40 my-5"
-                />
+                <img src={shopping} alt="Go_Shopping" className="w-40 h-32 md:w-48 md:h-40 my-5" />
                 <span className="text-center text-base">
-                  Không có sản phẩm nào trong giỏ hàng của bạn
+                  {t(`Không có sản phẩm nào trong giỏ hàng của bạn`)}
                 </span>
                 <button
                   onClick={() => navigate(PATH.main)}
                   className="text-base my-5 bg-yellow-300 py-2 px-10 hover:bg-yellow-400 rounded-sm font-medium text-gray-700"
                 >
-                  Tiếp tục mua sắm
+                  {t(`Tiếp tục mua sắm`)}
                 </button>
               </div>
             )}
 
-            {cart.length === 0 ? (
+            {cart.length === 0 || !localStorage.getItem('userCart') ? (
               <></>
             ) : (
               <div className="w-full flex flex-wrap lg:flex-nowrap">
                 <div className="w-full lg:w-8/12">
-                  <div className="hidden md:flex md:flex-row md:justify-between md:bg-white md:py-2 mx-4 xl:mx-0 shadow-md">
-                    <div className="w-full text-base text-center">Tất cả ({items} sản phẩm)</div>
-                    <div className="w-full text-base text-center">Đơn giá</div>
-                    <div className="w-full text-base text-center">Số lượng</div>
-                    <div className="w-full text-base text-center">Thành tiền</div>
+                  <div className="hidden md:flex md:flex-row md:justify-between md:bg-white md:py-2 mx-4 xl:mx-0 drop-shadow-md mt-4">
+                    <div className="w-full text-base text-center">
+                      {t(`Tất cả`)} ({items} {t(`sản phẩm`)})
+                    </div>
+                    <div className="w-full text-base text-center">{t(`Đơn giá`)}</div>
+                    <div className="w-full text-base text-center">{t(`Số lượng`)}</div>
+                    <div className="w-full text-base text-center">{t(`Thành tiền`)}</div>
                   </div>
 
                   <div className="bg-white shadow-md flex flex-col mt-4 mx-4 xl:mx-0 gap-4">
                     {cart?.map((item) => {
                       return (
-                        <div
-                          key={item.IDSanPham}
-                          className="border border-gray-200 rounded-sm drop-shadow-lg"
-                        >
+                        <div key={item.IDSanPham} className="border border-gray-200 rounded-sm">
                           <div className="hidden md:px-4 md:py-1 md:block">
-                            Số lượng còn lại : {item.SoLuongConLai}
+                            {t(`Số lượng còn lại :`)} {item.SoLuongConLai}
                           </div>
                           <div className="hidden md:flex md:flex-row md:mx-2 md:my-7 md:justify-between md:w-full">
                             <div
                               onClick={() => navigate(`/books/${item.IDSanPham}`)}
                               className="cursor-pointer flex w-full flex-col items-center justify-center"
                             >
-                              <Image item={item} className="w-36 h-36" />
+                              <Image item={item} className="w-36 h-36" overlay={false} />
 
                               <div className="mt-2 flex justify-center">
                                 <span className="text-base font-medium text-center">
@@ -159,14 +159,14 @@ function Cart() {
 
                                 <button
                                   onClick={() => removeFromCartHandler(item)}
-                                  className="border px-4 rounded-md bg-gray-300 hover:bg-gray-400 hover:text-white cursor-pointer"
+                                  className="border px-4 rounded-md bg-gray-300 hover:bg-gray-400 hover:text-white cursor-pointer whitespace-nowrap"
                                 >
-                                  Xoá
+                                  {t(`Xoá`)}
                                 </button>
                               </div>
 
                               {item.quantity > item.SoLuongConLai ? (
-                                <div className="text-red-500">Số lượng còn lại không đủ</div>
+                                <div className="text-red-500">{t(`Số lượng còn lại không đủ`)}</div>
                               ) : (
                                 <></>
                               )}
@@ -192,7 +192,7 @@ function Cart() {
                                   {changeCostWithDots(item.GiaBan)}đ
                                 </span>
                                 <span className="text-sm text-medium text-gray-500">
-                                  Số lượng còn lại : {item.SoLuongConLai}
+                                  {t(`Số lượng còn lại :`)} {item.SoLuongConLai}
                                 </span>
                               </div>
                             </div>
@@ -200,9 +200,9 @@ function Cart() {
                             <div className="flex flex-row items-center w-full justify-between mt-4">
                               <div className="flex items-center">
                                 <span className="text-gray-500 text-sm font-semibold">
-                                  Số lượng
+                                  {t(`Số lượng`)}
                                 </span>
-                                <div className="flex flex-row mx-2 items-center w-24 rounded-sm border border-slate-300 justify-between">
+                                <div className="flex flex-row mx-2 items-center w-24 rounded-sm justify-between">
                                   <div
                                     onClick={() => decrementQuantity(item)}
                                     className="w-full border-r-2 flex justify-center cursor-pointer"
@@ -222,7 +222,9 @@ function Cart() {
                                   </div>
                                 </div>
                                 {item.quantity > item.SoLuongConLai ? (
-                                  <div className="text-red-500">Số lượng còn lại không đủ</div>
+                                  <div className="text-red-500">
+                                    {t(`Số lượng còn lại không đủ`)}
+                                  </div>
                                 ) : (
                                   <></>
                                 )}
@@ -232,7 +234,7 @@ function Cart() {
                                 onClick={() => removeFromCartHandler(item)}
                                 className="border-2 px-6 text-sm py-0.5 font-normal rounded-md bg-gray-300 hover:bg-gray-400 cursor-pointer hover:text-white"
                               >
-                                Xoá
+                                {t(`Xoá`)}
                               </div>
                             </div>
                           </div>
@@ -242,12 +244,12 @@ function Cart() {
                   </div>
                 </div>
 
-                <div className="w-full lg:w-4/12 mt-4 mx-4 lg:mt-0">
+                <div className="w-full lg:w-4/12 mt-4 mx-4">
                   <div className="w-full flex flex-col border bg-white shadow-md items-end lg:justify-between p-3">
                     <div className="flex flex-wrap lg:w-full lg:justify-between">
                       <div className="flex flex-col">
-                        <span className="py-1 font-light md:text-lg">Tạm tính</span>
-                        <span className="py-1 font-light md:text-lg">Tổng cộng</span>
+                        <span className="py-1 font-light md:text-lg">{t(`Tạm tính`)}</span>
+                        <span className="py-1 font-light md:text-lg">{t(`Tổng cộng`)}</span>
                       </div>
 
                       <div className="flex flex-col ml-10 items-end">
@@ -260,21 +262,21 @@ function Cart() {
                       </div>
                     </div>
                     <span className="text-gray-500 text-sm md:text-base italic">
-                      Phí vận chuyển sẽ được tính ở trang thanh toán
+                      {t(`Phí vận chuyển sẽ được tính ở trang thanh toán`)}
                     </span>
                     <div className="flex mt-4 lg:w-full lg:text-center">
                       <div
                         onClick={() => navigate(PATH.main)}
                         className="lg:hidden px-2 py-1 bg-gray-300 rounded-md transition mx-4 cursor-pointer text-sm whitespace-nowrap md:text-base lg:text-lg hover:bg-gray-400"
                       >
-                        Tiếp tục mua hàng
+                        {t(`Tiếp tục mua hàng`)}
                       </div>
                       <button
                         onClick={() => handleClickPayment()}
                         className="px-7 py-1 lg:w-full bg-red-500 lg:px-0 font-medium hover:bg-red-400 transition text-white rounded-md cursor-pointer text-sm whitespace-nowrap md:text-base lg:text-lg"
                         disabled={disable}
                       >
-                        Thanh toán
+                        {t(`Thanh toán`)}
                       </button>
                     </div>
                   </div>

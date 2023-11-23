@@ -1,12 +1,14 @@
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs'
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, Fragment } from 'react'
 import Context from '../../store/Context'
 import axiosConfig from '../../config/axiosConfig'
 import LoadingSkeletonCategory from '../../components/Loading/LoadingSkeletonCategory'
 import Card from '../../components/Card'
 import { API } from '../../constants/api'
+import { useTranslation } from 'react-i18next'
 
 function Category() {
+  const { t } = useTranslation()
   const { darkTheme } = useContext(Context)
   const [page, setPage] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
@@ -56,21 +58,21 @@ function Category() {
       {loading && <LoadingSkeletonCategory />}
 
       {!loading && (
-        <>
+        <Fragment>
           <div className="w-full flex items-center justify-end pb-8">
             <span
               className={`mx-2 text-base md:text-lg font-medium ${
                 darkTheme ? 'text-white' : 'text-gray-500'
               } `}
             >
-              Sắp xếp
+              {t(`Sắp xếp`)}
             </span>
             <select className="border text-black/70 rounded-sm px-3 py-1 cursor-pointer bg-white border-black/70 focus:outline-none focus:ring-black/40 focus:ring-1 text-base font-semibold">
-              <option value="moinhat">Mới nhất</option>
-              <option value="banchay">Bán chạy</option>
-              <option value="phobien">Phổ biến</option>
-              <option value="giatangdan">Giá tăng dần</option>
-              <option value="giagiamdan">Giá giảm dần</option>
+              <option value="moinhat">{t(`Mới nhất`)}</option>
+              <option value="banchay">{t(`Bán chạy`)}</option>
+              <option value="phobien">{t(`Phổ biến`)}</option>
+              <option value="giatangdan">{t(`Giá tăng dần`)}</option>
+              <option value="giagiamdan">{t(`Giá giảm dần`)}</option>
             </select>
           </div>
           <div className="w-full bg-white">
@@ -117,7 +119,7 @@ function Category() {
               }
             />
           </div>
-        </>
+        </Fragment>
       )}
     </>
   )

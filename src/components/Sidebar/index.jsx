@@ -1,11 +1,15 @@
 import { useCallback, useState } from 'react'
 import { BsChevronDown, BsFillArrowLeftCircleFill } from 'react-icons/bs'
-import { NavbarData } from '../Navbar/NavbarData'
 import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
 import clsx from 'clsx'
+import useNavbarData from '../../hooks/useNavbarData'
+import Language from '../Language'
+import { useTranslation } from 'react-i18next'
 
 const Sidebar = ({ open, onClick = () => {} }) => {
+  const { t } = useTranslation()
+  const { NavbarData } = useNavbarData()
   const navigate = useNavigate()
   const [stateMenuChild, setStateMenuChild] = useState({
     1: false, // Danh muc
@@ -33,12 +37,17 @@ const Sidebar = ({ open, onClick = () => {} }) => {
           <img className="w-full rounded-full" src={logo} alt="bookstore" />
         </div>
         <span className="py-9 text-2xl font-lobster text-white font-bold select-none">
-          Bảng điều khiển
+          {t(`Bảng điều khiển`)}
         </span>
         <div className=" cursor-pointer" onClick={onClick}>
           <BsFillArrowLeftCircleFill className="h-8 w-8 text-white"></BsFillArrowLeftCircleFill>
         </div>
       </div>
+
+      <div className="px-2">
+        <Language showName={true} />
+      </div>
+
       <ul className="flex flex-col">
         {NavbarData.map((menu, index) => {
           return (
